@@ -49,10 +49,10 @@ export class MainHeaderComponent implements OnInit {
 
     this.company = localStorage.getItem(MainConsts.Company);
     this.company_images = localStorage.getItem(MainConsts.CompanyImages);
-    this.selected_company =  localStorage.getItem(MainConsts.Company) != '' ? localStorage.getItem(MainConsts.Company)?.split(','): []
+    this.selected_company = localStorage.getItem(MainConsts.Company) != '' ? localStorage.getItem(MainConsts.Company)?.split(',') : []
     this.company_name = localStorage.getItem(MainConsts.CompanyName);
     this.lang = localStorage.getItem(MainConsts.Language);
-  
+
   }
 
   ngOnInit() {
@@ -85,14 +85,14 @@ export class MainHeaderComponent implements OnInit {
           // if (
           //   this.my_companies.length >= 0 &&  (this.company == '' || this.company == null)
           // ) {
-          
-            if(this.selected_company.length == 0 && this.my_companies.length > 0){
-              this.setCompany(
-                this.my_companies[0]._id,
-                this.my_companies[0].name,
-                this.my_companies[0].image
-              );
-            }
+
+          if (this.selected_company?.length == 0 && this.my_companies.length > 0) {
+            this.setCompany(
+              this.my_companies[0]._id,
+              this.my_companies[0].name,
+              this.my_companies[0].image
+            );
+          }
           () => {
             this.httpService.createToast('error', 'Network error');
           };
@@ -103,7 +103,7 @@ export class MainHeaderComponent implements OnInit {
   includeCompany(_id: any) {
     _id = _id;
     var companies = localStorage.getItem(MainConsts.Company)?.split(',');
-    
+
     if (
       companies?.includes(new String(_id).valueOf()) &&
       _id != null &&
@@ -116,8 +116,8 @@ export class MainHeaderComponent implements OnInit {
 
   setCompany(id: any, name: any, image: any) {
     id = id + '';
-    var comapnies: any =  localStorage.getItem(MainConsts.Company)?.split(',');
-    if(localStorage.getItem(MainConsts.Company) == ''){
+    var comapnies: any = localStorage.getItem(MainConsts.Company)?.split(',');
+    if (localStorage.getItem(MainConsts.Company) == '') {
       comapnies = []
     }
     var company_names: any = localStorage
@@ -162,7 +162,7 @@ export class MainHeaderComponent implements OnInit {
     } else {
       names = '';
       images = '';
-      
+
       var selected_company = '';
       var selected_full_image = '';
       for (let index = 0; index < comapnies.length; index++) {
