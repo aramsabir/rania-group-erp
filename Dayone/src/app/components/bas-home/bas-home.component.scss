@@ -1,9 +1,19 @@
-*{
+* {
     text-align: center;
 }
 
 
 
-.application{
-    text-align: center; width: 140px; height: 140px;  aspect-ratio: 1; padding: 10px; background-color: var(--AppSwitcherIcon-background, white);  object-fit: cover;
+.application {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    // width: 140px;
+    // height: 140px;
+    aspect-ratio: 1;
+    padding: 10px;
+    background-color: var(--AppSwitcherIcon-background, white);
+    object-fit: contain;
+    border-radius: 0.25rem;
 }
