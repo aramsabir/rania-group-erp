@@ -1,0 +1,259 @@
+<!--Page header-->
+<div class="page-header d-xl-flex d-block">
+    <div class="page-leftheader">
+        <h4 class="page-title">Awards</h4>
+    </div>
+    <div class="page-rightheader ms-md-auto">
+        <div class="d-flex align-items-end flex-wrap my-auto end-content breadcrumb-end">
+            <div class="btn-list">
+                <a href="javascript:;" class="btn btn-primary me-3" toggle="modal" (click)="open(content)">Add New Award</a>
+                <button  class="btn btn-light"  placement="top" ngbTooltip="E-mail"> <i class="feather feather-mail"></i> </button>
+                <button  class="btn btn-light" placement="top"  ngbTooltip="Contact"> <i class="feather feather-phone-call"></i> </button>
+                <button  class="btn btn-primary" placement="top"  ngbTooltip="Info"> <i class="feather feather-info"></i> </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page header-->
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table  table-vcenter text-nowrap table-bordered border-bottom" id="hr-award">
+                        <thead>
+                            <tr>
+                                <th class="border-bottom-0 w-5">No</th>
+                                <th class="border-bottom-0 w-5">#Emp ID</th>
+                                <th class="border-bottom-0">Emp Name</th>
+                                <th class="border-bottom-0">Designation</th>
+                                <th class="border-bottom-0 text-center">Attendance</th>
+                                <th class="border-bottom-0">Award Type</th>
+                                <th class="border-bottom-0">Gift Type</th>
+                                <th class="border-bottom-0">Date</th>
+                                <th class="border-bottom-0">Award Information</th>
+                                <th class="border-bottom-0">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let award of awardList">
+                                <td>{{award.id}}</td>
+                                <td>{{award.empId}}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <span class="avatar avatar-md brround me-3"
+                                            style="background-image: url({{award.img}})"></span>
+                                        <div class="me-3 mt-0 mt-sm-1 d-block">
+                                            <h6 class="mb-1 fs-14">{{award.empName}}</h6>
+                                            <p class="text-muted mb-0 fs-12">{{award.mail}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{award.designation}}</td>
+                                <td>
+                                    <div class="chart-circle chart-circle-xs" data-value="0.85" data-thickness="3"
+                                        data-color="#0dcd94">
+                                        <div class="chart-circle-value text-{{award.textColor}} fs-12">{{award.attendance}}</div>
+                                    </div>
+                                </td>
+                                <td class="font-weight-semibold">{{award.awardType}}</td>
+                                <td><span class="badge badge-{{award.bgColor}}-light">{{award.giftType}}</span></td>
+                                <td>{{award.date}}</td>
+                                <td>{{award.awardinfo}}</td>
+                                <td>
+                                    <a class="btn btn-primary btn-icon btn-sm me-2" href="javascript:;" (click)="edit(editData, award)">
+                                        <i class="feather feather-edit"
+                                            data-original-ngbTooltip="View/Edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-icon btn-sm" (click)="RemoveElementFromRewardArray(award.id)"
+                                        ngbTooltip="Delete"><i class="feather feather-trash-2"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row-->
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Award Details</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')">
+            <span class="nav-link">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Employee ID</label>
+                    <input type="text" class="form-control" placeholder="ID">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Employee Name</label>
+                    <input type="text" class="form-control" placeholder="Name">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Employee Email</label>
+                    <input type="text" class="form-control" placeholder="Email">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Designation</label>
+                    <input type="text" class="form-control" placeholder="Designation">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Award Types</label>
+                    <ng-select name="projects"  class="form-control custom-select" placeholder="Choose One">
+                        <ng-option value="1">Employee of the Month Award</ng-option>
+                        <ng-option value="2">Work Anniversary Award</ng-option>
+                        <ng-option value="3">Teamwork Award</ng-option>
+                        <ng-option value="4">Sales Award</ng-option>
+                        <ng-option value="5">Most Creative Award</ng-option>
+                        <ng-option value="6">Leadership Award</ng-option>
+                        <ng-option value="7">Character Award</ng-option>
+                        <ng-option value="8">Innovation Award</ng-option>
+                        <ng-option value="9">Customer Service Award</ng-option>
+                        <ng-option value="10">Top Performer Award</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Gift Types</label>
+                    <ng-select name="projects"  class="form-control custom-select" placeholder="Choose One">
+                        <ng-option value="1">Cash</ng-option>
+                        <ng-option value="2">Trophy</ng-option>
+                        <ng-option value="3">Momento</ng-option>
+                        <ng-option value="4">Others</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Date:</label>
+            <div class="input-group">
+                <input type="text" name="singledaterange"  class="form-control" />
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <i class="bx bx-calendar"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Award Description:</label>
+            <textarea class="form-control" rows="3" placeholder="enter the description"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-outline-primary me-2" (click)="modal.dismiss('Cross click')"
+            data-bs-dismiss="modal">Close</a>
+        <a href="javascript:;" class="btn btn-success" (click)="modal.dismiss('Cross click')">Save</a>
+    </div>
+</ng-template>
+
+<ng-template #editData let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Edit Award Details</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')">
+            <span class="nav-link">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Employee ID</label>
+                    <input type="text" class="form-control" placeholder="ID" value="{{data.empId}}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Employee Name</label>
+                    <input type="text" class="form-control" placeholder="Name" value="{{data.empName}}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Employee Email</label>
+                    <input type="text" class="form-control" placeholder="Email" value="{{data.mail}}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Designation</label>
+                    <input type="text" class="form-control" placeholder="Designation" value="{{data.designation}}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Award Types</label>
+                    <ng-select name="projects"  class="form-control custom-select select2" placeholder="Choose One">
+                        <ng-option value="1" selected>Employee of the Month Award</ng-option>
+                        <ng-option value="2">Work Anniversary Award</ng-option>
+                        <ng-option value="3">Teamwork Award</ng-option>
+                        <ng-option value="4">Sales Award</ng-option>
+                        <ng-option value="5">Most Creative Award</ng-option>
+                        <ng-option value="6">Leadership Award</ng-option>
+                        <ng-option value="7">Character Award</ng-option>
+                        <ng-option value="8">Innovation Award</ng-option>
+                        <ng-option value="9">Customer Service Award</ng-option>
+                        <ng-option value="10">Top Performer Award</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Gift Types</label>
+                    <ng-select name="projects"  class="form-control custom-select" placeholder="Choose One">
+                        <ng-option value="1" selected>Cash</ng-option>
+                        <ng-option value="2">Trophy</ng-option>
+                        <ng-option value="3">Momento</ng-option>
+                        <ng-option value="4">Others</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Date:</label>
+            <div class="input-group">
+                <input type="text" name="singledaterange"  class="form-control" placeholder="select dates"/>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <i class="bx bx-calendar"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Award Description:</label>
+            <textarea class="form-control" rows="3" placeholder="enter the description">{{data.awardinfo}}</textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-outline-primary me-2" (click)="modal.dismiss('Cross click')"
+            data-bs-dismiss="modal">Close</a>
+        <a href="javascript:;" class="btn btn-success" (click)="modal.dismiss('Cross click')">Save</a>
+    </div>
+</ng-template>

@@ -1,0 +1,381 @@
+<!-- Mobile Header -->
+<div class="support-mobile-header clearfix">
+    <div class="container">
+        <div class="d-flex">
+            <a class="animated-arrow horizontal-navtoggle" (click)="toggleSidebar()"><span></span></a>
+            <span class="smallogo">
+                <a class="header-brand" routerLinkActive="active"
+                    href="https://angular.spruko.com/dayone/preview/hr-dashboard/dashboard">
+                    <img src="./assets/images/brand/logo.png" class="header-brand-img desktop-lgo" alt="Dayonelogo">
+                    <img src="./assets/images/brand/logo-white.png" class="header-brand-img light-logo"
+                        alt="Dayonelogo">
+                    <img src="./assets/images/brand/favicon.png" class="header-brand-img mobile-logo" alt="Dayonelogo">
+                    <img src="./assets/images/brand/favicon1.png" class="header-brand-img darkmobile-logo"
+                        alt="Dayonelogo">
+                </a>
+            </span>
+            <div class="profile-dropdown ms-auto" ngbDropdown>
+                <a href="javascript:;" class="nav-link pe-1 ps-0 leading-none no-caret" ngbDropdownToggle>
+                    <span>
+                        <img src="./assets/images/users/16.jpg" alt="img" class="avatar avatar-md bradius">
+                    </span>
+                </a>
+                <div ngbDropdownMenu class="dropdown-menu-end dropdown-menu-arrow">
+                    <div class="p-3 text-center border-bottom">
+                        <a routerLinkActive="active" routerLink="/pages/profile/profile01/"
+                            class="text-center user pb-0 font-weight-bold">John Thomson</a>
+                        <p class="text-center user-semi-title">App Developer</p>
+                    </div>
+                    <a class="dropdown-item d-flex" routerLinkActive="active" routerLink="/pages/profile/profile01/">
+                        <i class="feather feather-user me-3 fs-16 my-auto"></i>
+                        <div class="mt-1">Profile</div>
+                    </a>
+                    <a class="dropdown-item d-flex" routerLinkActive="active"
+                        routerLink="/support-system/admin/tickets/ticket-list">
+                        <i class="ri-ticket-2-line me-3 fs-16 my-auto"></i>
+                        <div class="mt-1">Tickets</div>
+                    </a>
+                    <a class="dropdown-item d-flex" routerLinkActive="active" routerLink="/chat">
+                        <i class="feather feather-mail me-3 fs-16 my-auto"></i>
+                        <div class="mt-1">Messages</div>
+                    </a>
+                    <a class="dropdown-item d-flex" routerLinkActive="active"
+                        routerLink="/support-system/admin/edit-profile">
+                        <i class="feather feather-settings me-3 fs-16 my-auto"></i>
+                        <div class="mt-1">Settings</div>
+                    </a>
+                    <a class="dropdown-item d-flex" href="javascript:;">
+                        <i class="feather feather-edit-2 me-3 fs-16 my-auto"></i>
+                        <div class="mt-1">Change Password</div>
+                    </a>
+                    <a class="dropdown-item d-flex" (click)="signout()" href="javascript:;">
+                        <i class="feather feather-power me-3 fs-16 my-auto"></i>
+                        <div class="mt-1">Log Out</div>
+                    </a>
+                </div>
+            </div>
+            <li>
+                <span class="menu-btn-switch ms-2">
+                    <a class="btn btn-primary demo-icon" (click)="toggleSwitcher($event.target)" href="javascript:;"><i
+                            class="feather feather-settings  fe-spin  fs-18"></i></a>
+                </span>
+            </li>
+        </div>
+    </div>
+</div>
+<!-- /Mobile Header -->
+
+<!-- Header-->
+<div class="landingmain-header header">
+    <div id="sticky-wrapper" class="sticky-wrapper" [ngClass]="{'is-sticky': scrolled}">
+        <div class="horizontal-main landing-header clearfix" [ngClass]="{'sticky': scrolled}">
+            <div class="horizontal-mainwrapper container clearfix">
+                <div class="d-flex">
+                    <div class="headerlanding-logo">
+                        <a class="header-brand" routerLinkActive="active"
+                            href="https://angular.spruko.com/dayone/preview/hr-dashboard/dashboard">
+                            <img src="./assets/images/brand/logo.png" class="header-brand-img desktop-lgo"
+                                alt="Dayonelogo">
+                            <img src="./assets/images/brand/logo-white.png" class="header-brand-img light-logo"
+                                alt="Dayonelogo">
+                            <img src="./assets/images/brand/favicon.png" class="header-brand-img mobile-logo"
+                                alt="Dayonelogo">
+                            <img src="./assets/images/brand/favicon1.png" class="header-brand-img darkmobile-logo"
+                                alt="Dayonelogo">
+                        </a>
+                    </div>
+                    <nav class="horizontalMenu clearfix order-lg-2 my-auto ms-auto">
+                        <div class="horizontal-overlapbg" (click)="sidebarClose()"></div>
+                        <ul class="horizontalMenu-list">
+                            <li>
+                                <a routerLinkActive="active"
+                                    routerLink="/support-system/landing-pages/landing-page">Home</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="sub-icon">Knowledge <span
+                                        class="fe fe-chevron-down m-0"></span></a>
+                                <ul class="sub-menu">
+                                    <li><a routerLinkActive="active"
+                                            routerLink="/support-system/landing-pages/knowledge-page">Knowledge</a></li>
+                                    <li><a routerLinkActive="active"
+                                            routerLink="/support-system/landing-pages/knowledge-view">KnowledgeView</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a routerLinkActive="active"
+                                    routerLink="/support-system/landing-pages/support-open-ticket">Open Ticket</a>
+                            </li>
+                            <li>
+                                <a routerLinkActive="active"
+                                    routerLink="/support-system/landing-pages/support-contact">Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="sub-icon">Pages<span
+                                        class="fe fe-chevron-down m-0"></span></a>
+                                <div class="horizontal-megamenu clearfix">
+                                    <div class="container">
+                                        <div class="mega-menubg">
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-12 col-xs-12 link-list">
+                                                    <ul class="sub-menu">
+                                                        <li>
+                                                            <h3 class="mega-subtitle">User Pages</h3>
+                                                        </li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/user-pages/dashboard">Dashboard</a>
+                                                        </li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/user-pages/profile">Edit
+                                                                Profile</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="support-system/user-pages/tickets/ticket-list">Ticket
+                                                                Lists</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/user-pages/tickets/active-tickets">Active
+                                                                Tickets</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/user-pages/tickets/closed-tickets">Closed
+                                                                Tickets</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/user-pages/tickets/view-ticket">View
+                                                                Ticket</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/user-pages/tickets/create-tickets">Create
+                                                                Ticket</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-lg-2 col-md-12 col-xs-12 link-list">
+                                                    <ul class="sub-menu">
+                                                        <li>
+                                                            <h3 class="mega-subtitle">Admin Pages</h3>
+                                                        </li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/admin/dashboard">Dashboard</a>
+                                                        </li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/admin/edit-profile">Edit
+                                                                Profile</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/admin/tickets/ticket-list">Ticket
+                                                                Lists</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/admin/tickets/active-tickets">Active
+                                                                Tickets</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/admin/tickets/closed-tickets">Closed
+                                                                Tickets</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/admin/tickets/view-ticket">View
+                                                                Ticket</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/admin/tickets/new-tickets">New
+                                                                Ticket</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-lg-2 col-md-12 col-xs-12 link-list">
+                                                    <ul class="sub-menu mt-lg-7">
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/admin/customers">Customers</a>
+                                                        </li>
+                                                        <li><a
+                                                                routerLink="/support-system/admin/customerView">CustomersView</a>
+                                                        </li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/admin/categories">Categories</a>
+                                                        </li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/admin/articles">Articles</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-lg-2 col-md-12 col-xs-12 link-list">
+                                                    <ul class="sub-menu">
+                                                        <li>
+                                                            <h3 class="mega-subtitle">Agent Pages</h3>
+                                                        </li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/agent/dashboard">Dashboard</a>
+                                                        </li>
+                                                        <li><a routerLink="/support-system/agent/edit-profile">Edit
+                                                                Profile</a>
+                                                        </li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/agent/tickets/ticket-list">Ticket
+                                                                List</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/agent/tickets/active-tickets">Active
+                                                                Tickets</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/agent/tickets/closed-tickets">Closed
+                                                                Tickets</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/agent/tickets/view-ticket">View
+                                                                Ticket</a></li>
+                                                        <li><a routerLinkActive="active"
+                                                                routerLink="/support-system/agent/assigned-categories">Assigned
+                                                                Categories</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-lg-2 col-md-12 col-xs-12 link-list">
+                                                    <ul class="sub-menu">
+                                                        <li>
+                                                            <h3 class="mega-subtitle">Other Pages</h3>
+                                                        </li>
+                                                        <li><a href="javascript:;" (click)="open(login)">Login</a></li>
+                                                        <li><a href="javascript:;" (click)="open(register)">Register</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="sub-icon">My Dashboard <span
+                                        class="fe fe-chevron-down m-0"></span></a>
+                                <ul class="sub-menu">
+                                    <li><a routerLinkActive="active"
+                                            routerLink="/support-system/landing-pages/landing-page">My Dashboard</a>
+                                    </li>
+                                    <li><a routerLinkActive="active"
+                                            routerLink="/support-system/admin/edit-profile">Edit
+                                            Profile</a></li>
+                                    <li><a routerLinkActive="active"
+                                            routerLink="/support-system/admin/tickets/ticket-list">My Tickets</a></li>
+                                    <li><a (click)="signout()">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="menu-btn">
+                                    <a class="btn btn-success" href="javascript:;"><i class="fa fa-paper-plane-o "></i>
+                                        Submit
+                                        Request</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="menu-btn-switch ms-2">
+                                    <a class="btn btn-primary demo-icon" (click)="toggleSwitcher($event.target)"
+                                        href="javascript:;"><i class="feather feather-settings  fe-spin  fs-18"></i></a>
+                                </span>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Header-->
+
+
+<ng-template #login let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">LOGIN</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body p-0">
+        <div class="single-page customerpage">
+            <div class="wrapper wrapper2 box-shadow-0 border-0">
+                <div class="card-body pb-4">
+                    <div class="btn-list d-flex">
+                        <a class="btn btn-google btn-block" href="https://www.google.com/gmail/"><i
+                                class="fa fa-google fa-1x me-2"></i> Google</a>
+                        <a class="btn btn-twitter" href="https://twitter.com/"><i class="fa fa-twitter fa-1x"></i></a>
+                        <a class="btn btn-facebook" href="https://www.facebook.com/"><i
+                                class="fa fa-facebook fa-1x"></i></a>
+                    </div>
+                </div>
+                <hr class="divider">
+                <form class="card-body pt-3" id="login" name="login">
+                    <div class="form-group">
+                        <label class="form-label">Mail or Username</label>
+                        <input class="form-control" placeholder="Email" type="email">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input class="form-control" placeholder="password" type="password">
+                    </div>
+                    <div class="submit">
+                        <a class="btn btn-primary btn-block"
+                            href="https://angular.spruko.com/dayone/preview/hr-dashboard/dashboard">Login</a>
+                    </div>
+                    <div class="text-center mt-3">
+                        <p class="mb-2"><a href="javascript:;" class="text-secondary">Forgot Password</a></p>
+                        <p class="text-dark mb-0">Don't have account?<a class="text-success ms-1" href="javascript:;"
+                                (click)="open(register)">Register</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #register let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">REGISTER</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body p-0">
+        <div class="single-page customerpage">
+            <div class="wrapper wrapper2 box-shadow-0 border-0">
+                <div class="card-body pb-4">
+                    <div class="btn-list d-flex">
+                        <a class="btn btn-google btn-block" href="https://www.google.com/gmail/"><i
+                                class="fa fa-google fa-1x me-2"></i> Google</a>
+                        <a class="btn btn-twitter" href="https://twitter.com/"><i class="fa fa-twitter fa-1x"></i></a>
+                        <a class="btn btn-facebook" href="https://www.facebook.com/"><i
+                                class="fa fa-facebook fa-1x"></i></a>
+                    </div>
+                </div>
+                <hr class="divider">
+                <form class="card-body pt-3" id="register" name="register">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input class="form-control" placeholder="First Name" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <input class="form-control" placeholder="Last Name" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mail or Username</label>
+                        <input class="form-control" placeholder="Email" type="email">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input class="form-control" placeholder="password" type="password">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Captcha</label>
+                        <input class="form-control" placeholder="captch" type="text">
+                        <div class="captch-body">
+                            <img src="./assets/images/png/captcha.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="submit">
+                        <a class="btn btn-primary btn-block"
+                            href="https://angular.spruko.com/dayone/preview/hr-dashboard/dashboard">Submit</a>
+                    </div>
+                    <div class="text-center mt-3">
+                        <p class="text-dark mb-0">Already have an account?<a class="text-success ms-1"
+                                href="javascript:;" (click)="open(login)">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,326 @@
+<app-page-header [title]="'Chart widgets'"></app-page-header>
+<!--Row-->
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-2 fs-18 text-muted">
+                            Total Application
+                        </div>
+                        <h1 class="font-weight-semibold mb-1">45,675</h1>
+                        <span class="text-primary"><i class="fa fa-arrow-up me-1"></i> +1.4%</span>
+                    </div>
+                    <div class="col col-auto">
+                        <circle-progress class="mx-auto chart-circle chart-circle-md chart-circle-primary mt-sm-0 mb-0" [percent]="85" [radius]="64" [space]="-16" [outerStrokeWidth]="16"
+                        [innerStrokeWidth]="16" [showInnerStroke]="true" [outerStrokeColor]="'#3366ff'"
+                        [innerStrokeColor]="'#c1b6ed'" [titleFontSize]="'24'" [showSubtitle]="false" [animation]="true" [animationDuration]="1000">
+                        </circle-progress>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-2 fs-18 text-muted">
+                            Shortlisted
+                        </div>
+                        <h1 class="font-weight-semibold mb-1">30,175</h1>
+                        <span class="text-success"><i class="fa fa-arrow-up me-1"></i> +1.8%</span>
+                    </div>
+                    <div class="col col-auto">
+                        <circle-progress class="mx-auto chart-circle chart-circle-md chart-circle-primary mt-sm-0 mb-0" [percent]="60" [radius]="64" [space]="-16" [outerStrokeWidth]="16"
+                        [innerStrokeWidth]="16" [showInnerStroke]="true" [outerStrokeColor]="'#2dce89'"
+                        [innerStrokeColor]="'#77efbc'" [titleFontSize]="'24'" [showSubtitle]="false" [animation]="true" [animationDuration]="1000">
+                        </circle-progress>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-2 fs-18 text-muted">
+                            Rejected
+                        </div>
+                        <h1 class="font-weight-semibold mb-1">7,745</h1>
+                        <span class="text-danger"><i class="fa fa-arrow-down me-1"></i> -2.4%</span>
+                    </div>
+                    <div class="col col-auto">
+                        <circle-progress class="mx-auto chart-circle chart-circle-md chart-circle-primary mt-sm-0 mb-0" [percent]="25" [radius]="64" [space]="-16" [outerStrokeWidth]="16"
+                        [innerStrokeWidth]="16" [showInnerStroke]="true" [outerStrokeColor]="'#f7346b'"
+                        [innerStrokeColor]="'#f98caa'" [titleFontSize]="'24'" [showSubtitle]="false" [animation]="true" [animationDuration]="1000">
+                        </circle-progress>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-4 col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <p class="mb-1">Today Revenue</p>
+                        <h2 class="mb-0 font-weight-semibold">$897k</h2>
+                    </div>
+                    <div class="col">
+                        <apx-chart class="chart-dropshadow-info" [chart]="ApexData1.chart" [stroke]="ApexData1.stroke" [fill]="ApexData1.fill"
+                        [series]="ApexData1.series" [yaxis]="ApexData1.yaxis" [colors]="ApexData1.colors">
+                        </apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <p class="mb-1">Unique Visitors</p>
+                        <h2 class="mb-0 font-weight-semibold">5,896</h2>
+                    </div>
+                    <div class="col">
+                        <apx-chart class="chart-dropshadow-info" [chart]="ApexData2.chart" [stroke]="ApexData2.stroke" [fill]="ApexData2.fill"
+                        [series]="ApexData2.series" [yaxis]="ApexData2.yaxis" [colors]="ApexData2.colors">
+                        </apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <p class="mb-1">Expenses</p>
+                        <h2 class="mb-0 font-weight-semibold">$1,678</h2>
+                    </div>
+                    <div class="col">
+                        <apx-chart class="chart-dropshadow-info" [chart]="ApexData3.chart" [stroke]="ApexData3.stroke" [fill]="ApexData3.fill"
+                        [series]="ApexData3.series" [yaxis]="ApexData3.yaxis" [colors]="ApexData3.colors">
+                        </apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Row-->
+<div class="row">
+    <div class="col-xl-3 col-lg-6 col-md-12">
+        <div class="card overflow-hidden">
+            <div class="card-body pb-0">
+                <div class="text-start mb-4">
+                    <p class=" mb-1 ">
+                        <i class="fa fa-line-chart me-1"></i>
+                        Total Sales
+                    </p>
+                    <h2 class="mb-0 font-weight-semibold">4,786<span class="fs-12 text-muted"><span
+                                class="text-success me-1"><i class="fe fe-arrow-up ms-1 "></i> 12%</span> last
+                            week</span></h2>
+                </div>
+            </div>
+            <div class="chart-wrapper overflow-hidden">
+                <apx-chart class="bar-colours-1" [chart]="ApexSparklines1.chart" [plotOptions]="ApexSparklines1.plotOptions"
+                                [series]="ApexSparklines1.series" [colors]="ApexSparklines1.colors"
+                                [tooltip]="ApexSparklines1.tooltip">
+                            </apx-chart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12">
+        <div class="card overflow-hidden">
+            <div class="card-body pb-0">
+                <div class="text-start mb-4">
+                    <p class=" mb-1 ">
+                        <i class="fa fa-usd me-1"></i>
+                        Total Profits
+                    </p>
+                    <h2 class="mb-0 font-weight-semibold">$873<span class="fs-12 text-muted"><span
+                                class="text-danger me-1"><i class="fe fe-arrow-down ms-1 "></i> 0.34%</span> last
+                            week</span></h2>
+                </div>
+            </div>
+            <div class="chart-wrapper overflow-hidden">
+                <apx-chart class="bar-colours-1" [chart]="ApexSparklines2.chart" [plotOptions]="ApexSparklines2.plotOptions"
+                                [series]="ApexSparklines2.series" [colors]="ApexSparklines2.colors"
+                                [tooltip]="ApexSparklines2.tooltip">
+                            </apx-chart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12">
+        <div class="card overflow-hidden">
+            <div class="card-body pb-0">
+                <div class="text-start mb-4">
+                    <p class=" mb-1 ">
+                        <i class="fa fa-cart-arrow-down me-1"></i>
+                        Total Orders
+                    </p>
+                    <h2 class="mb-0 font-weight-semibold">6,295<span class="fs-12 text-muted"><span
+                                class="text-success me-1"><i class="fe fe-arrow-up ms-1 "></i> 0.22%</span> last
+                            week</span></h2>
+                </div>
+            </div>
+            <div class="chart-wrapper overflow-hidden">
+                <apx-chart class="bar-colours-1" [chart]="ApexSparklines3.chart" [plotOptions]="ApexSparklines3.plotOptions"
+                                [series]="ApexSparklines3.series" [colors]="ApexSparklines3.colors"
+                                [tooltip]="ApexSparklines3.tooltip">
+                            </apx-chart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12">
+        <div class="card overflow-hidden">
+            <div class="card-body pb-0">
+                <div class="text-start mb-4">
+                    <p class=" mb-1">
+                        <i class="fa fa-signal me-1"></i>
+                        Total Sales Revenue
+                    </p>
+                    <h2 class="mb-0 font-weight-semibold">$356<span class="fs-12 text-muted"><span
+                                class="text-danger me-1"><i class="fe fe-arrow-down ms-1"></i>0.82%</span> last
+                            week</span></h2>
+                </div>
+            </div>
+            <div class="chart-wrapper overflow-hidden">
+                <apx-chart class="bar-colours-1" [chart]="ApexSparklines4.chart" [plotOptions]="ApexSparklines4.plotOptions"
+                                [series]="ApexSparklines4.series" [colors]="ApexSparklines4.colors"
+                                [tooltip]="ApexSparklines4.tooltip">
+                            </apx-chart>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End row-->
+
+<!--Row-->
+<div class="row">
+    <div class="col-xl-3 col-md-12 col-lg-6">
+        <div class="card overflow-hidden">
+            <div class="card-body pb-0">
+                <div>
+                    <p class=" mb-0">BTC / USDT</p>
+                    <h3 class="mb-1 font-weight-semibold">$10513</h3>
+                </div>
+            </div>
+            <div class="chart-wrapper ">
+                <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="lineChartType"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-12 col-lg-6">
+        <div class="card overflow-hidden">
+            <div class="card-body pb-0">
+                <div>
+                    <p class=" mb-0">XEM / USDT</p>
+                    <h3 class="mb-1 font-weight-semibold">$966</h3>
+                </div>
+            </div>
+            <div class="chart-wrapper ">
+                <canvas baseChart [data]="lineChartData1" [options]="lineChartOptions" [type]="lineChartType"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-12 col-lg-6">
+        <div class="card overflow-hidden">
+            <div class="card-body pb-0">
+                <div>
+                    <p class=" mb-0">XRP / USDT</p>
+                    <h3 class="mb-1 font-weight-semibold">$7,349</h3>
+                </div>
+            </div>
+            <div class="chart-wrapper ">
+                <canvas baseChart [data]="lineChartData2" [options]="lineChartOptions" [type]="lineChartType"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-12 col-lg-6">
+        <div class="card overflow-hidden">
+            <div class="card-body pb-0">
+                <div>
+                    <p class=" mb-0">NEO / USDT</p>
+                    <h3 class="mb-1 font-weight-semibold">$5,563</h3>
+                </div>
+            </div>
+            <div class="chart-wrapper ">
+                <canvas baseChart [data]="lineChartData3" [options]="lineChartOptions" [type]="lineChartType"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Row-->
+
+<!-- Row -->
+<div class="row">
+    <div class="col-lg-4 col-sm-12">
+        <div class="card text-center">
+            <div class="widget-line mt-5 ">
+                <p class="mb-2">Shares</p>
+                <h1 class="font-weight-semibold">1452</h1>
+            </div>
+            <circle-progress class="mx-auto chart-circle chart-circle-md chart-circle-primary" [percent]="85" [radius]="64" [space]="-16" [outerStrokeWidth]="16"
+            [innerStrokeWidth]="16" [showInnerStroke]="true" [outerStrokeColor]="'#3366ff'" [showImage]="true" [imageHeight]="12" [imageWidth]="12"
+            [innerStrokeColor]="'#c1b6ed'" [titleFontSize]="'24'" [showSubtitle]="false" [animation]="true" [animationDuration]="1000">
+            </circle-progress>
+            <div class="chart-circle-value fs"><i class="feather feather-mail text-primary"></i></div>
+            <ul class="widget-line-list mt-5 mb-5">
+                <li class="border-end">45% <br><span class="text-success"><i class="fa fa-hand-o-up"></i>
+                        Positive</span></li>
+                <li>6% <br><span class="text-danger"><i class="fa fa-hand-o-down"></i> Negative</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-12 p-l-0 p-r-0">
+        <div class="card text-center">
+            <div class="widget-line mt-5">
+                <p class="mb-2">Projects</p>
+                <h1 class="font-weight-semibold">3265</h1>
+            </div>
+            <circle-progress class="mx-auto chart-circle chart-circle-md chart-circle-primary" [percent]="85" [radius]="64" [space]="-16" [outerStrokeWidth]="16"
+            [innerStrokeWidth]="16" [showInnerStroke]="true" [outerStrokeColor]="'#f7346b'" [showImage]="true" [imageHeight]="12" [imageWidth]="12"
+            [innerStrokeColor]="'#f98caa'" [titleFontSize]="'24'" [showSubtitle]="false" [animation]="true" [animationDuration]="1000">
+            </circle-progress>
+                <div class="chart-circle-value fs"><i class="fa fa-life-ring text-danger"></i></div>
+            <ul class="widget-line-list mt-5 mb-5">
+                <li class="border-end">55% <br><span class="text-success"><i class="fa fa-hand-o-up"></i>
+                        Positive</span></li>
+                <li>3% <br><span class="text-danger"><i class="fa fa-hand-o-down"></i> Negative</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-12 p-l-0">
+        <div class="card text-center">
+            <div class="widget-line  mt-5">
+                <p class="mb-2">Users</p>
+                <h1 class="font-weight-semibold">9562</h1>
+            </div>
+            <circle-progress class="mx-auto chart-circle chart-circle-md chart-circle-primary" [percent]="85" [radius]="64" [space]="-16" [outerStrokeWidth]="16"
+            [innerStrokeWidth]="16" [showInnerStroke]="true" [outerStrokeColor]="'#2dce89'" [showImage]="true" [imageHeight]="12" [imageWidth]="12"
+            [innerStrokeColor]="'#77efbc'" [titleFontSize]="'24'" [showSubtitle]="false" [animation]="true" [animationDuration]="1000">
+            </circle-progress>
+                <div class="chart-circle-value fs"><i class="fa fa-tags text-success"></i></div>
+            <ul class="widget-line-list mt-5 mb-5">
+                <li class="border-end">75% <br><span class="text-success"><i class="fa fa-hand-o-up"></i>
+                        Positive</span></li>
+                <li>6% <br><span class="text-danger"><i class="fa fa-hand-o-down"></i> Negative</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Row -->

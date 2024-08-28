@@ -1,0 +1,95 @@
+.slide-menu{
+    display: none !important;
+}
+
+.slide-menu.open,
+.sub-slide-menu2.open,
+.sub-slide-menu2.open{
+    display: block !important;
+}
+
+.pointer{
+    cursor: pointer;
+}
+.bell {
+    opacity: 0.8;
+    -webkit-animation: ring 8s 1s ease-in-out infinite;
+    -webkit-transform-origin: 50% 5px;
+    -moz-animation: ring 8s 1s ease-in-out infinite;
+    -moz-transform-origin: 50% 5px;
+    animation: ring 8s 1s ease-in-out infinite;
+    transform-origin: 50% 5px;
+}
+
+@media (min-width: 992px){
+       
+    .horizontal-hover .side-menu__item.with-sub,
+    .horizontal-hover .sub-side-menu__item.with-sub,
+    .horizontal-hover .sub-side-menu__item2.with-sub
+    {
+        pointer-events: none;    
+    }
+    .horizontal-hover .slide-menu.open,
+    .horizontal-hover .sub-slide-menu2.open,
+    .horizontal-hover .sub-slide-menu2.open{
+        display: none !important;
+    }
+
+    .horizontal perfect-scrollbar{
+        position: static;
+    }
+    
+    .ltr{
+        .slide-leftRTL{
+            display: none !important;
+        }
+        .slide-rightRTL{
+            display: none !important;
+        }
+        .slide-left{
+            display: block;
+        }
+        .slide-right{
+            display: block;
+        }
+    }
+    
+    .rtl{
+        .slide-leftRTL{
+            display: block;
+            right: 20px;
+            transform: rotate(180deg);
+        }
+        .slide-rightRTL{
+            display: block;
+            left: 20px;
+            transform: rotate(180deg);
+        }
+        .slide-left{
+            display: none !important;
+        }
+        .slide-right{
+            display: none !important;
+        }
+    }
+    
+    .horizontal .main-sidemenu .slide-leftRTL, .horizontal .main-sidemenu .slide-rightRTL {
+        position: absolute;
+        top: 0px;
+        padding: 17px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        cursor: pointer;
+    }
+    .horizontal .hor-menu li.nav-item .nav-link{
+        min-width: max-content;
+    }
+}
+body:not(.horizontal){
+    #slide-right{
+        display: none;
+    }
+}

@@ -1,0 +1,38 @@
+<app-page-header [title]="'Image crop'"></app-page-header>
+<!-- Row -->
+<div class="card">
+    <div class="card-body">
+        <input type="file" (change)="fileChangeEvent($event)" />
+        <br />
+        <br />
+        <button class="me-2 mt-2 btn btn-outline-primary" (click)="rotateLeft()">Rotate left</button>
+        <button class="me-2 mt-2 btn btn-outline-secondary" (click)="rotateRight()">Rotate right</button>
+        <button class="me-2 mt-2 btn btn-outline-success" (click)="flipHorizontal()">Flip horizontal</button>
+        <button class="me-2 mt-2 btn btn-outline-warning" (click)="flipVertical()">Flip vertical</button>
+        <br />
+        <br />
+        <button class="me-2 mt-2 btn btn-outline-info" (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+        <button  class="me-2 mt-2 btn btn-outline-danger" (click)="resetImage()">Reset image</button>
+        <br />
+        <br />
+        <input class="form-control" [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" />
+        <button class="me-2 mt-2 btn btn-info" (click)="zoomOut()">Zoom -</button>
+        <button class="me-2 mt-2 btn btn-primary" (click)="zoomIn()">Zoom +</button>
+
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                    [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="4 / 3" [resizeToWidth]="256"
+                    [cropperMinWidth]="128" [onlyScaleDown]="true" [roundCropper]="false"
+                    [canvasRotation]="canvasRotation" [transform]="transform" [alignImage]="'left'"
+                    [style.display]="showCropper ? null : 'none'" format="png" (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+                    (loadImageFailed)="loadImageFailed()"></image-cropper>
+            </div>
+            <div class="col-md-6 col-12">
+                <img [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'" />
+            </div>
+        </div>
+
+    </div>
+</div>

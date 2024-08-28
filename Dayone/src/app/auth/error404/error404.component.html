@@ -1,0 +1,33 @@
+<div class="page coming-bg">
+    <div class="page-content m-0">
+        <div class="container text-center">
+            <div class="display-2 mb-5 font-weight-semibold">{{'Coming soon'|dic}}</div>
+            <h1 class="h3  mb-3">{{'System is almost ready'|dic}}</h1>
+            <!-- <p class="h5 font-weight-normal mb-4 leading-normal">You may have mistyped the address or the page may have
+                moved.</p> -->
+            <div class="row">
+                <div class="col-md-6 d-block mx-auto mb-2">
+                    <div class="row">
+                        <div class="col text-start">
+                            <span class="badge badge-primary-light badge-pill">{{"Inprogress"|dic}}</span>
+                        </div>
+                        <div class="col col-auto">
+                            <div class="fs-18 font-weight-semibold">{{counter}}%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="progress-wrapper mb-5 col-md-6 d-block mx-auto">
+                    <div class="progress progress-md">
+                        <div class="progress-bar-striped progress-bar-animated bg-{{progressColor(counter)}}" role="progressbar"
+                        [attr.aria-valuenow]="counter" aria-valuemin="0" aria-valuemax="100" [style.width]="counter+'%'"   ></div>
+                        </div>
+                </div>
+            </div>
+            <div class="coming-footer">
+                <a class="btn ripple btn-primary btn-lg" href="/home">{{'Back to home'|dic}}</a>
+            </div>
+        </div>
+    </div>
+</div>

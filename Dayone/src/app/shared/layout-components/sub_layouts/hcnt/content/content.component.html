@@ -1,0 +1,23 @@
+<div class="horizontalMenucontainer">
+    <app-switcher></app-switcher>
+    <div class="page">
+        <div class="page-main">
+            <!-- // header -->
+                <app-hcnt-header ></app-hcnt-header>
+            <!-- //sidebar -->
+            <app-hcnt-sidebar  appHoverEffectSidebar></app-hcnt-sidebar>
+
+
+            <div class="app-content main-content" >
+                <div class="side-app main-container" [ngClass]="{'pt-60' : scrolled}" (click)="toggleSwitcher()">
+                    <!-- // contetnt  -->
+                    <router-outlet >
+                        <app-loader></app-loader>
+                    </router-outlet>
+                </div>  
+            </div>
+        </div>
+        <!-- <app-right-sidebar [notifications]="notifications"></app-right-sidebar> -->
+        <app-footer></app-footer>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+<app-bas-page-header [title]="'Plans'"
+                     [routes]="bercumberRoutes"
+                     [actions]="actions"></app-bas-page-header>
+
+
+<div>
+
+  <div>
+
+    <div class="  narrower mt-2">
+
+      <div class="card">
+        <div class="card-body">
+
+          <h4>{{'Filters'|dic}}</h4>
+          <div class="form-row justify-content-center ">
+            <div class="col-md-2">
+              <div class="md-form md-outline ml-0 mr-0">
+                <label class="form-label">{{'Year'|dic}} </label>
+                <ng-select class="form-control custom-select "
+                           placeholder="{{'Year'|dic}}"
+                           [outline]="true"
+                           [multiple]="false"
+                           name="year"
+                           style="text-align: center;"
+                           [(ngModel)]="p.year">
+                  <ng-option [value]="'2023'">{{ '2023'}}</ng-option>
+                  <ng-option [value]="'2024'">{{ '2024'}}</ng-option>
+                  <ng-option [value]="'2025'">{{ '2025'}}</ng-option>
+                  <ng-option [value]="'2026'">{{ '2026'}}</ng-option>
+                  <ng-option [value]="'2027'">{{ '2027'}}</ng-option>
+                  <ng-option [value]="'2028'">{{ '2028'}}</ng-option>
+                  <ng-option [value]="'2029'">{{ '2029'}}</ng-option>
+                  <ng-option [value]="'2030'">{{ '2030'}}</ng-option>
+                </ng-select>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <a (click)="search()"
+                 class=" btn btn-info me-1 mt-5">
+                <i class="fa fa-search"></i>
+              </a>
+
+              <a (click)="clearFilter()"
+                 class=" btn btn-danger mt-5">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </div>
+            <div class="col-12 col-md-4">
+            
+
+            </div>
+          </div>
+          <br />
+
+
+
+
+          <div class="card" id="tabs-style3" *ngIf="show">
+            <div class="card-header">
+                <div class="card-title">
+           
+                </div>
+            </div>
+            <div class="card-body">
+              <div class="d-md-flex">
+                <div class="border border-end br-tl-7 br-bl-7 w-20">
+                  <div class="panel panel-primary">
+                    <div class=" tab-menu-heading p-0 bg-light ">
+                        <div class="tabs-menu1">
+                            <!-- Tabs -->
+                            <ul ngbNav #nav3="ngbNav" [(activeId)]="active" class="panel-tabs" orientation="vertical">
+                                <li [ngbNavItem]="d" *ngFor="let department of allData;let d = index">
+
+                                    <div class="d-flex justify-content-between w-100">
+                                      <a class="w-75 sm:w-100"   ngbNavLink>{{d+1}}- {{department.name|dic}}</a>
+                                      <div  class="main-profile-contact-list row sm:w-100">
+                                        <div class="media col-sm-12">
+                                        
+                                          <div class="media-body">
+                                            <div class="font-weight-semibold fs-14">
+                                              {{sumAll(department.data).data}}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <ng-template ngbNavContent>
+                                      
+                                      <div class="row row-sm pricing-style01 justify-content-center"  >
+                                        <div class="col-sm-12 col-lg-12 col-xl-10"
+                                             *ngFor="let el of department.data;let i = index">
+                                          <div class="card mg-b-20 mg-lg-b-0">
+                                            <div class="card-body text-center">
+                                              <div class="bg-light p-2 text-uppercase font-weight-semibold fs-16 br-3">{{lang == 'en'? el._id?.en_name:el._id?.name}}
+                                                <div [ngClass]="el._id?.icon_bg"
+                                                     class=" my-auto  float-start"> <i [ngClass]="el._id?.icon"></i>
+                                                </div>
+                            
+                                              </div>
+                                              <ul class="list-unstyled leading-loose">
+                                                <table style="width: 100%;">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="  text-start"
+                                                          style="text-align: start;"> {{'Description'|dic}} </th>
+                                                      <th scope="col "> {{'Season 1'|dic}} </th>
+                                                      <th scope="col "> {{'Season 2'|dic}} </th>
+                                                      <th scope="col "> {{'Season 3'|dic}} </th>
+                                                      <th scope="col "> {{'Season 4'|dic}} </th>
+                                                      <th scope="col "> {{'Total'|dic}} </th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr *ngFor="let item of el.data;let j = index">
+                                                      <td class="mx-1 text-start"><strong>{{j+1}}- </strong> {{item.description}}</td>
+                                                      <td class="mx-1 "> {{item.season_1??0}}</td>
+                                                      <td class="mx-1 "> {{item.season_2??0}}</td>
+                                                      <td class="mx-1 "> {{item.season_3??0}}</td>
+                                                      <td class="mx-1 "> {{item.season_4??0}}</td>
+                                                      <td style="max-width: 25%;width: 25%;"> <strong class="text-{{item.total >=  50 ?'green':'red' }}">{{item.total|number}}/100</strong></td>
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                              </ul>
+                                            </div>
+                                            <div class=" card-footer text-center mt-6">
+                                              <a class="btn btn-lg btn-{{el._id?.background.split('-')[1]}} btn-block">{{sumYearly(el.data,i)|number}}/100</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </ng-template>
+                                </li>
+                        
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="panel-body w-100 tabs-menu-body">
+                        <div [ngbNavOutlet]="nav3">
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+ 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

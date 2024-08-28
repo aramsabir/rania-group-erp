@@ -1,0 +1,14 @@
+::ng-deep{
+    ngx-image-comparison-slider > div:first-child{
+        width: 100% !important;
+    }
+    [alt="sliderImage1"] {
+        object-fit: cover;
+    }
+    ngx-image-comparison-slider > div:nth-child(2){
+        z-index: 4 !important;
+    }
+    ngx-image-comparison-slider > div:nth-child(3){
+        z-index: 2 !important;
+    }
+}

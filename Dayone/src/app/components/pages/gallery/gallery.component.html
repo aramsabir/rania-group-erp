@@ -1,0 +1,12 @@
+<app-page-header [title]="'Gallery'"></app-page-header>
+<!-- Row -->
+<div class="demo-gallery card">
+    <div class="card-header border-bottom-0">
+        <div class="card-title">Light Gallery</div>
+    </div>
+    <div class="card-body">
+      <div class="list-unstyled row" gallerize>
+        <img class="col-xs-6 col-sm-4 col-md-3 rounded my-2" *ngFor="let img of imageData" [src]="img.srcUrl" previewFullscreen="true">
+      </div>
+    </div>
+</div>

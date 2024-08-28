@@ -1,0 +1,172 @@
+<!--Page header-->
+<div class="page-header d-xl-flex d-block">
+    <div class="page-leftheader">
+        <h4 class="page-title">Attendance By User</h4>
+    </div>
+    <div class="page-rightheader ms-md-auto">
+        <div class="d-flex align-items-end flex-wrap my-auto end-content breadcrumb-end">
+            <div class="btn-list">
+                <a routerLink="/hr-dashboard/attendance/attendence-mark" class="btn btn-primary me-3">Mark Attendance</a>
+                <button  class="btn btn-light" placement="top" ngbTooltip="E-mail"> <i class="feather feather-mail"></i> </button>
+                <button  class="btn btn-light" placement="top" ngbTooltip="Contact"> <i class="feather feather-phone-call"></i> </button>
+                <button  class="btn btn-primary" placement="top" ngbTooltip="Info"> <i class="feather feather-info"></i> </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page header-->
+<!-- Row -->
+<div class="hrattview-buttons">
+    <a routerLink="/hr-dashboard/attendance/attendence-list" class="ms-5">Attendance Overview</a>
+    <a href="javascript:;" class="active ">Attendance By User</a>
+</div>
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-0 pb-0">
+                    <div class="col-md-6 col-lg-2 text-center py-5">
+                        <span class="avatar avatar-md bradius fs-20 bg-primary-transparent">31</span>
+                        <h5 class="mb-0 mt-3">Total Working Days</h5>
+                    </div>
+                    <div class="col-md-6 col-lg-2 text-center py-5 ">
+                        <span class="avatar avatar-md bradius fs-20 bg-success-transparent">24</span>
+                        <h5 class="mb-0 mt-3">Present Days</h5>
+                    </div>
+                    <div class="col-md-6 col-lg-2 text-center py-5">
+                        <span class="avatar avatar-md bradius fs-20 bg-danger-transparent">2</span>
+                        <h5 class="mb-0 mt-3">Absent Days</h5>
+                    </div>
+                    <div class="col-md-6 col-lg-2 text-center py-5">
+                        <span class="avatar avatar-md bradius fs-20 bg-warning-transparent">0</span>
+                        <h5 class="mb-0 mt-3">Half Days</h5>
+                    </div>
+                    <div class="col-md-6 col-lg-2 text-center py-5 ">
+                        <span class="avatar avatar-md bradius fs-20 bg-orange-transparent">2</span>
+                        <h5 class="mb-0 mt-3">Late Days</h5>
+                    </div>
+                    <div class="col-md-6 col-lg-2 text-center py-5">
+                        <span class="avatar avatar-md bradius fs-20 bg-pink-transparent">5</span>
+                        <h5 class="mb-0 mt-3">Holidays</h5>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-12 col-lg-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Employee Name:</label>
+                                    <ng-select class="form-control custom-select" [items]="empName$ | async"
+                                        bindLabel="name"
+                                        autofocus
+                                        bindValue="id"
+                                        [(ngModel)]="selectedEmpName">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Select Date:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+<div class="input-group-text">
+    <i class="feather feather-calendar"></i>
+</div>
+                                        </div>  
+                                        <input class="form-control fc-datepicker"
+                                        placeholder="yyyy-mm-dd" (click)="d.toggle()" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Month:</label>
+                                    <ng-select class="form-control custom-select" [items]="month$ | async"
+                                    bindLabel="name"
+                                    autofocus
+                                    bindValue="id"
+                                    [(ngModel)]="selectedMonthId"></ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Year:</label>
+                                    <ng-select class="form-control custom-select" [items]="year$ | async"
+                                    bindLabel="name"
+                                    autofocus
+                                    bindValue="id"
+                                    [(ngModel)]="selectedYearId"></ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-2">
+                        <div class="form-group mt-5">
+                            <a href="javascript:;" class="btn btn-primary btn-block">Search</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form class="table-responsive">
+                    <div class="d-flex justify-content-between p-2 flex-wrap">
+                        <ng-select class="custom-select form-control" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+                            <ng-option [value]="5">5 items per page</ng-option>
+                            <ng-option [value]="10">10 items per page</ng-option>
+                            <ng-option [value]="25">25 items per page</ng-option>
+                            <ng-option [value]="50">50 items per page</ng-option>
+                            <ng-option [value]="100">100 items per page</ng-option>
+                        </ng-select>
+                        <div class="form-group d-flex flex-column">
+                            <input placeholder="Search" class="form-control ml-2" type="text" name="searchTerm" autocomplete="off"
+                                [(ngModel)]="service.searchTerm" />
+                            <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
+                        </div>
+                    </div>
+
+                    <table class="table  table-vcenter text-nowrap table-bordered border-bottom">
+                        <thead>
+                            <tr>
+                                <th scope="col" (sort)="onSort($event)" class="border-bottom-0">Date</th>
+                                <th scope="col" (sort)="onSort($event)" class="border-bottom-0">Day</th>
+                                <th scope="col" (sort)="onSort($event)" class="border-bottom-0">Status</th>
+                                <th scope="col" class="border-bottom-0">Clock In</th>
+                                <th scope="col" class="border-bottom-0">Clock Out</th>
+                                <th scope="col" class="border-bottom-0">Progress</th>
+                                <th scope="col" class="border-bottom-0">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of attendanceByUser$ | async">
+                                <td>{{user.Date}}</td>
+                                <td>{{user.Day}}</td>
+                                <td><span class="badge {{user.Status}}">{{user.StatusText}}</span></td>
+                                <td>{{user.ClockIn}}</td>
+                                <td>{{user.ClockOut}}</td>
+                                <td>
+                                    <ngb-progressbar type="success" textType="white" [value]=user.Progress height="0.5rem" [showValue]="false"></ngb-progressbar>
+                                </td>
+                                <td>
+                                    <a class="btn btn-light btn-icon btn-sm" href="javascript:;" toggle="modal"
+                                        (click)="fullDay()">
+                                        <i class="feather feather-eye" ngbTooltip="View"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="float-end">
+                        <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                            [pageSize]="service.pageSize">
+                        </ngb-pagination>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row-->

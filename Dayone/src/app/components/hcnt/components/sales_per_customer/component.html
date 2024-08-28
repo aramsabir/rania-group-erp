@@ -1,0 +1,101 @@
+<app-bas-page-header [title]="titlePage" [routes]="bercumberRoutes" [actions]="actions"></app-bas-page-header>
+
+<div class="row">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">{{titlePage|dic}}</div>
+    </div>
+
+    <div class="card-body">
+      <h6>{{'Sales concrete'|dic}}</h6>
+
+        <div class="row">
+          <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+          style="width: 99%; height: 400px; display: block;"></highcharts-chart>
+    
+        </div>
+
+    </div>
+    <div class="card-body">
+      <h6>{{'Concrete meter'|dic}}</h6>
+
+        <div class="row">
+          <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions2"
+          style="width: 99%; height: 400px; display: block;"></highcharts-chart>
+    
+        </div>
+
+    </div>
+    <div class="card-body" >
+      <div class="row" >
+          <div class="form-group col-12 col-md-6 col-lg-3">
+            <label class=" form-label">{{'Customer type'|dic |titlecase}}</label>
+            <ng-select class="form-control custom-select" [(ngModel)]="model.order_option" name="order_option" [ngModelOptions]="{standalone: true}">
+              <ng-option *ngFor="let el of orderOption" [value]="el.value">{{ el.caption }} </ng-option>
+            </ng-select>
+          </div>
+       
+
+          <div class="form-group col-12 col-md-6 col-lg-3">
+              <label class="form-label">{{'From'|dic}}</label>
+              <input type="date" class="form-control" [(ngModel)]="model.from_date" [ngModelOptions]="{standalone: true}">
+          </div>
+
+          <div class="form-group col-12 col-md-6 col-lg-3">
+              <label class="form-label">{{'To'|dic}}</label>
+              <input type="date" class="form-control" [(ngModel)]="model.to_date" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col-md-3">
+              <a (click)="getData()" class=" btn btn-success mt-5 me-4">
+                  <i class="fa fa-search"></i>
+              </a>
+              <!-- <a (click)="clearFilter()" class=" btn btn-danger mt-5 me-4">
+                  <i class="fa fa-trash-o"></i>
+              </a> -->
+          </div>
+      </div>
+   </div>
+
+
+   <table  class="table mb-0 text-nowrap">
+    <thead>
+        <tr>
+          <th class="text-center "><h6>{{'#'|dic}}</h6></th>
+          <th class="text-center "><h6>{{'Customer name'|dic}}</h6></th>
+          <th class="text-center " ><h6>{{'Orders'|dic}}</h6></th>
+          <th class="text-center " ><h6>{{'Meter'|dic}}</h6></th>
+          <th class="text-center " style="border-bottom: 1px solid #069212;"><h6>{{'Total Revenue'|dic}} {{'USD'|dic}}</h6></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="border-bottom" *ngFor="let el of data;let i = index">
+            <td class="text-center"> {{i+1}} </td>
+            <td class="font-weight-semibold text-center fs-14">{{el._id?.name}}</td>
+            <td class="text-center"><span class="badge bg-success">#{{el.orders|number}}</span></td>
+            <td class="text-center">{{el.meters|number:'1.0-0'}}</td>
+            <td class="text-center">{{el.price|number}}</td>
+           
+        </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2" class="text-center">
+          <h6> {{'Total'|dic}}</h6>
+        </td>
+        <td class="text-center text-secondary"  >
+          <h6>#{{total?.orders|number}}</h6>
+        </td>
+        <td class="text-center">
+          <h6>{{total?.meters|number:'1.0-0'}}</h6>
+        </td>
+      
+        <td class="text-center text-primary font-weight-semibold fs-14"  >
+          {{total?.price|currency}} 
+        </td>
+      </tr>
+    </tfoot>
+    
+</table>
+ 
+</div>

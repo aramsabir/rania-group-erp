@@ -1,0 +1,523 @@
+<app-hr-dashboard-page-header [title]="'HR Dashboard'"></app-hr-dashboard-page-header>
+<!--Row-->
+<div class="row">
+    <div class="col-xl-9 col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-xl-4 col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="mt-0 text-start"> <span class="fs-14 font-weight-semibold">Total
+                                        Employees</span>
+                                    <h3 class="mb-0 mt-1 mb-2">6,000</h3>
+                                    <span class="text-muted">
+                                        <span class="text-success fs-12 mt-2 me-1"><i
+                                                class="feather feather-arrow-up-right me-1 bg-success-transparent p-1 brround"></i>124</span>
+                                        for last month
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="icon1 bg-success my-auto  float-end"> <i class="feather feather-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="mt-0 text-start"> <span class="fs-14 font-weight-semibold">Department</span>
+                                    <h3 class="mb-0 mt-1 mb-2">124</h3>
+                                    <span class="text-muted">
+                                        <span class="text-danger fs-12 mt-2 me-1"><i
+                                                class="feather feather-arrow-down-left me-1 bg-danger-transparent p-1 brround"></i>13</span>
+                                        for last month
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="icon1 bg-primary my-auto  float-end"> <i class="feather feather-box"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="mt-0 text-start"> <span class="fs-14 font-weight-semibold">Expenses</span>
+                                    <h3 class="mb-0 mt-1  mb-2">$2,7853</h3>
+                                </div>
+                                <span class="text-muted">
+                                    <span class="text-danger fs-12 mt-2 me-1"><i
+                                            class="feather feather-arrow-up-right me-1 bg-danger-transparent p-1 brround"></i>21.1%
+                                    </span>
+                                    for last month
+                                </span>
+                            </div>
+                            <div class="col-4">
+                                <div class="icon1 bg-secondary brround my-auto  float-end"> <i
+                                        class="feather feather-dollar-sign"></i> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header border-0 responsive-header">
+                        <h4 class="card-title mx-2">Overview</h4>
+                        <div class="card-options ">
+                            <div class="btn-list" ngbDropdown>
+                                <a href="javascript:;" class="btn btn-outline-light mb-1" ngbDropdownToggle
+                                    aria-expanded="false"> Year <i class="feather feather-chevron-down"></i> </a>
+                                <ul ngbDropdownMenu class="dropdown-menu-end" role="menu">
+                                    <li><a href="javascript:;">Monthly</a></li>
+                                    <li><a href="javascript:;">Yearly</a></li>
+                                    <li><a href="javascript:;">Weekly</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas  id="chartLine" baseChart [data]="MultipleChartData" [options]="MultipleChartOptions" [type]="MultipleChartType">
+                    </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-12 col-lg-12">
+        <div class="card overflow-hidden">
+            <div class="card-header border-0">
+                <h4 class="card-title">Notice Board</h4>
+            </div>
+            <div class="pt-2">
+                <div class="list-group">
+                    <div class="list-group-item d-flex pt-3 pb-3 align-items-center border-0">
+                        <div class="me-3 me-xs-0">
+                            <div class="calendar-icon icons">
+                                <div class="date_time bg-pink-transparent"> <span class="date">18</span> <span
+                                        class="month">FEB</span> </div>
+                            </div>
+                        </div>
+                        <div class="ms-1">
+                            <div class="h5 fs-14 mb-1">Board meeting Completed</div> <small class="text-muted">attend
+                                the company mangers...</small>
+                        </div>
+                    </div>
+                    <div class="list-group-item d-flex pt-3 pb-3 align-items-center border-0">
+                        <div class="me-3 me-xs-0">
+                            <div class="calendar-icon icons">
+                                <div class="date_time bg-success-transparent "> <span class="date">16</span> <span
+                                        class="month">FEB</span> </div>
+                            </div>
+                        </div>
+                        <div class="ms-1">
+                            <div class="h5 fs-14 mb-1"><span class="font-weight-normal">Updated the Company</span>
+                                Policy</div>
+                            <small class="text-muted">some changes & add the terms & conditions </small>
+                        </div>
+                    </div>
+                    <div class="list-group-item d-flex pt-3 pb-3 align-items-center border-0">
+                        <div class="me-3 me-xs-0">
+                            <div class="calendar-icon icons">
+                                <div class="date_time bg-orange-transparent "> <span class="date">17</span> <span
+                                        class="month">FEB</span> </div>
+                            </div>
+                        </div>
+                        <div class="ms-1">
+                            <div class="h5 fs-14 mb-1">Office Timings Changed</div> <small class="text-muted"> this
+                                effetct after March 01st 9:00 Am To 5:00 Pm</small>
+                        </div>
+                    </div>
+                    <div class="list-group-item d-flex pt-3 pb-5 align-items-center border-0">
+                        <div class="me-3 me-xs-0">
+                            <div class="calendar-icon icons">
+                                <div class="date_time bg-info-transparent "> <span class="date">26</span> <span
+                                        class="month">JAN</span> </div>
+                            </div>
+                        </div>
+                        <div class="ms-1">
+                            <div class="h5 fs-15 mb-1"> Republic Day Celebrated </div> <small
+                                class="text-muted">participate the all employess </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <div class="card-header border-bottom-0 pt-2 ps-0">
+                <h4 class="card-title">Upcomming Events</h4>
+            </div>
+            <ul class="vertical-scroll pt-4 ">
+                <li class="item">
+                    <div class="card p-4 ">
+                        <div class="d-flex">
+                            <img src="./assets/images/users/16.jpg" alt="img" class="avatar avatar-md bradius me-3">
+                            <div class="me-3 mt-0 mt-sm-1 d-block">
+                                <h6 class="mb-1">Vanessa James</h6>
+                                <span class="clearfix"></span>
+                                <small>Birthday on Feb 16</small>
+                            </div>
+                            <span class="avatar bg-primary ms-auto bradius mt-1"> <i
+                                    class="feather feather-mail text-white"></i> </span>
+                        </div>
+                    </div>
+                </li>
+                <li class="item">
+                    <div class="card p-4 ">
+                        <div class="d-flex comming_events calendar-icon icons">
+                            <span class="date_time bg-success-transparent bradius me-3"><span
+                                    class="date fs-18">21</span>
+                                <span class="month fs-10">Feb</span>
+                            </span>
+                            <div class="me-3 mt-0 mt-sm-1 d-block">
+                                <h6 class="mb-1">Anniversary</h6>
+                                <span class="clearfix"></span>
+                                <small>3rd Anniversary on 21st Feb</small>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header border-0">
+                <h4 class="card-title">Project Overview</h4>
+                <div class="card-options">
+                    <div ngbDropdown> <a href="javascript:;" class="btn btn-outline-light"
+                            ngbDropdownToggle aria-expanded="false"> Week <i
+                                class="feather feather-chevron-down"></i> </a>
+                        <ul ngbDropdownMenu class="dropdown-menu-end" role="menu">
+                            <li><a href="javascript:;">Monthly</a></li>
+                            <li><a href="javascript:;">Yearly</a></li>
+                            <li><a href="javascript:;">Weekly</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mt-5">
+                    <canvas id="sales-summary" baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins" [type]="barChartType" ></canvas>
+                </div>
+                <div class="sales-chart mt-4 row text-center">
+                    <div class="d-flex my-auto col-sm-4 mx-auto text-center justify-content-center"><span
+                            class="dot-label bg-primary me-2 my-auto"></span>On progress</div>
+                    <div class="d-flex my-auto col-sm-4 mx-auto text-center justify-content-center"><span
+                            class="dot-label bg-secondary me-2 my-auto"></span>Pending</div>
+                    <div class="d-flex my-auto col-sm-4 mx-auto text-center justify-content-center"><span
+                            class="dot-label bg-light4  me-2 my-auto"></span>Completed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header border-0">
+                <h4 class="card-title">Recent Activity</h4>
+                <div class="card-options">
+                    <div ngbDropdown> <a href="javascript:;" class="btn btn-outline-light"
+                            ngbDropdownToggle aria-expanded="false"> View All <i
+                                class="feather feather-chevron-down"></i> </a>
+                        <ul ngbDropdownMenu class="dropdown-menu-end" role="menu">
+                            <li><a href="javascript:;">Monthly</a></li>
+                            <li><a href="javascript:;">Yearly</a></li>
+                            <li><a href="javascript:;">Weekly</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="timeline">
+                    <li>
+                        <a target="_blank" href="javascript:;" class="font-weight-semibold fs-15 ms-3">Leave Approval
+                            Request</a>
+                        <a href="javascript:;" class="text-muted float-end fs-13">6 min ago</a>
+                        <p class="mb-0 pb-0 text-muted pt-1 fs-11 ms-3">From "RuthDyer" UiDesign Leave</p>
+                        <span class="text-muted  ms-3 fs-11"> On Monday 12 Jan 2020.</span>
+                    </li>
+                    <li class="primary">
+                        <a target="_blank" href="javascript:;" class="font-weight-semibold fs-15 mb-2 ms-3">Wok
+                            Update</a>
+                        <a href="javascript:;" class="text-muted float-end fs-13">10 min ago</a>
+                        <p class="mb-0 pb-0 text-muted fs-11 pt-1 ms-3">From "Robert Marshall" Developer</p>
+                        <span class="text-muted ms-3 fs-11">Task Completed.</span>
+                    </li>
+                    <li class="pink">
+                        <a target="_blank" href="javascript:;" class="font-weight-semibold fs-15 mb-2 ms-3">Received
+                            Mail</a>
+                        <a href="javascript:;" class="text-muted float-end fs-13">15 min ago</a>
+                        <p class="mb-0 pb-0 text-muted fs-11 pt-1 ms-3">Emergency Sick Leave from "jacob Berry"</p>
+                        <span class="text-muted ms-3 fs-11">Ui Designer, Designer Team.</span>
+                    </li>
+                    <li class="success mb-0 pb-0">
+                        <a target="_blank" href="javascript:;" class="font-weight-semibold fs-15 mb-2 ms-3">Job
+                            Application
+                            Mail</a>
+                        <a href="javascript:;" class="text-muted float-end fs-13">1 Hour ago</a>
+                        <p class="mb-0 pb-0 text-muted fs-11 pt-1 ms-3">From jobmail@gmail.com laravel developer.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-12 col-lg-12">
+        <div class="card chart-donut1">
+            <div class="card-header  border-0">
+                <h4 class="card-title">Gender by Employees</h4>
+            </div>
+            <div class="card-body">
+                <apx-chart id="employees" class="mx-auto apex-dount" [series]="donutData.pieseries" [dataLabels]="donutData.dataLabels"  [stroke]="donutData.stroke" [labels]="donutData.labels" [colors]="donutData.colors" [chart]="donutData.chart"
+                    [responsive]="donutData.responsive" [legend]="donutData.legend">
+                </apx-chart>
+                <div class="sales-chart pt-5 pb-3 d-flex mx-auto text-center justify-content-center ">
+                    <div class="d-flex mx-2"><span class="dot-label bg-primary me-2 my-auto"></span>Male</div>
+                    <div class="d-flex"><span class="dot-label bg-secondary  me-2 my-auto"></span>Female</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-6 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h3 class="card-title mx-2">Recent Job Application</h3>
+                <div class="card-options">
+                    <div ngbDropdown> <a href="javascript:;" class="btn btn-outline-light dropdown-toggle"
+                            ngbDropdownToggle aria-expanded="false"> See All <i
+                                class="feather feather-chevron-down"></i> </a>
+                        <ul ngbDropdownMenu class="dropdown-menu-end" role="menu">
+                            <li><a href="javascript:;">Monthly</a></li>
+                            <li><a href="javascript:;">Yearly</a></li>
+                            <li><a href="javascript:;">Weekly</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-menu-heading table_tabs mt-2 p-0 ">
+                <div class="tabs-menu1">
+                    <!-- Tabs -->
+                    <ul ngbNav #nav1="ngbNav" [(activeId)]="TabStyle1" class="panel-tabs">
+                        <li [ngbNavItem]="1"><a ngbNavLink>Job Applications</a>
+                            <ng-template ngbNavContent>
+                                <div class="tab-pane" id="tab5">
+                                    <div class="table-responsive recent_jobs pt-2 pb-2 ps-2 pe-2 card-body">
+                                        <table class="table mb-0 text-nowrap">
+                                            <tbody>
+                                                <tr class="border-bottom" *ngFor="let jobapplication of JobApplicationList">
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <img src="{{jobapplication.img}}" alt="img"
+                                                                class="avatar avatar-md brround me-3">
+                                                            <div class="me-3 mt-0 mt-sm-1 d-block">
+                                                                <h6 class="mb-0">{{jobapplication.name}}</h6>
+                                                                <div class="clearfix"></div>
+                                                                <small class="text-muted">{{jobapplication.title}}</small>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-start fs-13">{{jobapplication.year}}</td>
+                                                    <td class="text-start fs-13"><i
+                                                            class="feather feather-map-pin text-muted me-2"></i>{{jobapplication.place}}</td>
+                                                    <td class="text-end">
+                                                        <a href="javascript:;" class="action-btns"
+                                                            placement="top"
+                                                            ngbTooltip="Contact"><i
+                                                                class="feather feather-phone-call text-primary"></i></a>
+                                                        <a href="javascript:;" class="action-btns"
+                                                            placement="top"
+                                                            ngbTooltip="Mail"><i
+                                                                class="feather feather-mail  text-primary"></i></a>
+                                                        <a href="javascript:;" class="action-btns"
+                                                        (click)="RemoveElementFromJobArray(jobapplication.id)"
+                                                            placement="top"
+                                                            ngbTooltip="Delete"><i
+                                                                class="feather feather-trash-2 text-danger"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="2"><a ngbNavLink>Job Opening</a>
+                            <ng-template ngbNavContent>
+
+                                <div class="tab-pane active" id="tab6">
+                                    <div class="table-responsive recent_jobs pt-2 pb-2 ps-2 pe-2 card-body">
+                                        <table class="table mb-0 text-nowrap">
+                                            <tbody>
+                                                <tr class="border-bottom">
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="table_img brround bg-light me-3">
+                                                                <span class="bg-light brround fs-12">UI/UX</span>
+                                                            </div>
+                                                            <div class="me-3 mt-3 d-block">
+                                                                <h6 class="mb-0 fs-13 font-weight-semibold">UI UX
+                                                                    Designers</h6>
+                                                                <div class="clearfix"></div>
+                                                                <small class="text-muted">12 Dec 2020</small>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-start fs-13">4 vacancies</td>
+                                                    <td class="text-start fs-13"><i
+                                                            class="feather feather-map-pin text-muted me-2"></i>USA</td>
+                                                    <td class="text-end">
+                                                        <a href="javascript:;" class="action-btns"><i
+                                                                class="feather feather-check text-primary"></i></a>
+                                                        <a href="javascript:;" class="action-btns"><i
+                                                                class="feather feather-help-circle  text-primary"></i></a>
+                                                        <a href="javascript:;" class="action-btns"><i
+                                                                class="feather feather-x text-danger"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="border-bottom" *ngFor="let jobOpening of JobOpeningList">
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="table_img brround bg-light me-3">
+                                                                <img src="{{jobOpening.img}}" alt="img"
+                                                                    class=" bg-light brround">
+                                                            </div>
+                                                            <div class="me-3 mt-3 d-block">
+                                                                <h6 class="mb-0 fs-13 font-weight-semibold">{{jobOpening.name}}</h6>
+                                                                <div class="clearfix"></div>
+                                                                <small class="text-muted">{{jobOpening.title}}</small>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-start fs-13">{{jobOpening.vacancies}}</td>
+                                                    <td class="text-start fs-13"><i
+                                                            class="feather feather-map-pin text-muted me-2"></i>{{jobOpening.place}}</td>
+                                                    <td class="text-end">
+                                                        <a href="javascript:;" class="action-btns"><i
+                                                                class="feather feather-check text-primary"></i></a>
+                                                        <a href="javascript:;" class="action-btns"><i
+                                                                class="feather feather-help-circle  text-primary"></i></a>
+                                                        <a href="javascript:;" class="action-btns"><i
+                                                                class="feather feather-x text-danger"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="3"><a ngbNavLink>Hired Candidates</a>
+                            <ng-template ngbNavContent>
+
+                                <div class="tab-pane " id="tab7">
+                                    <div class="table-responsive recent_jobs pt-2 pb-2 ps-2 pe-2 card-body">
+                                        <table class="table mb-0 text-nowrap">
+                                            <tbody>
+                                                <tr class="border-bottom" *ngFor="let hiredCandidates of hiredCandidatesList">
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <img src="{{hiredCandidates.img}}" alt="img"
+                                                                class="avatar avatar-md brround me-3">
+                                                            <div class="me-3 mt-0 mt-sm-1 d-block">
+                                                                <h6 class="mb-0">{{hiredCandidates.name}}</h6>
+                                                                <div class="clearfix"></div>
+                                                                <small class="text-muted">{{hiredCandidates.title}}</small>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-start fs-13">{{hiredCandidates.year}}</td>
+                                                    <td class="text-start fs-13"><i
+                                                            class="feather feather-map-pin text-muted me-2"></i>{{hiredCandidates.place}}</td>
+                                                    <td class="text-end">
+                                                        <a href="javascript:;" class="action-btns"
+                                                            placement="top"
+                                                            ngbTooltip="Contact"><i
+                                                                class="feather feather-phone-call text-primary"></i></a>
+                                                        <a href="javascript:;" class="action-btns"
+                                                            placement="top"
+                                                            ngbTooltip="Mail"><i
+                                                                class="feather feather-mail  text-primary"></i></a>
+                                                        <a href="javascript:;" class="action-btns"
+                                                        (click)="RemoveElementFromHiredArray(hiredCandidates.id)"
+                                                            placement="top"
+                                                            ngbTooltip="Delete"><i
+                                                                class="feather feather-trash-2 text-danger"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body tabs-menu-body table_tabs1 p-0 border-0">
+                <div [ngbNavOutlet]="nav1" class="tab-content"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header border-0">
+                <h3 class="card-title mx-1">Attendance</h3>
+                <div class="card-options ">
+                    <a href="javascript:;" class="btn btn-outline-light me-3">View All</a>
+                    <div ngbDropdown> <a href="javascript:;" class="btn btn-outline-light dropdown-toggle"
+                            ngbDropdownToggle aria-expanded="false"> Date <i
+                                class="feather feather-chevron-down"></i> </a>
+                        <ul ngbDropdownMenu class="dropdown-menu-end" role="menu">
+                            <li><a href="javascript:;">Monthly</a></li>
+                            <li><a href="javascript:;">Yearly</a></li>
+                            <li><a href="javascript:;">Weekly</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive attendance_table mt-4">
+                <table class="table mb-0 text-nowrap">
+                    <thead>
+                        <tr>
+                            <th class="text-center">S.No</th>
+                            <th class="text-start">Employee</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">CheckIn</th>
+                            <th class="text-center">CheckOut</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-bottom" *ngFor="let attendance of AttendanceList">
+                            <td class="text-center"><span class="avatar avatar-sm brround">{{attendance.id}} </span></td>
+                            <td class="font-weight-semibold fs-14">{{attendance.employee}}</td>
+                            <td class="text-center"><span class="badge bg-{{attendance.statusBg}}">{{attendance.status}}</span></td>
+                            <td class="text-center">{{attendance.checkIn}}</td>
+                            <td class="text-center">{{attendance.checkOut}}</td>
+                            <td class="text-center">
+                                <a href="javascript:;" class="action-btns" placement="top"
+                                    ngbTooltip="Contact"><i class="feather feather-phone-call text-primary"></i></a>
+                                <a href="javascript:;" class="action-btns" placement="top"
+                                    ngbTooltip="Chat"><i class="feather-message-circle  text-success"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

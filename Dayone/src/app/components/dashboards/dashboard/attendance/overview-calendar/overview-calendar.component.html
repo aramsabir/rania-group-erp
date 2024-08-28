@@ -1,0 +1,171 @@
+<!--Page header-->
+<div class="page-header d-xl-flex d-block">
+    <div class="page-leftheader">
+        <h4 class="page-title">Overview Calendar</h4>
+    </div>
+    <div class="page-rightheader ms-md-auto">
+        <div class="d-flex align-items-end flex-wrap my-auto end-content breadcrumb-end">
+            <div class="btn-list">
+                <a routerLink="/hr-dashboard/attendance/attendence-mark" class="btn btn-primary me-3">Mark
+                    Attendance</a>
+                <button class="btn btn-light" placement="top" ngbTooltip="E-mail"> <i class="feather feather-mail"></i>
+                </button>
+                <button class="btn btn-light" placement="top" ngbTooltip="Contact"> <i
+                        class="feather feather-phone-call"></i> </button>
+                <button class="btn btn-primary" placement="top" ngbTooltip="Info"> <i class="feather feather-info"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page header-->
+<!-- Row -->
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header  border-0">
+                <h4 class="card-title">Days Overview This Month</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 col-lg-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Employee Name:</label>
+                                    <ng-select class="form-control custom-select" placeholder="Select Employee">
+                                        <ng-option value="1" selected>Faith Harris</ng-option>
+                                        <ng-option value="2">Austin Bell</ng-option>
+                                        <ng-option value="3">Maria Bower</ng-option>
+                                        <ng-option value="4">Peter Hill</ng-option>
+                                        <ng-option value="5">Victoria Lyman</ng-option>
+                                        <ng-option value="6">Adam Quinn</ng-option>
+                                        <ng-option value="7">Melanie Coleman</ng-option>
+                                        <ng-option value="8">Max Wilson</ng-option>
+                                        <ng-option value="9">Amelia Russell</ng-option>
+                                        <ng-option value="10">Justin Metcalfe</ng-option>
+                                        <ng-option value="11">Ryan Young</ng-option>
+                                        <ng-option value="12">Jennifer Hardacre</ng-option>
+                                        <ng-option value="13">Justin Parr</ng-option>
+                                        <ng-option value="14">Julia Hodges</ng-option>
+                                        <ng-option value="15">Michael Sutherland</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Select Date:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="feather feather-calendar"></i>
+                                            </div>
+                                        </div><input class="form-control fc-datepicker" placeholder="yyyy-mm-dd"
+                                            (click)="d.toggle()" name="dp" [(ngModel)]="model" ngbDatepicker
+                                            #d="ngbDatepicker">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Month:</label>
+                                    <ng-select class="form-control custom-select" placeholder="Select Month">
+                                        <ng-option value="1" selected>January</ng-option>
+                                        <ng-option value="2">February</ng-option>
+                                        <ng-option value="3">March</ng-option>
+                                        <ng-option value="4">April</ng-option>
+                                        <ng-option value="5">May</ng-option>
+                                        <ng-option value="6">June</ng-option>
+                                        <ng-option value="7">July</ng-option>
+                                        <ng-option value="8">August</ng-option>
+                                        <ng-option value="9">September</ng-option>
+                                        <ng-option value="10">October</ng-option>
+                                        <ng-option value="11">November</ng-option>
+                                        <ng-option value="12">December</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Year:</label>
+                                    <ng-select class="form-control custom-select" placeholder="Select Year">
+                                        <ng-option value="1">2024</ng-option>
+                                        <ng-option value="2">2023</ng-option>
+                                        <ng-option value="3">2022</ng-option>
+                                        <ng-option value="4" selected>2021</ng-option>
+                                        <ng-option value="5">2020</ng-option>
+                                        <ng-option value="6">2019</ng-option>
+                                        <ng-option value="7">2018</ng-option>
+                                        <ng-option value="8">2017</ng-option>
+                                        <ng-option value="9">2016</ng-option>
+                                        <ng-option value="10">2015</ng-option>
+                                        <ng-option value="11">2014</ng-option>
+                                        <ng-option value="12">2013</ng-option>
+                                        <ng-option value="13">2012</ng-option>
+                                        <ng-option value="14">2011</ng-option>
+                                        <ng-option value="15">2019</ng-option>
+                                        <ng-option value="16">2010</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-2">
+                        <div class="form-group mt-5">
+                            <a href="javascript:;" class="btn btn-primary btn-block">Search</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row-->
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="hr-calender">
+                    <!-- <div id="calendar1"></div> -->
+                    <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+                    </mwl-demo-utils-calendar-header>
+
+                    <div [ngSwitch]="view">
+                      <mwl-calendar-month-view
+                        *ngSwitchCase="'month'"
+                        [viewDate]="viewDate"
+                        [events]="events"
+                        [activeDayIsOpen]="true"
+                        [refresh]="refresh"
+                        (eventTimesChanged)="eventTimesChanged($event)"
+                      >
+                      </mwl-calendar-month-view>
+                      <mwl-calendar-week-view
+                        *ngSwitchCase="'week'"
+                        [viewDate]="viewDate"
+                        [events]="events"
+                        [refresh]="refresh"
+                        (eventTimesChanged)="eventTimesChanged($event)"
+                      >
+                      </mwl-calendar-week-view>
+                      <mwl-calendar-day-view
+                        *ngSwitchCase="'day'"
+                        [viewDate]="viewDate"
+                        [events]="events"
+                        [refresh]="refresh"
+                        (eventTimesChanged)="eventTimesChanged($event)"
+                      >
+                      </mwl-calendar-day-view>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row-->

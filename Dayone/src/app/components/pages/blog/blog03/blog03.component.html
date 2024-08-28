@@ -1,0 +1,72 @@
+<app-page-header [title]="'Blog 03'"></app-page-header>
+
+<!-- Row -->
+<div class="row row-sm">
+    <div class="col-lg-12 col-md-12 col-md-12">
+        <div class="card custom-card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="">Title</label>
+                    <input type="text" class="form-control" value="Title">
+                </div>
+                <div class="form-group">
+                    <label class="">Category</label>
+                    <ng-select class="form-control custom-select" placeholder="select option">
+                        <ng-option value="1">Fashion</ng-option>
+                        <ng-option value="2">Life Style</ng-option>
+                        <ng-option value="3">Science</ng-option>
+                        <ng-option value="4">Health</ng-option>
+                        <ng-option value="5">Humanities</ng-option>
+                        <ng-option value="6">Business</ng-option>
+                        <ng-option value="7">Marketing</ng-option>
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <label class="">Type</label>
+                    <div class="d-md-flex ad-post-details">
+                        <label class="custom-control custom-radio mb-2 me-4">
+                            <input type="radio" class="custom-control-input" name="radios2" value="option1">
+                            <span class="custom-control-label">Image</span>
+                        </label>
+                        <label class="custom-control custom-radio  mb-2 me-4">
+                            <input type="radio" class="custom-control-input" name="radios2" value="option2" checked="">
+                            <span class="custom-control-label">Video</span>
+                        </label>
+                        <label class="custom-control custom-radio mb-2 me-4">
+                            <input type="radio" class="custom-control-input" name="radios2" value="option3">
+                            <span class="custom-control-label">Audio</span>
+                        </label>
+                        <label class="custom-control custom-radio mb-2">
+                            <input type="radio" class="custom-control-input" name="radios2" value="option4">
+                            <span class="custom-control-label">Text</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="ql-wrapper ql-wrapper-demo mb-3">
+                    <label class="">Post Description</label>
+                    <ckeditor [editor]="Editor" data="<p>Hello world!</p>" skin="moono-lisa" language="en"
+                        (ready)="onReady($event)"></ckeditor>
+                    </div>
+                <div class="p-4 border rounded-6 mb-4 form-group">
+                    <label class="">Upload File</label>
+                <div class="form-group mb-0">
+                    <ngx-dropzone (change)="onPreviewFileSelect($event)">
+                        <ngx-dropzone-label><div><h2>preview file</h2></div></ngx-dropzone-label>
+                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesPreview" [file]="f" [removable]="true" (removed)="onPreviewFileRemove(f)">
+                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-image-preview>
+                    </ngx-dropzone>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label class="">Upload Video URL</label>
+                    <input type="text" class="form-control" placeholder="https://videos.com" value="https://www.youtube.com/embed/tMWkeBIohBs">
+                </div>
+            </div>
+            <div class="card-footer mb-1">
+                <a href="javascript:void(0)" class="btn btn-primary me-2">Post</a>
+                <a href="javascript:void(0)" class="btn btn-danger me-2">Cancel</a>
+            </div>
+        </div>
+</div>
+<!-- End Row -->

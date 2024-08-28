@@ -1,0 +1,207 @@
+<!--Page header-->
+<div class="page-header d-xl-flex d-block">
+    <div class="page-leftheader">
+        <h4 class="page-title">Expenses</h4>
+    </div>
+    <div class="page-rightheader ms-md-auto">
+        <div class="d-flex align-items-end flex-wrap my-auto end-content breadcrumb-end">
+            <div class="btn-list">
+                <a href="javascript:;" class="btn btn-primary me-3" toggle="modal" (click)="open(content)">Add New Expense Item</a>
+                <button  class="btn btn-light" placement="top" ngbTooltip="E-mail"> <i class="feather feather-mail"></i> </button>
+                <button  class="btn btn-light"placement="top"  ngbTooltip="Contact"> <i class="feather feather-phone-call"></i> </button>
+                <button  class="btn btn-primary"placement="top"  ngbTooltip="Info"> <i class="feather feather-info"></i> </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page header-->
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h4 class="card-title">Expense Summary</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <form>
+                        <div class="d-flex justify-content-between p-2 flex-wrap">
+                            <ng-select class="form-control custom-select" style="width: auto" name="pageSize"
+                                [(ngModel)]="service.pageSize">
+                                <ng-option [value]="5">5 items per page</ng-option>
+                                <ng-option [value]="10">10 items per page</ng-option>
+                                <ng-option [value]="25">25 items per page</ng-option>
+                                <ng-option [value]="50">50 items per page</ng-option>
+                                <ng-option [value]="100">100 items per page</ng-option>
+                            </ng-select>
+                            <div class="form-group d-flex flex-column">
+                                <input placeholder="Search" class="form-control ml-2" type="text" name="searchTerm" autocomplete="off"
+                                    [(ngModel)]="service.searchTerm" />
+                                <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
+                            </div>
+                        </div>
+
+                        <table class="table table-vcenter text-nowrap table-bordered border-bottom">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col" sortable="employee" (sort)="onSort($event)">Employee</th>
+                                    <th scope="col" sortable="title" (sort)="onSort($event)">Title</th>
+                                    <th scope="col" sortable="purchaseFrom" (sort)="onSort($event)">Purchase From</th>
+                                    <th scope="col" sortable="date" (sort)="onSort($event)">Date</th>
+                                    <th scope="col" sortable="amount" (sort)="onSort($event)">Amount($)</th>
+                                    <th scope="col" sortable="paidBy" (sort)="onSort($event)">Paid By</th>
+                                    <th scope="col" sortable="approvalStatus" (sort)="onSort($event)">Approval Status</th>
+                                    <th scope="col" >Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let expenses of expenses$ | async">
+                                    <th scope="row">{{ expenses.id }}</th>
+                                    <td>
+                                        <ngb-highlight [result]="expenses.employee" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="expenses.title" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="expenses.purchaseFrom" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="expenses.date" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="expenses.amount" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="expenses.paidBy" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="expenses.ApprovalStatus" [term]="service.searchTerm" class={{expenses.statusBg}}>
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a *ngIf="expenses.check" (click)="checked(expenses)" class="action-btns1 {{expenses.check}}"><i class="feather feather-check text-success"  data-bs-toggle="tooltip" data-bs-placement="top" title="Edit/View"></i></a>
+                                            <a *ngIf="expenses.x" (click)="cancel(expenses)" class="action-btns1" ><i class="feather feather-x text-danger"  data-bs-toggle="tooltip" data-bs-placement="top" title="Edit/View"></i></a>
+                                            <a class="action-btns1" (click)="openDialog(expenses)"><i class="feather feather-eye primary text-primary"  data-bs-toggle="tooltip" data-bs-placement="top" title="Edit/View"></i></a>
+                                            <a (click)="deleteData(expenses)" class="action-btns1" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="float-end">
+                            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                                [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row -->
+
+
+<!--Add expense Modal -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Add New Expense</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')">
+            <span class="nav-link">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="leave-types">
+            <div class="form-group">
+                <label class="form-label">Title:</label>
+                <input type="text" class="form-control" placeholder="text">
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Purchase Place:</label>
+                        <input type="text" class="form-control" placeholder="text">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Price ($):</label>
+                        <input type="text" class="form-control" placeholder="Number">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Date:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="feather feather-calendar"></i>
+                                </div>
+                            </div><input class="form-control fc-datepicker"  type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Employee Name :</label>
+                        <ng-select name="attendance"  class="form-control custom-select" placeholder="Select Employee">
+                            <ng-option value="1">Faith Harris</ng-option>
+                            <ng-option value="2">Austin Bell</ng-option>
+                            <ng-option value="3">Maria Bower</ng-option>
+                            <ng-option value="4">Peter Hill</ng-option>
+                            <ng-option value="5">Victoria Lyman</ng-option>
+                            <ng-option value="6">Adam Quinn</ng-option>
+                            <ng-option value="7">Melanie Coleman</ng-option>
+                            <ng-option value="8">Max Wilson</ng-option>
+                            <ng-option value="9">Amelia Russell</ng-option>
+                            <ng-option value="10">Justin Metcalfe</ng-option>
+                            <ng-option value="11">Ryan Young</ng-option>
+                            <ng-option value="12">Jennifer Hardacre</ng-option>
+                            <ng-option value="13">Justin Parr</ng-option>
+                            <ng-option value="14">Julia Hodges</ng-option>
+                            <ng-option value="15">Michael Sutherland</ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-label">Upload Invoice</div>
+                <div class="form-group">
+                <label for="form-label" class="form-label"></label>
+                    <input class="form-control" type="file">
+               </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Note:</label>
+                <textarea class="form-control" rows="3">Some text here...</textarea>
+            </div>
+            <div class="custom-controls-stacked d-md-flex">
+                <label class="form-label mt-1 me-5">Status :</label>
+                <label class="custom-control custom-radio success me-4">
+                    <input type="radio" class="custom-control-input" name="example-radios2" value="option1">
+                    <span class="custom-control-label">Approved</span>
+                </label>
+                <label class="custom-control custom-radio success">
+                    <input type="radio" class="custom-control-input" name="example-radios2" value="option2">
+                    <span class="custom-control-label">Rejected</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-outline-primary me-2" (click)="modal.dismiss('Cross click')"
+            data-bs-dismiss="modal">Close</a>
+        <a href="javascript:;" class="btn btn-success" (click)="modal.dismiss('Cross click')">Save</a>
+    </div>
+</ng-template>
+<!-- End Addexpense Modal  -->

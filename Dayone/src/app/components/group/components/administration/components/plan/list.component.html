@@ -1,0 +1,156 @@
+<app-bas-page-header [title]="'Plans'"
+                     [routes]="bercumberRoutes"
+                     [actions]="actions"></app-bas-page-header>
+
+
+<div>
+
+  <div>
+
+    <div class="  narrower mt-2">
+
+      <div class="card">
+        <div class="card-body">
+
+          <h4>{{'Filters'|dic}}</h4>
+          <div class="form-row justify-content-center ">
+            <div class="col-md-2">
+              <div class="md-form md-outline ml-0 mr-0">
+                <label class="form-label">{{'Year'|dic}} </label>
+                <ng-select class="form-control custom-select "
+                           placeholder="{{'Year'|dic}}"
+                           [outline]="true"
+                           [multiple]="false"
+                           name="year"
+                           style="text-align: center;"
+                           [(ngModel)]="p.year">
+                  <ng-option [value]="'2023'">{{ '2023'}}</ng-option>
+                  <ng-option [value]="'2024'">{{ '2024'}}</ng-option>
+                  <ng-option [value]="'2025'">{{ '2025'}}</ng-option>
+                  <ng-option [value]="'2026'">{{ '2026'}}</ng-option>
+                  <ng-option [value]="'2027'">{{ '2027'}}</ng-option>
+                  <ng-option [value]="'2028'">{{ '2028'}}</ng-option>
+                  <ng-option [value]="'2029'">{{ '2029'}}</ng-option>
+                  <ng-option [value]="'2030'">{{ '2030'}}</ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <!-- <div class="col-md-2">
+              <div class="md-form md-outline ml-0 mr-0">
+                <label class="form-label">{{'Month'|dic}} </label>
+                <ng-select class="form-control custom-select "
+                           placeholder="{{'Month'|dic}}"
+                           [outline]="true"
+                           [multiple]="false"
+                           name="months"
+                           style="text-align: center;"
+                           [(ngModel)]="p.month">
+                  <ng-option [value]="'1'">{{ '1'}}</ng-option>
+                  <ng-option [value]="'2'">{{ '2'}}</ng-option>
+                  <ng-option [value]="'3'">{{ '3'}}</ng-option>
+                  <ng-option [value]="'4'">{{ '4'}}</ng-option>
+                  <ng-option [value]="'5'">{{ '5'}}</ng-option>
+                  <ng-option [value]="'6'">{{ '6'}}</ng-option>
+                  <ng-option [value]="'7'">{{ '7'}}</ng-option>
+                  <ng-option [value]="'8'">{{ '8'}}</ng-option>
+                  <ng-option [value]="'9'">{{ '9'}}</ng-option>
+                  <ng-option [value]="'10'">{{ '10'}}</ng-option>
+                  <ng-option [value]="'11'">{{ '11'}}</ng-option>
+                  <ng-option [value]="'12'">{{ '12'}}</ng-option>
+                </ng-select>
+              </div>
+            </div> -->
+
+            <div class="col-md-2">
+
+
+              <a (click)="search()"
+                 class=" btn btn-info me-1 mt-5">
+                <i class="fa fa-search"></i>
+              </a>
+
+              <a (click)="clearFilter()"
+                 class=" btn btn-danger mt-5">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="main-profile-contact-list row">
+                <div class="media col-sm-12">
+                  <div class="media-icon bg-{{sumAll().color}} me-3 mt-1">
+                    <i class="las la-award fs-20 text-white"></i>
+                  </div>
+                  <div class="media-body">
+                    <!-- <span class="text-muted">Award</span> -->
+                    <div class="font-weight-semibold fs-25">
+                      {{sumAll().data}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <br />
+
+
+
+          <div class="row row-sm pricing-style01 justify-content-center"  >
+            <div class="col-sm-12 col-lg-12 col-xl-10"
+                 *ngFor="let el of data;let i = index">
+              <div class="card mg-b-20 mg-lg-b-0">
+                <div class="card-body text-center">
+                  <div class="bg-light p-2 text-uppercase font-weight-semibold fs-16 br-3">{{el._id?.name}}
+                    <div [ngClass]="el._id?.icon_bg"
+                         class=" my-auto  float-start"> <i [ngClass]="el._id?.icon"></i>
+                    </div>
+
+                  </div>
+                  <!-- <div class="display-4 font-weight-semibold my-4">$0</div> -->
+                  <ul class="list-unstyled leading-loose">
+                    <table style="width: 100%;">
+                      <thead>
+                        <tr>
+                          <th scope="  text-start"
+                              style="text-align: start;"> {{'Description'|dic}} </th>
+                          <th scope="col "> {{'Season 1'|dic}} </th>
+                          <th scope="col "> {{'Season 2'|dic}} </th>
+                          <th scope="col "> {{'Season 3'|dic}} </th>
+                          <th scope="col "> {{'Season 4'|dic}} </th>
+                          <th scope="col "> {{'Total'|dic}} </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of el.data;let j = index">
+                          <td class="mx-1 text-start"><strong>{{j+1}}- </strong> {{item.description}}</td>
+                          <td class="mx-1 "> {{item.season_1??0}}</td>
+                          <td class="mx-1 "> {{item.season_2??0}}</td>
+                          <td class="mx-1 "> {{item.season_3??0}}</td>
+                          <td class="mx-1 "> {{item.season_4??0}}</td>
+                          <td style="max-width: 25%;width: 25%;"> <strong class="text-{{item.total >=  50 ?'green':'red' }}">{{item.total}}/100</strong></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- <li><strong>4</strong> Ads</li>
+                            <li><i class="fe fe-check text-success me-2"></i> 30 days</li>
+                            <li><i class="fe fe-check text-success me-2"></i> 1 Gb Storage</li>
+                            <li><i class="fe fe-check text-success me-2"></i> Security Check</li>
+                            <li><i class="fe fe-x text-danger me-2"></i> Private Messages</li>
+                            <li><i class="fe fe-x text-danger me-2"></i> Urgent Ads</li>
+                            <li><i class="fe fe-check text-success me-2"></i> 24/7 Support</li> -->
+                  </ul>
+                </div>
+                <div class=" card-footer text-center mt-6">
+                  <a class="btn btn-lg btn-{{el._id?.background.split('-')[1]}} btn-block">{{sumYearly(i)|number}}/100</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+ 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

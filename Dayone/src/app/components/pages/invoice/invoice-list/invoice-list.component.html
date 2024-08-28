@@ -1,0 +1,389 @@
+<app-page-header [title]="'Invoice list'"></app-page-header>
+<!-- Row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col mb-4">
+                        <a href="javascript:;" class="btn btn-primary"><i class="fe fe-plus"></i> Add New Invoice</a>
+                    </div>
+                    <div class="col col-auto mb-4">
+                        <div class="form-group w-100">
+                            <div class="input-icon">
+                                <span class="input-icon-addon">
+                                    <i class="fe fe-search"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Search Invoice">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="e-table">
+                    <div class="table-responsive table-lg">
+                        <table class="table card-table table-vcenter text-nowrap border" id="example1">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Invoice</th>
+                                    <th>Amount</th>
+                                    <th>Generate Date</th>
+                                    <th>Due Date</th>
+                                    <th>Bill to</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="align-middle w-5">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                                value="option2">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="d-flex">
+                                            <img src="./assets/images/files/file.png" alt="img"
+                                                class="w-5 h-5 me-2">
+                                            <div class="mt-1">
+                                                <a class="btn-link" href="javascript:;">INVOICE #23543</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span class="font-weight-semibold">$230</span>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span>10 Jan 2020</span></td>
+                                    <td class="text-nowrap align-middle">
+                                        25 Jan 2020
+                                    </td>
+                                    <td class="text-nowrap align-middle">
+                                        Daneil Robert
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" ngbDropdown>
+                                            <a href="javascript:;" class="btn btn-light btn-sm no-caret" ngbDropdownToggle>Options <i
+                                                    class="fa fa-angle-down"></i></a>
+                                            <div ngbDropdownMenu>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-eye me-2"></i>
+                                                    View</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-share me-2"></i>
+                                                    Send</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-edit me-2"></i>
+                                                    Edit</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-trash me-2"></i>
+                                                    Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle w-5">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                                value="option2">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="d-flex">
+                                            <img src="./assets/images/files/file.png" alt="img"
+                                                class="w-5 h-5 me-2">
+                                            <div class="mt-1">
+                                                <a class="btn-link" href="javascript:;">INVOICE #43245</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span class="font-weight-semibold">$640</span>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span>10 Jan 2020</span></td>
+                                    <td class="text-nowrap align-middle">
+                                        25 Jan 2020
+                                    </td>
+                                    <td class="text-nowrap align-middle">
+                                        Daneil Robert
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" ngbDropdown>
+                                            <a href="javascript:;" class="btn btn-light btn-sm no-caret" ngbDropdownToggle>Options <i
+                                                    class="fa fa-angle-down"></i></a>
+                                            <div ngbDropdownMenu>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-eye me-2"></i>
+                                                    View</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-share me-2"></i>
+                                                    Send</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-edit me-2"></i>
+                                                    Edit</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-trash me-2"></i>
+                                                    Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle w-5">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                                value="option2">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="d-flex">
+                                            <img src="./assets/images/files/file.png" alt="img"
+                                                class="w-5 h-5 me-2">
+                                            <div class="mt-1">
+                                                <a class="btn-link" href="javascript:;">INVOICE #54323</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span class="font-weight-semibold">$241</span>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span>10 Jan 2020</span></td>
+                                    <td class="text-nowrap align-middle">
+                                        25 Jan 2020
+                                    </td>
+                                    <td class="text-nowrap align-middle">
+                                        Daneil Robert
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" ngbDropdown>
+                                            <a href="javascript:;" class="btn btn-light btn-sm no-caret" ngbDropdownToggle>Options <i
+                                                    class="fa fa-angle-down"></i></a>
+                                            <div ngbDropdownMenu>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-eye me-2"></i>
+                                                    View</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-share me-2"></i>
+                                                    Send</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-edit me-2"></i>
+                                                    Edit</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-trash me-2"></i>
+                                                    Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle w-5">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                                value="option2">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="d-flex">
+                                            <img src="./assets/images/files/file.png" alt="img"
+                                                class="w-5 h-5 me-2">
+                                            <div class="mt-1">
+                                                <a class="btn-link" href="javascript:;">INVOICE #52345</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span class="font-weight-semibold">$543</span>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span>10 Jan 2020</span></td>
+                                    <td class="text-nowrap align-middle">
+                                        25 Jan 2020
+                                    </td>
+                                    <td class="text-nowrap align-middle">
+                                        Daneil Robert
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" ngbDropdown>
+                                            <a href="javascript:;" class="btn btn-light btn-sm no-caret" ngbDropdownToggle>Options <i
+                                                    class="fa fa-angle-down"></i></a>
+                                            <div ngbDropdownMenu>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-eye me-2"></i>
+                                                    View</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-share me-2"></i>
+                                                    Send</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-edit me-2"></i>
+                                                    Edit</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-trash me-2"></i>
+                                                    Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle w-5">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                                value="option2">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="d-flex">
+                                            <img src="./assets/images/files/file.png" alt="img"
+                                                class="w-5 h-5 me-2">
+                                            <div class="mt-1">
+                                                <a class="btn-link" href="javascript:;">INVOICE #65343</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span class="font-weight-semibold">$654</span>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span>10 Jan 2020</span></td>
+                                    <td class="text-nowrap align-middle">
+                                        25 Jan 2020
+                                    </td>
+                                    <td class="text-nowrap align-middle">
+                                        Daneil Robert
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" ngbDropdown>
+                                            <a href="javascript:;" class="btn btn-light btn-sm no-caret" ngbDropdownToggle>Options <i
+                                                    class="fa fa-angle-down"></i></a>
+                                            <div ngbDropdownMenu>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-eye me-2"></i>
+                                                    View</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-share me-2"></i>
+                                                    Send</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-edit me-2"></i>
+                                                    Edit</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-trash me-2"></i>
+                                                    Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle w-5">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                                value="option2">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="d-flex">
+                                            <img src="./assets/images/files/file.png" alt="img"
+                                                class="w-5 h-5 me-2">
+                                            <div class="mt-1">
+                                                <a class="btn-link" href="javascript:;">INVOICE #23654</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span class="font-weight-semibold">$523</span>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span>10 Jan 2020</span></td>
+                                    <td class="text-nowrap align-middle">
+                                        25 Jan 2020
+                                    </td>
+                                    <td class="text-nowrap align-middle">
+                                        Daneil Robert
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" ngbDropdown>
+                                            <a href="javascript:;" class="btn btn-light btn-sm no-caret" ngbDropdownToggle>Options <i
+                                                    class="fa fa-angle-down"></i></a>
+                                            <div ngbDropdownMenu>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-eye me-2"></i>
+                                                    View</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-share me-2"></i>
+                                                    Send</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-edit me-2"></i>
+                                                    Edit</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-trash me-2"></i>
+                                                    Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle w-5">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                                value="option2">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="d-flex">
+                                            <img src="./assets/images/files/file.png" alt="img"
+                                                class="w-5 h-5 me-2">
+                                            <div class="mt-1">
+                                                <a class="btn-link" href="javascript:;">INVOICE #53245</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span class="font-weight-semibold">$324</span>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span>10 Jan 2020</span></td>
+                                    <td class="text-nowrap align-middle">
+                                        25 Jan 2020
+                                    </td>
+                                    <td class="text-nowrap align-middle">
+                                        Daneil Robert
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" ngbDropdown>
+                                            <a href="javascript:;" class="btn btn-light btn-sm no-caret" ngbDropdownToggle>Options <i
+                                                    class="fa fa-angle-down"></i></a>
+                                            <div ngbDropdownMenu>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-eye me-2"></i>
+                                                    View</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-share me-2"></i>
+                                                    Send</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-edit me-2"></i>
+                                                    Edit</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-trash me-2"></i>
+                                                    Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle w-5">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                                value="option2">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="d-flex">
+                                            <img src="./assets/images/files/file.png" alt="img"
+                                                class="w-5 h-5 me-2">
+                                            <div class="mt-1">
+                                                <a class="btn-link" href="javascript:;">INVOICE #34234</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span class="font-weight-semibold">$543</span>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span>10 Jan 2020</span></td>
+                                    <td class="text-nowrap align-middle">
+                                        25 Jan 2020
+                                    </td>
+                                    <td class="text-nowrap align-middle">
+                                        Daneil Robert
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" ngbDropdown>
+                                            <a href="javascript:;" class="btn btn-light btn-sm no-caret" ngbDropdownToggle>Options <i
+                                                    class="fa fa-angle-down"></i></a>
+                                            <div ngbDropdownMenu>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-eye me-2"></i>
+                                                    View</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-share me-2"></i>
+                                                    Send</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-edit me-2"></i>
+                                                    Edit</a>
+                                                <a ngbDropdownItem href="javascript:;"><i class="fe fe-trash me-2"></i>
+                                                    Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row -->

@@ -1,0 +1,185 @@
+<!--Page header-->
+<div class="page-header d-xl-flex d-block">
+    <div class="page-leftheader">
+        <h4 class="page-title">Employees</h4>
+    </div>
+    <div class="page-rightheader ms-md-auto">
+        <div class="align-items-end flex-wrap my-auto right-content breadcrumb-right">
+            <div class="btn-list">
+                <a routerLink="/hr-dashboard/employees/add-employee" class="btn btn-primary me-3">Add New Employee</a>
+                <button  class="btn btn-light" placement="top" ngbTooltip="E-mail"> <i class="feather feather-mail"></i> </button>
+                <button  class="btn btn-light" placement="top" ngbTooltip="Contact"> <i class="feather feather-phone-call"></i> </button>
+                <button  class="btn btn-primary" placement="top" ngbTooltip="Info"> <i class="feather feather-info"></i> </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page header-->
+<!-- Row-->
+<div class="row">
+    <div class="col-xl-3 col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="mt-0 text-start"> <span class="font-weight-semibold">Total Employees</span>
+                            <h3 class="mb-0 mt-1 text-success">5,678</h3>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="icon1 bg-success-transparent my-auto  float-end"> <i class="las la-users"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="mt-0 text-start"> <span class="font-weight-semibold">Total Male Employees</span>
+                            <h3 class="mb-0 mt-1 text-primary">3,876</h3>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="icon1 bg-primary-transparent my-auto  float-end"> <i class="las la-male"></i> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="mt-0 text-start"> <span class="font-weight-semibold">Total Female Employees</span>
+                            <h3 class="mb-0 mt-1 text-secondary">1,396</h3>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="icon1 bg-secondary-transparent my-auto  float-end"> <i class="las la-female"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="mt-0 text-start"> <span class="font-weight-semibold">Total New Employees</span>
+                            <h3 class="mb-0 mt-1 text-danger">398</h3>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="icon1 bg-danger-transparent my-auto  float-end"> <i class="las la-user-friends"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row -->
+
+<!-- Row -->
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header  border-0">
+                <h4 class="card-title">Employees List</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <form>
+                        <div class="d-flex justify-content-between p-2 flex-wrap">
+                            <ng-select class="form-control mb-1 custom-select" style="width: auto" name="pageSize" placeholder="choose option"
+                                [(ngModel)]="service.pageSize">
+                                <ng-option [value]="5">5 items per page</ng-option>
+                                <ng-option [value]="10">10 items per page</ng-option>
+                                <ng-option [value]="25">25 items per page</ng-option>
+                                <ng-option [value]="50">50 items per page</ng-option>
+                                <ng-option [value]="100">100 items per page</ng-option>
+                            </ng-select>
+                            <div class="form-group d-flex flex-column mb-1">
+                                <input placeholder="Search" class="form-control ml-2" type="text" name="searchTerm" autocomplete="off"
+                                    [(ngModel)]="service.searchTerm" />
+                                <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
+                            </div>
+                        </div>
+
+                        <table class="table table-vcenter text-nowrap table-bordered border-bottom">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col" sortable="EmpName" (sort)="onSort($event)">Emp Name</th>
+                                    <th scope="col" sortable="EmpID" (sort)="onSort($event)">Emp Id</th>
+                                    <th scope="col" sortable="Department" (sort)="onSort($event)">Department</th>
+                                    <th scope="col" sortable="Designation" (sort)="onSort($event)">Designation</th>
+                                    <th scope="col" sortable="PhoneNumber" (sort)="onSort($event)">Phone Number</th>
+                                    <th scope="col" sortable="JoinDate" (sort)="onSort($event)">Join Date</th>
+                                    <th scope="col" sortable="AtWork" (sort)="onSort($event)">At Work</th>
+                                    <th scope="col" sortable="approvalStatus" (sort)="onSort($event)">Status</th>
+                                    <th scope="col" >Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let employee of employeeList$ | async">
+                                    <th scope="row">{{ employee.id }}</th>
+                                    <td>
+                                        <ngb-highlight [result]="employee.EmpName" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="employee.EmpID" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="employee.Department" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="employee.Designation" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="employee.PhoneNumber" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="employee.JoinDate" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="employee.AtWork" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">Active</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a class="me-2 btn btn-primary btn-icon btn-sm" ><i class="feather feather-edit" ngbTooltip="View/Edit"></i></a>
+                                            <a (click)="deleteData(employee)" class="btn btn-danger btn-icon btn-sm" ngbTooltip="Delete"><i class="feather feather-trash-2"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="float-end">
+                            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                                [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row-->

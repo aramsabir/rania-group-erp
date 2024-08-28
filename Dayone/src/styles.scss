@@ -1,0 +1,885 @@
+/* You can add global styles to this file, and also import other style files */
+// @import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap);
+// @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+.en-font{
+  font-family: Arial, Helvetica, sans-serif
+}
+// plugins
+//ng-select
+@import "~@ng-select/ng-select/themes/default.theme.css";
+// chartist
+@import "~chartist/dist/scss/chartist.scss";
+// leaflet 
+@import '~leaflet/dist/leaflet.css';
+
+// intel
+@import "~intl-tel-input/build/css/intlTelInput.css";
+
+// quill
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+
+// ngx-toastr
+@import '~ngx-toastr/toastr.css';
+
+// angular-archwizard
+@import '~angular-archwizard/styles/archwizard.css';
+
+// angular calendar
+@import "~angular-calendar/css/angular-calendar.css";
+@import "~flatpickr/dist/flatpickr.css";
+
+// open-iconic
+@import '~open-iconic/font/css/open-iconic-bootstrap.css';
+
+// custome css links
+@import 'assets/plugins/bootstrap/css/bootstrap.css';
+@import "assets/css/style.css";
+@import "assets/css/boxed.css";
+@import "assets/css/dark.css";
+@import "assets/css/skin-modes.css";
+@import "assets/css/transparent-style.css";
+@import "assets/css/animated.css";
+@import "assets/css/icons.css";
+// switcher
+@import "assets/switcher/css/switcher.css";
+@import "assets/switcher/demo.css";
+
+/* Importing Bootstrap SCSS file. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+}
+
+.btn-group,
+.btn-group-vertical {
+  display: inline-flex !important;
+}
+
+.btn-list>.btn {
+  margin-right: 0.5rem;
+}
+
+mat-dialog-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  min-height: fit-content;
+}
+
+.table td,
+.table th {
+  padding: 0.75rem !important;
+}
+
+.custom-select {
+  padding: 0 !important;
+}
+
+// mini-Calendar 
+.oi {
+  line-height: 0.5;
+}
+
+.dl-abdtp-left-button,
+.dl-abdtp-right-button {
+  padding: 0.25rem !important;
+}
+
+.row.no-gutters {
+  margin: 0.2rem;
+}
+
+.dark-mode {
+  .btn-outline-light{
+    border-color: #ffffff14 !important;
+  }
+
+  th[sortable].desc:before, th[sortable].asc:before{
+    filter: invert(1);
+  }
+
+  .mat-tab-label-content{
+    color: #fff;
+  }
+
+  .dl-abdtp-now,
+  .dl-abdtp-now.disabled,
+  .dl-abdtp-now.disabled:hover,
+  .dl-abdtp-now:hover {
+    border: 1px solid rgb(52 54 87) !important;
+  }
+
+  .dl-abdtp-date-button {
+    color: #fff !important;
+  }
+
+  .dl-abdtp-past {
+    color: rgba(255, 255, 255, .4) !important;
+  }
+
+  .dl-abdtp-left-button,
+  .dl-abdtp-right-button,
+  .dl-abdtp-view-label,
+  .dl-abdtp-up-button {
+    color: #fff !important;
+    background: rgb(37 39 73) !important;
+    border: 1px solid rgb(52 54 87) !important;
+  }
+
+  // Mat Table (ng-bootstrap)
+  .mat-table {
+    background: #25274a !important;
+  }
+
+  .mat-paginator {
+    background: #25274a !important;
+    color: #fff !important;
+  }
+
+  .mat-select-value,
+  .mat-select-arrow,
+  .mat-form-field-label {
+    color: #fff !important;
+  }
+
+  // ng-select
+  .ng-select .ng-select-container {
+    color: #fff !important;
+    background-color: transparent !important;
+    border: 0px solid rgba(255, 255, 255, .07) !important;
+  }
+
+  .ng-dropdown-panel {
+    background-color: var(--dark-bg) !important;
+    border: 1px solid rgba(255, 255, 255, .07) !important;
+    box-shadow: 0 16px 18px 0 #0e0f2e !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+    background-color: var(--darkprimary-transparentcolor) !important;
+    color: var(--primary) !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+    background-color: var(--darkprimary-transparentcolor) !important;
+    color: #fff !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    background-color: transparent !important;
+    color: #eee !important;
+  }
+
+  // angular-calendar
+  .cal-month-view {
+    background-color: #25274a !important;
+  }
+
+  .cal-month-view .cal-cell-row .cal-cell:hover,
+  .cal-month-view .cal-cell.cal-has-events.cal-open {
+    background-color: #1d2248 !important;
+  }
+
+  .cal-month-view .cal-cell-row:hover {
+    background-color: var(--dark-bg);
+  }
+
+  .cal-month-view .cal-day-cell:not(:last-child) {
+    border-right-color: #343657 !important;
+  }
+
+  .cal-month-view .cal-days .cal-cell-row,
+  .cal-month-view .cal-days {
+    border: 1px solid #343657 !important;
+  }
+
+  .cal-today {
+    background-color: #1d2248 !important;
+  }
+
+  .cal-month-view .cal-day-cell.cal-weekend .cal-day-number {
+    color: #8b8ea5;
+  }
+
+  .cal-month-view .cal-day-cell.cal-drag-over {
+    background-color: #343657 !important;
+  }
+
+  .cal-month-view .cal-open-day-events {
+    color: #fff !important;
+    background-color: rgba(241, 245, 255, .5) !important;
+    box-shadow: inset 0 0 15px 0 rgb(155 162 215) !important;
+  }
+
+  .cal-week-view {
+    background-color: #25274a !important;
+    border-top: solid 1px #343657 !important;
+  }
+
+  .cal-week-view .cal-hour-odd {
+    background-color: #151636 !important;
+  }
+
+  .cal-week-view .cal-time-events .cal-day-columns:not(.cal-resize-active) .cal-hour-segment:hover {
+    background-color: #262b5a !important;
+  }
+
+  .cal-week-view .cal-hour:not(:last-child) .cal-hour-segment,
+  .cal-week-view .cal-hour:last-child :not(:last-child) .cal-hour-segment {
+    border-bottom-color: #343657 !important;
+  }
+
+  .cal-week-view .cal-day-column {
+    border-left-color: #343657 !important;
+  }
+
+  .cal-week-view .cal-day-headers,
+  .cal-week-view .cal-all-day-events,
+  .cal-week-view .cal-time-events {
+    border-color: #343657;
+  }
+
+  .cal-week-view .cal-day-headers .cal-header:not(:last-child) {
+    border-right-color: #343657;
+  }
+
+  .cal-week-view .cal-day-headers .cal-header:first-child {
+    border-left-color: #343657;
+  }
+
+  .cal-week-view .cal-day-headers .cal-header:hover,
+  .cal-week-view .cal-day-headers .cal-drag-over {
+    background-color: #151636 !important;
+    color: #fff !important;
+  }
+
+  .mat-dialog-container {
+    background: var(--dark-bg);
+    color: #fff;
+  }
+
+  .timepicker__body,
+  .timepicker__actions {
+    background-color: var(--dark-bg) !important;
+  }
+
+  .clock-face {
+    background-color: var(--darkprimary-transparentcolor) !important;
+  }
+
+  .timepicker__header {
+    background-color: var(--primary) !important;
+  }
+
+  .mat-datepicker-content {
+    background-color: var(--dark-bg);
+    color: #fff;
+  }
+
+  .mat-datepicker-toggle,
+  .mat-datepicker-content .mat-calendar-next-button,
+  .mat-datepicker-content .mat-calendar-previous-button {
+    color: #ccc;
+  }
+
+  .mat-calendar-arrow {
+    fill: #ccc;
+  }
+
+  .mat-calendar-table-header,
+  .mat-calendar-body-label {
+    color: rgb(255 255 255 / 77%);
+  }
+
+  .mat-calendar-body-cell-content,
+  .mat-date-range-input-separator {
+    color: rgb(227 227 227 / 87%);
+    border-color: transparent;
+  }
+
+  .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    border-color: rgb(255 241 241 / 38%);
+  }
+
+  circle-progress tspan {
+    fill: #fff;
+  }
+
+  .ngb-dp-header {
+    background-color: var(--dark-bg);
+  }
+
+  .ngb-dp-weekdays {
+    border-bottom: 1px solid rgb(255 255 255 / 13%);
+    background-color: var(--dark-bg);
+  }
+
+  .mat-button.mat-primary.mat-button-disabled,
+  .mat-button.mat-accent.mat-button-disabled,
+  .mat-button.mat-warn.mat-button-disabled,
+  .mat-button.mat-button-disabled.mat-button-disabled,
+  .mat-icon-button.mat-primary.mat-button-disabled,
+  .mat-icon-button.mat-accent.mat-button-disabled,
+  .mat-icon-button.mat-warn.mat-button-disabled,
+  .mat-icon-button.mat-button-disabled.mat-button-disabled,
+  .mat-stroked-button.mat-primary.mat-button-disabled,
+  .mat-stroked-button.mat-accent.mat-button-disabled,
+  .mat-stroked-button.mat-warn.mat-button-disabled,
+  .mat-stroked-button.mat-button-disabled.mat-button-disabled {
+    color: rgb(255 248 248 / 26%);
+  }
+
+  input::placeholder {
+    color: #888;
+  }
+
+  .cal-month-view .cal-header .cal-cell {
+    border: 1px solid #ffffff1f;
+    border-bottom-width: 0;
+  }
+
+  .ct-label {
+    fill: rgb(255 255 255 / 40%);
+    color: rgb(255 253 253 / 40%);
+  }
+
+  ngx-dropzone,
+  dropzone>.dropzone.dz-wrapper .dz-message,
+  .dropzone {
+    background: transparent;
+    border: 2px dashed #f8f6f61a;
+    color: #ccc;
+  }
+
+  .action-button {
+    border: 1px solid #f8f6f61a !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup {
+    color: rgb(255 255 255 / 54%);
+  }
+
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    background-color: rgb(255 255 255 / 50%);
+    color: #fff;
+  }
+
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input>input {
+    color: #eee;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup.ng-option-marked {
+    background-color: transparent;
+  }
+  .iti__selected-flag {
+    border-left: 1px solid #343657;
+  }
+}
+
+.transparent-mode {
+  .btn-outline-light{
+    border-color: #ffffff14 !important;
+  }
+
+  .mat-tab-label-content{
+    color: #fff;
+  }
+
+  
+  .nav-link {
+    color: #fff !important;
+  }
+
+  // ng-select
+  .ng-select .ng-select-container {
+    color: #fff !important;
+    background-color:transparent !important;
+    border: 0px solid rgba(255, 255, 255, .07) !important;
+  }
+
+  .ng-dropdown-panel {
+    background-color: var(--transparent-body) !important;
+    border: 1px solid rgba(255, 255, 255, .07) !important;
+    box-shadow: 0 16px 18px 0 #0e0f2e !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+    background-color: var(--transparentprimary-transparentcolor) !important;
+    color: #fff !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+    background-color: var(--transparentprimary-transparentcolor) !important;
+    color: #fff !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    background-color: transparent !important;
+    color: #eee !important;
+  }
+
+  .mat-dialog-container {
+    background: var(--transparent-body);
+    color: #fff;
+  }
+
+  .timepicker__body,
+  .timepicker__actions {
+    background-color: var(--transparent-body) !important;
+  }
+
+  .clock-face {
+    background-color: var(--transparentprimary-transparentcolor) !important;
+  }
+
+  .timepicker__header {
+    background-color: var(--primary) !important;
+  }
+
+  .mat-datepicker-content {
+    background-color: var(--transparent-body);
+    color: #fff;
+  }
+
+  .mat-datepicker-toggle,
+  .mat-datepicker-content .mat-calendar-next-button,
+  .mat-datepicker-content .mat-calendar-previous-button {
+    color: #ccc;
+  }
+
+  .mat-calendar-arrow {
+    fill: #ccc;
+  }
+
+  .mat-calendar-table-header,
+  .mat-calendar-body-label {
+    color: rgb(255 255 255 / 77%);
+  }
+
+  .mat-calendar-body-cell-content,
+  .mat-date-range-input-separator {
+    color: rgb(227 227 227 / 87%);
+    border-color: transparent;
+  }
+
+  .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    border-color: rgb(255 241 241 / 38%);
+  }
+
+  circle-progress tspan {
+    fill: #fff;
+  }
+
+  .ngb-dp-header {
+    background-color: var(--transparent-body);
+  }
+
+  .ngb-dp-weekdays {
+    border-bottom: 1px solid rgb(255 255 255 / 13%);
+    background-color: var(--transparent-body);
+  }
+
+
+  .mat-table {
+    background: var(--transparent-body) !important;
+  }
+
+  .mat-paginator,
+  .mat-paginator-page-size .mat-select-trigger {
+    color: rgb(255 251 251 / 78%);
+  }
+
+  .mat-paginator {
+    background: var(--transparent-body);
+  }
+
+  .mat-select-value {
+    color: rgb(255 255 255 / 87%);
+  }
+
+  .mat-select-arrow {
+    color: rgb(255 255 255 / 54%);
+  }
+
+  .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    background: rgb(255 255 255 / 12%);
+  }
+
+  .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: #fff;
+  }
+
+  .mat-select-panel {
+    background: var(--transparent-body);
+  }
+
+  .mat-option {
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .mat-button.mat-primary.mat-button-disabled,
+  .mat-button.mat-accent.mat-button-disabled,
+  .mat-button.mat-warn.mat-button-disabled,
+  .mat-button.mat-button-disabled.mat-button-disabled,
+  .mat-icon-button.mat-primary.mat-button-disabled,
+  .mat-icon-button.mat-accent.mat-button-disabled,
+  .mat-icon-button.mat-warn.mat-button-disabled,
+  .mat-icon-button.mat-button-disabled.mat-button-disabled,
+  .mat-stroked-button.mat-primary.mat-button-disabled,
+  .mat-stroked-button.mat-accent.mat-button-disabled,
+  .mat-stroked-button.mat-warn.mat-button-disabled,
+  .mat-stroked-button.mat-button-disabled.mat-button-disabled {
+    color: rgb(255 248 248 / 26%);
+  }
+
+  .mat-form-field-label {
+    color: rgb(255 255 255 / 73%);
+  }
+
+  input::placeholder {
+    color: #888;
+  }
+
+
+  // angular-calendar
+  .cal-month-view {
+    background-color: var(--transparent-body) !important;
+  }
+
+  .cal-month-view .cal-cell-row .cal-cell:hover,
+  .cal-month-view .cal-cell.cal-has-events.cal-open {
+    background-color: var(--transparentprimary-transparentcolor) !important;
+  }
+
+  .cal-month-view .cal-cell-row:hover {
+    background-color: var(--transparent-body) !important;
+  }
+
+  .cal-month-view .cal-day-cell:not(:last-child) {
+    border-right-color: #ffffff1f !important;
+  }
+
+  .cal-month-view .cal-days .cal-cell-row,
+  .cal-month-view .cal-days {
+    border: 1px solid #ffffff1f !important;
+  }
+
+  .cal-today {
+    background-color: var(--transparent-body) !important;
+  }
+
+  .cal-month-view .cal-day-cell.cal-weekend .cal-day-number {
+    color: #8b8ea5;
+  }
+
+  .cal-month-view .cal-day-cell.cal-drag-over {
+    background-color: var(--transparent-body) !important;
+  }
+
+  .cal-month-view .cal-open-day-events {
+    color: #fff !important;
+    background-color: rgba(241, 245, 255, .5) !important;
+    box-shadow: inset 0 0 15px 0 rgb(155 162 215) !important;
+  }
+
+  .cal-week-view {
+    background-color: var(--transparent-body) !important;
+    border-top: solid 1px #ffffff1f !important;
+  }
+
+  .cal-week-view .cal-hour-odd {
+    background-color: var(--transparent-body) !important;
+  }
+
+  .cal-week-view .cal-time-events .cal-day-columns:not(.cal-resize-active) .cal-hour-segment:hover {
+    background-color: var(--transparent-body) !important;
+  }
+
+  .cal-week-view .cal-hour:not(:last-child) .cal-hour-segment,
+  .cal-week-view .cal-hour:last-child :not(:last-child) .cal-hour-segment {
+    border-bottom-color: #ffffff1f !important;
+  }
+
+  .cal-week-view .cal-day-column {
+    border-left-color: #ffffff1f !important;
+  }
+
+  .cal-week-view .cal-day-headers,
+  .cal-week-view .cal-all-day-events,
+  .cal-week-view .cal-time-events {
+    border-color: #ffffff1f;
+  }
+
+  .cal-week-view .cal-day-headers .cal-header:not(:last-child) {
+    border-right-color: #ffffff1f;
+  }
+
+  .cal-week-view .cal-day-headers .cal-header:first-child {
+    border-left-color: #ffffff1f;
+  }
+
+  .cal-week-view .cal-day-headers .cal-header:hover,
+  .cal-week-view .cal-day-headers .cal-drag-over {
+    background-color: var(--transparent-body) !important;
+    color: #fff !important;
+  }
+
+  .cal-month-view .cal-header .cal-cell {
+    border: 1px solid #ffffff1f;
+    border-bottom-width: 0;
+  }
+
+  .mat-header-cell {
+    color: rgb(255 255 255);
+  }
+
+  .mat-cell,
+  .mat-footer-cell {
+    color: rgb(255 255 255 / 87%);
+  }
+
+  .mat-checkbox-frame {
+    border-color: rgb(255 255 255 / 54%);
+  }
+
+  .ct-label {
+    fill: rgb(255 255 255 / 40%);
+    color: rgb(255 253 253 / 40%);
+  }
+
+  ngx-dropzone,
+  dropzone>.dropzone.dz-wrapper .dz-message,
+  .dropzone {
+    background: transparent;
+    border: 2px dashed var(--transparent-body);
+    color: #ccc;
+  }
+
+  .action-button {
+    border: 1px solid #f8f6f61a !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup {
+    color: rgb(255 255 255 / 54%);
+  }
+
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    background-color: rgb(255 255 255 / 50%);
+    color: #fff;
+  }
+
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input>input {
+    color: #eee;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup.ng-option-marked {
+    background-color: transparent;
+  }
+
+  .dl-abdtp-date-button,
+  .dl-abdtp-left-button,
+  .dl-abdtp-right-button,
+  .dl-abdtp-view-label {
+    color: rgb(255 255 255 / 87%) !important;
+    background: transparent !important;
+  }
+
+  .rtl .input-group-prepend,
+  .rtl .input-group-append,
+  .rtl .input-group-btn .btn {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .iti__selected-flag {
+    border-left: 1px solid #343657;
+  }
+}
+
+.cal-month-view .cal-open-day-events {
+  color: #36f !important;
+  background-color: rgba(241, 245, 255, .5) !important;
+  box-shadow: inset 0 0 15px 0 rgb(155 162 215) !important;
+}
+
+.cal-month-view .cal-header .cal-cell {
+  border: 1px solid #0000001f;
+  border-bottom-width: 0;
+}
+
+.rtl {
+  input{
+    direction: rtl;
+  }
+  .mat-dialog-content .modal-header {
+    flex-direction: row-reverse;
+  }
+}
+
+.mat-dialog-content .modal-header {
+  position: relative;
+}
+
+.rtl .dropdown-menu-end {
+  left: 0px ;
+  right: auto ;
+}
+
+.demo_changer {
+  transition: all 0.5s ease;
+}
+
+.pagination {
+  flex-wrap: wrap;
+}
+
+
+.app-sidebar,
+.header {
+  z-index: 990 !important;
+}
+
+.rtl .dropdown-menu-end.dropdown-menu {
+  left: 0px ;
+  right: auto ;
+}
+
+apx-chart>div>div {
+  margin: auto;
+
+  &>svg {
+    overflow: visible !important;
+  }
+}
+
+.rtl .clock-face__container {
+  margin-left: 100px !important;
+}
+
+.rtl {
+  .ngb-dp-navigation-chevron {
+    transform: rotate(45deg);
+  }
+
+  .ngb-dp-arrow.right .ngb-dp-navigation-chevron {
+    transform: rotate(-135deg);
+  }
+
+  .right-icon.oi.oi-chevron-right,
+  .left-icon.oi.oi-chevron-left {
+    transform: rotate(180deg);
+  }
+
+  .form-control[type="file"] {
+    padding: 0.375rem 0.75rem 0.375rem 0 !important;
+    direction: rtl;
+  }
+}
+
+[dir=rtl] .dark-mode .cal-month-view .cal-day-cell:not(:last-child),
+[dir=rtl] .transparent-mode .cal-month-view .cal-day-cell:not(:last-child) {
+  border-left-color: rgba($color: #fff, $alpha: 0.1);
+}
+
+.input-group>.form-control:focus,
+.input-group>.form-select:focus {
+  z-index: 0 !important;
+}
+
+.table> :not(:first-child) {
+  border-top: 0px solid transparent !important;
+}
+
+body:is(.dark-mode, .transparent-mode) mat-label {
+  color: #fff !important;
+}
+
+body:not(.ltr) .daterangepicker.opensright:before,
+body:not(.ltr) .daterangepicker.opensright:after {
+  right: initial !important;
+}
+
+body:not(.rtl) .daterangepicker.opensright:before,
+body:not(.rtl) .daterangepicker.opensright:after {
+  left: initial !important;
+}
+
+input[ng-reflect-timepicker] {
+  border: none !important;
+}
+
+.rtl {
+  .listbox+.listbox {
+    margin-left: initial !important;
+    margin-right: 10px !important;
+  }
+
+  .ck.ck-toolbar.ck-toolbar_grouping>.ck-toolbar__items {
+    flex-wrap: wrap !important;
+  }
+
+  .ng-image-slider .ng-image-slider-container .main .prev{
+    right: 10px;
+    left: inherit;
+  }
+  .ng-image-slider .ng-image-slider-container .main .next{
+    left: 10px;
+    right: inherit;
+  }
+}
+
+.ng-clear-wrapper,
+.pagination{
+  margin-inline: 0.3rem;
+}
+
+@media (max-width:567.9px){
+  ngx-material-timepicker-content > div{
+    top: 0 !important;
+    width: 90%;
+    overflow-x: scroll;
+    margin: auto;
+  }
+}
+
+.mat-paginator-range-actions{
+  flex-wrap: wrap;
+}
+
+.rtl mat-dialog-content  .custom-control {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 7px 7px 0 0 !important;
+}
+.rtl .notify-time {
+  right: auto;
+  left: 25px;
+}
+
+
+.transparent-mode app-support-system .header{
+  backdrop-filter: initial !important;
+}
+
+
+.transparent-mode {
+  .landingmain-header.header .horizontalMenu>.horizontalMenu-list>li>a.active{
+  color: #fff !important;
+  }
+
+  .sticky-wrapper.is-sticky .landing-header .horizontalMenu>.horizontalMenu-list>li>a.active,
+  .landingmain-header.header .horizontalMenu>.horizontalMenu-list>li>a.active, 
+  .sticky-wrapper.is-sticky .landing-header .horizontalMenu>.horizontalMenu-list>li>a:hover, 
+  .landingmain-header.header .horizontalMenu>.horizontalMenu-list>li>a:hover{
+    color: #fff !important;
+  }
+}

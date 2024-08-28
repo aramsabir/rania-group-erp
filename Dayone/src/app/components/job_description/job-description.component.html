@@ -1,0 +1,22 @@
+<app-bas-page-header title="Job descriptions" [routes]="bercumberRoutes" [actions]="actions"></app-bas-page-header>
+<div class="card">
+  <div class="card-body">
+    <div class="tab-menu-heading  p-0 bg-light">
+      <div class="tabs-menu1 ">
+        <!-- Tabs -->
+        <ul ngbNav #nav1="ngbNav" [(activeId)]="active" class="panel-tabs">
+          <li [ngbNavItem]="i" *ngFor="let tab of tabs;let i = index">
+            <a ngbNavLink>{{tab.name}}</a>
+            <!-- <ng-template ngbNavContent>
+
+            </ng-template> -->
+          </li>
+          <pdf-viewer [src]="tabs[active].pdfSrc" [render-text]="true" [zoom]="1" [fit-to-page]="true" [original-size]="false" style="width: 100%; height: 80vh"></pdf-viewer>
+
+        </ul>
+      </div>
+    </div>
+    <!-- <div class="panel panel-body">falksdjf</div> -->
+  </div>
+</div>
+<!-- [render-text]="false" [original-size]="true" [zoom]="1.2" [fit-to-page]="true" style="display: block;" -->

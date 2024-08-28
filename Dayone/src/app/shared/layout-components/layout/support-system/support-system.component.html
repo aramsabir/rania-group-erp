@@ -1,0 +1,17 @@
+<div class="horizontalMenucontainer">
+  <!-- switcher  -->
+  <app-support-switcher></app-support-switcher>
+  <div class="page">
+    <div class="page-main">
+      <!-- header  -->
+      <app-support-header></app-support-header>
+
+      <div (click)="toggleSwitcher()">
+        <!-- // contetnt  -->
+        <router-outlet>
+          <app-loader></app-loader>
+        </router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

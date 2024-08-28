@@ -1,0 +1,60 @@
+<!-- Edit Notice Modal -->
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Edit Leaves</h5>
+        <button type="button" class="btn-close" mat-dialog-close>
+            <span class="nav-link">&times;</span>
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label class="form-label">Title</label>
+            <input class="form-control" placeholder="Text" value="{{noticeBoardData.dataValue.title}}">
+        </div>
+        <div class="form-group">
+            <div class="custom-controls-stacked d-md-flex">
+                <label class="custom-control custom-radio success me-4">
+                    <input type="radio" class="custom-control-input" name="example-radios3" value="option5" checked>
+                    <span class="custom-control-label">To Employees</span>
+                </label>
+                <label class="custom-control custom-radio success">
+                    <input type="radio" class="custom-control-input" name="example-radios3" value="option6">
+                    <span class="custom-control-label">To Clients</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Select Date:</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="feather feather-calendar"></i>
+                    </div>
+                </div><input class="form-control fc-datepicker" placeholder="{{noticeBoardData.dataValue.createOn}}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Description:</label>
+            <div class="editor"></div>
+        </div>
+        <div class="form-group">
+            <label for="form-label" class="form-label">Attachment:</label>
+            <input class="form-control" type="file">
+        </div>
+        <div class="custom-controls-stacked d-md-flex">
+            <label class="form-label mt-1 me-5">Status :</label>
+            <label class="custom-control custom-radio success me-4">
+                <input type="radio" class="custom-control-input" name="example-radios2" value="option7" checked>
+                <span class="custom-control-label">Active</span>
+            </label>
+            <label class="custom-control custom-radio success">
+                <input type="radio" class="custom-control-input" name="example-radios2" value="option8">
+                <span class="custom-control-label">Inactive</span>
+            </label>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+        <button class="btn btn-outline-danger" mat-dialog-close>Close</button>
+        <button class="btn btn-success" cdkFocusInitial>Add</button>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+::ng-deep{
+    .alert-dismissible .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        padding: 0.75rem 1.25rem;
+        color: inherit;
+    }
+    
+    .rtl .alert-dismissible .close{
+        left: 0;
+        right: inherit !important; 
+    }
+    .rtl .alert{
+        padding: 0.75rem 1.25rem !important;
+    }
+    app-alerts{
+        .btn-close{
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 1rem !important;
+        }
+        .btn-close::after{
+            content: "\f00d";
+        }
+    }
+}
+
+.alert-warning{
+    color: #fff;
+}
+
+p{
+    color: #eee;
+}

@@ -1,0 +1,135 @@
+<app-page-header [title]="'Pagination'"></app-page-header>
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h3 class="card-title">Basic pagination</h3>
+            </div>
+            <div class="card-body">
+                <div class="pagination-wrapper">
+                    <ngb-pagination [collectionSize]="30" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+                </div>
+                <!-- pagination-wrapper -->
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h3 class="card-title">Basic pagination</h3>
+            </div>
+            <div class="card-body">
+                <ngb-pagination [collectionSize]="30" [(page)]="page1" aria-label="Custom pagination">
+                    <ng-template ngbPaginationPrevious>Prev</ng-template>
+                    <ng-template ngbPaginationNext>Next</ng-template>
+                    <ng-template ngbPaginationNumber let-p>{{ getPageSymbol(p) }}</ng-template>
+                  </ngb-pagination>
+                  <pre>Current page: {{page}}</pre>
+                <!-- pagination-wrapper -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row -->
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h3 class="card-title">Model Pagination</h3>
+            </div>
+            <div class="card-body ">
+                <ngb-pagination [collectionSize]="60" [(page)]="page2" [maxSize]="2" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+            </div>
+            <!-- pagination-wrapper -->
+        </div>
+        <!-- section-wrapper -->
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h3 class="card-title">Model Pagination2</h3>
+            </div>
+            <div class="card-body">
+                <ngb-pagination [collectionSize]="60" [(page)]="page3" [maxSize]="2" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+                <!-- pagination-wrapper -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row -->
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h3 class="card-title">Model Pagination2</h3>
+            </div>
+            <div class="card-body">
+                <ngb-pagination [collectionSize]="30" [(page)]="page4" [boundaryLinks]="true">
+                    <ng-template ngbPaginationPages let-page let-pages="pages">
+                        <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                            <div class="form-group d-flex flex-nowrap px-2">
+                              <label
+                                  id="paginationInputLabel"
+                                  for="paginationInput"
+                                  class="col-form-label mr-2 ml-1"
+                              >Page</label>
+                              <input #i
+                                  type="text"
+                                  inputmode="numeric"
+                                  pattern="[0-9]*"
+                                  class="form-control custom-pages-input"
+                                  id="paginationInput"
+                                  [value]="page"
+                                  (keyup.enter)="selectPage(i.value)"
+                                  (blur)="selectPage(i.value)"
+                                  (input)="formatInput($any($event).target)"
+                                  aria-labelledby="paginationInputLabel paginationDescription"
+                                  style="width: 2.5rem"
+                              />
+                              <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+                                  of {{pages.length}}</span>
+                            </div>
+                        </li>
+                    </ng-template>
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h3 class="card-title">Pagination left alignment</h3>
+            </div>
+            <div class="card-body">
+                <ngb-pagination class="d-flex justify-content-start" [collectionSize]="30" [(page)]="page5"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h3 class="card-title">Pagination center alignment</h3>
+            </div>
+            <div class="card-body">
+                <ngb-pagination class="d-flex justify-content-center" [collectionSize]="30" [(page)]="page6"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h3 class="card-title">Pagination Right Alignment</h3>
+            </div>
+            <div class="card-body ">
+                <ngb-pagination class="d-flex justify-content-end" [collectionSize]="30" [(page)]="page7"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End  Row -->

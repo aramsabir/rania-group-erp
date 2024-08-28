@@ -1,0 +1,28 @@
+.product-carousel img {
+    margin: 0 auto;
+    width: 60%;
+    text-align: center;
+    display: block;
+    background: #f1f4fb;
+    padding: 2rem;
+    border-radius: 5px;
+}
+::ng-deep{
+    .dark-mode{
+        .product-carousel img{
+            background: #25274a !important;
+        }
+        .product-carousel img {
+            background: transparent !important;
+        }
+    }
+    .transparent-mode{
+        .product-carousel img {
+            background: transparent !important;
+        }
+    }
+}
+.nav{
+    width: 60%;
+    margin: auto;
+}

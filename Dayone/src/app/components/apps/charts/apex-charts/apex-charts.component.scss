@@ -1,0 +1,25 @@
+::ng-deep{
+
+    .apexcharts-tooltip , .apexcharts-toolbar{
+        z-index: 2 !important;
+    }
+    
+    .dark-mode{
+        .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
+            background: #0e0e23 !important;
+            border-bottom: 1px solid #24243d !important;
+        }
+        .apexcharts-tooltip.apexcharts-theme-light {
+            border: 1px solid #2a2e3f !important;
+            background: rgb(42 46 63) !important;
+        }       
+        .apexcharts-xaxistooltip {
+            background: #212332;
+            border: 1px solid #2a2e3f;
+            color: #fff;
+        } 
+        line {
+            stroke: #32394e !important;
+        }  
+    }
+}

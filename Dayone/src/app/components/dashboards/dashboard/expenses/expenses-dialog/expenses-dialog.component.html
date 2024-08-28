@@ -1,0 +1,97 @@
+<!--Edit expense Modal -->
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Edit Expense</h5>
+        <button type="button" class="btn-close" mat-dialog-close>
+            <span class="nav-link">&times;</span>
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="leave-types">
+            <div class="form-group">
+                <label class="form-label">Title:</label>
+                <input type="text" class="form-control" placeholder="text" value="{{expensesData.dataValue.title}}">
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Purchase Place:</label>
+                        <input type="text" class="form-control" placeholder="text" value="{{expensesData.dataValue.purchaseFrom}}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Price ($):</label>
+                        <input type="text" class="form-control" placeholder="Number" value="{{expensesData.dataValue.amount}}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Date:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="feather feather-calendar"></i>
+                                </div>
+                            </div><input class="form-control fc-datepicker" placeholder="01-10-2021" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Employee Name :</label>
+                        <ng-select name="attendance" class="form-control custom-select" placeholder="Select Employee">
+                            <ng-option value="1" selected>Faith Harris</ng-option>
+                            <ng-option value="2">Austin Bell</ng-option>
+                            <ng-option value="3">Maria Bower</ng-option>
+                            <ng-option value="4">Peter Hill</ng-option>
+                            <ng-option value="5">Victoria Lyman</ng-option>
+                            <ng-option value="6">Adam Quinn</ng-option>
+                            <ng-option value="7">Melanie Coleman</ng-option>
+                            <ng-option value="8">Max Wilson</ng-option>
+                            <ng-option value="9">Amelia Russell</ng-option>
+                            <ng-option value="10">Justin Metcalfe</ng-option>
+                            <ng-option value="11">Ryan Young</ng-option>
+                            <ng-option value="12">Jennifer Hardacre</ng-option>
+                            <ng-option value="13">Justin Parr</ng-option>
+                            <ng-option value="14">Julia Hodges</ng-option>
+                            <ng-option value="15">Michael Sutherland</ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-label">Upload Invoice</div>
+                <div class="form-group">
+                    <label for="form-label" class="form-label"></label>
+                    <input class="form-control" type="file">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Note:</label>
+                <textarea class="form-control" rows="3">Some text here...</textarea>
+            </div>
+            <div class="custom-controls-stacked d-md-flex">
+                <label class="form-label mt-1 me-5">Status :</label>
+                <label class="custom-control custom-radio success me-4">
+                    <input type="radio" class="custom-control-input" name="example-radios2" value="option3" checked>
+                    <span class="custom-control-label">Approved</span>
+                </label>
+                <label class="custom-control custom-radio success me-4">
+                    <input type="radio" class="custom-control-input" name="example-radios2" value="option4">
+                    <span class="custom-control-label">Pending</span>
+                </label>
+                <label class="custom-control custom-radio success">
+                    <input type="radio" class="custom-control-input" name="example-radios2" value="option5">
+                    <span class="custom-control-label">Rejected</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-footer ms-auto">
+            <button class="btn btn-outline-danger me-2" mat-dialog-close>Close</button>
+            <button class="btn btn-success" cdkFocusInitial>Add</button>
+    </div>
+</div>
+<!-- End Editexpense Modal  -->

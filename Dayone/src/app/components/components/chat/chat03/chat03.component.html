@@ -1,0 +1,590 @@
+<app-page-header [title]="'Chat03'"></app-page-header>
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="row">
+
+            <!-- col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="chat-widget-header d-flex p-5">
+                            <div class="font-weight-bold d-flex">
+                                <img class="avatat avatar-md brround me-2" src="./assets/images/users/1.jpg"
+                                    alt="img">
+                                <div class="mt-1 d-none d-xl-block">
+                                    <h6 class="font-weight-semibold mb-0">Shamika Griffith</h6>
+                                    <small>shamikagriffith@gmail.com</small>
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="d-flex" ngbDropdown>
+                                    <a class="option-dots new-list2" href="javascript:;" (click)="open(content)"><span
+                                            class="feather feather-message-square"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="call"><span
+                                            class="feather feather-phone-call"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="Video Cal"><span
+                                            class="feather feather-video"></span></a>
+                                    <a class="option-dots new-list2" ngbDropdownToggle href="javascript:;"><span
+                                            class="feather feather-more-vertical"></span></a>
+                                    <div ngbDropdownMenu class="tx-13 dropdown-menu-start">
+                                        <a ngbDropdownItem href="javascript:;">Assigned to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Unread</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Important</a>
+                                        <a ngbDropdownItem href="javascript:;">Add to Tasks</a>
+                                        <a ngbDropdownItem href="javascript:;">Add Star</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mute</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to Trash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="chat-widget-header d-flex p-5">
+                            <div class="font-weight-bold d-flex">
+                                <img class="avatat avatar-md brround me-2" src="./assets/images/users/2.jpg"
+                                    alt="img">
+                                <div class="mt-1 d-none d-xl-block">
+                                    <h6 class="font-weight-semibold mb-0">Margarette Wycoff</h6>
+                                    <small>margarettewycoff@gmail.com</small>
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="d-flex" ngbDropdown>
+                                    <a class="option-dots new-list2" href="javascript:;" (click)="open(content)"><span
+                                            class="feather feather-message-square"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="call"><span
+                                            class="feather feather-phone-call"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="Video Cal"><span
+                                            class="feather feather-video"></span></a>
+                                    <a class="option-dots new-list2" ngbDropdownToggle href="javascript:;"><span
+                                            class="feather feather-more-vertical"></span></a>
+                                    <div ngbDropdownMenu class="tx-13 dropdown-menu-start">
+                                        <a ngbDropdownItem href="javascript:;">Assigned to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Unread</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Important</a>
+                                        <a ngbDropdownItem href="javascript:;">Add to Tasks</a>
+                                        <a ngbDropdownItem href="javascript:;">Add Star</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mute</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to Trash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="chat-widget-header d-flex p-5">
+                            <div class="font-weight-bold d-flex">
+                                <img class="avatat avatar-md brround me-2" src="./assets/images/users/3.jpg"
+                                    alt="img">
+                                <div class="mt-1 d-none d-xl-block">
+                                    <h6 class="font-weight-semibold mb-0">Myrta Powe</h6>
+                                    <small>myrtapower@gmail.com</small>
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="d-flex" ngbDropdown>
+                                    <a class="option-dots new-list2" href="javascript:;" (click)="open(content)"><span
+                                            class="feather feather-message-square"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="call"><span
+                                            class="feather feather-phone-call"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="Video Cal"><span
+                                            class="feather feather-video"></span></a>
+                                    <a class="option-dots new-list2" ngbDropdownToggle href="javascript:;"><span
+                                            class="feather feather-more-vertical"></span></a>
+                                    <div ngbDropdownMenu class="tx-13 dropdown-menu-start">
+                                        <a ngbDropdownItem href="javascript:;">Assigned to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Unread</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Important</a>
+                                        <a ngbDropdownItem href="javascript:;">Add to Tasks</a>
+                                        <a ngbDropdownItem href="javascript:;">Add Star</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mute</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to Trash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="chat-widget-header d-flex p-5">
+                            <div class="font-weight-bold d-flex">
+                                <img class="avatat avatar-md brround me-2" src="./assets/images/users/4.jpg"
+                                    alt="img">
+                                <div class="mt-1 d-none d-xl-block">
+                                    <h6 class="font-weight-semibold mb-0">Consuelo Valenzuela</h6>
+                                    <small>consuelovalenzuela@gmail.com</small>
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="d-flex" ngbDropdown>
+                                    <a class="option-dots new-list2" href="javascript:;" (click)="open(content)"><span
+                                            class="feather feather-message-square"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="call"><span
+                                            class="feather feather-phone-call"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="Video Cal"><span
+                                            class="feather feather-video"></span></a>
+                                    <a class="option-dots new-list2" ngbDropdownToggle href="javascript:;"><span
+                                            class="feather feather-more-vertical"></span></a>
+                                    <div ngbDropdownMenu class="tx-13 dropdown-menu-start">
+                                        <a ngbDropdownItem href="javascript:;">Assigned to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Unread</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Important</a>
+                                        <a ngbDropdownItem href="javascript:;">Add to Tasks</a>
+                                        <a ngbDropdownItem href="javascript:;">Add Star</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mute</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to Trash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="chat-widget-header d-flex p-5">
+                            <div class="font-weight-bold d-flex">
+                                <img class="avatat avatar-md brround me-2" src="./assets/images/users/5.jpg"
+                                    alt="img">
+                                <div class="mt-1 d-none d-xl-block">
+                                    <h6 class="font-weight-semibold mb-0">Carolyne Wirtz</h6>
+                                    <small>carolynewirtz@gmail.com</small>
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="d-flex" ngbDropdown>
+                                    <a class="option-dots new-list2" href="javascript:;" (click)="open(content)"><span
+                                            class="feather feather-message-square"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="call"><span
+                                            class="feather feather-phone-call"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="Video Cal"><span
+                                            class="feather feather-video"></span></a>
+                                    <a class="option-dots new-list2" ngbDropdownToggle href="javascript:;"><span
+                                            class="feather feather-more-vertical"></span></a>
+                                    <div ngbDropdownMenu class="tx-13 dropdown-menu-start">
+                                        <a ngbDropdownItem href="javascript:;">Assigned to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Unread</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Important</a>
+                                        <a ngbDropdownItem href="javascript:;">Add to Tasks</a>
+                                        <a ngbDropdownItem href="javascript:;">Add Star</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mute</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to Trash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="chat-widget-header d-flex p-5">
+                            <div class="font-weight-bold d-flex">
+                                <img class="avatat avatar-md brround me-2" src="./assets/images/users/6.jpg"
+                                    alt="img">
+                                <div class="mt-1 d-none d-xl-block">
+                                    <h6 class="font-weight-semibold mb-0">Archie Kesler</h6>
+                                    <small>archiekesler@gmail.com</small>
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="d-flex" ngbDropdown>
+                                    <a class="option-dots new-list2" href="javascript:;" (click)="open(content)"><span
+                                            class="feather feather-message-square"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="call"><span
+                                            class="feather feather-phone-call"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="Video Cal"><span
+                                            class="feather feather-video"></span></a>
+                                    <a class="option-dots new-list2" ngbDropdownToggle href="javascript:;"><span
+                                            class="feather feather-more-vertical"></span></a>
+                                    <div ngbDropdownMenu class="tx-13 dropdown-menu-start">
+                                        <a ngbDropdownItem href="javascript:;">Assigned to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Unread</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Important</a>
+                                        <a ngbDropdownItem href="javascript:;">Add to Tasks</a>
+                                        <a ngbDropdownItem href="javascript:;">Add Star</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mute</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to Trash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="chat-widget-header d-flex p-5">
+                            <div class="font-weight-bold d-flex">
+                                <img class="avatat avatar-md brround me-2" src="./assets/images/users/9.jpg"
+                                    alt="img">
+                                <div class="mt-1 d-none d-xl-block">
+                                    <h6 class="font-weight-semibold mb-0">Elizabeth Loux</h6>
+                                    <small>elizabethloux@gmail.com</small>
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="d-flex" ngbDropdown>
+                                    <a class="option-dots new-list2" href="javascript:;" (click)="open(content)"><span
+                                            class="feather feather-message-square"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="call"><span
+                                            class="feather feather-phone-call"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="Video Cal"><span
+                                            class="feather feather-video"></span></a>
+                                    <a class="option-dots new-list2" ngbDropdownToggle href="javascript:;"><span
+                                            class="feather feather-more-vertical"></span></a>
+                                    <div ngbDropdownMenu class="tx-13 dropdown-menu-start">
+                                        <a ngbDropdownItem href="javascript:;">Assigned to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Unread</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Important</a>
+                                        <a ngbDropdownItem href="javascript:;">Add to Tasks</a>
+                                        <a ngbDropdownItem href="javascript:;">Add Star</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mute</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to Trash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="chat-widget-header d-flex p-5">
+                            <div class="font-weight-bold d-flex">
+                                <img class="avatat avatar-md brround me-2" src="./assets/images/users/10.jpg"
+                                    alt="img">
+                                <div class="mt-1 d-none d-xl-block">
+                                    <h6 class="font-weight-semibold mb-0">Kathaleen Roysden</h6>
+                                    <small>kathaleenroysden@gmail.com</small>
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="d-flex" ngbDropdown>
+                                    <a class="option-dots new-list2" href="javascript:;" (click)="open(content)"><span
+                                            class="feather feather-message-square"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="call"><span
+                                            class="feather feather-phone-call"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="Video Cal"><span
+                                            class="feather feather-video"></span></a>
+                                    <a class="option-dots new-list2" ngbDropdownToggle href="javascript:;"><span
+                                            class="feather feather-more-vertical"></span></a>
+                                    <div ngbDropdownMenu class="tx-13 dropdown-menu-start">
+                                        <a ngbDropdownItem href="javascript:;">Assigned to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Unread</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Important</a>
+                                        <a ngbDropdownItem href="javascript:;">Add to Tasks</a>
+                                        <a ngbDropdownItem href="javascript:;">Add Star</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mute</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to Trash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="chat-widget-header d-flex p-5">
+                            <div class="font-weight-bold d-flex">
+                                <img class="avatat avatar-md brround me-2" src="./assets/images/users/11.jpg"
+                                    alt="img">
+                                <div class="mt-1 d-none d-xl-block">
+                                    <h6 class="font-weight-semibold mb-0">Raisa Ladwig</h6>
+                                    <small>raisaladwig@gmail.com</small>
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="d-flex" ngbDropdown>
+                                    <a class="option-dots new-list2" href="javascript:;" (click)="open(content)"><span
+                                            class="feather feather-message-square"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="call"><span
+                                            class="feather feather-phone-call"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="Video Cal"><span
+                                            class="feather feather-video"></span></a>
+                                    <a class="option-dots new-list2" ngbDropdownToggle href="javascript:;"><span
+                                            class="feather feather-more-vertical"></span></a>
+                                    <div ngbDropdownMenu class="tx-13 dropdown-menu-start">
+                                        <a ngbDropdownItem href="javascript:;">Assigned to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Unread</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Important</a>
+                                        <a ngbDropdownItem href="javascript:;">Add to Tasks</a>
+                                        <a ngbDropdownItem href="javascript:;">Add Star</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mute</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to Trash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="chat-widget-header d-flex p-5">
+                            <div class="font-weight-bold d-flex">
+                                <img class="avatat avatar-md brround me-2" src="./assets/images/users/12.jpg"
+                                    alt="img">
+                                <div class="mt-1 d-none d-xl-block">
+                                    <h6 class="font-weight-semibold mb-0">Veronica Kimer</h6>
+                                    <small>veronicakimer@gmail.com</small>
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="d-flex" ngbDropdown>
+                                    <a class="option-dots new-list2" href="javascript:;" (click)="open(content)"><span
+                                            class="feather feather-message-square"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="call"><span
+                                            class="feather feather-phone-call"></span></a>
+                                    <a class="option-dots new-list2" href="javascript:;" placement="top"
+                                        ngbTooltip="Video Cal"><span
+                                            class="feather feather-video"></span></a>
+                                    <a class="option-dots new-list2" ngbDropdownToggle href="javascript:;"><span
+                                            class="feather feather-more-vertical"></span></a>
+                                    <div ngbDropdownMenu class="tx-13 dropdown-menu-start">
+                                        <a ngbDropdownItem href="javascript:;">Assigned to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Unread</a>
+                                        <a ngbDropdownItem href="javascript:;">Mark As Important</a>
+                                        <a ngbDropdownItem href="javascript:;">Add to Tasks</a>
+                                        <a ngbDropdownItem href="javascript:;">Add Star</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to</a>
+                                        <a ngbDropdownItem href="javascript:;">Mute</a>
+                                        <a ngbDropdownItem href="javascript:;">Move to Trash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="card overflow-hidden mb-0 border-0 chatbox chat">
+        <div class="action-header">
+            <div class="float-start hidden-xs d-flex ms-2">
+                <div class="img_cont me-3">
+                    <img src="./assets/images/users/16.jpg" class="rounded-circle user_img avatar avatar-md" alt="img">
+                </div>
+                <div class="align-items-center mt-2 text-white">
+                    <h5 class="mb-0">Abigali kelly</h5>
+                    <span class="w-2 h-2 brround bg-success d-inline-block"></span><span class="ms-2 fs-12">online</span>
+                </div>
+            </div>
+            <ul class="ah-actions actions align-items-center">
+                <li class="call-icon">
+                    <a href="javascript:;" class="d-done d-md-block phone-button">
+                        <span class="feather feather-phone-call"></span>
+                    </a>
+                </li>
+                <li class="video-icon">
+                    <a href="javascript:;" class="d-done d-md-block phone-button">
+                        <span class="feather feather-video"></span>
+                    </a>
+                </li>
+                <li ngbDropdown>
+                    <a href="javascript:;" ngbDropdownToggle aria-expanded="true">
+                        <span class="feather feather-more-vertical"></span>
+                    </a>
+                    <ul ngbDropdownMenu class="dropdown-menu-end">
+                        <li><i class="fa fa-user-circle"></i> View profile</li>
+                        <li><i class="fa fa-users"></i> Add to close friends</li>
+                        <li><i class="fa fa-plus"></i> Add to group</li>
+                        <li><i class="fa fa-ban"></i> Block</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true"><span class="feather feather-x"></span></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body msg_card_body"  style="max-height: 400px;">
+                <div class="chat-box-single-line">
+                    <abbr class="timestamp">February 1st, 2021</abbr>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/9.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                    <div class="msg_cotainer">
+                        Hi, how are you Jenna Side?
+                        <span class="msg_time">8:40 AM, Today</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end ">
+                    <div class="msg_cotainer_send">
+                        Hi Connor Paige i am good tnx how about you?
+                        <span class="msg_time_send">8:55 AM, Today</span>
+                    </div>
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/16.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start ">
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/9.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                    <div class="msg_cotainer">
+                        I am good too, thank you for your chat template
+                        <span class="msg_time">9:00 AM, Today</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end ">
+                    <div class="msg_cotainer_send">
+                        You welcome Connor Paige
+                        <span class="msg_time_send">9:05 AM, Today</span>
+                    </div>
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/16.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start ">
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/9.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                    <div class="msg_cotainer">
+                        Yo, Can you update Views?
+                        <span class="msg_time">9:07 AM, Today</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mb-4">
+                    <div class="msg_cotainer_send">
+                        But I must explain to you how all this mistaken  born and I will give
+                        <span class="msg_time_send">9:10 AM, Today</span>
+                    </div>
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/16.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start ">
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/9.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                    <div class="msg_cotainer">
+                        Yo, Can you update Views?
+                        <span class="msg_time">9:07 AM, Today</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mb-4">
+                    <div class="msg_cotainer_send">
+                        But I must explain to you how all this mistaken  born and I will give
+                        <span class="msg_time_send">9:10 AM, Today</span>
+                    </div>
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/16.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start ">
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/9.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                    <div class="msg_cotainer">
+                        Yo, Can you update Views?
+                        <span class="msg_time">9:07 AM, Today</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mb-4">
+                    <div class="msg_cotainer_send">
+                        But I must explain to you how all this mistaken  born and I will give
+                        <span class="msg_time_send">9:10 AM, Today</span>
+                    </div>
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/16.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="img_cont_msg">
+                        <img src="./assets/images/users/9.jpg" class="rounded-circle user_img_msg" alt="img">
+                    </div>
+                    <div class="msg_cotainer">
+                        Okay Bye, text you later..
+                        <span class="msg_time">9:12 AM, Today</span>
+                    </div>
+                </div>
+        </div>
+        <div class="card-footer">
+            <div class="msb-reply-button d-flex">
+                <div class="input-group">
+                    <input type="text" class="form-control  bg-white" placeholder="Typing....">
+                    <div class="input-group-append ">
+                        <button  class="btn btn-primary ">
+                            <span class="feather feather-send"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+  </ng-template>
+

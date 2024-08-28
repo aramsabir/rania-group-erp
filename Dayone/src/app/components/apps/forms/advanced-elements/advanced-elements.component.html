@@ -1,0 +1,662 @@
+<app-page-header [title]="'Advanced forms'"></app-page-header>
+
+<!-- Row -->
+
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <form method="post" class="card">
+            <div class="card-header">
+                <h3 class="card-title">File Upload</h3>
+            </div>
+            <div class=" card-body">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12 mb-2">
+                        <!-- <input type="file" class="dropify" data-height="180" /> -->
+                        <ngx-dropzone (change)="onSelect($event)">
+                            <ngx-dropzone-label>Drop it!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 mb-2">
+                        <!-- <input type="file" class="dropify" data-default-file="./assets/images/photos/media1.jpg" data-height="180"  /> -->
+                        <ngx-dropzone (change)="onSelect($event)" [disabled]="true" [expandable]="true">
+                            <ngx-dropzone-label>Disabled</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of filesDisabled">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 mb-2">
+                        <!-- <input type="file" class="dropify" disabled="disabled"  /> -->
+                        <ngx-dropzone (change)="onPreviewFileSelect($event)">
+                            <ngx-dropzone-label><div><h2>preview file</h2></div></ngx-dropzone-label>
+                            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesPreview" [file]="f" [removable]="true" (removed)="onPreviewFileRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-image-preview>
+                        </ngx-dropzone>
+                    </div>
+                </div>
+                <div class="input-group file-browser mb-5 mt-3">
+
+                    <div class="col-12">
+                        <div class="text-center">
+                            <input class="form-control" type="file"
+                                    (change)="onChange($event)">
+
+                            <button (click)="onUpload()"
+                                class="btn btn-success mt-1 mb-1">
+                                Upload
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <!--Flag variable is used here-->
+                        <div class="container" *ngIf="loading">
+                            <h3>Loading ...</h3>
+                        </div>
+                        <!-- Shareable short link of  uoloaded file -->
+                        <div class="container text-center jumbotron"
+                            *ngIf="shortLink">
+                            <h2> Visit Here</h2>
+                            <a href="{{shortLink}}">{{shortLink}}</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <form  method="post" class="card">
+            <div class="card-header">
+                <h3 class="card-title">ng-Select elements</h3>
+            </div>
+            <div class="card-body ">
+                <div class="form-group ">
+                    <label class="form-label">Beast</label>
+                    <ng-select class="form-control custom-select" placeholder="Choose one">
+                        <ng-option value="1">Chuck Testa</ng-option>
+                        <ng-option value="2">Sage Cattabriga-Alosa</ng-option>
+                        <ng-option value="3">Nikola Tesla</ng-option>
+                        <ng-option value="4">Cattabriga-Alosa</ng-option>
+                        <ng-option value="5">Nikola Alosa</ng-option>
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Basic Select2</label>
+                    <ng-select [items]="accounts" bindLabel="name" bindValue="name" groupBy="country" [(ngModel)]="selectedAccount" name="name">
+                        <ng-template ng-optgroup-tmp let-item="item">
+                            {{item.country || 'Unnamed group'}}
+                        </ng-template>
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Users list</label>
+                    <ng-select [items]="UsersList"
+                            bindLabel="name"
+                            bindValue="name"
+                            [multiple]="true"
+                            [(ngModel)]="selectedUsersList" name="name">
+                        <ng-template ng-optgroup-tmp let-item="item">
+                            <span style="vertical-align: middle;">{{item.name}}</span>
+                            <span class="ml-1 badge badge-secondary">{{item.total}}</span>
+                        </ng-template>
+                    </ng-select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Time Picker</h3>
+                    </div>
+                    <div class=" card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label >Default Time Picker:</label>
+                                    <div class="wd-150 mg-b-30">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <div class="">
+                                                    <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.25 12.15L11 13V7h1.5v5.25l4.5 2.67-.75 1.23z" opacity=".3"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                                                </div>
+                                            </div>
+                                            <div class="form-control">
+                                                <input placeholder="12hr format (default settings)" aria-label="12hr format" [ngxTimepicker]="default" readonly>
+                                                <ngx-material-timepicker #default></ngx-material-timepicker>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Default Time Picker 24hours :</label>
+                                <div class="wd-150 mg-b-30">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                            <div class="">
+                                                <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.25 12.15L11 13V7h1.5v5.25l4.5 2.67-.75 1.23z" opacity=".3"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                                            </div>
+                                        </div>
+                                        <div class="form-control">
+                                            <input placeholder="24hr format" aria-label="24hr format" [ngxTimepicker]="fullTime" [format]="24"  readonly>
+                                            <ngx-material-timepicker #fullTime></ngx-material-timepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label class="mt-4 ">ngx-timepicker-field:</label>
+                        <div class="d-flex">
+                            <div class="input-group wd-150">
+                                <div class="ngx-timepicker-field-example">
+                                    <ngx-timepicker-field [defaultTime]="'11:11 am'"></ngx-timepicker-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Color Picker</h3>
+                    </div>
+                    <div class=" card-body">
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <p class="mg-b-20">Add and remove preset colors:</p>
+                                <div>
+                                    <input [style.background]="color13" [cpAlphaChannel]="'always'" [cpOutputFormat]="'rgba'" [cpPresetColors]="['#fff', '#2889e9']" [cpAddColorButton]="true" [(colorPicker)]="color13"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <p class="mg-t-40 mg-t-40 mg-b-10">With preset colors:</p>
+                                <div>
+                                    <input [style.background]="color11" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']" [(colorPicker)]="color11"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <p class="mg-t-40 mg-t-40 mg-b-10">With OK button:</p>
+                                <div>
+                                    <input [value]="color9" [style.background]="color9" [cpOKButton]="true" [cpSaveClickOutside]="false" [cpOKButtonClass]= "'btn btn-primary btn-xs'"[(colorPicker)]="color9"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <p class="mg-t-40 mg-t-40 mg-b-10">Text change:</p>
+                                <div>
+                                    <span class="change-me" [style.color]="color6" [cpPosition]="'bottom'" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true" [(colorPicker)]="color6">Change me!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Default Date picker</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="mg-b-20 mg-sm-b-40">The datepicker is tied to a standard form input field. Click on the input to open an interactive Calendar in a small overlay. If a date is chosen, feedback is shown as the input's value.</p>
+                        <div class="wd-200 mg-b-30">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 2v3H4V5h16zM4 21V10h16v11H4z"/><path d="M4 5.01h16V8H4z" opacity=".3"/></svg>
+                                    </div>
+                                </div>
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Multiple Months </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="mg-b-20 mg-sm-b-40">The datepicker is tied to a standard form input field. Click on the input to open an interactive Calendar in a small overlay. If a date is chosen, feedback is shown as the input's value.</p>
+                        <div class="wd-200 mg-b-30">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 2v3H4V5h16zM4 21V10h16v11H4z"/><path d="M4 5.01h16V8H4z" opacity=".3"/></svg>
+                                    </div>
+                                </div>
+                                <input type="text" name="selectd" ngxDaterangepickerMd [(ngModel)]="selected" class="form-control" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Multiple Select Styles</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-label">Basic MutipleSelect</label>
+                                <ng-select
+                                    [items]="month$ | async"
+                                    [multiple]="true"
+                                    [closeOnSelect]="false"
+                                    [searchable]="false"
+                                    bindLabel="month"
+                                    placeholder="Select month"
+                                    [(ngModel)]="selectedMonth">
+                                </ng-select>
+                            </div>
+                            <form [formGroup]="heroForm" novalidate>
+                                <div class="form-group">
+                                    <label class="form-label">Disabled MutipleSelect</label>
+                                    <ng-select [items]="month"
+                                            [selectOnTab]="true"
+                                            bindValue="month"
+                                            labelForId="month"
+                                            [multiple]="true"
+                                            placeholder="Select month"
+                                            formControlName="month">
+                                    </ng-select>
+                                    <br>
+                                    <button class="btn btn-secondary btn-sm" (click)="toggleAgeDisable()">Toggle disabled</button>
+                                </div>
+                            </form>
+                            <form [formGroup]="cityForm">
+                                <div class="form-group">
+                                    <label for="state" class="form-label">Show/Hide</label>
+                                    <ng-select *ngIf="isCitiesControlVisible"
+                                               [items]="cities"
+                                               bindLabel="name"
+                                               bindValue="id"
+                                               labelForId="state"
+                                               [multiple]="true"
+                                               placeholder="Select cities"
+                                               clearAllText="Clear"
+                                               formControlName="selectedCitiesIds">
+                                    </ng-select>
+                                    <br>
+                                    <button (click)="toggleCitiesControl()" class="btn btn-sm btn-secondary me-1">Show/Hide</button>
+                                    <button (click)="clearCities()" class="btn btn-sm btn-secondary">Clear</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-label">Group-Option MutipleSelect</label>
+                                <ng-select
+                                    [items]="people"
+                                    [multiple]="true"
+                                    bindLabel="name"
+                                    groupBy="gender"
+                                    [selectableGroup]="true"
+                                    [selectableGroupAsModel]="false"
+                                    [closeOnSelect]="false"
+                                    bindValue="id"
+                                    [(ngModel)]="selectedPeople">
+                                    <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                        <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.gender | uppercase}}
+                                    </ng-template>
+                                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                        <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.name}}
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Group by functional expression</label>
+                                <ng-select [items]="accounts"
+                                        bindLabel="name"
+                                        bindValue="name"
+                                        [groupBy]="groupByFn"
+                                        [groupValue]="groupValueFn"
+                                        [multiple]="true"
+                                        [(ngModel)]="GroupAccount">
+                                    <ng-template ng-optgroup-tmp let-item="item">
+                                        <span style="vertical-align: middle;">{{item.name}}</span>
+                                        <span class="ml-1 badge badge-secondary">{{item.total}}</span>
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Selectable groups</label>
+                                <ng-select [items]="accounts"
+                                        bindLabel="name"
+                                        groupBy="country"
+                                        [multiple]="true"
+                                        [closeOnSelect]="false"
+                                        [selectableGroup]="true"
+                                        [selectableGroupAsModel]="false"
+                                        [compareWith]="compareAccounts"
+                                        [(ngModel)]="selectedAccounts">
+                                    <ng-template ng-optgroup-tmp let-item="item">
+                                        {{item.country || 'Unnamed group'}}
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Selectable groups with hidden selected items</label>
+                                <ng-select [items]="accounts"
+                                        bindLabel="name"
+                                        groupBy="country"
+                                        [multiple]="true"
+                                        [hideSelected]="true"
+                                        [closeOnSelect]="false"
+                                        [selectableGroup]="true"
+                                        [compareWith]="hidecompareAccounts"
+                                        [(ngModel)]="hideselectedAccounts">
+                                    <ng-template ng-optgroup-tmp let-item="item">
+                                        {{item.country || 'Unnamed group'}}
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Select All Styles</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-12 form-label">Single Select:</label>
+                            <div class="col-md-12">
+                                <ng-select name="somename" class="SlectBox">
+                                    <!--placeholder-->
+                                    <ng-option title="Volvo is a car"  value="volvo">Volvo</ng-option>
+                                    <ng-option value="saab">Saab</ng-option>
+                                    <ng-option value="mercedes">Mercedes</ng-option>
+                                    <ng-option value="audi">Audi</ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Group by item key providing key</label>
+                            <ng-select [items]="groupaccounts"
+                            bindLabel="name"
+                            bindValue="name"
+                            groupBy="country"
+                            [(ngModel)]="GroupAccount">
+                                <ng-template ng-optgroup-tmp let-item="item">
+                                    {{item.country || 'Unnamed group'}}
+                                </ng-template>
+                            </ng-select>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-12 form-label">Multiple Select:</label>
+                            <div class="col-md-12">
+                                <ng-select
+                                    [items]="multiselect$ | async"
+                                    [multiple]="true"
+                                    [closeOnSelect]="false"
+                                    [searchable]="false"
+                                    bindLabel="label"
+                                    placeholder="Select people"
+                                    [(ngModel)]="selectedmultiselect">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-12 form-label">Hidden selected:</label>
+                            <div class="col-md-12">
+                            <ng-select
+                                [items]="people$ | async"
+                                [multiple]="true"
+                                [closeOnSelect]="false"
+                                [hideSelected]="true"
+                                bindLabel="name"
+                                placeholder="Select people"
+                                [(ngModel)]="selectedPeopleHidden">
+                            </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-12 form-label">Multiple Select-1:</label>
+                            <div class="col-md-12">
+                                <ng-select
+                                    [items]="people$ | async"
+                                    [multiple]="true"
+                                    [closeOnSelect]="false"
+                                    [searchable]="false"
+                                    bindLabel="name"
+                                    placeholder="Select people"
+                                    [(ngModel)]="selectedPeopleMultiple">
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-12 form-label">Server side add Tag:</label>
+                            <p>[addTag] also accepts promise if you need to verify new option with backend</p>
+                            <div class="col-md-12">
+                                <ng-select [items]="companies"
+                                    [addTag]="addTagPromise"
+                                    [multiple]="true"
+                                    bindLabel="name"
+                                    [loading]="loading"
+                                    [(ngModel)]="selectedCompanies">
+
+                                    <ng-template ng-tag-tmp let-search="searchTerm">
+                                        <b>create new</b>: {{search}}
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Country selctor</h3>
+            </div>
+            <div class="card-body row">
+                <div class="input-group col-md-12">
+                    <div class="input-group telephone-input">
+
+                        <ngx-intl-tel-input [cssClass]="'custom'"
+                            [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                            [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                            [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India"
+                            [phoneValidation]="true" name="phone" class="form-control p-2">
+                        </ngx-intl-tel-input>
+                        <span class="input-group-btn">
+                            <button class="btn ripple btn-primary" type="button">Submit</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Select Box</h3>
+            </div>
+            <div class="card-body">
+                <div class="container-fluid">
+                    <p></p>
+                    <dual-list [sort]="keepSorted" [source]="source" [key]="key" [display]="display" [filter]="filter"
+                        [(destination)]="confirmed" height="265px" [format]="format" [disabled]="disableDL"></dual-list>
+
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs mt-2">
+                        <li [ngbNavItem]="1">
+                          <a ngbNavLink>Arrays</a>
+                          <ng-template ngbNavContent>
+                                <div class="tab-pane">
+                                    <div class="row">
+                                        <div class="col-sm-6" style="margin-top:32px;"><h4>Source</h4><pre><small>{{source|json}}</small></pre></div>
+                                        <div class="col-sm-6" style="margin-top:32px;"><h4>Confirmed</h4><pre><small>{{confirmed|json}}</small></pre></div>
+                                    </div>
+                                </div>
+                          </ng-template>
+                        </li>
+                        <li [ngbNavItem]="2">
+                          <a ngbNavLink>Format</a>
+                          <ng-template ngbNavContent>
+                            <div class="tab-pane">
+                                <form class="form">
+                                    <div class="form-group">
+                                        <label style="display:block;">Direction</label>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn" [ngClass]="{ 'btn-primary' : sourceLeft, 'btn-secondary' : !sourceLeft }"
+                                                (click)="swapDirection()">left-to-right</button>
+                                            <button type="button" class="btn" [ngClass]="{ 'btn-primary' : !sourceLeft, 'btn-secondary' : sourceLeft }"
+                                                (click)="swapDirection()">right-to-left</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Enable drag-and-drop</label>
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" [(ngModel)]="format.draggable" name="drag"><span class="ms-2">draggable</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Locale</label>
+                                        <input class="form-control" [(ngModel)]="format.locale" name="locale">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Add button</label>
+                                        <input class="form-control" [(ngModel)]="format.add" name="addBtn">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Remove button</label>
+                                        <input class="form-control" [(ngModel)]="format.remove" name="rmBtn">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>All button</label>
+                                        <input class="form-control" [(ngModel)]="format.all" name="allBtn">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>None button</label>
+                                        <input class="form-control" [(ngModel)]="format.none" name="noneBtn">
+                                    </div>
+                                </form>
+                            </div>
+                          </ng-template>
+                        </li>
+                        <li [ngbNavItem]="3">
+                          <a ngbNavLink>Programmatic changes</a>
+                          <ng-template ngbNavContent>
+                            <div class="tab-pane">
+                                <div class="row" style="margin-top:20px;">
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                           <div class="card-header">
+                                                <label>Modify parent's source</label>
+                                           </div>
+                                           <div class="card-body">
+                                                <form class="form-inline well">
+                                                    <input class="form-control col-sm-1" style="margin-right:4px;" [(ngModel)]="userAdd" name="userAdd">
+                                                    <button class="btn btn-success ms-2 mt-1" (click)="doCreate()" [disabled]="!userAdd.length">Create</button>
+                                                    <button class="btn btn-danger ms-1 mt-1" (click)="doDelete()">Delete</button>
+                                                </form>
+                                           </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <label>Modify parent's confirmed</label>
+                                            </div>
+                                            <div class="card-body">
+                                                <form class="form-inline well">
+                                                    <button class="btn btn-success me-2" (click)="doAdd()">Add</button>
+                                                    <button class="btn btn-danger me-2" (click)="doRemove()">Remove</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card">
+                                           <div class="card-header">
+                                            <label>Array source</label>
+                                           </div>
+                                            <div class="card-body">
+                                                <form class="form well">
+                                                    <div class="radio" *ngFor="let item of arrayType">
+                                                        <label>
+                                                            <input type="radio" name="sourceType" [value]="item.value" [(ngModel)]="type" (change)="swapSource(item.value)">
+                                                            {{item.name}} &mdash; {{item.detail}}
+                                                        </label>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                       <div class="card">
+                                        <div class="card-header">
+                                                <label>General</label>
+                                        </div>
+                                        <div class="card-body">
+                                                <form class="form-inline well">
+                                                    <button class="btn btn-primary me-2" (click)="doFilter()">{{filterBtn()}}</button>
+                                                    <button class="btn btn-default me-2" (click)="doDisable()">{{disableBtn()}}</button>
+                                                    <button class="btn btn-danger me-2" (click)="doReset()">Reset</button>
+                                                </form>
+                                        </div>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </ng-template>
+                        </li>
+                      </ul>
+                    <div [ngbNavOutlet]="nav"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

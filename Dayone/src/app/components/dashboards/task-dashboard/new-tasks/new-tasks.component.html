@@ -1,0 +1,130 @@
+<app-page-header [title]="'New tasks'"></app-page-header>
+<!-- Row -->
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Task ID</label>
+                            <input class="form-control" placeholder="Number">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Task Title</label>
+                            <input class="form-control" placeholder="Text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Department:</label>
+                            <ng-select name="attendance" class="form-control custom-select"
+                                placeholder="Select Department">
+                                <ng-option value="1">Designing Department</ng-option>
+                                <ng-option value="2">Development Department</ng-option>
+                                <ng-option value="3">Marketing Department</ng-option>
+                                <ng-option value="4">Human Resource Department</ng-option>
+                                <ng-option value="5">Managers Department</ng-option>
+                                <ng-option value="6">Application Department</ng-option>
+                                <ng-option value="7">Support Department</ng-option>
+                                <ng-option value="8">IT Department</ng-option>
+                                <ng-option value="9">Technical Department</ng-option>
+                                <ng-option value="10">Accounts Department</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Assign To:</label>
+                            <ng-select name="attendance" class="form-control custom-select"
+                                placeholder="Select Employee">
+                                <ng-option value="1">Faith Harris</ng-option>
+                                <ng-option value="2">Austin Bell</ng-option>
+                                <ng-option value="3">Maria Bower</ng-option>
+                                <ng-option value="4">Peter Hill</ng-option>
+                                <ng-option value="5">Victoria Lyman</ng-option>
+                                <ng-option value="6">Adam Quinn</ng-option>
+                                <ng-option value="7">Melanie Coleman</ng-option>
+                                <ng-option value="8">Max Wilson</ng-option>
+                                <ng-option value="9">Amelia Russell</ng-option>
+                                <ng-option value="10">Justin Metcalfe</ng-option>
+                                <ng-option value="11">Ryan Young</ng-option>
+                                <ng-option value="12">Jennifer Hardacre</ng-option>
+                                <ng-option value="13">Justin Parr</ng-option>
+                                <ng-option value="14">Julia Hodges</ng-option>
+                                <ng-option value="15">Michael Sutherland</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Task Priority:</label>
+                    <ng-select name="attendance" class="form-control custom-select"
+                        placeholder="Select Priority">
+                        <ng-option value="1">High</ng-option>
+                        <ng-option value="2">Medium</ng-option>
+                        <ng-option value="3">Low</ng-option>
+                    </ng-select>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Form:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="feather feather-calendar"></i>
+                                    </div>
+                                </div><input class="form-control fc-datepicker" placeholder="yyyy-mm-dd" value="12-02-2021" (click)="a.toggle()" name="dp" [(ngModel)]="model" ngbDatepicker #a="ngbDatepicker">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">To:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="feather feather-calendar"></i>
+                                    </div>
+                                </div><input class="form-control fc-datepicker" placeholder="yyyy-mm-dd" value="12-02-2021" (click)="b.toggle()" name="dp" [(ngModel)]="model1" ngbDatepicker #b="ngbDatepicker">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description:</label>
+                    <div class="editor"></div>
+                </div>
+                <div class="form-group">
+                    <label for="form-label" class="form-label">Attachment:</label>
+                    <input class="form-control" type="file">
+                </div>
+                <div class="custom-controls-stacked d-md-flex">
+                    <label class="form-label mt-1 me-5">Work Status :</label>
+                    <label class="custom-control custom-radio success me-4">
+                        <input type="radio" class="custom-control-input" name="example-radios1" value="option1">
+                        <span class="custom-control-label">Completed</span>
+                    </label>
+                    <label class="custom-control custom-radio success me-4">
+                        <input type="radio" class="custom-control-input" name="example-radios1" value="option2">
+                        <span class="custom-control-label">Pending</span>
+                    </label>
+                    <label class="custom-control custom-radio success">
+                        <input type="radio" class="custom-control-input" name="example-radios1" value="option3">
+                        <span class="custom-control-label">On Progress</span>
+                    </label>
+                </div>
+            </div>
+            <div class="card-footer text-end">
+                <a href="javascript:;" class="me-2 btn btn-danger btn-lg">Close</a>
+                <a href="javascript:;" class="btn btn-success btn-lg" onclick="not1()">Submit</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row-->

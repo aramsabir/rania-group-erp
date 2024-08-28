@@ -1,0 +1,388 @@
+<!-- Section -->
+<section>
+    <div class="bannerimg cover-image" data-image-src="./assets/images/photos/banner1.jpg">
+        <div class="header-text mb-0">
+            <div class="container">
+                <div class="row text-white">
+                    <div class="col">
+                        <h1 class="mb-0">Dashboard</h1>
+                    </div>
+                    <div class="col col-auto">
+                        <ol class="breadcrumb text-center">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:;" class="text-white-50">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <a href="javascript:;" class="text-white">Pages</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <a href="javascript:;" class="text-white">Dashboard</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section -->
+
+<!--Section-->
+<section>
+    <div class="cover-image sptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3">
+                    <div class="card">
+                        <div class="card-body text-center item-user">
+                            <div class="profile-pic">
+                                <div class="profile-pic-img">
+                                    <span class="bg-success dots" placement="top" ngbTooltip="online"></span>
+                                    <img src="./assets/images/users/16.jpg" class="brround avatar-xxl" alt="user">
+                                </div>
+                                <a href="javascript:;" class="text-dark">
+                                    <h5 class="mt-3 mb-1 font-weight-semibold2">Abigali kelly</h5>
+                                </a>
+                                <small class="text-muted ">App Developer</small>
+                            </div>
+                        </div>
+                        <div class="support-sidebar">
+                            <ul class="side-menu">
+                                <li>
+                                    <a class="side-menu__item" routerLinkActive="active" routerLink="/support-system/user-pages/dashboard"><i
+                                            class="side-menu__icon las la-home"></i><span
+                                            class="side-menu__label">Dashboard</span></a>
+                                </li>
+                                <li>
+                                    <a class="side-menu__item" routerLinkActive="active" routerLink="/support-system/user-pages/profile"><i
+                                            class="side-menu__icon las la-edit"></i><span class="side-menu__label">Edit
+                                            Profile</span></a>
+                                </li>
+                                <li>
+                                    <a class="side-menu__item" routerLinkActive="active" routerLink="/support-system/user-pages/tickets/ticket-list"><i
+                                            class="side-menu__icon las la-ticket-alt"></i><span
+                                            class="side-menu__label">Ticket Lists</span></a>
+                                </li>
+                                <li>
+                                    <a class="side-menu__item" routerLinkActive="active" routerLink="/support-system/user-pages/tickets/active-tickets"><i
+                                            class="side-menu__icon las la-compass"></i><span
+                                            class="side-menu__label">Active Tickets</span></a>
+                                </li>
+                                <li>
+                                    <a class="side-menu__item" routerLinkActive="active" routerLink="/support-system/user-pages/tickets/closed-tickets"><i
+                                            class="side-menu__icon las la-edit"></i><span
+                                            class="side-menu__label">Closed Tickets</span></a>
+                                </li>
+                                <li>
+                                    <a class="side-menu__item" routerLinkActive="active" routerLink="/support-system/user-pages/tickets/view-ticket"><i
+                                            class="side-menu__icon las la-tags"></i><span class="side-menu__label">View
+                                            Ticket</span></a>
+                                </li>
+                                <li>
+                                    <a class="side-menu__item" routerLinkActive="active" routerLink="/support-system/user-pages/tickets/create-tickets"><i
+                                            class="side-menu__icon las la-briefcase"></i><span
+                                            class="side-menu__label">Create Ticket</span></a>
+                                </li>
+                                <li class="slide">
+                                    <a (click)="level1.classList.toggle('open')"  class="side-menu__item slide-show" href="javascript:;"><i
+                                            class="side-menu__icon lab la-buffer"></i><span
+                                            class="side-menu__label">Level 1</span><i
+                                            class="angle fa fa-angle-right"></i></a>
+                                    <ul #level1 class="slide-menu">
+                                        <li><a class="slide-item" href="javascript:;">Level 1.1</a></li>
+                                        <li><a class="slide-item" href="javascript:;">Level 1.2</a></li>
+                                        <li><a class="slide-item" href="javascript:;">Level 1.3</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-12">
+                            <div class="card">
+                                <a href="javascript:;">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="mt-0 text-start">
+                                                    <span class="fs-16 font-weight-semibold">Total Tickets</span>
+                                                    <h3 class="mb-0 mt-1 text-primary fs-25">1254</h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
+                                                <div class="icon1 bg-primary-transparent my-auto float-end"> <i
+                                                        class="las la-ticket-alt"></i> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12">
+                            <div class="card">
+                                <a href="javascript:;">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="mt-0 text-start">
+                                                    <span class="fs-16 font-weight-semibold">Active Tickets</span>
+                                                    <h3 class="mb-0 mt-1 text-success fs-25">42</h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
+                                                <div class="icon1 bg-success-transparent my-auto float-end"> <i
+                                                        class="ri-ticket-2-line"></i> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12">
+                            <div class="card">
+                                <a href="javascript:;">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="mt-0 text-start">
+                                                    <span class="fs-16 font-weight-semibold">Closed Tickets</span>
+                                                    <h3 class="mb-0 mt-1 text-secondary fs-25">11</h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
+                                                <div class="icon1 bg-secondary-transparent my-auto  float-end"> <i
+                                                        class="ri-coupon-2-line"></i> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+                            <div class="card">
+                                <div class="card-header border-0 responsive-header">
+                                    <h4 class="card-title">Ticket Overview</h4>
+                                    <div class="card-options">
+                                        <div class="btn-list" ngbDropdown>
+                                            <a href="javascript:;"
+                                                class="btn  btn-outline-light text-dark float-start me-4 d-flex my-1"><span
+                                                    class="dot-label bg-light4 me-2 my-auto"></span>Open Ticket</a>
+                                            <a href="javascript:;"
+                                                class="btn  btn-outline-light text-dark float-start me-4 d-flex my-1"><span
+                                                    class="dot-label bg-primary me-2 my-auto"></span>Closed Ticket</a>
+                                            <a href="javascript:;" class="btn btn-outline-light" ngbDropdownToggle
+                                                aria-expanded="false"> Yearly <i
+                                                    class="feather feather-chevron-down"></i> </a>
+                                            <ul ngbDropdownMenu class="dropdown-menu-end" role="menu">
+                                                <li><a href="javascript:;">Monthly</a></li>
+                                                <li><a href="javascript:;">Yearly</a></li>
+                                                <li><a href="javascript:;">Weekly</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-wrapper">
+                                        <canvas id="chartLine" baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins" [type]="barChartType" ></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+                            <div class="card mb-0">
+                                <div class="card-header border-0">
+                                    <h4 class="card-title">Tickets Summary</h4>
+                                </div>
+                                <div class="card-body">
+                                    <ng-select class="form-control custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshDashboardData()">
+                                        <ng-option [value]="2">2 items per page</ng-option>
+                                        <ng-option [value]="4">4 items per page</ng-option>
+                                        <ng-option [value]="6">6 items per page</ng-option>
+                                      </ng-select>
+                                    <div class="table-responsive">
+                                        <table class="table table-vcenter text-nowrap table-bordered border-bottom"
+                                            id="supportticket-dash">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-bottom-0">#ID</th>
+                                                    <th class="border-bottom-0">Title</th>
+                                                    <th class="border-bottom-0">Priority</th>
+                                                    <th class="border-bottom-0">Category</th>
+                                                    <th class="border-bottom-0">Date</th>
+                                                    <th class="border-bottom-0">Status</th>
+                                                    <th class="border-bottom-0">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let dashboard of dashboard">
+                                                    <td>{{dashboard.ID}}</td>
+                                                    <td><a href="javascript:;">{{dashboard.title}}</a></td>
+                                                    <td><span class="badge badge-{{dashboard.priorityStatus}}-light">{{dashboard.priority}}</span></td>
+                                                    <td>{{dashboard.category}}</td>
+                                                    <td>{{dashboard.date}}</td>
+                                                    <td><span class="badge badge-{{dashboard.status}}">{{dashboard.statusText}}</span></td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="javascript:;" class="action-btns1" placement="top" ngbTooltip="Reply Ticket"><i
+                                                                    class="fa fa-reply text-warning fs-16"></i></a>
+                                                            <a href="javascript:;" class="action-btns1" placement="top" ngbTooltip="View Ticket"><i
+                                                                    class="feather feather-eye text-primary"></i></a>
+                                                            <a href="javascript:;" class="action-btns1" placement="top" ngbTooltip="Delete Ticket"><i
+                                                                    class="feather feather-trash-2 text-danger"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                        <div class="d-flex justify-content-end">
+                                            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshDashboardData()">
+                                            </ngb-pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section-->
+
+<!-- Section -->
+<section class="sptb bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-xl-6 col-md-12">
+                <div class="sub-newsletter">
+                    <h3 class="mb-2 fs-20"><i class="fa fa-paper-plane-o me-2"></i> Subscribe To Our Onlinesletter</h3>
+                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                </div>
+            </div>
+            <div class="col-lg-5 col-xl-6 col-md-12">
+                <div class="input-group sub-input mt-1">
+                    <input class="form-control input-lg" placeholder="Enter your Email" type="text">
+                    <div class="input-group-append">
+                        <button class="btn ripple btn-primary btn-lg br-tr-3 br-br-3">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section -->
+
+<!--Section-->
+<section class="spfooter">
+    <footer class="text-white footer-support">
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-12">
+                        <h6>Our Services</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="javascript:;">Our Team</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Contact US</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">About</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Services</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-12">
+                        <h6 class="mt-5 mt-md-0">Support</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="javascript:;">FAQ</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Terms of Service</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Help</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <h6 class="mt-5 mt-md-0">Get In Touch</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="javascript:;"><i class="fa fa-home me-3"></i> New York, NY 10012, US-52014</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"><i class="fa fa-envelope me-3 fs-12"></i> info12323@example.com</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"><i class="fa fa-phone me-3"></i> + 01 234 567 88, + 01 234 567 88</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"><i class="fa fa-print me-3"></i> + 01 234 567 89, + 01 234 567 89</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <h6 class="mt-5 mt-md-0">Subscribe</h6>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Email">
+                            <div class="input-group-append ">
+                                <button class="btn btn-primary">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </div>
+                        <h6 class="mb-2 mt-5">Social Icons</h6>
+                        <ul class="social-icons mb-0 mt-3">
+                            <li>
+                                <a class="social-icon" href="javascript:;"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href="javascript:;"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href="javascript:;"><i class="fa fa-rss"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href="javascript:;"><i class="fa fa-youtube"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href="javascript:;"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href="javascript:;"><i class="fa fa-google-plus"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sub-footer">
+            <div class="container">
+                <div class="row d-flex">
+                    <div class="col-lg-12 col-sm-12 pt-5 pb-5 text-center">
+                        <p class="mb-0">Copyright © 2021 <a href="javascript:;" class="fs-14 text-primary">Dayone</a>. Designed
+                            with <span class="fa fa-heart text-danger"></span> by <a href="javascript:;"
+                                class="fs-14 text-primary"> Spruko Technologies Pvt.Ltd </a>All rights reserved. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>
+<!--Section-->

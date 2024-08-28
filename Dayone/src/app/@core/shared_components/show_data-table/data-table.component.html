@@ -1,0 +1,504 @@
+<!-- row opened -->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+ 
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <form>
+            <div class="table-responsive mb-0 table-regcompany">
+              <table class="table table-striped border">
+                <thead>
+                  <tr>
+                    <th scope="col" *ngFor="let item of columns" (click)="sortBy(item.value)">{{item.header|dic|titlecase}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of rows;let i= index" [routerLink]="['/bas-projects/projects/files']" [queryParams]="{_id: item._id}">
+                    <ng-container *ngFor="let el of columns">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap" *ngIf="el.header === '#'">
+                        <span> {{ ( i+1 )+ parseInteger(params.skip) }}</span>
+                      </th>
+
+                      <td class="px-6 py-4" *ngIf="el.header !== 'Actions' && el.header !== '#'">
+                        <span *ngIf="el.type === 'text'">
+                          <span *ngIf="el.cell(item) !== 'expired | expired soon'">{{ el.cell
+                            !== undefined ? el.cell(item) : '' }}</span>
+                          <span *ngIf="el.cell(item) === 'expired | expired soon'">{{
+                            el.cell(item) |dic}}</span>
+                        </span>
+                        <span *ngIf="el.type === 'email'"> {{ el?.cell(item) }}</span>
+                        <span *ngIf="el.type === 'number'"> {{ el?.cell(item) |number }}</span>
+                        <span *ngIf="el.type === 'date'"> {{ el?.cell(item) | date:"dd-MM-yyyyHH:mm"}}</span>
+                        <span *ngIf="el.type === 'date_formal'"> {{ el?.cell(item) |
+                          date:"dd-MM-yyyy"}}</span>
+                      </td>
+                    </ng-container>
+                 </tr>
+              </tbody>
+              </table>
+            </div>
+ 
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ng-template #largemodaladd let-modal>
+  <div class="modal-header">
+    <h6 class="modal-title" id="modal-basic-title">{{'Add'|dic}}</h6>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" (ngSubmit)="submitForm()">
+      <div *ngFor="let row of customForm?.data?.fields;let i= index">
+        <div class="form-group row" *ngIf="row.type === 'text'">
+          <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text" type="text" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i"
+              class="form-control">
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'email'">
+          <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="email" type="email" [id]="'form_name'+i" [required]="row.required"
+              [name]="'form_name'+i" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'number'">
+          <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="0" type="number" [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i"
+              class="form-control">
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'password'">
+          <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" type="password" [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i"
+              class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="row.type === 'text_area'">
+          <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <textarea class="form-control" rows="6" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="0" type="password" [id]="'formID'+i"
+              [required]="row.required" [name]="'form_name'+i" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'selectLocal'">
+          <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <ng-select class="form-control custom-select " [id]="'formID'+i" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="select">
+              <ng-option *ngFor="let data of row.list" [value]="data.value">{{data.caption|titlecase|dic}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'selectUrl'">
+          <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <ng-select class="form-control custom-select " [id]="'formID'+i" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i">
+              <ng-option *ngFor="let data of row.list" [value]="data._id">{{data.name}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn ripple btn-primary" (click)="handleOk('add')" type="button">{{'Save'|dic}}</button>
+    <button type="button" id="closeInsert" class="btn ripple btn-danger" (click)="handleCancel('add')" (click)="modal.close('Close click')">{{'Close'|dic}}</button>
+  </div>
+</ng-template>
+
+
+<ng-template #largemodal let-modal>
+  <div class="modal-header">
+    <h6 class="modal-title" id="modal-basic-title">{{'Edit'|dic}}</h6>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" (ngSubmit)="submitForm()">
+      <div *ngFor="let row of customForm?.data?.fields;let i= index">
+        <div class="form-group row" *ngIf="row.type === 'text'">
+          <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text" type="text" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i"
+              class="form-control">
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'email'">
+          <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="email" type="email" [id]="'form_name'+i" [required]="row.required"
+              [name]="'form_name'+i" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'number'">
+          <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="0" type="number" [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i"
+              class="form-control">
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'password'">
+          <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" type="password" [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i"
+              class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="row.type === 'text_area'">
+          <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <textarea class="form-control" rows="6" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="0" type="password" [id]="'formID'+i"
+              [required]="row.required" [name]="'form_name'+i" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'selectLocal'">
+          <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <ng-select class="form-control custom-select " [id]="'formID'+i" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="select">
+              <ng-option *ngFor="let data of row.list" [value]="data.value">{{data.caption|titlecase|dic}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'selectUrl'">
+          <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|titlecase|dic}}</label>
+          <div class="col-md-9">
+            <ng-select class="form-control custom-select " [id]="'formID'+i" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i">
+              <ng-option *ngFor="let data of row.list" [value]="data._id">{{data.name}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn ripple btn-primary" (click)="handleOk('edit')" type="button">{{'Save'|dic}}</button>
+    <button type="button" id="closeUpdate" class="btn ripple btn-danger" (click)="handleCancel('edit')" (click)="modal.close('Close click')">{{'Close'|dic}}</button>
+  </div>
+</ng-template>
+
+
+<ng-template #warningmodal let-modal>
+  <!-- Warning MODAL -->
+  <div class="modal-body text-center p-4">
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <!-- <i class="fe fe-x-circle fs-70 text-danger lh-1 mb-4 d-inline-block"></i> -->
+    <i class="fe fe-trash fs-70 text-danger lh-1 mb-4 d-inline-block"></i>
+    <h4 class="tx-danger mg-b-20">{{'Do you want to delete these data?'|dic}}</h4>
+    <p class="mg-b-20 mg-x-20"> {{'When you approve it, this Data will be deleted'|dic}} </p>
+    <button type="button" class="btn btn-danger pd-x-25 me-0" (click)="deleteItem()" (click)="modal.close('Close click')">{{'Yes'|dic}}</button>
+  </div>
+</ng-template>
+
+<!-- <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm   text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700
+      dark:text-gray-400">
+      <tr *ngIf="settingValue.header">
+
+        <th scope="col"  *ngFor="let item of columns" class="px-6 py-3" (click)="sortBy(item.value)"
+         >{{item.header|titlecase|dic}}
+         <mdb-icon *ngIf="item.value !== 'none' && sortField !== item.value" fas
+            icon="sort"></mdb-icon>
+          <mdb-icon fas *ngIf="item.value !== 'none' && sortField == item.value &&
+            sortType === true"
+            icon="sort-amount-up"></mdb-icon>
+          <mdb-icon fas *ngIf="item.value !== 'none' && sortField == item.value &&
+            sortType === false"
+            icon="sort-amount-down"></mdb-icon>  
+  
+  
+        </th>
+      </tr>
+     
+    </thead>
+    <tbody>
+    
+      <tr *ngFor="let item of rows;let i= index"  class="  border-b dark:bg-gray-800 dark:border-gray-700
+      hover:bg-gray-50 dark:hover:bg-gray-600">
+        <ng-container *ngFor="let el of columns">
+  
+          <th  scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap" *ngIf="el.header === '#'" >
+            <span> {{ ( i+1 )+ parseInteger(params.skip) }}</span>
+          </th>
+  
+          <td class="px-6 py-4" *ngIf="el.header !== 'Actions' && el.header !== '#'"
+            >
+            <span *ngIf="el.type === 'text'">
+              <span *ngIf="el.cell(item) !== 'expired | expired soon'">{{ el.cell
+                !== undefined ? el.cell(item) : '' }}</span>
+              <span *ngIf="el.cell(item) === 'expired | expired soon'">{{
+                el.cell(item) |dic}}</span>
+            </span>
+            <span *ngIf="el.type === 'number'"> {{ el?.cell(item) |number }}</span>
+            <span *ngIf="el.type === 'date'"> {{ el?.cell(item) | date:"dd-MM-yyyy
+              HH:mm"}}</span>
+            <span *ngIf="el.type === 'date_formal'"> {{ el?.cell(item) |
+              date:"dd-MM-yyyy"}}</span>
+          </td>
+          <td class="px-6 py-4" *ngIf="el.header === 'Actions' && el.header !== '#'"
+           >
+            <ng-container *ngFor="let action of el.actions;let k= index">
+  
+              <button  
+                *ngIf="action.value === 'view'"
+                class="green_color" nzType="primary"
+                (click)="detail(item,action.url)">
+              </button>
+              <button  
+                *ngIf="action.value === 'update'"
+                nzType="primary"
+                (click)="detail(item,action.url)">
+                <i ></i>
+              </button>
+              <button  
+                *ngIf="action.value === 'detail'"
+                nzType="primary"
+                (click)="detail(item,action.url)">
+               
+              </button>
+              <button  
+                *ngIf="action.value === 'edit'"
+                (click)="edit(item)"
+                (click)="showModal('edit')">
+              </button>
+              <button  
+                *ngIf="action.value === 'delete'"
+                
+                (click)="showConfirm( item)">
+              </button>
+           
+            </ng-container>
+          </td>
+  
+        </ng-container>
+  
+      </tr>
+    </tbody>
+    <tfoot>
+
+      <tr >
+        <th colspan="5"  scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+          <nz-pagination [nzPageIndex]="1" nzShowQuickJumper [nzTotal]="length"
+            nzShowSizeChanger
+            [nzPageSizeOptions]="pageSizeOptions" [nzResponsive]="true"
+            (nzPageIndexChange)="onPageIndexChange($event)"
+            (nzPageSizeChange)="onPageSizeChange($event)" [nzPageSize]="20">
+          </nz-pagination>  
+       
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</div> -->
+
+
+
+<!-- 
+<nz-modal [(nzVisible)]="editModal" [nzTitle]="modalTitle"
+  [nzContent]="modalContent" [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel('edit')">
+  <ng-template #modalTitle>{{'Edit'|dic}} {{titlePage|titlecase|dic}}</ng-template>
+  <ng-template #modalContent>
+
+    <form nz-form (ngSubmit)="submitForm()" [ngStyle]="{'text-align':lang ===
+      'en'? 'left':'right' }">
+      <div *ngFor="let row of customForm?.data?.fields;let i= index">
+        <nz-form-item *ngIf="row.type === 'text'">
+
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback
+            nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+            <input nz-input [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="row.value" [name]="'field'+i"
+              placeholder="async validate try to write JasonWood" />
+            <ng-template #userErrorTpl let-control>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'number'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback
+            nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+            <input nz-input [type]="row.type" [ngModelOptions]="{standalone:
+              true}" [(ngModel)]="row.value"
+              [name]="'field'+i" [placeholder]="0" />
+            <ng-template #userErrorTpl let-control>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'email'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback
+            [nzErrorTip]="emailErrorTpl">
+            <input nz-input [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="row.value" [name]="'field'+i"
+              placeholder="email" type="email" />
+            <ng-template #emailErrorTpl let-control>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'password'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input
+            your password!">
+            <input nz-input type="password" [ngModelOptions]="{standalone:
+              true}" [(ngModel)]="row.value"
+              [name]="'field'+i" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'text_area'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="Please write something
+            here!">
+            <textarea [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="row.value" [name]="'field'+i" nz-input rows="2"
+              placeholder="write any thing"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'selectLocal'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a data"
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="row.value">
+            <nz-option *ngFor="let data of row.list"
+              [nzLabel]="data.caption|titlecase|dic" [nzValue]="data.value">
+            </nz-option>
+          </nz-select>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'selectUrl'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a data"
+            [ngModelOptions]="{standalone: true}"
+            [name]="'field'+i" [(ngModel)]="row.value">
+            <nz-option *ngFor="let data of row.list" [nzLabel]="data.name"
+              [nzValue]="data._id"></nz-option>
+          </nz-select>
+        </nz-form-item>
+
+      </div>
+    </form>
+
+  </ng-template>
+
+  <ng-template #modalFooter>
+    <button  nzType="default" (click)="handleCancel('edit')">{{'Close'|dic}}</button>
+    <button  (click)="handleOk('edit')"
+      [nzLoading]="isConfirmLoadingEdit">{{"Save"|dic}}</button>
+  </ng-template>
+</nz-modal>
+
+
+<nz-modal [(nzVisible)]="addModal" [nzTitle]="modalTitleInsert"
+  [nzContent]="modalContentInsert"
+  [nzFooter]="modalFooterInsert" (nzOnCancel)="handleCancel('add')">
+  <ng-template #modalTitleInsert>{{'Add '|dic}} {{titlePage|titlecase|dic}}</ng-template>
+  <ng-template #modalContentInsert>
+
+    <form nz-form [ngStyle]="{'text-align':lang === 'en'? 'left':'right' }">
+      <div *ngFor="let row of customForm?.data?.fields;let i= index">
+        <nz-form-item *ngIf="row.type === 'text'">
+
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback
+            nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+            <input nz-input [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="row.value" [name]="'field'+i"
+              [placeholder]="row.title" />
+            <ng-template #userErrorTpl let-control>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'number'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback
+            nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+            <input nz-input [type]="row.type" [ngModelOptions]="{standalone:
+              true}" [(ngModel)]="row.value"
+              [name]="'field'+i" [placeholder]="0" />
+            <ng-template #userErrorTpl let-control>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'email'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback
+            [nzErrorTip]="emailErrorTpl">
+            <input nz-input [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="row.value" [name]="'field'+i"
+              placeholder="email" type="email" />
+            <ng-template #emailErrorTpl let-control>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'password'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input
+            your password!">
+            <input nz-input type="password" [ngModelOptions]="{standalone:
+              true}" [(ngModel)]="row.value"
+              [name]="'field'+i" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'text_area'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="Please write something
+            here!">
+            <textarea [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="row.value" [name]="'field'+i" nz-input rows="2"
+              placeholder="write any thing"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'selectLocal'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a data"
+            [ngModelOptions]="{standalone: true}"
+            [name]="'field'+i" [(ngModel)]="row.value">
+            <nz-option *ngFor="let data of row.list"
+              [nzLabel]="data.caption|titlecase|dic" [nzValue]="data.value">
+            </nz-option>
+          </nz-select>
+        </nz-form-item>
+        <nz-form-item *ngIf="row.type === 'selectUrl'">
+          <nz-form-label [nzSpan]="7" [nzRequired]="row.required">{{row.title|titlecase|dic}}</nz-form-label>
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a data"
+            [ngModelOptions]="{standalone: true}"
+            [name]="'field'+i" [(ngModel)]="row.value">
+            <nz-option *ngFor="let data of row.list" [nzLabel]="data.name"
+              [nzValue]="data._id"></nz-option>
+          </nz-select>
+        </nz-form-item>
+      </div>
+    </form>
+
+  </ng-template>
+
+  <ng-template #modalFooterInsert>
+    <button  nzType="default" (click)="handleCancel('add')">{{"Close"|dic}}</button>
+    <button  (click)="handleOk('add')"
+      [nzLoading]="isConfirmLoadingEdit">{{'Save'|dic}}</button>
+  </ng-template>
+</nz-modal> -->

@@ -1,0 +1,177 @@
+<app-bas-page-header [title]="'Work percentage'" [routes]="bercumberRoutes" [actions]="actions"></app-bas-page-header>
+
+
+<div>
+
+  <div>
+
+    <div class="  narrower mt-2">
+
+      <div class="card">
+        <div class="card-body">
+
+          <h4>{{'Filters'|dic}}</h4>
+          <form>
+
+            <div class="form-row ">
+              <div class="col-md-3">
+                <div class="md-form md-outline ml-0 mr-0">
+                  <label class="form-label">{{'Year'|dic}} </label>
+                  <ng-select [disabled]="DataIsLoading" class="form-control custom-select " placeholder="{{'Year'|dic}}" [outline]="true" [multiple]="false" name="years" [(ngModel)]="p.year" (change)="search()">
+                    <!-- <ng-option [value]="'2018'">{{ '2018'}}</ng-option>
+                    <ng-option [value]="'2019'">{{ '2019'}}</ng-option>
+                    <ng-option [value]="'2020'">{{ '2020'}}</ng-option>
+                    <ng-option [value]="'2021'">{{ '2021'}}</ng-option>
+                    <ng-option [value]="'2022'">{{ '2022'}}</ng-option> -->
+                    <ng-option [value]="'2022'">{{ '2022'}}</ng-option>
+                    <ng-option [value]="'2023'">{{ '2023'}}</ng-option>
+                    <ng-option [value]="'2024'">{{ '2024'}}</ng-option>
+                    <ng-option [value]="'2025'">{{ '2025'}}</ng-option>
+                    <ng-option [value]="'2026'">{{ '2026'}}</ng-option>
+                    <ng-option [value]="'2027'">{{ '2027'}}</ng-option>
+                    <ng-option [value]="'2028'">{{ '2028'}}</ng-option>
+                    <ng-option [value]="'2029'">{{ '2029'}}</ng-option>
+                    <ng-option [value]="'2030'">{{ '2030'}}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+       
+             
+            </div>
+          </form>
+
+          <br />
+
+          <app-bas-page_loader *ngIf="DataIsLoading"></app-bas-page_loader>
+          <div class="row"  *ngIf="!DataIsLoading">
+            <div class="col-12 col-xl-12 order-xl-first">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">
+                    {{'Total work for companies'|dic}}
+                  </div>
+                </div>
+                <div class="card-body">
+                  <highcharts-chart [Highcharts]="Highcharts" [options]="chartWorking" style="width: 100%; height: 700px; display: block;"></highcharts-chart>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-12 order-xl-last">
+              <table class="table table-hover table-striped table-responsive-md z-depth-1" *ngIf="!DataIsLoading">
+                <thead style="z-index: 1;">
+                  <tr class="text-center ">
+                   
+                    <th style="cursor: pointer" scope="col">   {{ '#' }}  </th>
+                    <th scope="col">{{'Company name'|dic}}  </th>
+                    <th scope="col">{{'Visit warehouse'|dic}} </th>
+                    <th scope="col">{{'Check invoices'|dic}}</th>
+                    <th scope="col">{{"Buy and Sold machines, vehicles and generators"|dic}}</th>
+                    <th scope="col">{{'Booking ticket, hotels and visa'|dic}}</th>
+                    <th scope="col">{{'Offers'|dic}}</th>
+                    <th scope="col">{{'Bought items'|dic}}</th>
+                    <th scope="col">{{'Logistic'|dic}}</th>
+                    <th scope="col">{{'Visit purchase employees'|dic}}</th>
+                    <th scope="col">{{'Checking purchase letter'|dic}}</th>
+                    <th scope="col">{{'Diesel distribution'|dic}}</th>
+                    <th scope="col">{{'Work percentage'|dic}}</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr mdbPopover="{{el.parts}}" placement="top" triggers="hover" class="text-center "
+                    *ngFor="let el of data; let i = index" >
+                    <td  >
+                      {{(i+1)}}
+                    </td>
+                    <td >
+                      {{el.main_wh}}  
+                    </td>
+                
+                    <td>
+                      {{el.visit_wh|number : '1.1-1'}}
+                    </td>
+                    <td>
+                      {{el.check_invoice|number : '1.1-1'}}
+                    </td>
+                    <td>
+                      {{el.machine_forms|number : '1.1-1'}}
+                    </td>
+                    <td>
+                      {{el.ticket_and_hotels|number : '1.1-1'}}
+                    </td>
+                    <td>
+                      {{el.offers|number : '1.1-1'}}
+                    </td>
+                    <td>
+                      {{el.bought_items|number : '1.1-1'}}
+                    </td>
+                    <td>
+                      {{el.logistic|number : '1.1-1'}}
+                    </td>
+                    <td>
+                      {{el.visit_purchaseemployees|number : '1.1-1'}}
+                    </td>
+                    <td>
+                      {{el.purchase_letter|number : '1.1-1'}}
+                    </td>
+                    <td>
+                      {{el.diesel_destribution|number : '1.1-1'}}
+                    </td>
+                    <td  >
+                      {{el.percentage|number : '1.1-2'}}
+                    </td>
+                    
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr   class="text-center " >
+                  <td   colspan="2">
+                    {{'Total'|dic}}
+                  </td>
+               
+                  <td >
+                    {{total.visit_wh|number : '1.1-1'}}
+                  </td>
+                  <td >
+                    {{total.check_invoice|number : '1.1-1'}}
+                  </td>
+                  <td >
+                    {{total.machine_forms|number : '1.1-1'}}
+                  </td>
+                  <td >
+                    {{total.ticket_and_hotels|number : '1.1-1'}}
+                  </td>
+                  <td >
+                    {{total.offers|number : '1.1-1'}}
+                  </td>
+                  <td >
+                    {{total.bought_items|number : '1.1-1'}}
+                  </td>
+                  <td >
+                    {{total.logistic|number : '1.1-1'}}
+                  </td>
+                  <td >
+                    {{total.visit_purchaseemployees|number : '1.1-1'}}
+                  </td>
+                  <td >
+                    {{total.purchase_letter|number : '1.1-1'}}
+                  </td>
+                  <td >
+                    {{total.diesel_destribution|number : '1.1-1'}}
+                  </td>
+                  <td   style="color: rgb(10, 85, 35);font-weight: 600;">
+                    {{total.percentage|number : '1.1-2'}}
+                  </td>
+                  
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

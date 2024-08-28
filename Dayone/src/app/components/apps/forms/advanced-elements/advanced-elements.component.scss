@@ -1,0 +1,334 @@
+
+.action-button{
+    border: 1px solid #ccc;
+    margin: 0.6rem auto ;
+    padding: 0.2rem;
+    border-radius: 0.25rem;
+    text-align: center;
+}
+::ng-deep{
+    .timepicker-overlay{
+        z-index: 999999 !important;
+    }
+    dropzone>.dropzone.dz-wrapper .dz-message{
+        min-height: 240px !important;
+    }
+    .dropzone .dz-preview{
+        max-height: 100%;
+    }
+    dropzone > .dropzone.dz-wrapper{
+        max-height: 240px !important;
+    }    
+    .ng-select .ng-select-container,
+    input {
+        border:1px solid #ecebf1;
+        outline: none;
+    }
+    .md-drppicker{
+        top: 50px !important;
+        left: 0 !important;
+    }
+    .record-picker li.selected {
+        background-color: #866fe1d9 !important;
+    }
+    div.record-picker::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 3px #664dc9 !important;
+    }
+    
+    div.record-picker::-webkit-scrollbar-thumb {
+        background: #534991 !important;
+    }      
+    .dark-mode{
+        
+        .md-drppicker{
+            background-color: var(--transparent-body) !important;
+            box-shadow: 0 2px 4px 0 rgb(255 255 255 / 16%), 0 2px 8px 0 #25274a !important;
+        }
+        .md-drppicker .calendar-table {
+            border: 1px solid #25274a;
+            padding: 4px;
+            border-radius: 4px;
+            background-color: #25274a;
+        }
+        .md-drppicker td.available.prev, .md-drppicker th.available.prev,
+        .md-drppicker td.available.next, .md-drppicker th.available.next
+        {
+            filter: contrast(0);
+        }
+        .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup{
+            color: #ccc !important;
+        }
+        ngx-dropzone{
+            background: #25274a !important;
+        }
+        
+        .action-button{
+            border: 1px solid #32394e;
+        }
+        dropzone>.dropzone.dz-wrapper .dz-message {
+            background-color: #25274a;
+        }
+        .dropzone {
+            background: #25274a;
+    border: 2px solid #343657;
+        }
+        .timepicker__body{
+            background-color: #1a1b34 !important;
+        }
+        .clock-face{
+            background-color: #0f0f26 !important;
+        }
+        .timepicker__actions{
+            background-color: #1a1b34 !important;
+        }
+        .period-selector{
+            background-color: #262b5a !important;
+        }
+        .period__btn--default{
+            color: #fff;
+        }
+        .ng-select .ng-select-container,
+        input {
+            color: #fff !important;
+            background: #25274a;
+            border: none;
+            outline: none;
+        }
+        .color-picker {
+            background-color: #2a2e3f;
+            border: 1px solid #32394e;
+        }
+        .color-picker .cmyk-text .box input, .color-picker .hsla-text .box input, .color-picker .rgba-text .box input, .color-picker .value-text .box input {
+            border: 1px solid #32394e;
+        }
+        .cp-add-color-button-class{
+            color: #fff;
+        }
+        .color-picker .type-policy{
+            filter: contrast(0);
+        }
+        .color-picker .hex-text .box input {
+            border: 1px solid #32394e;
+        }
+
+        .iti__country-list{
+            box-shadow: 1px 1px 4px rgb(255 255 255 / 20%);
+            background-color: #25274a !important;
+        }
+        .search-container input{
+            border-bottom: 1px solid #32394e !important;
+        }
+        .country-dropdown{
+            border: 1px solid #32394e !important;
+        }
+        .dropdown-menu{
+            background-color: #2a2e3f !important;
+        }
+        .iti__country-name{
+            color: #ccc;
+        }
+        .iti__divider {
+            border-bottom: 1px solid #32394e;
+        }
+
+        div.record-picker,
+        .record-picker li {
+            border: 1px solid #32394e !important;
+        }
+        .record-picker li:hover {
+            background-color: #131433 !important;
+        }
+        .btn-default,
+        .btn-primary{
+            color: #fff;
+        }
+        .record-picker li.selected {
+            background-color: #3366fe !important;
+        }
+        div.record-picker::-webkit-scrollbar-track {
+            background: #32394e !important;
+            border-bottom-right-radius: 8px;
+            border-top-right-radius: 8px;
+            box-shadow: inset 0 0 3px #3366fe !important;
+        }
+        
+        div.record-picker::-webkit-scrollbar-thumb {
+            background: #3366fe !important;
+            border: thin solid #32394e !important;
+            border-bottom-right-radius: 8px;
+            border-top-right-radius: 8px;
+        }       
+        ngx-material-timepicker-toggle svg{
+            filter: contrast(0);
+        }
+        pre {
+            color: #eee !important;
+            border-left: 3px solid var(--primary-bg-color);
+            background-color: var(--dark-bg) !important;
+        }
+    }
+    .rtl{
+        .clock-face__container{
+            margin-left: 100px !important;
+        }
+        .custom-select {
+            padding: 0 0.5rem;
+        }
+        .country-dropdown{
+            right: 0 !important;
+        }
+        .iti__country-list{
+            text-align: right;
+        }
+        .iti--allow-dropdown .iti__flag-container, .iti--separate-dial-code .iti__flag-container {
+            left: auto;
+            right: 0;
+        }
+        .iti--allow-dropdown input, .iti--allow-dropdown input[type=text], .iti--allow-dropdown input[type=tel], .iti--separate-dial-code input, .iti--separate-dial-code input[type=text], .iti--separate-dial-code input[type=tel] {
+            padding-left: 6px;
+            padding-right: 56px;
+            margin-right: 0;
+            text-align: right;
+        }
+        .filter:after{
+            filter: contrast(1) brightness(100);
+        }
+    }
+
+    .transparent-mode{
+        
+        .md-drppicker{
+            background-color: var(--transparent-body) !important;
+            box-shadow: 0 2px 4px 0 rgb(255 255 255 / 16%), 0 2px 8px 0 #25274a !important;
+        }
+        .md-drppicker .calendar-table {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px;
+            border-radius: 4px;
+            background-color: var(--transparent-body);
+        }
+        .md-drppicker td.available.prev, .md-drppicker th.available.prev,
+        .md-drppicker td.available.next, .md-drppicker th.available.next
+        {
+            filter: contrast(0);
+        }
+        .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup{
+            color: #ccc !important;
+        }
+        ngx-dropzone{
+            background: var(--transparent-body) !important;
+        }
+        
+        .action-button{
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        dropzone>.dropzone.dz-wrapper .dz-message {
+            background-color: var(--transparent-body);
+        }
+        .dropzone {
+            background: var(--transparent-body);
+    border: 2px solid #343657;
+        }
+        .timepicker__body{
+            background-color: var(--transparent-body) !important;
+        }
+        .clock-face{
+            background-color: var(--transparent-body) !important;
+        }
+        .timepicker__actions{
+            background-color: var(--transparent-body) !important;
+        }
+        .period-selector{
+            background-color: var(--transparent-body) !important;
+        }
+        .period__btn--default{
+            color: #fff;
+        }
+        .ng-select .ng-select-container,
+        input {
+            color: #fff !important;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+        .color-picker {
+            background-color: var(--transparent-body);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .color-picker .cmyk-text .box input, .color-picker .hsla-text .box input, .color-picker .rgba-text .box input, .color-picker .value-text .box input {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .cp-add-color-button-class{
+            color: #fff;
+        }
+        .color-picker .type-policy{
+            filter: contrast(0);
+        }
+        .color-picker .hex-text .box input {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .iti__country-list{
+            box-shadow: 1px 1px 4px rgb(255 255 255 / 20%);
+            background-color: var(--transparent-body) !important;
+        }
+        .search-container input{
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        .country-dropdown{
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        .dropdown-menu{
+            background-color: var(--transparent-body) !important;
+        }
+        .iti__country-name{
+            color: #ccc;
+        }
+        .iti__divider {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        div.record-picker,
+        .record-picker li {
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        .record-picker li:hover {
+            background-color: var(--transparent-body) !important;
+        }
+        .btn-default,
+        .btn-primary{
+            color: #fff;
+        }
+        .record-picker li.selected {
+            background-color: var(--transparentprimary-transparentcolor) !important;
+        }
+        div.record-picker::-webkit-scrollbar-track {
+            background: var(--transparent-body) !important;
+            border-bottom-right-radius: 8px;
+            border-top-right-radius: 8px;
+            box-shadow: inset 0 0 3px var(--transparentprimary-transparentcolor) !important;
+        }
+        
+        div.record-picker::-webkit-scrollbar-thumb {
+            background: var(--transparentprimary-transparentcolor) !important;
+            border: thin solid #32394e !important;
+            border-bottom-right-radius: 8px;
+            border-top-right-radius: 8px;
+        }       
+        ngx-material-timepicker-toggle svg{
+            filter: contrast(0);
+        } 
+        pre {
+            color: #eee !important;
+            border-left: 3px solid var(--primary-bg-color);
+            background-color: var(--transparent-body) !important;
+        }
+    }
+    body:is(.light-mode){
+        app-advanced-elements{
+            .nav-tabs .nav-link:hover:not(.disabled){
+                background-color: var(--primary-bg-color);
+            }
+        }
+    }
+}

@@ -1,0 +1,293 @@
+<!--app header-->
+<div class="app-header header">
+  <div class="container-fluid main-container">
+    <div class="d-flex">
+      <a class="header-brand" href="/home">
+        <img style="height: 35px" src="./assets/images/hglogo.png" class="header-brand-img desktop-lgo" alt="hglogo">
+        <img style="height: 35px" src="./assets/images/hglogo.png" class="header-brand-img dark-logo" alt="hglogo">
+        <img style="height: 35px" src="./assets/images/hglogo.png" class="header-brand-img mobile-logo" alt="hglogo">
+        <img style="height: 35px" src="./assets/images/hglogo.png" class="header-brand-img darkmobile-logo" alt="hglogo">
+      </a>
+      <div class="app-sidebar__toggle" appSidemenuToggle>
+        <a class="open-toggle" href="javascript:;">
+          <i class="feather feather-menu"></i>
+        </a>
+        <a class="close-toggle" href="javascript:;">
+          <i class="feather feather-x"></i>
+        </a>
+        <a class="header-brand" routerLink="/bas-home" href="javascript:;">
+          <img src="./assets/images/hglogo.png" class="header-brand-img  desktop-lgo" style="width: 70%" alt="HG logo">
+          <img src="./assets/images/hglogo.png" class="header-brand-img  dark-logo" style="width: 70%" alt="HG logo">
+          <img src="./assets/images/logo.png" class="header-brand-img mobile-logo" style="width: 40px;height: 40px" alt="HG">
+          <img src="./assets/images/logo.png" class="header-brand-img darkmobile-logo" style="width: 40px;height: 40px" alt="HG">
+          <!-- <img src="./assets/images/brand/logo.png" class="header-brand-img desktop-lgo" alt="Dayonelogo"> -->
+          <!-- <img src="./assets/images/brand/logo-white.png" class="header-brand-img dark-logo" alt="Dayonelogo">
+          <img src="./assets/images/brand/favicon.png" class="header-brand-img mobile-logo" alt="Dayonelogo">
+          <img src="./assets/images/brand/favicon1.png" class="header-brand-img darkmobile-logo" alt="Dayonelogo"> -->
+        </a>
+      </div>
+      <!-- <div class="mt-0">
+        <form class="form-inline">
+          <div class="search-element">
+            <input type="search" class="form-control header-search" placeholder="Search…" aria-label="Search"
+              tabindex="1">
+            <button class="btn btn-primary-color">
+              <i class="feather feather-search"></i>
+            </button>
+          </div>
+        </form>
+      </div> -->
+      <!-- SEARCH -->
+      <div class="d-flex order-lg-2 my-auto ms-auto">
+        <button class="navbar-toggler nav-link icon navresponsive-toggler vertical-icon ms-auto" type="button"
+        (click)="collapse.toggle()"
+        [attr.aria-expanded]="!isCollapsed">
+          <i class="fe fe-more-vertical header-icons navbar-toggler-icon"></i>
+        </button>
+        <div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent-4" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+            <div class="d-flex ms-auto">
+              <!-- <a class="nav-link my-auto icon p-0 nav-link-lg d-md-none navsearch" href="javascript:;" appToggleSearch>
+                <i class="feather feather-search search-icon header-icon"></i>
+              </a> -->
+
+
+              <!-- <div ngbDropdown class="header-flags "  style="display:flex !important">
+                <a href="javascript:;" class="nav-link " ngbDropdownToggle>
+                  <h6> {{default_company}}</h6>
+                </a>
+                <div ngbDropdownMenu class="dropdown-menu-end dropdown-menu-arrow animated">
+                  <a (click)="changeCompany(company)" *ngFor="let company of companies"  href="javascript:;"  ngbDropdownItem class="d-flex"> 
+                    <div class="d-flex"> 
+                      <span class="my-auto">{{company.name}}</span> 
+                    </div>
+                  </a>
+                
+                </div>
+              </div> -->
+              
+              <div class="dropdown d-flex">
+                <a href="javascript:;" appToggleTheme class="nav-link icon theme-layout nav-link-bg layout-setting">
+                   <span class="dark-layout" (click)="setTheme('dark')"><i class="fe fe-moon"></i></span>
+                  <span class="light-layout" (click)="setTheme('light')"><i class="fe fe-sun"></i></span>
+                </a>
+              </div>
+              <div ngbDropdown class="header-flags">
+                <a href="javascript:;" class="nav-link icon" ngbDropdownToggle>
+                  <img *ngIf="lang === 'en'"  href="javascript:;" class="onoffswitch2" src="./assets/images/flags/us.svg" class="h-24" alt="img">
+                  <img *ngIf="lang === 'ku'"  href="javascript:;" class="onoffswitch2" src="./assets/images/flags/hu.svg" class="h-24" alt="img">
+                </a>
+                <div ngbDropdownMenu class="dropdown-menu-end dropdown-menu-arrow animated">
+                  <!-- <a href="javascript:;" ngbDropdownItem class="d-flex "> <span
+                      class="avatar  me-3 align-self-center bg-transparent"><img
+                        src="./assets/images/flags/flag-png/india.png" alt="img" class="h-24"></span>
+                    <div class="d-flex"> <span class="my-auto">India</span> </div>
+                  </a> -->
+                  <!-- <a href="javascript:;" ngbDropdownItem class="d-flex"> <span
+                      class="avatar  me-3 align-self-center bg-transparent"><img
+                        src="./assets/images/flags/flag-png/united-kingdom.png" alt="img" class="h-24"></span>
+                    <div class="d-flex"> <span class="my-auto">UK</span> </div>
+                  </a> -->
+                  <!-- <a href="javascript:;" ngbDropdownItem class="d-flex"> <span
+                      class="avatar me-3 align-self-center bg-transparent"><img
+                        src="./assets/images/flags/flag-png/italy.png" alt="img" class="h-24"></span>
+                    <div class="d-flex"> <span class="my-auto">Italy</span> </div>
+                  </a> -->
+                  <a (click)="changeDir('en')"  href="javascript:;"  ngbDropdownItem class="d-flex"> <span
+                      class="avatar me-3 align-self-center bg-transparent"><img
+                        src="./assets/images/flags/us.svg" class="h-24"
+                        alt="img"></span>
+                    <div class="d-flex"> <span class="my-auto">English</span> </div>
+                  </a>
+                  <a (click)="changeDir('ku')" href="javascript:;" ngbDropdownItem class="d-flex"> <span
+                      class="avatar  me-3 align-self-center bg-transparent"><img
+                        src="./assets/images/flags/hu.svg" alt="img" class="h-24"></span>
+                    <div class="d-flex"> <span class="my-auto">کوردی</span> </div>
+                  </a>
+                </div>
+              </div>
+              <div ngbDropdown class="header-fullscreen">
+                <a href="javascript:;" class="nav-link icon full-screen-link" appFullscreen>
+                    <i class="fe fe-maximize"></i>
+                </a>
+            </div>
+              <!-- <div ngbDropdown class="header-message">
+                <a href="javascript:;" class="nav-link icon" ngbDropdownToggle>
+                  <i class="feather feather-mail header-icon"></i>
+                  <span class="badge badge-success side-badge">5</span>
+                </a>
+                <div ngbDropdownMenu class="dropdown-menu-end dropdown-menu-arrow  animated">
+                  <div class="header-dropdown-list message-menu" id="message-menu">
+                    <a href="javascript:;" ngbDropdownItem class="border-bottom" routerLink="/chat">
+                      <div class="d-flex align-items-center">
+                        <div class="">
+                          <img class="avatar avatar-md brround align-self-center cover-image"
+                            src="./assets/images/users/1.jpg">
+                        </div>
+                        <div class="d-flex">
+                          <div class="ps-3">
+                            <h6 class="mb-1">Jack Wright</h6>
+                            <p class="fs-13 mb-1 text-wrap">All the best your template awesome</p>
+                            <div class="small text-muted">
+                              3 hours ago
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="javascript:;" ngbDropdownItem class="border-bottom" routerLink="/chat">
+                      <div class="d-flex align-items-center">
+                        <div class="">
+                          <img class="avatar avatar-md brround align-self-center cover-image"
+                            src="./assets/images/users/2.jpg">
+                        </div>
+                        <div class="d-flex">
+                          <div class="ps-3">
+                            <h6 class="mb-1">Lisa Rutherford</h6>
+                            <p class="fs-13 mb-1 text-wrap">Hey! there I'm available</p>
+                            <div class="small text-muted">
+                              5 hour ago
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="javascript:;" ngbDropdownItem class="border-bottom" routerLink="/chat">
+                      <div class="d-flex align-items-center">
+                        <div class="">
+                          <img class="avatar avatar-md brround align-self-center cover-image"
+                            src="./assets/images/users/3.jpg">
+                        </div>
+                        <div class="d-flex">
+                          <div class="ps-3">
+                            <h6 class="mb-1">Blake Walker</h6>
+                            <p class="fs-13 mb-1 text-wrap">Just created a new blog post</p>
+                            <div class="small text-muted">
+                              45 mintues ago
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="javascript:;" ngbDropdownItem class="border-bottom" routerLink="/chat">
+                      <div class="d-flex align-items-center">
+                        <div class="">
+                          <img class="avatar avatar-md brround align-self-center cover-image"
+                            src="./assets/images/users/4.jpg">
+                        </div>
+                        <div class="d-flex">
+                          <div class="ps-3">
+                            <h6 class="mb-1">Fiona Morrison</h6>
+                            <p class="fs-13 mb-1 text-wrap">Added new comment on your photo</p>
+                            <div class="small text-muted">
+                              2 days ago
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="javascript:;" ngbDropdownItem class="border-bottom" routerLink="/chat">
+                      <div class="d-flex align-items-center">
+                        <div class="">
+                          <img class="avatar avatar-md brround align-self-center cover-image"
+                            src="./assets/images/users/6.jpg">
+                        </div>
+                        <div class="d-flex">
+                          <div class="ps-3">
+                            <h6 class="mb-1">Stewart Bond</h6>
+                            <p class="fs-13 mb-1 text-wrap">Your payment invoice is generated</p>
+                            <div class="small text-muted">
+                              3 days ago
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class=" text-center p-2">
+                    <a href="javascript:;" routerLink="/chat" class="">See All Messages</a>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div ngbDropdown class="header-notify">
+                <a href="javascript:;" class="nav-link icon" (click)="toggleSidebarNotification()">
+                  <i class="feather feather-bell header-icon"></i>
+                  <span *ngIf="notificationsCount>0" class="badge badge-danger side-badge">{{notificationsCount}}</span>
+                </a>
+              </div> -->
+              <div ngbDropdown class="profile-dropdown">
+                <a href="javascript:;" class="nav-link pe-1 ps-0 leading-none" ngbDropdownToggle >
+                  <span>
+                    <img src="assets/images/users/avatar.png" alt="img" class="avatar avatar-md bradius">
+                    <!-- <img [src]="userPhoto" alt="img" class="avatar avatar-md bradius"> -->
+                  </span>
+                </a>
+                <div ngbDropdownMenu class="dropdown-menu-end dropdown-menu-arrow animated">
+                  <div class="p-3 text-center border-bottom">
+                    <a href="javascript:;" class="text-center user pb-0 font-weight-bold">{{userData?.full_name}}</a>
+                    <p class="text-center user-semi-title">{{userData?.role_id?.name|titlecase}}</p>
+                  </div>
+                  <!-- <a ngbDropdownItem class="d-flex" href="javascript:;" routerLink="/pages/profile/profile01">
+                    <i class="feather feather-user me-3 fs-16 my-auto"></i>
+                    <div class="mt-1">{{'Profile'|dic}}</div>
+                  </a>
+                  <a ngbDropdownItem class="d-flex" href="javascript:;" routerLink="/pages/edit-profile">
+                    <i class="feather feather-settings me-3 fs-16 my-auto"></i>
+                    <div class="mt-1">{{'Settings'|dic}}</div>
+                  </a> -->
+                  <!-- <a ngbDropdownItem class="d-flex" href="javascript:;" routerLink="/chat">
+                    <i class="feather feather-mail me-3 fs-16 my-auto"></i>
+                    <div class="mt-1">Messages</div>
+                  </a> -->
+                  <a ngbDropdownItem class="d-flex" href="javascript:;"
+                  (click)="open(content)">
+                    <i class="feather feather-edit-2 me-3 fs-16 my-auto"></i>
+                    <div class="mt-1">{{'Change Password'|dic}}</div>
+                  </a>
+                  <a ngbDropdownItem class="d-flex" href="javascript:;" (click)="signout()">
+                    <i class="feather feather-power me-3 fs-16 my-auto"></i>
+                    <div class="mt-1">{{'Sign Out'|dic}}</div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex header-setting-icon">
+          <a class="nav-link icon demo-icon" href="javascript:;" (click)="toggleSwitcher()">
+            <i class="feather feather-settings  fe-spin"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/app header-->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title">{{'Change Password'|dic}}</h5>
+      <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')">
+          <span class="nav-link">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="form-label">{{'Old Password'|dic}}</label>
+      <input type="password" [(ngModel)]="model.password" class="form-control" placeholder="" value="">
+    </div>
+    <div class="form-group">
+      <label class="form-label">{{'New Password'|dic}}</label>
+      <input type="password" [(ngModel)]="model.n_password" class="form-control" placeholder="" value="">
+    </div>
+    <div class="form-group">
+      <label class="form-label">{{'Confirm New Password'|dic}}</label>
+      <input type="password" [(ngModel)]="model.r_n_password" class="form-control" placeholder="" value="">
+    </div>
+  </div>
+  <div class="modal-footer">
+      <a  class="btn btn-outline-primary me-2" id="close"   (click)="modal.dismiss('Cross click')"
+          data-bs-dismiss="modal">{{'Close'|dic}}</a>
+      <a class="btn btn-success" (click)="changePassword()">{{'Confirm'|dic}}</a>
+  </div>
+</ng-template>

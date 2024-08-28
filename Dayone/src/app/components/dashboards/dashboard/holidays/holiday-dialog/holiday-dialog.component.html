@@ -1,0 +1,29 @@
+<!-- Holiday Modal -->
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Add Holidays</h5>
+        <button type="button" class="btn-close"  mat-dialog-close>
+            <span class="nav-link">&times;</span>
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label class="form-label">Select Date</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="feather feather-calendar"></i>
+                    </div>
+                </div><input class="form-control" data-bs-toggle="modaldatepicker" placeholder="MM/DD/YYYY">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Enter Occasion</label>
+            <input class="form-control" value="{{Holidaydata.dataValue.holidays}}" >
+        </div>
+    </div>
+    <div class="card-footer  d-flex justify-content-between">
+        <button  class="btn btn-outline-danger" mat-dialog-close>Close</button>
+        <button  class="btn btn-primary" cdkFocusInitial>Add</button>
+    </div>
+</div>

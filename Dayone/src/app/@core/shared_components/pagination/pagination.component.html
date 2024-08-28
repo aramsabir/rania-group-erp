@@ -1,0 +1,41 @@
+<nav class="my-4">
+    <ul class="pagination pagination-circle pg-blue mb-0" *ngIf="count > 0">
+
+        <li class="page-item " [ngClass]="{ disabled: page === 1  }"><a   (click)="firstPage()" class="page-link" mdbWavesEffect>{{'First'|dic}}</a></li>
+
+        <!--Arrow left-->
+        <li class="page-item disabled" [ngClass]="{ disabled: page === 1 || loading }">
+          <a (click)="onPrev()" class="page-link" mdbWavesEffect aria-label="Previous">
+            <!-- <span aria-hidden="true">«</span> -->
+            <span>{{'Previous'|dic}}</span>
+          </a>
+        </li>
+        <li
+        *ngFor="let pageNum of getPages()"
+        [ngClass]="{ active: pageNum === page, disabled: loading }"
+        class="page-item active"
+      >
+        <a (click)="onPage(pageNum)" class="page-link" mdbWavesEffect>{{ pageNum }}</a>
+      </li> 
+        <li class="page-item" [ngClass]="{ disabled: page === totalPages() }">
+            <a (click)="onNext(true)"  class="page-link" mdbWavesEffect aria-label="Next">
+              <span>{{'Next'|dic}}</span>
+            </a>
+          </li>
+      
+          <!--First-->
+          <li class="page-item" [ngClass]="{ disabled: page === totalPages() }" ><a (click)="lastPage()" class="page-link">{{'Last'|dic}}</a></li>
+          <li  class="pl-3 pr-3" > 
+            <select style="width: 100px !important;" (change)="changeItemPerpage($event.target.value)" [(ngModel)]="itemPerPages" class="form-control  text-center custom-select">
+            <option value=5>5</option>
+            <option value=10>10</option>
+            <option value=20>20</option>
+            <option value=50>50</option>
+            <option value=100>100</option>
+          </select>
+         
+          </li>
+    </ul>
+</nav>
+
+<!--/Pagination -->

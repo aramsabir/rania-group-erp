@@ -1,0 +1,56 @@
+<!--sidebar-right-->
+<div #sidebar class="sidebar sidebar-right sidebar-animate">
+    <perfect-scrollbar>
+        <div class="card-header border-bottom pb-5">
+            <h4 class="card-title">{{'Notifications'|dic}} </h4>
+            <div class="card-options">
+                <a (click)="onClose()" class="btn btn-sm btn-icon btn-light  text-primary" data-bs-toggle="sidebar-right" data-bs-target=".sidebar-right"><i class="feather feather-x"></i>
+                </a>
+            </div>
+        </div>
+        <div class="mt-4" *ngIf="notifications?.complaints?.length > 0">
+            <h5 style="margin-left: 1.5rem;margin-right: 1.5rem;">{{'Complaints'|dic}}</h5>
+            <div class="list-group-item  align-items-center  border-bottom" *ngFor="let item of notifications?.complaints">
+                <div class="d-flex">
+                    <span class="avatar avatar-lg brround me-3 bg-primary-transparent"><span class="fa fa-balance-scale"></span></span>
+                    <div class="mt-1">
+                        <a (click)="onClose()" [routerLink]="['/bas-complaint/view']" [queryParams]="{_id:item._id}" class="font-weight-normal fs-16">{{'Complaint number'|dic}} : <span class=" font-weight-semibold">
+                                {{item.no}}</span></a>
+                        <span class="clearfix"></span>
+                        <span class="text-muted fs-13 ms-auto"><i class="mdi mdi-clock text-muted me-1"></i>{{item.next_date|date: 'yyyy-MM-dd HH:mm'}}</span>
+                    </div>
+                </div>
+                </div>
+                </div>
+        <div class="mt-4" *ngIf="notifications?.contracts?.length > 0">
+            <h5 style="margin-left: 1.5rem;margin-right: 1.5rem;">{{'Contracts'|dic}}</h5>
+            <div class="list-group-item  align-items-center  border-bottom" *ngFor="let item of notifications?.contracts">
+                <div class="d-flex">
+                    <span class="avatar avatar-lg brround me-3 bg-primary-transparent"><span class="fa fa-handshake-o"></span></span>
+                    <div class="mt-1">
+                        <a (click)="onClose()" [routerLink]="['/bas-contracts/view']" [queryParams]="{_id:item._id}" class="font-weight-normal fs-16">{{'Contract number'|dic}} : <span class=" font-weight-semibold">
+                                {{item.no}}</span></a>
+                        <span class="clearfix"></span>
+                        <span class="text-muted fs-13 ms-auto"><i class="mdi mdi-clock text-muted me-1"></i>{{item.end_date|date: 'yyyy-MM-dd HH:mm'}}</span>
+                    </div>
+                </div>
+                </div>
+                </div>
+        <div class="mt-4" *ngIf="notifications?.letters?.length > 0">
+            <h5 style="margin-left: 1.5rem;margin-right: 1.5rem;">{{'LetterHeads'|dic}}</h5>
+            <div class="list-group-item  align-items-center  border-bottom" *ngFor="let item of notifications?.letters">
+                <div class="d-flex">
+                    <span class="avatar avatar-lg brround me-3 bg-primary-transparent"><span class="fa fa-file-text-o"></span></span>
+                    <div class="mt-1">
+                        <a (click)="onClose()" [routerLink]="['/bas-letters/view']" [queryParams]="{_id:item._id}" class="font-weight-normal fs-16">{{'LetterHead number'|dic}} : <span class=" font-weight-semibold">
+                                {{item.no}}</span></a>
+                        <span class="clearfix"></span>
+                        <span class="text-muted fs-13 ms-auto"><i class="mdi mdi-clock text-muted me-1"></i>{{item.expiry_date|date: 'yyyy-MM-dd HH:mm'}}</span>
+                    </div>
+                </div>
+                </div>
+                </div>
+
+    </perfect-scrollbar>
+</div>
+<!--/sidebar-right-->

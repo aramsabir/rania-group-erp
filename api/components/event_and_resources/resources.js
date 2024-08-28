@@ -1,0 +1,146 @@
+module.exports = {
+
+  EmployeeRead:"employee:read",
+
+  TransportationReport: "report:transportation",
+  TransportationDetailReport: "report:transportation-detail",
+  CustomerReport: "report:customer",
+  CustomerDetailReport: "report:customer-detail",
+  LocationReport: "report:location",
+  FuelUsageReport: "report:fuel-usage",
+
+  ReturnRead: "return:read",
+  ReturnApproval: "return:approve",
+
+  TransportationRead: "transportation:read",
+  TransportationWrite: "transportation:add",
+  TransportationUpdate: "transportation:update",
+  TransportationUpdateVehicleNumbers: "transportation:update-vehicle-numbers",
+  TransportationDelete: "transportation:delete",
+  TransportationLoading: "transportation:loading",
+  TransportationTransportation: "transportation:transportation",
+  TransportationCurrentDate: "transportation:current-date",
+  TransportationAll: "transportation:all",
+  TransportationConfirmTransport: "transportation:confirm-transport",
+  TransportationApprove1: "transportation:approve1",
+  TransportationConfirmLoading: "transportation:confirm-loading",
+  TransportationApprove2: "transportation:approve2",
+  TransportationTransferWhatsAppSMS: "transportation:transfer-whatsapp-sms",
+  TransportationWhatsAppSMS: "transportation:whatsapp-sms",
+
+  LocationRead: "location:read",
+  LocationWrite: "location:add",
+  LocationUpdate: "location:update",
+  LocationDelete: "location:delete",
+
+  LoadingLocationRead: "loading-location:read",
+  LoadingLocationWrite: "loading-location:add",
+  LoadingLocationUpdate: "loading-location:update",
+  LoadingLocationDelete: "loading-location:delete",
+
+  FuelUsageRead: "fuel-usage:read",
+  FuelUsageWrite: "fuel-usage:add",
+  FuelUsageUpdate: "fuel-usage:update",
+  FuelUsageDelete: "fuel-usage:delete",
+
+  ProductRead: "product:read",
+  ProductWrite: "product:add",
+  ProductUpdate: "product:update",
+  ProductDelete: "product:delete",
+
+
+  CustomerAll: "customer:all",
+  CustomerRead: "customer:read",
+  CustomerWrite: "customer:add",
+  CustomerUpdate: "customer:update",
+  CustomerDelete: "customer:delete",
+
+  ContractRead: "contract:read",
+  ContractWrite: "contract:add",
+  ContractPrice: "contract:price",
+  ContractUpdate: "contract:update",
+  ContractDelete: "contract:delete",
+  ContractApprove: "contract:approve",
+  ContractWhatsAppSMS: "contract:whatsapp-sms",
+
+  OrderCommandsRead: "order-commands:read",
+  OrderCommandsWrite: "order-commands:add",
+  OrderCommandsPrice: "order-commands:price",
+  OrderCommandsUpdate: "order-commands:update",
+  OrderCommandsDelete: "order-commands:delete",
+  OrderCommandsApprove: "order-commands:approve",
+  OrderCommandsWhatsAppSMS: "order-commands:whatsapp-sms",
+
+  VehicleRead: "vehicle:read",
+  VehicleWrite: "vehicle:add",
+  VehicleUpdate: "vehicle:update",
+  VehicleDelete: "vehicle:delete",
+
+  InventoryRead: "inventory:read",
+  InventoryWrite: "inventory:add",
+  InventoryUpdate: "inventory:update",
+  InventoryDelete: "inventory:delete",
+
+  TripRead: "trip:read",
+  TripWrite: "trip:add",
+  TripUpdate: "trip:update",
+  TripDelete: "trip:delete",
+
+  InventoryInsertRead: "inventory-insert:read",
+  InventoryInsertWrite: "inventory-insert:add",
+  InventoryInsertUpdate: "inventory-insert:update",
+  InventoryInsertDelete: "inventory-insert:delete",
+
+  //vehicle trip
+  VehicleTripRead: "vehicle-trip:read",
+  VehicleTripWrite: "vehicle-trip:add",
+  VehicleTripUpdate: "vehicle-trip:update",
+  VehicleTripDelete: "vehicle-trip:delete",
+
+  RoleRead: "role:read",
+  RoleWrite: "role:add",
+  RoleUpdate: "role:update",
+  RoleDelete: "role:delete",
+
+  CompanyRead: "companies:read",
+  CompanyWrite: "companies:add",
+  CompanyUpdate: "companies:update",
+  CompanyDelete: "companies:delete",
+
+  AccountRead: "account:read",
+  AccountWrite: "account:add",
+  AccountUpdate: "account:update",
+  AccountDelete: "account:delete",
+
+  EmployeeRead: "employee:read",
+  EmployeeWrite: "employee:add",
+  EmployeeUpdate: "employee:update",
+  EmployeeDelete: "employee:delete",
+
+  LogRead: "log:read",
+  LogWrite: "log:add",
+  LogUpdate: "log:update",
+  LogDelete: "log:delete",
+
+  ExpenseAll: "expenses:all",
+  ExpenseRead: "expenses:read",
+  ExpenseWrite: "expenses:add",
+  ExpenseUpdate: "expenses:update",
+  ExpenseDelete: "expenses:delete",
+  ExpenseUpload: "expenses:upload",
+  ExpenseRemoveAttachment: "expenses:remove_attachment",
+
+  SaleAll: "sales:all",
+  SaleRead: "sales:read",
+  SaleWrite: "sales:add",
+  SaleUpdate: "sales:update",
+  SaleDelete: "sales:delete",
+  SaleUpload: "sales:upload",
+  SaleRemoveAttachment: "sales:remove_attachment",
+
+  PetrolStationDailyPayOutRead: "petrol_station_daily_pay_out:read",
+  PetrolStationDailyPayOutWrite: "petrol_station_daily_pay_out:add",
+  PetrolStationDailyPayOutConfirm: "petrol_station_daily_pay_out:confirm",
+  PetrolStationDailyPayOutUpdate: "petrol_station_daily_pay_out:update",
+  PetrolStationDailyPayOutDelete: "petrol_station_daily_pay_out:delete",
+};

@@ -1,0 +1,188 @@
+<app-page-header [title]="'New Job'"></app-page-header>
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Company Name</label>
+                            <input class="form-control" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Job Position</label>
+                            <input class="form-control" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Job Category</label>
+                            <ng-select name="attendance" class="form-control custom-select"
+                                placeholder="Select Job Category">
+                                <ng-option value="1">PHP Developer</ng-option>
+                                <ng-option value="2">UX Designer</ng-option>
+                                <ng-option value="3">UI Designer</ng-option>
+                                <ng-option value="4">SEO Specialist</ng-option>
+                                <ng-option value="5">Wordpress Developer</ng-option>
+                                <ng-option value="6">Accountant</ng-option>
+                                <ng-option value="7">Software Engineer</ng-option>
+                                <ng-option value="7">Angular Developer</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Job Type:</label>
+                            <ng-select name="attendance" class="form-control custom-select"
+                                placeholder="Select Job Type">
+                                <ng-option value="1">Full-Time</ng-option>
+                                <ng-option value="2">Part-Time</ng-option>
+                                <ng-option value="3">Freelancer</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">No.of Vacancy</label>
+                            <input class="form-control" placeholder="Number">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Experiences</label>
+                            <ng-select name="attendance" class="form-control custom-select"
+                                placeholder="Select Experience">
+                                <ng-option value="1">Fresher</ng-option>
+                                <ng-option value="2">1 yr</ng-option>
+                                <ng-option value="3">2 yrs</ng-option>
+                                <ng-option value="3">3 yrs</ng-option>
+                                <ng-option value="3">4 yrs</ng-option>
+                                <ng-option value="3">5 yrs</ng-option>
+                                <ng-option value="3">6 yrs</ng-option>
+                                <ng-option value="3">7 yrs</ng-option>
+                                <ng-option value="3">8 yrs</ng-option>
+                                <ng-option value="3">9 yrs</ng-option>
+                                <ng-option value="3">10 yrs</ng-option>
+                                <ng-option value="3">10+ yrs</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Posted Date</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="feather feather-calendar"></i>
+                                    </div>
+                                </div><input class="form-control fc-datepicker" placeholder="yyyy-mm-dd" (click)="a.toggle()" name="dp" [(ngModel)]="model" ngbDatepicker #a="ngbDatepicker">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Last Date To Apply</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="feather feather-calendar"></i>
+                                    </div>
+                                </div>
+                                <input class="form-control fc-datepicker" placeholder="yyyy-mm-dd" value="12-02-2021" (click)="b.toggle()" name="dp" [(ngModel)]="model1" ngbDatepicker #b="ngbDatepicker">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Close Date</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="feather feather-calendar"></i>
+                                    </div>
+                                </div>
+                                <input class="form-control fc-datepicker" placeholder="yyyy-mm-dd" value="16-06-2021" (click)="c.toggle()" name="dp" [(ngModel)]="model2" ngbDatepicker #c="ngbDatepicker">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Select Gender:</label>
+                            <ng-select class="form-control custom-select" placeholder="Select Gender">
+                                <ng-option value="1">Male</ng-option>
+                                <ng-option value="2">Female</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Salary Form</label>
+                            <input class="form-control" placeholder="$0.00">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Salary To</label>
+                            <input class="form-control" placeholder="$0.00">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Enter City:</label>
+                            <input class="form-control" placeholder="City">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Enter State:</label>
+                            <input class="form-control" placeholder="State">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Enter Country:</label>
+                            <input class="form-control" placeholder="Country">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Enter Education Level:</label>
+                            <input class="form-control" placeholder="Education Level">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description:</label>
+                    <div class="summernote"></div>
+                </div>
+                <div class="custom-controls-stacked d-md-flex">
+                    <label class="form-label mt-1 me-5">Status :</label>
+                    <label class="custom-control custom-radio success me-4">
+                        <input type="radio" class="custom-control-input" name="example-radios1" value="option1">
+                        <span class="custom-control-label">Active</span>
+                    </label>
+                    <label class="custom-control custom-radio success me-4">
+                        <input type="radio" class="custom-control-input" name="example-radios1" value="option2">
+                        <span class="custom-control-label">InActive</span>
+                    </label>
+                </div>
+            </div>
+            <div class="card-footer text-end">
+                <a href="javascript:;" class="btn btn-danger btn-lg me-2">Close</a>
+                <a href="javascript:;" class="btn btn-success btn-lg" onclick="not1()">Submit</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row -->
