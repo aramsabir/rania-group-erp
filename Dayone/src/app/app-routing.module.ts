@@ -26,51 +26,51 @@ const routes: Routes = [
   {
     path: 'bas-home',
     component: MainContentComponent,
-    canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/bas-home/bas-home.module').then(  (m) => m.BasHomeModule ),
+    canActivate: [AuthGuard], loadChildren: () => import('../app/components/bas-home/bas-home.module').then((m) => m.BasHomeModule),
   },
-  {
-    path: 'group',
-    component: GroupContentComponent,
-    canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/group/module').then(  (m) => m.Module ),
-  },
-  {
-    path: 'aso-bricks',
-    component: AsoBrickContentComponent,
-    canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/aso-bricks/module').then(  (m) => m.Module ),
-  },
-  {
-    path: 'hilal-bricks',
-    component: HilalBrickContentComponent,
-    canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/hilal-bricks/module').then(  (m) => m.Module ),
-  },
-  {
-    path: 'hcnt',
-    component: HCNTContentComponent,
-    canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/hcnt/module').then(  (m) => m.Module ),
-  },
-  {
-    path: 'family-mall',
-    component: FMContentComponent,
-    canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/family-mall/module').then(  (m) => m.Module ),
-  },
-  {
-    path: '',
-    component: ContentComponent,
-    canActivate: [AuthGuard],
-    children: content,
-  },
-  {
-    path: '',
-    component: ErrorComponent,
-    canActivate: [AuthGuard],
-    children: error,
-  },
-  {
-    path: '',
-    component: AccountComponent,
-    canActivate: [AuthGuard],
-    children: account,
-  },
+  // {
+  //   path: 'group',
+  //   component: GroupContentComponent,
+  //   canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/group/module').then(  (m) => m.Module ),
+  // },
+  // {
+  //   path: 'aso-bricks',
+  //   component: AsoBrickContentComponent,
+  //   canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/aso-bricks/module').then(  (m) => m.Module ),
+  // },
+  // {
+  //   path: 'hilal-bricks',
+  //   component: HilalBrickContentComponent,
+  //   canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/hilal-bricks/module').then(  (m) => m.Module ),
+  // },
+  // {
+  //   path: 'hcnt',
+  //   component: HCNTContentComponent,
+  //   canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/hcnt/module').then(  (m) => m.Module ),
+  // },
+  // {
+  //   path: 'family-mall',
+  //   component: FMContentComponent,
+  //   canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/family-mall/module').then(  (m) => m.Module ),
+  // },
+  // {
+  //   path: '',
+  //   component: ContentComponent,
+  //   canActivate: [AuthGuard],
+  //   children: content,
+  // },
+  // {
+  //   path: '',
+  //   component: ErrorComponent,
+  //   canActivate: [AuthGuard],
+  //   children: error,
+  // },
+  // {
+  //   path: '',
+  //   component: AccountComponent,
+  //   canActivate: [AuthGuard],
+  //   children: account,
+  // },
   // {
   //   path: '',
   //   component: SupportSystemComponent,
@@ -107,4 +107,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

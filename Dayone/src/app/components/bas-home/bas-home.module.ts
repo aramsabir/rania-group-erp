@@ -22,7 +22,6 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartistModule } from 'ng-chartist';
-import { HighchartsChartModule } from 'highcharts-angular';
 ;
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -34,7 +33,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BasHomeComponent,
   ],
   imports: [
-    HighchartsChartModule,
     BasHomeRoutingModule,
     CommonModule,
     SharedModule,

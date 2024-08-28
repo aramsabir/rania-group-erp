@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DlDateTimePickerChange } from 'angular-bootstrap-datetimepicker';
-import * as Highcharts from 'highcharts';
 import { ApiMethod } from 'src/app/@core/service/apis';
 import { DicService } from 'src/app/@core/service/dic/dic.service';
 import { HttpService } from 'src/app/@core/service/http/http.service';
@@ -63,7 +62,7 @@ export class BasHomeComponent implements OnInit {
         if (res.resources)
           resources = res.resources.split(',')
         console.log(resources);
-        
+
 
         if (resources.includes('employee:read')) {
           this.arrayLinks.push({
@@ -74,7 +73,7 @@ export class BasHomeComponent implements OnInit {
             name: 'Employee',
             logo: './assets/applications/employee.png',
           });
-        } 
+        }
         if (resources.includes('sales:read')) {
           this.arrayLinks.push({
             active: true,
@@ -84,7 +83,7 @@ export class BasHomeComponent implements OnInit {
             name: 'Sales',
             logo: './assets/applications/sales.png',
           });
-        } 
+        }
         if (resources.includes('payroll:read')) {
           this.arrayLinks.push({
             active: true,
@@ -94,7 +93,7 @@ export class BasHomeComponent implements OnInit {
             name: 'Payroll',
             logo: './assets/applications/payroll.png',
           });
-        } 
+        }
         if (resources.includes('approval:read')) {
           this.arrayLinks.push({
             active: true,
@@ -104,8 +103,8 @@ export class BasHomeComponent implements OnInit {
             name: 'Approval',
             logo: './assets/applications/approval.png',
           });
-        } 
-  
+        }
+
         if (resources.includes('time-off:read')) {
           this.arrayLinks.push({
             active: true,
@@ -116,7 +115,7 @@ export class BasHomeComponent implements OnInit {
             logo: './assets/applications/time-off.png',
           });
         }
-  
+
         if (resources.includes('purchase:read')) {
           this.arrayLinks.push({
             active: true,
