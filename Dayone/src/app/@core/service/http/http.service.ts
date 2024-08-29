@@ -58,6 +58,8 @@ export class HttpService {
     params?: any | undefined,
     data?: any
   ): Observable<any> {
+    var companies = localStorage.getItem('company')
+    
     let url = `${environment.apiUrl}/${endPoint}?`;
     params = params === undefined ? new Object() : params;
 
@@ -68,6 +70,8 @@ export class HttpService {
       //   url = url.split(`{{${key}}}`).join(value);
       // }
     });
+
+    url += `&companies=${companies}`
     let options = {};
     if (data !== undefined && method === ApiMethod.DELETE) {
       options = {
@@ -79,6 +83,7 @@ export class HttpService {
         },
       };
     }
+
 
     switch (method) {
       case ApiMethod.GET:

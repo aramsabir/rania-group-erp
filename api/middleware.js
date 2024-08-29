@@ -9,7 +9,6 @@ const CompanyUserRoleSchema = require('./components/settings/user-company-role/s
 
 exports.checkToken = async (req, res, next) => {
 
-  console.log(req.headers);
 
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
   if (token)
@@ -74,18 +73,29 @@ exports.checkAccess = async (req, res, next) => {
     res.json({ status: false, message: "You are not authorized!" });
     return 0;
   } else {
-    var company_user_roles = await CompanyUserRoleSchema.find({ user_id: userInfo._id }).exec()
+    var company_user_roles = await CompanyUserRoleSchema.find({ $and: [{ user_id: userInfo._id }, { deleted_at: null }] }).exec()
+
     if (company_user_roles.length == 0) {
       res.json({ status: false, message: "You are not authorized!" });
       return 0;
     }
+
+    var search_companies = []
+    if (req.query.companies) {
+      for (let index = 0; index < req.query.companies.split(',').length; index++) {
+        if (mongoose.Types.ObjectId.isValid(req.query.companies.split(',')[index]))
+          search_companies.push(mongoose.Types.ObjectId(req.query.companies.split(',')[index]))
+      }
+    }
+ 
+
+
     var user_companies = []
     req.query.resources = ""
     for (let index = 0; index < company_user_roles.length; index++) {
       if (company_user_roles[index].resources.includes(req.query.access)) {
         user_companies.push(mongoose.Types.ObjectId(company_user_roles[index].company_id))
-        req.query.resources += (company_user_roles[index]['resources'] +',')
-
+        req.query.resources += (company_user_roles[index]['resources'] + ',')
       }
     }
     req.query.userID = mongoose.Types.ObjectId(userInfo._id)
@@ -96,10 +106,10 @@ exports.checkAccess = async (req, res, next) => {
     if (req.query.limit == 'undefined' || !req.query.limit) { req.query.limit = 20 } else { req.query.limit = parseInt(req.query.limit) }
     if (req.query.sort == 'undefined' || !req.query.sort) {
       req.query.sort = { 'created_at': -1 }
-    }else {
+    } else {
       var sort = {}
       if (req.query.sort) {
-        
+
         if (req.query.sort.split('-')[0] == '') {
           sort[req.query.sort.split('-')[1]] = -1
         } else {
@@ -115,6 +125,7 @@ exports.checkAccess = async (req, res, next) => {
     // for (let index = 0; index < userInfo.companies.length; index++) {
     //   company_permission.push(mongoose.Types.ObjectId(userInfo.companies[index].company_id));
     // }
+    req.query.search_companies = search_companies
     req.query.company_permission = user_companies
 
     next();
@@ -126,18 +137,26 @@ exports.AddQueryData = async (req, res, next) => {
     res.json({ status: false, message: "You are not authorized!" });
     return 0;
   } else {
-    var company_user_roles = await CompanyUserRoleSchema.find({ user_id: userInfo._id }).exec()
+    var company_user_roles = await CompanyUserRoleSchema.find({ $and: [{ user_id: userInfo._id }, { deleted_at: null }] }).exec()
     if (company_user_roles.length == 0) {
       res.json({ status: false, message: "You are not authorized!" });
       return 0;
     }
     var user_companies = []
     req.query.resources = ""
-    
+
     for (let index = 0; index < company_user_roles.length; index++) {
-          user_companies.push(mongoose.Types.ObjectId(company_user_roles[index].company_id))
-          req.query.resources += (company_user_roles[index]['resources'] +',')
+      user_companies.push(mongoose.Types.ObjectId(company_user_roles[index].company_id))
+      req.query.resources += (company_user_roles[index]['resources'] + ',')
     }
+
+    var search_companies = []
+    if (req.query.companies)
+      for (let index = 0; index < req.query.companies.split(',').length; index++) {
+        if (mongoose.Types.ObjectId.isValid(req.query.companies.split(',')[index]))
+          search_companies.push(mongoose.Types.ObjectId(req.query.companies.split(',')[index]))
+      }
+
     req.query.userID = mongoose.Types.ObjectId(userInfo._id)
     req.query.userFullName = userInfo.full_name
     req.query.profile_photo = userInfo.profile_photo
@@ -165,12 +184,13 @@ exports.AddQueryData = async (req, res, next) => {
     // for (let index = 0; index < userInfo.companies.length; index++) {
     //   company_permission.push(mongoose.Types.ObjectId(userInfo.companies[index].company_id));
     // }
+    req.query.search_companies = search_companies
     req.query.company_permission = user_companies
 
     next();
   }
 };
- 
+
 exports.logout = async (req, res, next) => {
   let userInfo = await auth.userInfo(req.headers);
 
@@ -251,7 +271,7 @@ exports.getIterfacesIP = async (req, res) => {
 }
 exports.testToken = async (req, res) => {
 
-  
+
   let userInfo = await auth.userInfo(req.headers);
 
   if (userInfo) {

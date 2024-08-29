@@ -44,21 +44,12 @@ import { DicService } from '../@core/service/dic/dic.service';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { MainContentComponent } from './layout-components/layout/main-content/content.component';
 import { MainHeaderComponent } from './layout-components/main-header/header.component';
-import { AsoBrickContentComponent } from './layout-components/sub_layouts/aso-brick/content/content.component';
-import { AsoBrickHeaderComponent } from './layout-components/sub_layouts/aso-brick/header/header.component';
-import { SidebarAbfComponent } from './layout-components/sub_layouts/aso-brick/sidebar/sidebar.component';
-import { HilalBrickContentComponent } from './layout-components/sub_layouts/hilal-brick/content/content.component';
-import { HilalBrickHeaderComponent } from './layout-components/sub_layouts/hilal-brick/header/header.component';
-import { SidebarHbfComponent } from './layout-components/sub_layouts/hilal-brick/sidebar/sidebar.component';
-import { GroupContentComponent } from './layout-components/sub_layouts/group/content/content.component';
-import { GroupBrickHeaderComponent } from './layout-components/sub_layouts/group/header/header.component';
-import { SidebarGroupComponent } from './layout-components/sub_layouts/group/sidebar/sidebar.component';
-import { HCNTContentComponent } from './layout-components/sub_layouts/hcnt/content/content.component';
-import { SidebarHCNTComponent } from './layout-components/sub_layouts/hcnt/sidebar/sidebar.component';
-import { HCNTHeaderComponent } from './layout-components/sub_layouts/hcnt/header/header.component';
-import { FMContentComponent } from './layout-components/sub_layouts/family-mall/content/content.component';
-import { FMHeaderComponent } from './layout-components/sub_layouts/family-mall/header/header.component';
-import { SidebarFMComponent } from './layout-components/sub_layouts/family-mall/sidebar/sidebar.component';
+import { SettingsContentComponent } from './layout-components/sub_layouts/settings/content/content.component';
+import { SettingsHeaderComponent } from './layout-components/sub_layouts/settings/header/header.component';
+import { SidebarSettingsComponent } from './layout-components/sub_layouts/settings/sidebar/sidebar.component';
+import { EmployeesContentComponent } from './layout-components/sub_layouts/employees/content/content.component';
+import { EmployeesHeaderComponent } from './layout-components/sub_layouts/employees/header/header.component';
+import { SidebarEmployeesComponent } from './layout-components/sub_layouts/employees/sidebar/sidebar.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -68,26 +59,17 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 @NgModule({
   declarations: [
-    AsoBrickContentComponent,
-    AsoBrickHeaderComponent,
-    SidebarAbfComponent,
-
-    HilalBrickContentComponent,
-    HilalBrickHeaderComponent,
-    SidebarHbfComponent,
-
-    GroupContentComponent,
-    GroupBrickHeaderComponent,
-    SidebarGroupComponent,
-
-    HCNTContentComponent,
-    HCNTHeaderComponent,
-    SidebarHCNTComponent,
+   
     
 
-    FMContentComponent,
-    FMHeaderComponent,
-    SidebarFMComponent,
+    SettingsContentComponent,
+    SettingsHeaderComponent,
+    SidebarSettingsComponent,
+    
+
+    EmployeesContentComponent,
+    EmployeesHeaderComponent,
+    SidebarEmployeesComponent,
     
     MainHeaderComponent,
     MainContentComponent,

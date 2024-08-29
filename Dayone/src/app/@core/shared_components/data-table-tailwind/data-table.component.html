@@ -2,124 +2,327 @@
 <div class="row row-sm">
   <div class="col-xl-12">
     <div class="card">
-      <div class="card-header pb-0">
-        <div>
-          <h6 class="main-content-label mb-1">{{titlePage|dic}}</h6>
-          <p class="text-muted card-sub-title">
-          </p>
+      <div class="card-header pb-3 d-flex justify-content-between">
+        <h6 class="main-content-label mb-1">{{titlePage|dic}}</h6>
+        <div class="text-muted card-sub-title">
+          <div class="btn-list d-flex">
+            <a (click)="setListToSTorage('grid')" (click)="list_item = 'grid'" href="javascript:;" placement="bottom"
+              ngbtooltip="Grid" class="option-dots border " [ngClass]="{'text-primary':list_item == 'grid'}"><span
+                class="feather feather-grid active"></span></a>
+            <a (click)="setListToSTorage('list')" (click)="list_item = 'list'" href="javascript:;" placement="bottom"
+              ngbtooltip="List" class="option-dots border" [ngClass]="{'text-primary':list_item == 'list'}"><span
+                class="feather feather-list"></span></a>
+
+                
+            <!-- <li class="nav-item m-0">
+                <a class="btn btn-primary btn-icon btn-light btn-color-muted btn-active-primary me-3 {{list_item === 'grid' ? 'active' : ''}}"
+                   data-bs-toggle="tab" (click)="setListToSTorage('grid')"
+                   (click)="list_item = 'grid'">
+                  <i class="ki-duotone ki-element-plus fs-2">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                    <span class="path4"></span>
+                    <span class="path5"></span>
+                  </i>
+                </a>
+              </li>
+              <li class="nav-item m-0">
+                <a class="btn btn-sm btn-icon btn-light btn-color-muted btn-active-primary {{list_item === 'list' ? 'active' : ''}}"
+                   data-bs-toggle="tab" (click)="setListToSTorage('list')"
+                   (click)="list_item = 'list'">
+                  <i class="ki-duotone ki-row-horizontal fs-2">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                  </i>
+                </a>
+              </li> -->
+          </div>
         </div>
       </div>
 
       <div class="card-body">
-        <div class="table-responsive">
-          <form>
-            <div class="form-group form-inline" style="justify-content: space-between !important">
-              <div *ngIf="hasSearch">
-                <input class="form-control ms-2" type="text" [placeholder]="'Search text'|dic" name="searchTerm" [(ngModel)]="params.search" />
-                <a (click)="search()" class="btn btn-info">{{'Search'|dic}}</a>
+
+        <div *ngIf="list_item === 'list'">
+          <div class="table-responsive">
+            <form>
+              <div class="form-group form-inline" style="justify-content: space-between !important">
+                <div *ngIf="hasSearch">
+                  <input class="form-control ms-2" type="text" [placeholder]="'Search text'|dic" name="searchTerm"
+                    [(ngModel)]="params.search" />
+                  <a (click)="search()" class="btn btn-info">{{'Search'|dic}}</a>
+                </div>
+                <div *ngIf="!hasSearch"></div>
+                <div>
+                  <a *ngIf="customForm.type === 'modal'" (click)="showModal(largemodaladd,'add')" (click)="loadData()"
+                    class="btn btn-info">{{'Add'|dic}}</a>
+                  <a *ngIf="customForm.type === 'page'" (click)="newPage()" class="btn btn-info">{{'Add'|dic}}</a>
+                </div>
               </div>
-              <div *ngIf="!hasSearch"></div>
-              <div>
-                <a *ngIf="customForm.type === 'modal'" (click)="showModal(largemodaladd,'add')" (click)="loadData()" class="btn btn-info">{{'Add'|dic}}</a>
-                <a *ngIf="customForm.type === 'page'" (click)="newPage()" class="btn btn-info">{{'Add'|dic}}</a>
-              </div>
-            </div>
 
-            <div class="table-responsive mb-0 table-regcompany">
-              <app-bas-page_loader *ngIf="DataIsLoading"></app-bas-page_loader>
+              <div class="table-responsive mb-0 table-regcompany">
+                <app-bas-page_loader *ngIf="DataIsLoading"></app-bas-page_loader>
 
-              <table class="table table-striped border" *ngIf="!DataIsLoading">
-                <thead>
-                  <tr>
-                    <th scope="col" *ngFor="let item of columns" (click)="sortBy(item.value)">{{item.header|dic|titlecase}}
-                      <i *ngIf="item.value !=='none' && sortField !==item.value" class="fa fa-sort"></i>
-                      <i *ngIf="item.value !=='none' && sortField==item.value && sortType===true" class="fa fa-sort-alpha-asc"></i>
-                      <i *ngIf="item.value !=='none' && sortField==item.value && sortType===false" class="fa fa-sort-alpha-desc"></i>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of rows;let i= index">
-                    <ng-container *ngFor="let el of columns">
-
-                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap" *ngIf="el.header === '#'">
-                        <span> {{ ( i+1 )+ parseInteger(params.skip) }}</span>
+                <table class="table table-striped border" *ngIf="!DataIsLoading">
+                  <thead>
+                    <tr>
+                      <th scope="col" *ngFor="let item of columns" (click)="sortBy(item.value)">
+                        {{item.header|dic|titlecase}}
+                        <i *ngIf="item.value !=='none' && sortField !==item.value" class="fa fa-sort"></i>
+                        <i *ngIf="item.value !=='none' && sortField==item.value && sortType===true"
+                          class="fa fa-sort-alpha-asc"></i>
+                        <i *ngIf="item.value !=='none' && sortField==item.value && sortType===false"
+                          class="fa fa-sort-alpha-desc"></i>
                       </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of rows;let i= index">
+                      <ng-container *ngFor="let el of columns">
 
-                      <td class="px-6 py-4" [ngClass]="{'en-font':el.lang == 'en'}" *ngIf="el.header !== 'Actions' && el.header !== '#'">
-                        <span *ngIf="el.type === 'text'" [ngClass]="el.class != null? el.class(item):''">
-                          <span *ngIf="el.cell(item) !== 'expired | expired soon'">{{ el.cell
-                            !== undefined ? el.cell(item) : '' }}</span>
-                          <span *ngIf="el.cell(item) === 'expired | expired soon'">{{
-                            el.cell(item) |dic}}</span>
-                        </span>
-                        <span *ngIf="el.type === 'image'" [ngClass]="el.class != null? el.class(item):''"> <img style="height:20px ;" [src]="el?.cell(item).split('#')[1]" alt=""></span>
-                        <span *ngIf="el.type === 'text_image'" [ngClass]="el.class != null? el.class(item):''">{{el?.cell(item).split('#')[0]}} &nbsp; <img style="height:20px ;" [src]="el?.cell(item).split('#')[1]"
-                            alt=""></span>
-                        <span *ngIf="el.type === 'photo'" [ngClass]="el.class != null? el.class(item):''"> <img style="height:20px ;" [src]="el?.cell(item)" alt=""></span>
-                        <span *ngIf="el.type === 'email'" [ngClass]="el.class != null? el.class(item):''"> {{ el?.cell(item) }}</span>
-                        <span *ngIf="el.type === 'boolean'" [ngClass]="el.class != null? el.class(item):''"> {{ el?.cell(item) == true ? ('Used'|dic):('Not used'|dic) }}</span>
-                        <span *ngIf="el.type === 'status'" [ngClass]="el.class != null? el.class(item):''"> {{ el?.cell(item) == true ? ('Yes'|dic):('No'|dic) }}</span>
-                        <span *ngIf="el.type === 'number'" [ngClass]="el.class != null? el.class(item):''"> {{ el?.cell(item) |number }}</span>
-                        <span *ngIf="el.type === 'date'" [ngClass]="el.class != null? el.class(item):''"> {{ el?.cell(item) | date:"dd-MM-yyyy HH:mm"}}</span>
-                        <span *ngIf="el.type == 'date_formal'" [ngClass]="el.class != null? el.class(item):''"> {{ el?.cell(item) | date:"dd-MM-yyyy"}}</span>
-                        <input *ngIf="el.type === 'checkbox'" [ngClass]="el.class != null? el.class(item):''" (change)="changeActiveUser(item,$event)" [(ngModel)]="item.active" type="checkbox"
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                          *ngIf="el.header === '#'">
+                          <span> {{ ( i+1 )+ parseInteger(params.skip) }}</span>
+                        </th>
+
+                        <td class="px-6 py-4" [ngClass]="{'en-font':el.lang == 'en'}"
+                          *ngIf="el.header !== 'Actions' && el.header !== '#'">
+                          <span *ngIf="el.type === 'text'" [ngClass]="el.class != null? el.class(item):''">
+                            <span *ngIf="el.cell(item) !== 'expired | expired soon'">{{ el.cell
+                              !== undefined ? el.cell(item) : '' }}</span>
+                            <span *ngIf="el.cell(item) === 'expired | expired soon'">{{
+                              el.cell(item) |dic}}</span>
+                          </span>
+                          <span *ngIf="el.type === 'image'" [ngClass]="el.class != null? el.class(item):''"> <img
+                              style="height:20px ;" [src]="el?.cell(item).split('#')[1]" alt=""></span>
+                          <span *ngIf="el.type === 'text_image'"
+                            [ngClass]="el.class != null? el.class(item):''">{{el?.cell(item).split('#')[0]}} &nbsp; <img
+                              style="height:20px ;" [src]="el?.cell(item).split('#')[1]" alt=""></span>
+                          <span *ngIf="el.type === 'photo'" [ngClass]="el.class != null? el.class(item):''"> <img
+                              style="height:20px ;" [src]="el?.cell(item)" alt=""></span>
+                          <span *ngIf="el.type === 'email'" [ngClass]="el.class != null? el.class(item):''"> {{
+                            el?.cell(item) }}</span>
+                          <span *ngIf="el.type === 'boolean'" [ngClass]="el.class != null? el.class(item):''"> {{
+                            el?.cell(item) == true ? ('Used'|dic):('Not used'|dic) }}</span>
+                          <span *ngIf="el.type === 'status'" [ngClass]="el.class != null? el.class(item):''"> {{
+                            el?.cell(item) == true ? ('Yes'|dic):('No'|dic) }}</span>
+                          <span *ngIf="el.type === 'number'" [ngClass]="el.class != null? el.class(item):''"> {{
+                            el?.cell(item) |number }}</span>
+                          <span *ngIf="el.type === 'date'" [ngClass]="el.class != null? el.class(item):''"> {{
+                            el?.cell(item) | date:"dd-MM-yyyy HH:mm"}}</span>
+                          <span *ngIf="el.type == 'date_formal'" [ngClass]="el.class != null? el.class(item):''"> {{
+                            el?.cell(item) | date:"dd-MM-yyyy"}}</span>
+                          <input *ngIf="el.type === 'checkbox'" [ngClass]="el.class != null? el.class(item):''"
+                            (change)="changeActiveUser(item,$event)" [(ngModel)]="item.active" type="checkbox"
+                            [ngModelOptions]="{standalone: true}">
+                        </td>
+                        <td class="px-6 py-4" *ngIf="el.header === 'Actions' && el.header !== '#'">
+                          <ng-container class="d-flex" *ngFor="let action of el.actions;let k= index">
+                            <a *ngIf="action.value === 'detail'" (click)="detail(item,action.url)" class="action-btns1">
+                              <i class="feather feather-eye text-primary" data-bs-toggle="tooltip"
+                                title="feather-eye"></i>
+                            </a>
+                            <a *ngIf="action.value === 'add'" [routerLink]="action.url"
+                              [queryParams]="{_id:item._id,skip:0,limit:20,sort:'name'}" class="action-btns1">
+                              <i class="feather feather-plus text-success" data-bs-toggle="tooltip"
+                                title="feather-eye"></i>
+                            </a>
+                            <a *ngIf="action.value === 'view'" (click)="detail(item,action.url)" class="action-btns1">
+                              <i class="feather feather-eye text-primary" data-bs-toggle="tooltip"
+                                title="feather-eye"></i>
+                            </a>
+                            <a *ngIf="action.value === 'modalDetail'" [ngbTooltip]="action.tooltip"
+                              (click)="modalDetail(item,detailModal)" class="action-btns1">
+                              <i class="feather feather-eye text-primary" data-bs-toggle="tooltip"
+                                title="feather-eye"></i>
+                            </a>
+                            <a *ngIf="action.value === 'update' && item.status !== 'Done' "
+                              (click)="detail(item,action.url)" class="action-btns1">
+                              <i class="feather feather-edit-2  text-success" data-bs-toggle="tooltip"
+                                title="feather-edit-2"></i>
+                            </a>
+                            <a *ngIf="action.value === 'edit'" (click)="edit(item)"
+                              (click)="showModal(largemodal,'edit')" class="action-btns1">
+                              <i class="feather feather-edit-2  text-success" data-bs-toggle="tooltip"
+                                title="feather-edit"></i>
+                            </a>
+                            <a *ngIf="action.value === 'delete'" (click)="showConfirm(item)"
+                              (click)="WarningOpen(warningmodal,item)" class="action-btns1">
+                              <i class="feather feather-trash-2 text-danger" data-bs-toggle="tooltip"
+                                title="feather-trash"></i>
+                            </a>
+                            <a *ngIf="action.value === 'cancel_ticket'"
+                              (click)="WarningCancelOpen(warnincancelgmodal,item,action.value)" class="action-btns1">
+                              <i class="feather feather-trash-2 text-danger" data-bs-toggle="tooltip"
+                                title="feather-trash"></i>
+                            </a>
+                            <a *ngIf="action.value === 'print'" (click)="print(item,action.url)" class="action-btns1">
+                              <i class="feather feather-printer" data-bs-toggle="tooltip" title="feather-printer"></i>
+                            </a>
+                            <a *ngIf="action.value === 'resetpassword'" (click)="resetPassword(item,action.url)"
+                              class="action-btns1">
+                              <i class="fe fe-refresh-ccw" data-bs-toggle="tooltip"
+                                title="reset password to System#12345"></i>
+                            </a>
+                            <a *ngIf="action.value === 'openPage'" [routerLink]="[action.url]"
+                              [queryParams]="action.queryParams._id === '_id'?{_id:item._id}:action.queryParams"
+                              class="action-btns1">
+                              <i [class]="action.icon"></i>
+                            </a>
+                            <a *ngIf="action.value === 'uploadImg'" (click)="openImageUpload(imgUpload,item)"
+                              class="btn text-info">
+                              <i class="fa fa-image"></i>
+                            </a>
+
+                          </ng-container>
+                        </td>
+
+                      </ng-container>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="d-flex justify-content-between p-2">
+                <app-pagination [pagesToShow]="7" [page]="page" [perPage]="params.limit" [pageData]="params"
+                  [count]="length"></app-pagination>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+        <div *ngIf="list_item === 'grid'" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5 g-xl-9">
+
+          <ng-container *ngFor="let item of rows;let i = index">
+            <!--begin::Col-->
+            <div class="col-md-4">
+              <!--begin::Card-->
+              <div class="card card-flush h-md-100">
+                <!--begin::Card header-->
+                <div class="card-header">
+                  <!--begin::Card title-->
+                  <div class="card-title card-header">
+                    <h2>{{i+1}}. 
+                      <span *ngIf="columns[1].type == 'year'">
+                        {{ columns[1].cell(item) | date:'yyyy' }}
+                      </span>
+                      <span *ngIf="columns[1].type != 'year'">
+                        {{ columns[1].cell(item) }}
+                      </span>
+                      <span *ngIf="columns[1].type == 'status_icon'">
+                        <i [class]="columns[1].icon(item) ">
+                          <span class="path1"></span><span class="path2"></span>
+                        </i>
+
+                      </span>
+                    </h2>
+
+                  </div>
+                  <!--end::Card title-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-1">
+
+                  <!--begin::Columns-->
+                  <div class="d-flex flex-column text-gray-600">
+                    <ng-container *ngFor="let col of columns.slice(2, columns.length-1); let j = index">
+                      <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>
+                        <span class="text-black me-1">{{ col.header|dic | titlecase }}: </span>
+                        <span *ngIf="col.type == 'year'">{{col.cell(item)|date:'yyyy'}}</span>
+                        <span *ngIf="col.type == 'date_formal'">{{col.cell(item)|date:'dd-MM-yyyy'}}</span>
+                        <span *ngIf="col.type == 'date'">{{col.cell(item)|date:'dd-MM-yyyy HH:mm'}}</span>
+                        <span *ngIf="col.type == 'number'">{{col.cell(item)|number}}</span>
+                        <span *ngIf="col.type == 'text'|| col.type == 'email'">{{col.cell(item)}}</span>
+                        <span *ngIf="col.type == 'boolean'">{{ col?.cell(item) == true ?
+                          ('Done'|dic):('Progress'|dic)}}</span>
+                        <span *ngIf="col.type == 'status'">{{ col?.cell(item) == true ?
+                          ('Yes'|dic):('No'|dic)}}</span>
+                        <span *ngIf="col.type == 'status_icon'">{{ col?.cell(item) == true ?
+                          ('Yes'|dic):('No'|dic)}}</span>
+                        <input *ngIf="col.type === 'checkbox'" [ngClass]="col.class != null? col.class(item):''"
+                          (change)="changeActiveUser(item,$event)" [(ngModel)]="item.active" type="checkbox"
                           [ngModelOptions]="{standalone: true}">
-                      </td>
-                      <td class="px-6 py-4" *ngIf="el.header === 'Actions' && el.header !== '#'">
-                        <ng-container class="d-flex" *ngFor="let action of el.actions;let k= index">
-                          <a *ngIf="action.value === 'detail'" (click)="detail(item,action.url)" class="action-btns1">
-                            <i class="feather feather-eye text-primary" data-bs-toggle="tooltip" title="feather-eye"></i>
-                          </a>
-                          <a *ngIf="action.value === 'add'" [routerLink]="action.url" [queryParams]="{_id:item._id,skip:0,limit:20,sort:'name'}" class="action-btns1">
-                            <i class="feather feather-plus text-success" data-bs-toggle="tooltip" title="feather-eye"></i>
-                          </a>
-                          <a *ngIf="action.value === 'view'" (click)="detail(item,action.url)" class="action-btns1">
-                            <i class="feather feather-eye text-primary" data-bs-toggle="tooltip" title="feather-eye"></i>
-                          </a>
-                          <a *ngIf="action.value === 'modalDetail'" [ngbTooltip]="action.tooltip" (click)="modalDetail(item,detailModal)" class="action-btns1">
-                            <i class="feather feather-eye text-primary" data-bs-toggle="tooltip" title="feather-eye"></i>
-                          </a>
-                          <a *ngIf="action.value === 'update' && item.status !== 'Done' " (click)="detail(item,action.url)" class="action-btns1">
-                            <i class="feather feather-edit-2  text-success" data-bs-toggle="tooltip" title="feather-edit-2"></i>
-                          </a>
-                          <a *ngIf="action.value === 'edit'" (click)="edit(item)" (click)="showModal(largemodal,'edit')" class="action-btns1">
-                            <i class="feather feather-edit-2  text-success" data-bs-toggle="tooltip" title="feather-edit"></i>
-                          </a>
-                          <a *ngIf="action.value === 'delete'" (click)="showConfirm(item)" (click)="WarningOpen(warningmodal,item)" class="action-btns1">
-                            <i class="feather feather-trash-2 text-danger" data-bs-toggle="tooltip" title="feather-trash"></i>
-                          </a>
-                          <a *ngIf="action.value === 'cancel_ticket'" (click)="WarningCancelOpen(warnincancelgmodal,item,action.value)" class="action-btns1">
-                            <i class="feather feather-trash-2 text-danger" data-bs-toggle="tooltip" title="feather-trash"></i>
-                          </a>
-                          <a *ngIf="action.value === 'print'" (click)="print(item,action.url)" class="action-btns1">
-                            <i class="feather feather-printer" data-bs-toggle="tooltip" title="feather-printer"></i>
-                          </a>
-                          <a *ngIf="action.value === 'resetpassword'" (click)="resetPassword(item,action.url)" class="action-btns1">
-                            <i class="fe fe-refresh-ccw" data-bs-toggle="tooltip" title="reset password to System#12345"></i>
-                          </a>
-                          <a *ngIf="action.value === 'openPage'" [routerLink]="[action.url]" [queryParams]="action.queryParams._id === '_id'?{_id:item._id}:action.queryParams" class="action-btns1">
-                            <i [class]="action.icon"></i>
-                          </a>
-                          <a *ngIf="action.value === 'uploadImg'" (click)="openImageUpload(imgUpload,item)" class="btn text-info">
-                            <i class="fa fa-image"></i>
-                          </a>
 
-                        </ng-container>
-                      </td>
 
+                      </div>
                     </ng-container>
 
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                  </div>
+                  <!--end::Columns-->
+                </div>
+                <!--end::Card body-->
+                <!--begin::Card footer-->
+                <div class="card-footer flex-wrap pt-2" *ngIf="columns[columns.length-1].header == 'Actions'">
+                  <ng-container *ngFor="let action of columns[columns.length-1].actions">
+                    <a *ngIf="action.value === 'detail'" (click)="detail(item,action.url)" class="action-btns1">
+                      <i class="feather feather-eye text-primary" data-bs-toggle="tooltip"
+                        title="feather-eye"></i>
+                    </a>
+                    <a *ngIf="action.value === 'add'" [routerLink]="action.url"
+                      [queryParams]="{_id:item._id,skip:0,limit:20,sort:'name'}" class="action-btns1">
+                      <i class="feather feather-plus text-success" data-bs-toggle="tooltip"
+                        title="feather-eye"></i>
+                    </a>
+                    <a *ngIf="action.value === 'view'" (click)="detail(item,action.url)" class="action-btns1">
+                      <i class="feather feather-eye text-primary" data-bs-toggle="tooltip"
+                        title="feather-eye"></i>
+                    </a>
+                    <a *ngIf="action.value === 'modalDetail'" [ngbTooltip]="action.tooltip"
+                      (click)="modalDetail(item,detailModal)" class="action-btns1">
+                      <i class="feather feather-eye text-primary" data-bs-toggle="tooltip"
+                        title="feather-eye"></i>
+                    </a>
+                    <a *ngIf="action.value === 'update' && item.status !== 'Done' "
+                      (click)="detail(item,action.url)" class="action-btns1">
+                      <i class="feather feather-edit-2  text-success" data-bs-toggle="tooltip"
+                        title="feather-edit-2"></i>
+                    </a>
+                    <a *ngIf="action.value === 'edit'" (click)="edit(item)"
+                      (click)="showModal(largemodal,'edit')" class="action-btns1">
+                      <i class="feather feather-edit-2  text-success" data-bs-toggle="tooltip"
+                        title="feather-edit"></i>
+                    </a>
+                    <a *ngIf="action.value === 'delete'" (click)="showConfirm(item)"
+                      (click)="WarningOpen(warningmodal,item)" class="action-btns1">
+                      <i class="feather feather-trash-2 text-danger" data-bs-toggle="tooltip"
+                        title="feather-trash"></i>
+                    </a>
+                    <a *ngIf="action.value === 'cancel_ticket'"
+                      (click)="WarningCancelOpen(warnincancelgmodal,item,action.value)" class="action-btns1">
+                      <i class="feather feather-trash-2 text-danger" data-bs-toggle="tooltip"
+                        title="feather-trash"></i>
+                    </a>
+                    <a *ngIf="action.value === 'print'" (click)="print(item,action.url)" class="action-btns1">
+                      <i class="feather feather-printer" data-bs-toggle="tooltip" title="feather-printer"></i>
+                    </a>
+                    <a *ngIf="action.value === 'resetpassword'" (click)="resetPassword(item,action.url)"
+                      class="action-btns1">
+                      <i class="fe fe-refresh-ccw" data-bs-toggle="tooltip"
+                        title="reset password to System#12345"></i>
+                    </a>
+                    <a *ngIf="action.value === 'openPage'" [routerLink]="[action.url]"
+                      [queryParams]="action.queryParams._id === '_id'?{_id:item._id}:action.queryParams"
+                      class="action-btns1">
+                      <i [class]="action.icon"></i>
+                    </a>
+                    <a *ngIf="action.value === 'uploadImg'" (click)="openImageUpload(imgUpload,item)"
+                      class="btn text-info">
+                      <i class="fa fa-image"></i>
+                    </a>
+                  </ng-container>
 
-            <div class="d-flex justify-content-between p-2">
-              <app-pagination [pagesToShow]="7" [page]="page" [perPage]="params.limit" [pageData]="params" [count]="length"></app-pagination>
-            </div>
 
-          </form>
+                </div>
+                <!--end::Card footer-->
+              </div>
+              <!--end::Card-->
+            </div>
+            <!--end::Col-->
+          </ng-container>
         </div>
       </div>
     </div>
@@ -165,7 +368,8 @@
         <div class="sk-circle12 sk-child"></div>
       </div>
     </div>
-    <a class="btn btn-outline-primary me-2" id="imgClose" (click)="modal.dismiss('Cross click')" data-bs-dismiss="modal">{{'Close'|dic}}</a>
+    <a class="btn btn-outline-primary me-2" id="imgClose" (click)="modal.dismiss('Cross click')"
+      data-bs-dismiss="modal">{{'Close'|dic}}</a>
     <a class="btn btn-success" (click)="uploadImg()">{{'Upload'|dic}}</a>
   </div>
 </ng-template>
@@ -183,57 +387,60 @@
         <div class="form-group row" *ngIf="row.type === 'date_time'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text" type="datetime-local" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i"
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text"
+              type="datetime-local" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i"
               class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'date'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text" type="date" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i"
-              class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text"
+              type="date" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'text'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text" type="text" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i"
-              class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text"
+              type="text" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'email'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="email" type="email" [id]="'form_name'+i" [required]="row.required"
-              [name]="'form_name'+i" class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="email"
+              type="email" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'number'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="0" type="number" [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i"
-              class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="0"
+              type="number" [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'password'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" type="password" [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i"
-              class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" type="password"
+              [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
 
         <div class="form-group row" *ngIf="row.type === 'text_area'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <textarea class="form-control" rows="6" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="0" type="password" [id]="'formID'+i"
-              [required]="row.required" [name]="'form_name'+i" class="form-control"></textarea>
+            <textarea class="form-control" rows="6" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value"
+              [name]="'field'+i" placeholder="0" type="password" [id]="'formID'+i" [required]="row.required"
+              [name]="'form_name'+i" class="form-control"></textarea>
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'selectLocal'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <ng-select class="form-control custom-select " [id]="'formID'+i" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="select">
+            <ng-select class="form-control custom-select " [id]="'formID'+i" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="row.value" [name]="'field'+i" placeholder="select">
               <ng-option *ngFor="let data of row.list" [value]="data.value">{{data.caption|dic|titlecase}}</ng-option>
             </ng-select>
           </div>
@@ -241,7 +448,8 @@
         <div class="form-group row" *ngIf="row.type === 'selectUrl'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <ng-select class="form-control custom-select " [id]="'formID'+i" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i">
+            <ng-select class="form-control custom-select " [id]="'formID'+i" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="row.value" [name]="'field'+i">
               <ng-option *ngFor="let data of row.list" [value]="data._id">{{data[row.cap_name]|titlecase}}</ng-option>
             </ng-select>
           </div>
@@ -249,8 +457,10 @@
         <div class="form-group row" *ngIf="row.type === 'selectUrlImg'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <ng-select class="form-control custom-select " [searchable]="false" [clearable]="true" [id]="'formID'+i" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i">
-              <ng-option *ngFor="let data of row.list" [value]="data._id"> <img [src]="apiIMG + '/teams/'+data['photo']" width="20px" height="20px" /> {{data[row.cap_name]|dic|titlecase}} </ng-option>
+            <ng-select class="form-control custom-select " [searchable]="false" [clearable]="true" [id]="'formID'+i"
+              [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i">
+              <ng-option *ngFor="let data of row.list" [value]="data._id"> <img [src]="apiIMG + '/teams/'+data['photo']"
+                  width="20px" height="20px" /> {{data[row.cap_name]|dic|titlecase}} </ng-option>
             </ng-select>
           </div>
         </div>
@@ -278,7 +488,8 @@
       </div>
     </div>
     <button class="btn ripple btn-primary" (click)="handleOk('add')" type="button">{{'Save'|dic}}</button>
-    <button type="button" id="closeInsert" class="btn ripple btn-danger" (click)="handleCancel('add')" (click)="modal.close('Close click')">{{'Close'|dic}}</button>
+    <button type="button" id="closeInsert" class="btn ripple btn-danger" (click)="handleCancel('add')"
+      (click)="modal.close('Close click')">{{'Close'|dic}}</button>
   </div>
 </ng-template>
 
@@ -315,57 +526,61 @@
         <div class="form-group row" *ngIf="row.type === 'date_time'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text" type="datetime-local" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i"
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text"
+              type="datetime-local" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i"
               class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'date'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text" type="date" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i"
-              class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text"
+              type="date" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'text'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [disabled]="row.disabled" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text" type="text" [id]="'form_name'+i" [required]="row.required"
+            <input [ngModelOptions]="{standalone: true}" [disabled]="row.disabled" [(ngModel)]="row.value"
+              [name]="'field'+i" placeholder="text" type="text" [id]="'form_name'+i" [required]="row.required"
               [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'email'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="email" type="email" [id]="'form_name'+i" [required]="row.required"
-              [name]="'form_name'+i" class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="email"
+              type="email" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'number'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="0" type="number" [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i"
-              class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="0"
+              type="number" [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'password'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" type="password" [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i"
-              class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" type="password"
+              [id]="'formID'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
 
         <div class="form-group row" *ngIf="row.type === 'text_area'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <textarea class="form-control" rows="6" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="0" type="password" [id]="'formID'+i"
-              [required]="row.required" [name]="'form_name'+i" class="form-control"></textarea>
+            <textarea class="form-control" rows="6" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value"
+              [name]="'field'+i" placeholder="0" type="password" [id]="'formID'+i" [required]="row.required"
+              [name]="'form_name'+i" class="form-control"></textarea>
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'selectLocal'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <ng-select class="form-control custom-select " [id]="'formID'+i" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="select">
+            <ng-select class="form-control custom-select " [id]="'formID'+i" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="row.value" [name]="'field'+i" placeholder="select">
               <ng-option *ngFor="let data of row.list" [value]="data.value">{{data.caption|dic|titlecase}}</ng-option>
             </ng-select>
           </div>
@@ -373,7 +588,8 @@
         <div class="form-group row" *ngIf="row.type === 'selectUrl'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <ng-select class="form-control custom-select " [disabled]="row.disabled" [id]="'formID'+i" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i">
+            <ng-select class="form-control custom-select " [disabled]="row.disabled" [id]="'formID'+i"
+              [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i">
               <ng-option *ngFor="let data of row.list" [value]="data._id">{{data[row.cap_name]|titlecase}}</ng-option>
             </ng-select>
           </div>
@@ -381,8 +597,10 @@
         <div class="form-group row" *ngIf="row.type === 'selectUrlImg'">
           <label class="col-md-3 form-label" [for]="'formID'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <ng-select class="form-control custom-select " [searchable]="false" [clearable]="true" [id]="'formID'+i" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i">
-              <ng-option *ngFor="let data of row.list" [value]="data._id"> <img [src]="apiIMG + '/teams/'+data['photo']" width="20px" height="20px" /> {{data[row.cap_name]|dic|titlecase}} </ng-option>
+            <ng-select class="form-control custom-select " [searchable]="false" [clearable]="true" [id]="'formID'+i"
+              [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i">
+              <ng-option *ngFor="let data of row.list" [value]="data._id"> <img [src]="apiIMG + '/teams/'+data['photo']"
+                  width="20px" height="20px" /> {{data[row.cap_name]|dic|titlecase}} </ng-option>
             </ng-select>
           </div>
         </div>
@@ -409,7 +627,8 @@
       </div>
     </div>
     <button class="btn ripple btn-primary" (click)="handleOk('edit')" type="button">{{'Save'|dic}}</button>
-    <button type="button" id="closeUpdate" class="btn ripple btn-danger" (click)="handleCancel('edit')" (click)="modal.close('Close click')">{{'Close'|dic}}</button>
+    <button type="button" id="closeUpdate" class="btn ripple btn-danger" (click)="handleCancel('edit')"
+      (click)="modal.close('Close click')">{{'Close'|dic}}</button>
   </div>
 </ng-template>
 
@@ -424,7 +643,8 @@
     <i class="fe fe-trash fs-70 text-danger lh-1 mb-4 d-inline-block"></i>
     <h4 class="tx-danger mg-b-20">{{'Do you want to delete these data?'|dic}}</h4>
     <p class="mg-b-20 mg-x-20"> {{'When you approve it, this Data will be deleted'|dic}} </p>
-    <button type="button" class="btn btn-danger pd-x-25 me-0" (click)="deleteItem()" (click)="modal.close('Close click')">{{'Yes'|dic}}</button>
+    <button type="button" class="btn btn-danger pd-x-25 me-0" (click)="deleteItem()"
+      (click)="modal.close('Close click')">{{'Yes'|dic}}</button>
   </div>
 </ng-template>
 <ng-template #warnincancelgmodal let-modal>
@@ -437,7 +657,8 @@
     <i class="fe fe-trash fs-70 text-danger lh-1 mb-4 d-inline-block"></i>
     <h4 class="tx-danger mg-b-20">{{'Are you sure you want to cancel this ticket?'|dic}}</h4>
     <p class="mg-b-20 mg-x-20"> {{'Are you sure you want to cancel this ticket?'|dic}} </p>
-    <button type="button" class="btn btn-danger pd-x-25 me-0" (click)="cancelItem()" (click)="modal.close('Close click')">{{'Yes'|dic}}</button>
+    <button type="button" class="btn btn-danger pd-x-25 me-0" (click)="cancelItem()"
+      (click)="modal.close('Close click')">{{'Yes'|dic}}</button>
   </div>
 </ng-template>
 
