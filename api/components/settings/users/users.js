@@ -15,22 +15,7 @@ var userSchema = mongoose.Schema({
     lowercase: true,
     default: "unnkown@example.com",
   },
-  companies: [
-    // {
-    //   company_id: {
-    //     type: mongoose.Schema.ObjectId,
-    //     ref: "Company"
-    //   },
-    //   creator: {
-    //     type: mongoose.Schema.ObjectId,
-    //     ref: "User",
-    //   },
-    //   created_at: {
-    //     type: Date,
-    //     default: Date.now()
-    //   }
-    // }
-  ],
+ 
   password: { type: String },
   code: { type: String },
   job_title: { type: String },
@@ -42,6 +27,11 @@ var userSchema = mongoose.Schema({
     default: "avatar.png",
   },
   type: { type: String, default: 'Employee', enum: ['Employee', 'Staff', 'HR'] },
+  main_company_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Company",
+    default: null,
+  },
   role_id: {
     type: mongoose.Schema.ObjectId,
     ref: "Role",

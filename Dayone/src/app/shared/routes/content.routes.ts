@@ -5,8 +5,8 @@ import { LoginComponent } from 'src/app/auth/login/login.component';
 export const content: Routes = [
  
   {
-    path: 'bas-settings',
-    loadChildren: () => import('../../components/bas_settings/bas_settings.module').then(m => m.BasSettingsModule)
+    path: 'settings',
+    loadChildren: () => import('../../components/erp_settings/module').then(m => m.SettingsModule)
   },
  
   

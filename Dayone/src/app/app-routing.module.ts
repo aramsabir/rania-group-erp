@@ -10,24 +10,36 @@ import { error } from './shared/routes/error.routes';
 import { AccountComponent } from './shared/layout-components/layout/account/account.component';
 import { account } from './shared/routes/account';
 import { MainContentComponent } from './shared/layout-components/layout/main-content/content.component';
-import { AsoBrickContentComponent } from './shared/layout-components/sub_layouts/aso-brick/content/content.component';
-import { HilalBrickContentComponent } from './shared/layout-components/sub_layouts/hilal-brick/content/content.component';
-import { GroupContentComponent } from './shared/layout-components/sub_layouts/group/content/content.component';
-import { HCNTContentComponent } from './shared/layout-components/sub_layouts/hcnt/content/content.component';
 import { Error404Component } from './auth/error404/error404.component';
-import { FMContentComponent } from './shared/layout-components/sub_layouts/family-mall/content/content.component';
+import { SettingsContentComponent } from './shared/layout-components/sub_layouts/settings/content/content.component';
+import { EmployeesContentComponent } from './shared/layout-components/sub_layouts/employees/content/content.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'bas-home',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
-    path: 'bas-home',
+    path: 'home',
     component: MainContentComponent,
     canActivate: [AuthGuard], loadChildren: () => import('../app/components/bas-home/bas-home.module').then((m) => m.BasHomeModule),
   },
+  {
+    path: 'employees',
+    component: EmployeesContentComponent,
+    canActivate: [AuthGuard], loadChildren: () => import('../app/components/erp_employees/module').then((m) => m.EmployeesModule),
+  },
+  {
+    path: 'settings',
+    component: SettingsContentComponent,
+    canActivate: [AuthGuard], loadChildren: () => import('../app/components/erp_settings/module').then((m) => m.SettingsModule),
+  },
+   
+  // {
+  //   path: 'settings',
+  //   loadChildren: () => import('../../components/erp_settings/module').then(m => m.SettingsModule)
+  // },
   // {
   //   path: 'group',
   //   component: GroupContentComponent,
@@ -54,7 +66,7 @@ const routes: Routes = [
   //   canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/family-mall/module').then(  (m) => m.Module ),
   // },
   // {
-  //   path: '',
+  //   path: 'settings',
   //   component: ContentComponent,
   //   canActivate: [AuthGuard],
   //   children: content,

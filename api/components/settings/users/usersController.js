@@ -288,11 +288,7 @@ function validPhoneIsInIraq(phone) {
 }
 
 exports.updateUserStatus = async (req, res) => {
-  let userInfo = await auth.userInfo(req.headers);
-  if (!userInfo.role_id.resource.split(",").includes(resources.UserWrite)) {
-    res.json({ status: false, message: "You are not authorized!" });
-    return 0;
-  }
+ 
 
   if (!req.body._id) {
     res.json({ status: false, message: "Unknown user" });
@@ -394,21 +390,50 @@ exports.restPasswordForUser = async (req, res) => {
   }
 };
 
-exports.getUsers = async (req, res) => {
-  let userInfo = await auth.userInfo(req.headers);
-  if (!userInfo) {
-    res.json({ status: false, message: "You are not authorized!" });
-    return 0;
-  }
-
+exports.List = async (req, res) => {
+   
 
 
   let skip = parseInt(req.query.skip);
   let limit = parseInt(req.query.limit);
   let sort = req.query.sort;
 
-  await User.find({ $and: [{ deleted_at: null }] })
-    .populate("role_id")
+  // console.log(req.query.search_companies );
+  
+  
+  await User.find({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } }, { main_company_id: { $in: req.query.search_companies } }] })
+    .populate("main_company_id")
+    .populate({ path: "creator", select: { password: 0 } })
+    .select({ password: 0 })
+    .skip(skip)
+    .limit(limit)
+    .sort(sort)
+    .exec(function (err, response) {
+      if (response) {
+        User.countDocuments({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } },{ main_company_id: { $in: req.query.search_companies } }] }).exec(function (err, count) {
+          res.json({
+            status: true,
+            data: response,
+            count: count,
+          });
+        });
+      } else {
+        console.log(err);
+        res.json({ status: false })
+      }
+    });
+};
+
+exports.Available = async (req, res) => {
+   
+
+  
+  let skip = parseInt(req.query.skip);
+  let limit = parseInt(req.query.limit);
+  let sort = req.query.sort;
+
+  await User.find({ $and: [{ deleted_at: null },{ main_company_id: { $in: req.query.company_permission } }] })
+    .populate("main_company_id")
     .populate({ path: "creator", select: { password: 0 } })
     .select({ password: 0 })
     .skip(skip)
@@ -759,7 +784,6 @@ exports.userInformation = async (req, res) => {
 exports.myRoles = async (req, res) => {
 
 
-    console.log(req.query.resources);
     
     res.json({ resources:req.query.resources,data:{profile_photo:req.query.profile_photo,full_name:req.query.userFullName}, status: true });
     return 0;

@@ -7,7 +7,7 @@ const log = require('../../log/logController')
 const terms = require('../../event_and_resources/terms')
 
 
-exports.newData = async (req, res) => {
+exports.New = async (req, res) => {
 
     if (!req.body.en_name) {
         res.json({ status: false, message: "English " + terms.name_required })
@@ -71,7 +71,7 @@ exports.newData = async (req, res) => {
 
 
 
-exports.allData = async (req, res) => {
+exports.List = async (req, res) => {
 
     var search = {}
     if (req.query.search && req.query.search !== 'undefined') {
@@ -115,7 +115,7 @@ exports.allData = async (req, res) => {
 
 }
 
-exports.availableCompanies = async (req, res) => {
+exports.Available = async (req, res) => {
 
     var search = {}
     if (req.query.search && req.query.search !== 'undefined') {
@@ -150,63 +150,9 @@ exports.availableCompanies = async (req, res) => {
 
 
 }
+ 
 
-exports.myCompanies = async (req, res) => {
-
-    var searchCompanyPermission = { "_id": { $in: req.query.company_permission } }
-
-    var searchSector = {}
-    if (req.query.sector && req.query.sector != 'undefined' && req.query.sector != undefined) {
-        searchSector = { type: req.query.sector }
-    }
-
-    var search = {}
-    if (req.query.search && req.query.search !== 'undefined') {
-        const regex = new RegExp(req.query.search, 'i'); // 'i' flag for case-insensitive matching
-        search = {
-            $or: [
-                {
-                    "en_name": { $regex: regex }
-                },
-                {
-                    "ar_name": { $regex: regex }
-                },
-            ]
-        }
-    }
-
-    var count = await Schema.countDocuments({
-        $and: [
-            searchSector,
-            searchCompanyPermission,
-            search,
-            {
-                deleted_at: null
-            }
-        ]
-    }).exec()
-    var data = await Schema.find({
-        $and: [
-            searchSector,
-            searchCompanyPermission,
-            search,
-            {
-                deleted_at: null
-            }
-        ]
-    })
-        .populate('creator')
-        .skip(parseInt(req.query.skip))
-        .limit(parseInt(req.query.limit))
-        .sort(req.query.sort)
-        .exec()
-
-    res.json({ status: true, count, data: data })
-
-
-}
-
-exports.getOne = async (req, res) => {
+exports.One = async (req, res) => {
 
 
     if (!req.query._id) {
@@ -224,7 +170,7 @@ exports.getOne = async (req, res) => {
 }
 
 
-exports.updateData = async (req, res) => {
+exports.Update = async (req, res) => {
 
     if (!req.body._id) {
         res.json({ status: false, message: terms.id_required });
@@ -273,7 +219,7 @@ exports.updateData = async (req, res) => {
     })
 }
 
-exports.delete = async (req, res) => {
+exports.Delete = async (req, res) => {
 
     if (!req.query._id) {
         res.json({ status: false, message: terms.id_required });

@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
             // setItem(StorageItem.Auth, { token: res.token, email: res.email });
             this.httpService.createToast('success', res.message);
             // this.router.navigate(['/bas-home']);
-            window.location.href = '/bas-home';
+            window.location.href = '/home';
         } else {
           this.httpService.createToast('error', res.message);
         }

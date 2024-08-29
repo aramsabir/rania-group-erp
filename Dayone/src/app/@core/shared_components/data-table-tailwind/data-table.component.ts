@@ -86,6 +86,7 @@ export class DataTableTailwindComponent implements OnInit {
   isLoading: boolean = false;
   model: any = {};
   detailModalItem: any;
+  list_item: string | null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -97,6 +98,10 @@ export class DataTableTailwindComponent implements OnInit {
     private activated_route: ActivatedRoute,
     private httpService: HttpService,
   ) {
+    this.list_item = localStorage.getItem('list_type');
+    if (!this.list_item) this.list_item = 'list';
+
+    
     this.lang = localStorage.getItem('language');
     this.apiIMG = environment.apiIMG;
     this.activated_route.queryParams.subscribe((params: any) => {
@@ -146,7 +151,6 @@ export class DataTableTailwindComponent implements OnInit {
         limit: this.params.limit,
         sort: this.params.sort,
         search: this.params.search,
-        companies: this.params.companies,
         from: this.params.from,
         to: this.params.to,
         company_id: this.params.company_id,
@@ -172,7 +176,6 @@ export class DataTableTailwindComponent implements OnInit {
         sort: '-created_at',
         _id: this.params._id,
         search: this.params.search,
-        companies: this.params.companies,
         from: this.params.from,
         to: this.params.to,
         company_id: this.params.company_id,
@@ -217,7 +220,6 @@ export class DataTableTailwindComponent implements OnInit {
         limit: this.params.limit,
         sort: this.params.sort,
         search: this.params.search,
-        companies: this.params.companies,
         from: this.params.from,
         to: this.params.to,
         company_id: this.params.company_id,
@@ -240,7 +242,6 @@ export class DataTableTailwindComponent implements OnInit {
         limit: event,
         sort: this.params.sort,
         search: this.params.search,
-        companies: this.params.companies,
         from: this.params.from,
         to: this.params.to,
         company_id: this.params.company_id,
@@ -256,10 +257,15 @@ export class DataTableTailwindComponent implements OnInit {
     });
   }
 
+
+  setListToSTorage(type: string) {
+    localStorage.setItem('list_type', type);
+  }
+
   changeActiveUser(item: any, event: any) {
     var data = { active: event.target.checked, _id: item._id };
     this.httpService
-      .call('updateUserStatus', ApiMethod.PUT, {}, data)
+      .call('update-employee-activation', ApiMethod.PUT, {}, data)
       .subscribe((ptr: any) => {
         if (ptr.status) {
           this.ngOnInit();
@@ -299,7 +305,6 @@ export class DataTableTailwindComponent implements OnInit {
       limit: this.params.limit,
       sort: this.params.sort,
       search: this.params.search,
-      companies: this.params.companies,
       from: this.params.from,
       to: this.params.to,
       company_id: this.params.company_id,

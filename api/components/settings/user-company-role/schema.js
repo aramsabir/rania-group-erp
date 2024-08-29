@@ -3,7 +3,7 @@ const { Product } = require("../../event_and_resources/tables");
 mongoose.Promise = global.Promise;
 var schema = mongoose.Schema({
   user_id: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
-  company_id: { type: mongoose.Schema.ObjectId, ref: 'Companies', default: null },
+  company_id: { type: mongoose.Schema.ObjectId, ref: 'Company', default: null },
   resources: { type: String, default: "", trim: true },
 
   creator: {
@@ -50,9 +50,9 @@ schema.methods.validation = async function (body, key) {
       if (!mongoose.Types.ObjectId.isValid(body.company_id)) {
         return ({ status: false, message: 'Company name not valid' });
       }
-      if (!body.resources || body.resources == '') {
-        return ({ status: false, message: 'Resources required' });
-      }
+      // if (!body.resources || body.resources == '') {
+      //   return ({ status: false, message: 'Resources required' });
+      // }
 
 
       var item_finder = await mongoose.model('User_Company_Role', schema).findOne({ $and: [{ user_id: body.user_id }, { company_id: body.company_id }, { deleted_at: null }] }).exec();
@@ -61,7 +61,7 @@ schema.methods.validation = async function (body, key) {
       } else
         return ({ status: true });
 
-        
+
     case 'edit':
       if (!body._id) {
         return ({ status: false, message: "ID required" })
@@ -90,6 +90,19 @@ schema.methods.validation = async function (body, key) {
         return ({ status: false, message: 'Doublicated data' });
       } else
         return ({ status: true });
+
+    case 'resource':
+      if (!body._id) {
+        return ({ status: false, message: "ID required" })
+      }
+      if (!mongoose.Types.ObjectId.isValid(body._id)) {
+        return ({ status: false, message: "ID not valid" });
+      }
+
+      if (!body.resources) {
+        return ({ status: false, message: "Resource required" })
+      }
+      return ({ status: true });
 
     case 'delete':
       if (!body._id) {
