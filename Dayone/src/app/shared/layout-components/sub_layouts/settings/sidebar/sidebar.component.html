@@ -66,6 +66,16 @@
                 <i *ngIf="menuItem.alarm" class="px-2  feather feather-bell text-red bell sidemenu_icon" >
                 </i>
               </a>
+              <a [href]="menuItem.path" class="side-menu__item" 
+              [queryParams]="!menuItem.type ? null : menuItem.queryParams"
+                *ngIf="menuItem.status && menuItem.type === 'href' " routerLinkActive="active" (click)="toggleNavActive(menuItem)">
+                <span class="shape1"></span>
+                <span class="shape2"></span>
+                <i class="{{menuItem.icon}} sidemenu_icon"></i>
+                <span  class="pointer side-menu__label">{{menuItem.title}}</span>
+                <i *ngIf="menuItem.alarm" class="px-2  feather feather-bell text-red bell sidemenu_icon" >
+                </i>
+              </a>
               <!-- has-empty -->
               <a class="side-menu__item" href="javascript:;" *ngIf="menuItem.status && menuItem.type === 'empty' "
                 (click)="toggleNavActive(menuItem)">

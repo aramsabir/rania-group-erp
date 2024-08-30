@@ -84,20 +84,6 @@ export var allRoleEN = [
   }
   ,
   {
-    head: 'Approval',
-    role_value: 'approval:',
-    indeterminate: false,
-    allChecked: false,
-    counter: 0,
-    options: [
-      { label: 'Read', value: 'read', checked: false },
-      { label: 'Add', value: 'add', checked: false },
-      { label: 'Update', value: 'update', checked: false },
-      { label: 'Delete', value: 'delete', checked: false },
-    ],
-  }
-  ,
-  {
     head: 'Settings',
     role_value: 'setting:',
     indeterminate: false,
@@ -122,6 +108,7 @@ export var allRoleEN = [
       { label: 'Add', value: 'add', checked: false },
       { label: 'Update', value: 'update', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
+      { label: 'Admin', value: 'admin', checked: false },
     ],
   }
   ,

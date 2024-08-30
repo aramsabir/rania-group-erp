@@ -42,7 +42,7 @@ export class UsersComponent implements OnInit {
       value: 'user_name'
     },
     {
-      header: 'Card No.',
+      header: 'Employee ID',
       cell: (el: any) => el.code,
       type: 'number',
       value: 'code'
@@ -58,6 +58,12 @@ export class UsersComponent implements OnInit {
       cell: (el: any) => el.phone,
       type: 'text',
       value: 'phone'
+    },
+    {
+      header: 'Department',
+      cell: (el: any) => el.department_id?.name,
+      type: 'text',
+      value: 'department_id'
     },
     {
       header: 'Main company',
@@ -100,17 +106,16 @@ export class UsersComponent implements OnInit {
         { type: 'text', name: 'user_name', title: 'User name', required: true },
         { type: 'text', name: 'email', title: 'E-mail', required: true },
         { type: 'text', name: 'phone', title: 'phone', required: true },
-
-        { type: 'number', name: 'card_no', title: 'Card No.', required: true },
+        { type: 'number', name: 'code', title: 'Employee ID', required: true },
         { type: 'password', name: 'password', title: 'Password', required: true },
         {
           type: 'selectUrl', name: 'main_company_id', title: 'Company', val_name: 'main_company_id', cap_name: 'name', required: true,
           url: 'available_companies', params: { skip: 0, limit: 1000, sort: 'name' }
         },
-        // {
-        //   type: 'selectUrl', name: 'department_id', title:'Department', val_name: 'department_id', cap_name: 'department_id',required: true ,
-        //   url: 'departments',params:{skip:0,limit:1000,sort:'name'}
-        // },
+        {
+          type: 'selectUrl', name: 'department_id', title: 'Department', val_name: 'department_id', cap_name: 'name', required: true,
+          url: 'available_departments', params: { skip: 0, limit: 1000, sort: 'name' }
+        },
       ]
     },
   };
@@ -126,12 +131,15 @@ export class UsersComponent implements OnInit {
         { type: 'text', name: 'user_name', title: 'User name', required: true },
         { type: 'text', name: 'email', title: 'E-mail', required: true },
         { type: 'text', name: 'phone', title: 'phone', required: true },
-
-        { type: 'number', name: 'card_no', title: 'Card No.', required: true },
+        { type: 'number', name: 'code', title: 'Employee ID', required: true },
         { type: 'password', name: 'password', title: 'Password', required: true },
         {
           type: 'selectUrl', name: 'main_company_id', title: 'Company', val_name: 'main_company_id', cap_name: 'name', required: true,
           url: 'available_companies', params: { skip: 0, limit: 1000, sort: 'name' }
+        },
+        {
+          type: 'selectUrl', name: 'department_id', title: 'Department', val_name: 'department_id', cap_name: 'name', required: true,
+          url: 'available_departments', params: { skip: 0, limit: 1000, sort: 'name' }
         },
       ]
     },

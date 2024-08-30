@@ -126,46 +126,24 @@ export class SidebarEmployeesComponent {
      
         this.menuItems.push(
           {
-            title: this.dic.translate('Home'), status: true, icon: 'fe fe-home', type: 'link', path: '/home', badgeType: 'success', badgeValue: '2', active: false,
+            title: this.dic.translate('Applications'), status: true, icon: 'fe fe-apps', type: 'href', path: '/home', badgeType: 'success', badgeValue: '2', active: false,
           },
         )
-        if (resources.includes('hbf:sales-per-month'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Sales per month'), status: true, icon: 'fe fe-calendar', type: 'link', path: '/hilal-bricks/sales-per-month',queryParams:{from_date:this.from,to_date:this.to}, badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
-        if (resources.includes('hbf:sales-per-customer'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Sales per customer'), status: true, icon: 'fe fe-user', type: 'link', path: '/hilal-bricks/sales-per-customer',queryParams:{from_date:this.from,to_date:this.to,customer_type:"dealer"}, badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
-        if (resources.includes('hbf:sales-per-gov'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Sales per gov'), status: true, icon: 'fa fa-map-marker', type: 'link', path: '/hilal-bricks/sales-per-gov',queryParams:{from_date:this.from,to_date:this.to}, badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
-        if (resources.includes('hbf:sales-per-brick-type'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Sales per brick type'), status: true, icon: 'fa fa-dollar', type: 'link', path: '/hilal-bricks/sales-per-brick-type',queryParams:{from_date:this.from,to_date:this.to}, badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
-        if (resources.includes('hbf:inventory-now'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Inventory now'), status: true, icon: 'fa fa-th', type: 'link', path: '/hilal-bricks/inventory-now', badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
-        if (resources.includes('hbf:inventory-and-sold-per-date'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Inventory and sold'), status: true, icon: 'fa fa-th', type: 'link', path: '/hilal-bricks/inventory-and-sold',queryParams:{date:this.to}, badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
- 
+        this.menuItems.push(
+            { title: this.dic.translate('Employees'), status: true,icon: 'fe fe-users', type: 'link', path: '/employees/main', badgeType: 'primary', badgeValue: '2', active: false, },
+        )
+        this.menuItems.push(
+          { title: this.dic.translate('Departments'), status: true, type: 'link', path: '/employees/departments', badgeType: 'primary', badgeValue: '2', active: false, },
+        )
+        this.menuItems.push(
+          {
+            title: this.dic.translate('Configuration'), status: true, icon: 'fe fe-cog', type: 'sub', badgeType: 'primary', badgeValue: '2', active: false,
+            children:[
+              { title: this.dic.translate('Departments'), status: true, type: 'link', path: '/employees/departments', badgeType: 'primary', badgeValue: '2', active: false, },
+            ]
+          },
+        )
+       
         this.acheckActiveLinkOnLoad()
 
         this.router.events.subscribe((event: any) => {

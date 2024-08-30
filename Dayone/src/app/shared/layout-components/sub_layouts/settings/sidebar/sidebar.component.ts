@@ -38,34 +38,7 @@ export class SidebarSettingsComponent {
   to: string | null;
   prev_year: any;
   arr_years_expence: any = [];
-  generator_maintenance: boolean = false;
-  constant_values: boolean = false;
-  product_read: boolean = false;
-  company_read: boolean = false;
-  log_read: boolean = false;
-  now: any
-  hour_before_now: any
-  ActivitySubjects_read: boolean = false;
-  LetterSubjects_read: boolean = false;
-  Visit_read: boolean = false;
-  Visit_add: boolean = false;
-  Activity_read: boolean = false;
-  Activity_add: boolean = false;
-  Warning_read: boolean = false;
-  Warning_add: boolean = false;
-  Accident_read: boolean = false;
-  Accident_add: boolean = false;
-  Letters_read: boolean = false;
-  Letters_add: boolean = false;
-  VisitReasons_add: boolean = false;
-  AccidentReasons_add: boolean = false;
-  WarningReasons_add: boolean = false;
-  WarningTypes_add: boolean = false;
-  Contractors_add: boolean = false;
-  Cases_add: boolean = false;
-  Complaint_read: any = false;
-  Complaint_add: any = false;
-  employee_read: any = false;
+ 
 
   constructor(
     private dic: DicService,
@@ -91,19 +64,7 @@ export class SidebarSettingsComponent {
     })
   }
 
-  userInfo() {
-    this.httpService.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
-      if (res.status == true) {
-        this.userData = res.data
-        this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
-
-      } else {
-        this.httpService.createToast('danger', res.message)
-      }
-    }, () => {
-      this.httpService.createToast('danger', 'Network error')
-    });
-  }
+ 
 
 
   // To set Active on Load
@@ -126,45 +87,10 @@ export class SidebarSettingsComponent {
      
         this.menuItems.push(
           {
-            title: this.dic.translate('Home'), status: true, icon: 'fe fe-home', type: 'link', path: '/hilal-bricks', badgeType: 'success', badgeValue: '2', active: false,
+            title: this.dic.translate('Applications'), status: true, icon: 'fe fe-apps', type: 'href', path: '/home', badgeType: 'success', badgeValue: '2', active: false,
           },
         )
-        if (resources.includes('hbf:sales-per-month'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Sales per month'), status: true, icon: 'fe fe-calendar', type: 'link', path: '/hilal-bricks/sales-per-month',queryParams:{from_date:this.from,to_date:this.to}, badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
-        if (resources.includes('hbf:sales-per-customer'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Sales per customer'), status: true, icon: 'fe fe-user', type: 'link', path: '/hilal-bricks/sales-per-customer',queryParams:{from_date:this.from,to_date:this.to,customer_type:"dealer"}, badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
-        if (resources.includes('hbf:sales-per-gov'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Sales per gov'), status: true, icon: 'fa fa-map-marker', type: 'link', path: '/hilal-bricks/sales-per-gov',queryParams:{from_date:this.from,to_date:this.to}, badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
-        if (resources.includes('hbf:sales-per-brick-type'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Sales per brick type'), status: true, icon: 'fa fa-dollar', type: 'link', path: '/hilal-bricks/sales-per-brick-type',queryParams:{from_date:this.from,to_date:this.to}, badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
-        if (resources.includes('hbf:inventory-now'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Inventory now'), status: true, icon: 'fa fa-th', type: 'link', path: '/hilal-bricks/inventory-now', badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
-        if (resources.includes('hbf:inventory-and-sold-per-date'))
-          this.menuItems.push(
-            {
-              title: this.dic.translate('Inventory and sold'), status: true, icon: 'fa fa-th', type: 'link', path: '/hilal-bricks/inventory-and-sold',queryParams:{date:this.to}, badgeType: 'success', badgeValue: '2', active: false,
-            },
-          )
+      
  
         this.acheckActiveLinkOnLoad()
 
