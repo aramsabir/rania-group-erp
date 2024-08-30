@@ -4,6 +4,7 @@ let middleware = require('../middleware');
 const userController = require('../components/settings/users/usersController')
 const companyController = require('../components/settings/company/controller')
 const userCompanyController = require('../components/settings/user-company-role/controller')
+const departmentController = require('../components/settings/department/controller')
 const resources = require('../components/event_and_resources/resources');
 
 var logController = require('../components/log/logController')
@@ -30,7 +31,6 @@ module.exports = function (app) {
         .get('/employee', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeRead) }, checkAccess, userController.one)
         .put('/upload_profile_employee', checkExpireToken, userController.upload, userController.EditUserProfile)
         .get('/available_employees', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeRead) }, checkAccess, userController.Available)
-        // .get('/users', checkExpireToken, userController.getAllUsers)
         .put("/change_my_password", checkExpireToken, userController.changemypassword)
         .post("/reset_password", checkExpireToken, userController.restPasswordForUser)
         .put("/update-employee-activation", checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeUpdate) }, checkAccess, userController.updateUserStatus)
@@ -54,7 +54,7 @@ module.exports = function (app) {
         })
 
 
-    //  Roles
+    //  Company
 
     app.get('/companies', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsRead) }, checkAccess, companyController.List)
         .get('/available_companies', checkExpireToken, AddQueryData, companyController.Available)
@@ -62,6 +62,15 @@ module.exports = function (app) {
         .post('/company', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsWrite) }, checkAccess, companyController.New)
         .put('/company', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsUpdate) }, checkAccess, companyController.Update)
         .delete('/company', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsUpdate) }, checkAccess, companyController.Delete)
+
+    //  Department
+
+    app.get('/departments', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsRead) }, checkAccess, departmentController.List)
+        .get('/available_departments', checkExpireToken, AddQueryData, departmentController.Available)
+        .get('/department', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsRead) }, checkAccess, departmentController.One)
+        .post('/department', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsWrite) }, checkAccess, departmentController.New)
+        .put('/department', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsUpdate) }, checkAccess, departmentController.Update)
+        .delete('/department', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsUpdate) }, checkAccess, departmentController.Delete)
 
 
 

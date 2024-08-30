@@ -8,8 +8,6 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RolesComponent } from './components/roles/roles.component';
-import { RoleDetailComponent } from './components/roles/role-detail/role-detail.component';
 import { PipesModule } from 'src/app/@core/pipes/pipes.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { QRCodeModule } from 'angularx-qrcode';
@@ -26,8 +24,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @NgModule({
   declarations: [
     UsersComponent,
-    RolesComponent,
-    RoleDetailComponent,
     BasLogComponent,
     CompaniesComponent,
     BasPermissionsComponent,

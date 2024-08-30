@@ -403,6 +403,7 @@ exports.List = async (req, res) => {
   
   await User.find({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } }, { main_company_id: { $in: req.query.search_companies } }] })
     .populate("main_company_id")
+    .populate("department_id")
     .populate({ path: "creator", select: { password: 0 } })
     .select({ password: 0 })
     .skip(skip)
@@ -434,6 +435,7 @@ exports.Available = async (req, res) => {
 
   await User.find({ $and: [{ deleted_at: null },{ main_company_id: { $in: req.query.company_permission } }] })
     .populate("main_company_id")
+    .populate("department_id")
     .populate({ path: "creator", select: { password: 0 } })
     .select({ password: 0 })
     .skip(skip)
