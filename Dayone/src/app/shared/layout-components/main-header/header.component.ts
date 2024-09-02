@@ -45,14 +45,18 @@ export class MainHeaderComponent implements OnInit {
     this.default_company = localStorage.getItem('default_company_name');
     this.lang = localStorage.getItem('language');
     this.userInfo();
-    this.myCompanies();
 
     this.company = localStorage.getItem(MainConsts.Company);
+
     this.company_images = localStorage.getItem(MainConsts.CompanyImages);
-    this.selected_company = localStorage.getItem(MainConsts.Company) != '' ? localStorage.getItem(MainConsts.Company)?.split(',') : []
+    this.selected_company =
+      localStorage.getItem(MainConsts.Company) != ''
+        ? localStorage.getItem(MainConsts.Company)?.split(',')
+        : [];
     this.company_name = localStorage.getItem(MainConsts.CompanyName);
     this.lang = localStorage.getItem(MainConsts.Language);
 
+    this.myCompanies();
   }
 
   ngOnInit() {
@@ -86,7 +90,10 @@ export class MainHeaderComponent implements OnInit {
           //   this.my_companies.length >= 0 &&  (this.company == '' || this.company == null)
           // ) {
 
-          if (this.selected_company?.length == 0 && this.my_companies.length > 0) {
+          if (
+            this.company == null ||
+            (this.selected_company?.length == 0 && this.my_companies.length > 0)
+          ) {
             this.setCompany(
               this.my_companies[0]._id,
               this.my_companies[0].name,
@@ -118,7 +125,7 @@ export class MainHeaderComponent implements OnInit {
     id = id + '';
     var comapnies: any = localStorage.getItem(MainConsts.Company)?.split(',');
     if (localStorage.getItem(MainConsts.Company) == '') {
-      comapnies = []
+      comapnies = [];
     }
     var company_names: any = localStorage
       .getItem(MainConsts.CompanyNames)

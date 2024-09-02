@@ -139,6 +139,7 @@ export class SidebarEmployeesComponent {
           {
             title: this.dic.translate('Configuration'), status: true, icon: 'fe fe-cog', type: 'sub', badgeType: 'primary', badgeValue: '2', active: false,
             children:[
+              { title: this.dic.translate('Job titles'), status: true, type: 'link', path: '/employees/job_titles', badgeType: 'primary', badgeValue: '2', active: false, },
               { title: this.dic.translate('Departments'), status: true, type: 'link', path: '/employees/departments', badgeType: 'primary', badgeValue: '2', active: false, },
             ]
           },

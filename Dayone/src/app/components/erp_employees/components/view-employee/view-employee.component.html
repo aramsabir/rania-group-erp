@@ -1,0 +1,911 @@
+<!--Page header-->
+<div class="page-header d-xl-flex d-block">
+    <div class="page-leftheader">
+        <h4 class="page-title">Employee Profile</h4>
+    </div>
+    <div class="page-rightheader ms-md-auto">
+        <div class="align-items-end flex-wrap my-auto right-content breadcrumb-right">
+            <div class="btn-list">
+                <a routerLink="/hr-dashboard/employees/add-employee" class="btn btn-primary me-3">Add New Employee</a>
+                <button class="btn btn-light" placement="top" ngbTooltip="E-mail"> <i class="feather feather-mail"></i>
+                </button>
+                <button class="btn btn-light" placement="top" ngbTooltip="Contact"> <i
+                        class="feather feather-phone-call"></i> </button>
+                <button class="btn btn-primary" placement="top" ngbTooltip="Info"> <i class="feather feather-info"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page header-->
+<!-- Row -->
+<div class="row">
+    <div class="col-xl-3 col-md-12 col-lg-12">
+        <div class="card box-widget widget-user">
+            <div class="card-body text-center">
+                <div class="widget-user-image mx-auto text-center">
+                    <img class="avatar avatar-xxl brround rounded-circle" alt="img"
+                        [src]="endPoint+modelEmployee?.profile_photo">
+                </div>
+                <div class="pro-user mt-3">
+                    <h5 class="pro-user-username text-dark mb-1 fs-16">{{modelEmployeeData?.full_name}}</h5>
+                    <h6 class="pro-user-desc text-muted fs-12">{{modelEmployeeData?.job_title}}</h6>
+                </div>
+                <!-- <ngb-rating [(rate)]="currentRate"></ngb-rating> -->
+            </div>
+            <div class="card-footer p-0">
+                <div class="row">
+                    <div class="col-4 text-center py-5 border-end">
+                        <h5 class="fs-12 font-weight-semibold mb-3">January</h5>
+                        <h5 class="mb-2">
+                            <span class="fs-18 text-success">22</span>
+                            <span class="my-auto fs-9 font-weight-normal  ms-1 me-1">/</span>
+                            <span class="fs-18 font-weight-semibold text-dark">31</span>
+                        </h5>
+                        <h5 class="fs-12 mb-0">Attendance</h5>
+                    </div>
+                    <div class="col-4  py-5 text-center border-end">
+                        <h5 class="fs-12 font-weight-semibold mb-3">Year-2021</h5>
+                        <h5 class="mb-2">
+                            <span class="fs-18 text-orange">0</span>
+                            <span class="my-auto fs-9 font-weight-normal  ms-1 me-1">/</span>
+                            <span class="fs-18 font-weight-semibold text-dark">41</span>
+                        </h5>
+                        <h5 class="fs-12 mb-0">Leaves</h5>
+                    </div>
+                    <div class="col-4 text-center py-5">
+                        <h5 class="fs-12 font-weight-semibold mb-3">Year-2021</h5>
+                        <h5 class="mb-2">
+                            <span class="fs-18 text-primary">0</span>
+                        </h5>
+                        <h5 class="fs-12 mb-0">Awards</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header  border-0">
+                <div class="card-title">Statistics-2021</div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-7">
+                    <div class="col-4 text-center">
+                        <circle-progress [percent]="89" [radius]="32" [space]="-5" [outerStrokeWidth]="5"
+                            [innerStrokeWidth]="5" [showInnerStroke]="true" [outerStrokeColor]="'#3366ff'"
+                            [innerStrokeColor]="'#93abf3'" [showUnits]="false" [showSubtitle]="false" [animation]="true"
+                            [animationDuration]="300"></circle-progress>
+                        <h6 class="fs-14 font-weight-semibold mt-3">Attendance</h6>
+                    </div>
+                    <div class="col-4 text-center">
+                        <circle-progress [percent]="23" [radius]="32" [space]="-5" [outerStrokeWidth]="5"
+                            [innerStrokeWidth]="5" [showInnerStroke]="true" [outerStrokeColor]="'#fe7f00'"
+                            [innerStrokeColor]="'#f7cba0'" [showUnits]="false" [showSubtitle]="false" [animation]="true"
+                            [animationDuration]="300"></circle-progress>
+                        <h6 class="fs-14 font-weight-semibold mt-3">Projects</h6>
+                    </div>
+                    <div class="col-4 text-center">
+                        <circle-progress [percent]="67" [radius]="32" [space]="-5" [outerStrokeWidth]="5"
+                            [innerStrokeWidth]="5" [showInnerStroke]="true" [outerStrokeColor]="'#0dcd94'"
+                            [innerStrokeColor]="'#87e9cb'" [showUnits]="false" [showSubtitle]="false" [animation]="true"
+                            [animationDuration]="300"></circle-progress>
+                        <h6 class="fs-14 font-weight-semibold mt-3">Performance</h6>
+                    </div>
+                </div>
+                <div class="d-flex align-items-end justify-content-between mg-b-5">
+                    <h6 class="">This Week</h6>
+                    <h6 class="font-weight-bold mb-1">01</h6>
+                </div>
+                <div class="progress progress-sm mb-5">
+                    <div class="progress-bar bg-danger w-10"></div>
+                </div>
+                <div class="d-flex align-items-end justify-content-between mg-b-5">
+                    <h6 class="">This Month</h6>
+                    <h6 class="font-weight-bold mb-1">05</h6>
+                </div>
+                <div class="progress progress-sm mb-5">
+                    <div class="progress-bar bg-info w-30"></div>
+                </div>
+                <div class="d-flex align-items-end justify-content-between mg-b-5">
+                    <h6 class="">This Year</h6>
+                    <h6 class="font-weight-bold mb-1">22</h6>
+                </div>
+                <div class="progress progress-sm mb-5">
+                    <div class="progress-bar bg-warning w-50"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9 col-md-12 col-lg-12 card">
+        <div class="navbar">
+            <a href="#" class="navbar-item">
+                <i class="feather feather-file fs-25 mx-2"></i>
+                <span>12 <br> Documents</span>
+            </a>
+            <a href="#" class="navbar-item">
+                <!-- <img src="icon-planning.png" alt="Planning" width="20"> -->
+                Planning
+            </a>
+            <a href="#" class="navbar-item">
+                <!-- <img src="icon-allocations.png" alt="Allocations" width="20"> -->
+                Allocations
+            </a>
+            <a href="#" class="navbar-item">
+                <!-- <img src="icon-overtime.png" alt="Overtime" width="20"> -->
+                Archived Overtime
+            </a>
+            <a href="#" class="navbar-item">
+                <!-- <img src="icon-timeoff.png" alt="Time Off" width="20"> -->
+                <span>35.24/51 D...</span> Time Off
+            </a>
+            <a href="#" class="navbar-item">
+                <!-- <img src="icon-timesheets.png" alt="Timesheets" width="20"> -->
+                Timesheets
+            </a>
+            <a href="#" class="navbar-item">
+                <!-- <img src="icon-equipments.png" alt="Equipments" width="20"> -->
+                <span>0</span> Equipments
+            </a>
+            <a href="#" class="navbar-item">
+                More
+            </a>
+        </div>
+
+        <div class="tab-menu-heading hremp-tabs p-0 ">
+            <!-- Tabs -->
+
+            <div class="tab-pane active " id="tab5">
+                <div class="card-body  row">
+
+                    <h4 class="mb-4 font-weight-bold">Employee information</h4>
+                    <div class="col-6">
+                        <div class="form-group ">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label mb-0 mt-2">Full Name</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control mb-md-0 mb-5" placeholder="Full name"
+                                        [(ngModel)]="modelEmployee.full_name">
+                                    <span class="text-muted"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label mb-0 mt-2">Email</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="email" class="form-control mb-md-0 mb-5" placeholder="E-mail"
+                                        [(ngModel)]="modelEmployee.email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label mb-0 mt-2">Phone</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="number" class="form-control mb-md-0 mb-5" placeholder="Phone"
+                                        [(ngModel)]="modelEmployee.phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label mb-0 mt-2">Main company</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <ng-select class="form-control custom-select"
+                                        [(ngModel)]="modelEmployee.main_company_id">
+                                        <ng-option *ngFor="let op of companies" [value]="op._id">{{op.name}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label mb-0 mt-2">Department</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <ng-select class="form-control custom-select"
+                                        [(ngModel)]="modelEmployee.department_id">
+                                        <ng-option *ngFor="let op of departments"
+                                            [value]="op._id">{{op.name}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label mb-0 mt-2">Job title</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <ng-select class="form-control custom-select"
+                                        [(ngModel)]="modelEmployee.job_title_id">
+                                        <ng-option *ngFor="let op of job_titles"
+                                            [value]="op._id">{{op.name}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label mb-0 mt-2">Manager</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <ng-select class="form-control custom-select"
+                                        [(ngModel)]="modelEmployee.manager_id">
+                                        <ng-option *ngFor="let op of employees"
+                                            [value]="op._id">{{op.full_name}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label mb-0 mt-2">Coach</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <ng-select class="form-control custom-select" [(ngModel)]="modelEmployee.coach_id">
+                                        <ng-option *ngFor="let op of employees"
+                                            [value]="op._id">{{op.full_name}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="tab-menu-heading hremp-tabs p-0 ">
+                    <div class="tabs-menu1">
+                        <!-- Tabs -->
+                        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="panel-tabs">
+                            <li [ngbNavItem]="1">
+                                <a ngbNavLink>Personal Details</a>
+                                <ng-template ngbNavContent>
+                                    <div class="tab-pane active" id="tab5">
+                                        <div class="card-body row">
+
+                                            <h4 class="mb-4 font-weight-bold">Basic information</h4>
+                                            <div class="col-6">
+
+                                                <div class="form-group ">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="form-label mb-0 mt-2">Date Of Birth</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <form class="form-inline w-100">
+                                                                <div class="form-group w-100">
+                                                                    <div class="input-group w-100">
+                                                                        <input class="form-control " type="date"
+                                                                            placeholder="yyyy-mm-dd"
+                                                                            [ngModelOptions]="{standalone: true}"
+                                                                            [(ngModel)]="modelEmployee.date_of_birth">
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="form-label">Gender</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <div class="custom-controls-stacked d-md-flex">
+                                                                <label class="custom-control custom-radio me-4">
+                                                                    <input type="radio" class="custom-control-input"
+                                                                        name="example-radios4" value="option1">
+                                                                    <span class="custom-control-label">Male</span>
+                                                                </label>
+                                                                <label class="custom-control custom-radio">
+                                                                    <input type="radio" class="custom-control-input"
+                                                                        name="example-radios4" value="option2" checked>
+                                                                    <span class="custom-control-label">Female</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="form-label mb-0 mt-2">Marital Status</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <ng-select name="projects"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="modelEmployee.material_status"
+                                                                class="form-control custom-select">
+                                                                <ng-option value="Single">Single</ng-option>
+                                                                <ng-option value="Married">Married</ng-option>
+                                                            </ng-select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="form-label mb-0 mt-2">Education degree</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <ng-select name="projects"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="modelEmployee.education_degree"
+                                                                class="form-control custom-select">
+                                                                <ng-option value="Student">Student</ng-option>
+                                                                <ng-option value="Deploma">Deploma</ng-option>
+                                                                <ng-option value="Bachelor">Bachelor</ng-option>
+                                                                <ng-option value="Master">Master</ng-option>
+                                                                <ng-option value="Doctorate">Doctorate</ng-option>
+                                                            </ng-select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="form-label mb-0 mt-2">Blood Group</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <ng-select name="projects"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="modelEmployee.blood_group"
+                                                                class="form-control custom-select">
+                                                                <ng-option value="A+">A+</ng-option>
+                                                                <ng-option value="B+">B+</ng-option>
+                                                                <ng-option value="O+">O+</ng-option>
+                                                                <ng-option value="AB+">AB+</ng-option>
+                                                                <ng-option value="A-">A-</ng-option>
+                                                                <ng-option value="B-">B-</ng-option>
+                                                                <ng-option value="O-">O-</ng-option>
+                                                                <ng-option value="AB-">AB-</ng-option>
+                                                            </ng-select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="form-label mb-0 mt-2">Emergency Contact
+                                                                Name</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="modelEmployee.emergency_contact_name"
+                                                                placeholder="Contact Name">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="form-label mb-0 mt-2">Emergency Contact
+                                                                Number</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <input type="number" class="form-control"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="modelEmployee.emergency_contact_number"
+                                                                placeholder="Contact Number">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="form-label mb-0 mt-2">Emergency Contact
+                                                                Relation</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="modelEmployee.emergency_contact_relation"
+                                                                placeholder="Contact Relation">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="2">
+                                <a ngbNavLink>HR Information</a>
+                                <ng-template ngbNavContent>
+                                    <div class="tab-pane" id="tab6">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Employee ID</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <input type="code" class="form-control"
+                                                                    placeholder="#ID"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="modelEmployee.code">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Employement
+                                                                    date</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <input type="date" class="form-control " type="date"
+                                                                    placeholder="DD-MM-YYYY"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="modelEmployee.employement_date">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Date of hire</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <form class="form-inline w-100">
+                                                                    <div class="form-group w-100">
+                                                                        <div class="input-group w-100">
+                                                                            <input class="form-control  " type="date"
+                                                                                [ngModelOptions]="{standalone: true}"
+                                                                                [(ngModel)]="modelEmployee.date_of_hire">
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Contract
+                                                                    date</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <form class="form-inline w-100">
+                                                                    <div class="form-group w-100">
+                                                                        <div class="input-group w-100">
+                                                                            <input class="form-control  " type="date"
+                                                                                [ngModelOptions]="{standalone: true}"
+                                                                                [(ngModel)]="modelEmployee.contract_date">
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Termination
+                                                                    date</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <form class="form-inline w-100">
+                                                                    <div class="form-group w-100">
+                                                                        <div class="input-group w-100">
+                                                                            <input class="form-control  " type="date"
+                                                                                [ngModelOptions]="{standalone: true}"
+                                                                                [(ngModel)]="modelEmployee.termination_date">
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Punishment
+                                                                    date</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <form class="form-inline w-100">
+                                                                    <div class="form-group w-100">
+                                                                        <div class="input-group w-100">
+                                                                            <input class="form-control  " type="date"
+                                                                                [ngModelOptions]="{standalone: true}"
+                                                                                [(ngModel)]="modelEmployee.punishment_date">
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Probation period end
+                                                                    date</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <form class="form-inline w-100">
+                                                                    <div class="form-group w-100">
+                                                                        <div class="input-group w-100">
+                                                                            <input class="form-control  " type="date"
+                                                                                [ngModelOptions]="{standalone: true}"
+                                                                                [(ngModel)]="modelEmployee.probation_period_end_date">
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Retirement
+                                                                    date</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <form class="form-inline w-100">
+                                                                    <div class="form-group w-100">
+                                                                        <div class="input-group w-100">
+                                                                            <input class="form-control  " type="date"
+                                                                                [ngModelOptions]="{standalone: true}"
+                                                                                [(ngModel)]="modelEmployee.retirement_date">
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+
+                                                    <h4 class="mb-5 mt-1 font-weight-bold">Employement type</h4>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Type</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <ng-select class="form-control custom-select"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="modelEmployee.employement_type">
+                                                                    <ng-option value="Full-Time">Full-Time</ng-option>
+                                                                    <ng-option value="Part-Time">Part-Time</ng-option>
+                                                                    <ng-option value="Contract">Contract</ng-option>
+                                                                    <ng-option value="Temporary">Temporary</ng-option>
+                                                                </ng-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Benefits
+                                                                    enrollment</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <ng-select class="form-control custom-select"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="modelEmployee.benefits_enrollment">
+                                                                    <ng-option value="Yes">Yes</ng-option>
+                                                                    <ng-option value="No">No</ng-option>
+                                                                </ng-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <h4 class="mb-3 mt-1 font-weight-bold">Approvals</h4>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">First
+                                                                    Approval</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <ng-select class="form-control custom-select"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="modelEmployee.first_approval_id">
+                                                                    <ng-option *ngFor="let op of employees"
+                                                                        [value]="op._id">{{op.full_name}}</ng-option>
+                                                                </ng-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Second
+                                                                    Approval</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <ng-select class="form-control custom-select"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="modelEmployee.second_approval_id">
+                                                                    <ng-option *ngFor="let op of employees"
+                                                                        [value]="op._id">{{op.full_name}}</ng-option>
+                                                                </ng-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Remote work
+                                                                    eligibility</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <input type="text" class="form-control" placeholder=""
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="modelEmployee.remote_work_eligibility">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Safety training
+                                                                    certification</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <ng-select class="form-control custom-select"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="modelEmployee.safety_training_certification">
+                                                                    <ng-option value="Yes">Yes</ng-option>
+                                                                    <ng-option value="No">No</ng-option>
+                                                                </ng-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label mb-0 mt-2">Bussiness
+                                                                    type</label>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <input type="text" class="form-control" placeholder=""
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="modelEmployee.bussiness_type">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group mt-7">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Status:</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <label class="custom-switch">
+                                                            <input type="checkbox" name="custom-switch-checkbox"
+                                                                class="custom-switch-input" checked>
+                                                            <span class="custom-switch-indicator"></span>
+                                                            <span
+                                                                class="custom-switch-description">Active/Inactive</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="3">
+                                <a ngbNavLink>Bank Details</a>
+                                <ng-template ngbNavContent>
+                                    <div class="tab-pane" id="tab7">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label class="form-label mb-0 mt-2">Account Holder</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" placeholder="Name"
+                                                            value="Faith Harris">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label class="form-label mb-0 mt-2">Account Number</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" placeholder="Number"
+                                                            value="36985214704">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label class="form-label mb-0 mt-2">Bank Name</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" placeholder="Name"
+                                                            value="ABCD Bank">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label class="form-label mb-0 mt-2">Branch Location</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" placeholder="Location"
+                                                            value="Little Rock Arkansas">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label class="form-label mb-0 mt-2">Bank Code (IFSC)
+                                                            <span class="form-help" placement="top"
+                                                                ngbTooltip="Bank Identify Number in your Country">?</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" placeholder="Code"
+                                                            value="ABC0002189">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label class="form-label mb-0 mt-2">Tax Payer ID (PAN)
+                                                            <span class="form-help" placement="top"
+                                                                ngbTooltip="Taxpayer Identification Number Used in your Country">?</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" placeholder="ID No">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="4">
+                                <a ngbNavLink>Upload Documents</a>
+                                <ng-template ngbNavContent>
+                                    <div class="tab-pane" id="tab8">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-label mb-0 mt-2">Resume</div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="form-group">
+                                                            <label for="form-label" class="form-label"></label>
+                                                            <input class="form-control" type="file">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-label mb-0 mt-2">ID Proof</div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="form-group">
+                                                            <label for="form-label" class="form-label"></label>
+                                                            <input class="form-control" type="file">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-label mb-0 mt-2">Offer Letter</div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="form-group">
+                                                            <label for="form-label"
+                                                                class="form-label">Attachment:</label>
+                                                            <input class="form-control" type="file">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-label mb-0 mt-2">Joining Letter</div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="form-group">
+                                                            <label for="form-label" class="form-label"></label>
+                                                            <input class="form-control" type="file">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-label mb-0 mt-2">Agreement Letter</div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="form-group">
+                                                            <label for="form-label"
+                                                                class="form-label">Attachment:</label>
+                                                            <input class="form-control" type="file">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-label mb-0 mt-2">Experience Letter</div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="form-group">
+                                                            <label for="form-label"
+                                                                class="form-label">Attachment:</label>
+                                                            <input class="form-control" type="file">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="panel-body tabs-menu-body hremp-tabs1 p-0">
+            <div [ngbNavOutlet]="nav" class="tab-content">
+            </div>
+            <div class="card-footer text-end">
+                <a href="javascript:;" class="me-2 btn btn-primary">Updated</a>
+                <a href="javascript:;" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row-->

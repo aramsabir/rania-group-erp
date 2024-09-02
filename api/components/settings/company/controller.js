@@ -135,6 +135,7 @@ exports.Available = async (req, res) => {
 
     var data = await Schema.find({
         $and: [
+            { _id: { $in: req.query.company_permission } },
             search,
             {
                 deleted_at: null

@@ -60,6 +60,12 @@ export class UsersComponent implements OnInit {
       value: 'phone'
     },
     {
+      header: 'Job title',
+      cell: (el: any) => el.job_title_id?.name,
+      type: 'text',
+      value: 'job_title_id'
+    },
+    {
       header: 'Department',
       cell: (el: any) => el.department_id?.name,
       type: 'text',
@@ -109,6 +115,10 @@ export class UsersComponent implements OnInit {
         { type: 'number', name: 'code', title: 'Employee ID', required: true },
         { type: 'password', name: 'password', title: 'Password', required: true },
         {
+          type: 'selectUrl', name: 'job_title_id', title: 'Job title', val_name: 'job_title_id', cap_name: 'name', required: true,
+          url: 'available_job_titles', params: { skip: 0, limit: 1000, sort: 'name' }
+        },
+        {
           type: 'selectUrl', name: 'main_company_id', title: 'Company', val_name: 'main_company_id', cap_name: 'name', required: true,
           url: 'available_companies', params: { skip: 0, limit: 1000, sort: 'name' }
         },
@@ -133,6 +143,10 @@ export class UsersComponent implements OnInit {
         { type: 'text', name: 'phone', title: 'phone', required: true },
         { type: 'number', name: 'code', title: 'Employee ID', required: true },
         { type: 'password', name: 'password', title: 'Password', required: true },
+        {
+          type: 'selectUrl', name: 'job_title_id', title: 'Job title', val_name: 'job_title_id', cap_name: 'name', required: true,
+          url: 'available_job_titles', params: { skip: 0, limit: 1000, sort: 'name' }
+        },
         {
           type: 'selectUrl', name: 'main_company_id', title: 'Company', val_name: 'main_company_id', cap_name: 'name', required: true,
           url: 'available_companies', params: { skip: 0, limit: 1000, sort: 'name' }

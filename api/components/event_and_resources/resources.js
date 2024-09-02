@@ -10,6 +10,7 @@ module.exports = {
   EmployeeWrite: "employee:add",
   EmployeeUpdate: "employee:update",
   EmployeeDelete: "employee:delete",
+  EmployeeAdmin: "employee:admin",
 
   CompanyRead: "companies:read",
   CompanyWrite: "companies:add",

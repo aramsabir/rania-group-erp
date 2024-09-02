@@ -40,7 +40,7 @@ exports.New = async (req, res) => {
                 newRecord.created_at = Date.now()
                 newRecord.updated_at = Date.now()
                 newRecord.save()
-                log.saveLog(req, req.query.userFullName, req.query.userID, events.CreateDepartment, '', newRecord)
+                log.saveLog(req, req.query.userFullName, req.query.userID, events.CreateJobTitle, '', newRecord)
                 res.json({ status: true, message: terms.success })
                 return 0
             }
@@ -158,11 +158,7 @@ exports.Update = async (req, res) => {
         res.json({ status: false, message:  terms.name_required })
         return 0
     }
-
-    // if (!['Organization', 'Personal', 'Governmental'].includes(req.body.type) || !req.body.type || req.body.type == 'undefined') {
-    //     res.json({ status: false, message: "type required or not valid" })
-    //     return 0
-    // }
+ 
 
     await Schema.findById(mongoose.Types.ObjectId(req.body._id)).exec(function (error, response) {
         if (error) throw error;
@@ -174,7 +170,7 @@ exports.Update = async (req, res) => {
             response.save(function (err, update) {
                 if (err) throw err;
                 if (update) {
-                    log.saveLog(req, req.query.userFullName, req.query.userID, events.UpdateDepartment, old, update)
+                    log.saveLog(req, req.query.userFullName, req.query.userID, events.UpdateJobTitle, old, update)
                     res.json({ status: true, message: terms.data_has_been_updated })
 
                 } else {
@@ -213,7 +209,7 @@ exports.Delete = async (req, res) => {
         ).exec(function (e, r) {
             if (e) throw e;
             if (r) {
-                log.saveLog(req, req.query.userFullName, req.query.userID, events.DeleteDepartment, '', r)
+                log.saveLog(req, req.query.userFullName, req.query.userID, events.DeleteJobTitle, '', r)
                 res.json({ status: true, message: terms.data_has_been_deleted });
                 return 0;
             } else {

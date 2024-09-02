@@ -8,15 +8,15 @@ import { environment } from 'src/environments/environment';
 // import { HttpService } from 'src/app/@core/service/http/http.service';
 
 @Component({
-  selector: 'app-comdepartmentspany',
+  selector: 'app-job_titles',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class DepartmentComponent implements OnInit {
+export class JobTitleComponent implements OnInit {
 
-  url: any = "departments"
-  actionRoute: any = "department"
-  titlePage: any = "Departments"
+  url: any = "job_titles"
+  actionRoute: any = "job_title"
+  titlePage: any = "Job titles"
   actions: any = [
 
   ]
@@ -62,8 +62,8 @@ export class DepartmentComponent implements OnInit {
     type: "modal",
     data: {
       dialogType: 'update',
-      url: 'department',
-      header: 'Update department',
+      url: 'job_title',
+      header: 'Update job_title',
       fields: [
         { type: 'text', name: 'name', title: 'Name', required: true },
         { type: 'number', name: 'order', title: 'Order', required: true },
@@ -75,8 +75,8 @@ export class DepartmentComponent implements OnInit {
     type: "modal",
     data: {
       dialogType: 'create',
-      url: 'department',
-      header: 'Create department',
+      url: 'job_title',
+      header: 'Create job title',
       fields: [
         { type: 'text', name: 'name', title: 'Name', required: true },
         { type: 'number', name: 'order', title: 'Order', required: true },
@@ -107,7 +107,7 @@ export class DepartmentComponent implements OnInit {
   pageSize = 10;
   pageIndex: any;
   params: any = {};
-  part: any = 'companies';
+  part: any = 'job_titles';
   length: any;
   queryParams: any = {};
   pg_header: any = []

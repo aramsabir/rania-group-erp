@@ -12,6 +12,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { QRCodeModule } from 'angularx-qrcode';
 import { MainComponent } from './main.component';
 import { DepartmentComponent } from './components/departments/list.component';
+import { JobTitleComponent } from './components/job_titles/list.component';
+import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -21,6 +23,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   declarations: [
     MainComponent,
     DepartmentComponent,
+    JobTitleComponent,
+    ViewEmployeeComponent
 
   ],
   imports: [

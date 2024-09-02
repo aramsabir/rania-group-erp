@@ -288,7 +288,7 @@ function validPhoneIsInIraq(phone) {
 }
 
 exports.updateUserStatus = async (req, res) => {
- 
+
 
   if (!req.body._id) {
     res.json({ status: false, message: "Unknown user" });
@@ -391,7 +391,7 @@ exports.restPasswordForUser = async (req, res) => {
 };
 
 exports.List = async (req, res) => {
-   
+
 
 
   let skip = parseInt(req.query.skip);
@@ -399,11 +399,12 @@ exports.List = async (req, res) => {
   let sort = req.query.sort;
 
   // console.log(req.query.search_companies );
-  
-  
+
+
   await User.find({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } }, { main_company_id: { $in: req.query.search_companies } }] })
     .populate("main_company_id")
     .populate("department_id")
+    .populate("job_title_id")
     .populate({ path: "creator", select: { password: 0 } })
     .select({ password: 0 })
     .skip(skip)
@@ -411,7 +412,7 @@ exports.List = async (req, res) => {
     .sort(sort)
     .exec(function (err, response) {
       if (response) {
-        User.countDocuments({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } },{ main_company_id: { $in: req.query.search_companies } }] }).exec(function (err, count) {
+        User.countDocuments({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } }, { main_company_id: { $in: req.query.search_companies } }] }).exec(function (err, count) {
           res.json({
             status: true,
             data: response,
@@ -426,16 +427,17 @@ exports.List = async (req, res) => {
 };
 
 exports.Available = async (req, res) => {
-   
 
-  
+
+
   let skip = parseInt(req.query.skip);
   let limit = parseInt(req.query.limit);
   let sort = req.query.sort;
 
-  await User.find({ $and: [{ deleted_at: null },{ main_company_id: { $in: req.query.company_permission } }] })
+  await User.find({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } }] })
     .populate("main_company_id")
     .populate("department_id")
+    .populate("job_title_id")
     .populate({ path: "creator", select: { password: 0 } })
     .select({ password: 0 })
     .skip(skip)
@@ -776,7 +778,8 @@ exports.userInformation = async (req, res) => {
   var user = await User.findOne(search).select({ password: 0 }).exec();
 
   if (user) {
-    res.json({ data: user, status: true });
+    user.resources = req.query.resources
+    res.json({ data:user, status: true });
     return 0;
   } else {
     res.json({ status: false });
@@ -786,14 +789,34 @@ exports.userInformation = async (req, res) => {
 exports.myRoles = async (req, res) => {
 
 
-    
-    res.json({ resources:req.query.resources,data:{profile_photo:req.query.profile_photo,full_name:req.query.userFullName}, status: true });
-    return 0;
- 
+
+  res.json({ resources: req.query.resources, data: { profile_photo: req.query.profile_photo, full_name: req.query.userFullName }, status: true });
+  return 0;
+
 };
 
-exports.one = async (req, res) => {
-  let userInfo = await auth.userInfo(req.headers);
+exports.FindOne = async (req, res) => {
+
+  if (!req.query._id) {
+    res.json({ status: false, message: "Unknown user" });
+    return;
+  }
+  var user = await User.findOne({ _id: req.query._id })
+    .populate('department_id')
+    .populate('job_title_id')
+    .populate('main_company_id')
+    .select({ password: 0 })
+    .exec();
+
+  if (user) {
+    res.json({ data: user, status: true });
+    return 0;
+  } else {
+    res.json({ status: false });
+    return 0;
+  }
+};
+exports.FindOneByID = async (req, res) => {
 
 
   if (!req.query._id) {
