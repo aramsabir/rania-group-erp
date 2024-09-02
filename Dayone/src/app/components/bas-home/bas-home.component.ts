@@ -5,6 +5,7 @@ import { DlDateTimePickerChange } from 'angular-bootstrap-datetimepicker';
 import { ApiMethod } from 'src/app/@core/service/apis';
 import { DicService } from 'src/app/@core/service/dic/dic.service';
 import { HttpService } from 'src/app/@core/service/http/http.service';
+import { AuthService } from 'src/app/shared/services/firebase/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -42,6 +43,7 @@ export class BasHomeComponent implements OnInit {
 
 
   constructor(
+    private authService: AuthService,
     private datePipe: DatePipe,
     private http: HttpService
   ) {
@@ -53,6 +55,11 @@ export class BasHomeComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    // console.log("this.authService.hasPermission('employee:read')");
+  //  this.authService.getUserByToken().subscribe(user => {console.log(user)});
+    console.log(this.authService.hasPermission('employee:read'));
+    
     this.http.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
       if (res.status == true) {
         this.userData = res.data

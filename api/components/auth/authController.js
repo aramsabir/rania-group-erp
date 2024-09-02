@@ -55,10 +55,10 @@ exports.login = async (req, res) => {
                 expiresIn: "300h", // expires in 24 hours,
               });
               auth.token = token;
-              auth.save(function (err) {
+              auth.save(async function (err) {
                 if (err) throw err;
                 log.saveLog(req, user.user_name, user._id, events.LoginSuccess, ("email: " + req.body.email), '')
-
+                await User.updateOne({_id: user._id},{$set:{last_login:Date.now()}})
                 res.json({
                   success: true,
                   message: "Login to the system successfully",
@@ -89,10 +89,11 @@ exports.login = async (req, res) => {
               });
               jwt.decode()
               auth.token = token;
-              auth.save(function (err) {
+              auth.save(async function (err) {
                 if (err) throw err;
 
                 log.saveLog(req, user.user_name, user._id, events.LoginSuccess, ("email: " + req.body.email), '')
+                await User.updateOne({_id: user._id},{$set:{last_login:Date.now()}})
 
                 res.json({
                   success: true,

@@ -16,7 +16,8 @@ var userSchema = mongoose.Schema({
     type: Date,
     default: null,
   },
-  gender: { type: String, enum: ["Male", "Female"] },
+  gender: { type: String, enum: ['',"Male", "Female"] },
+  material_status: { type: String, enum: ['','Single','Married'] },
   email: {
     type: String,
     lowercase: true,
@@ -24,9 +25,9 @@ var userSchema = mongoose.Schema({
   },
   phone: { type: Number },
   address: { type: String },
-  job_title: {
+  job_title_id: {
     type: mongoose.Schema.ObjectId,
-    ref: "JobTitle",
+    ref: "Job_Title",
     default: null,
   },
   department_id: {
@@ -39,6 +40,21 @@ var userSchema = mongoose.Schema({
     ref: "User",
     default: null,
   },
+  coach_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    default: null,
+  },
+  first_approval_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    default: null,
+  },
+  second_approval_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    default: null,
+  },
   worksite: { type: String },
   date_of_hire: {
     type: Date,
@@ -46,7 +62,7 @@ var userSchema = mongoose.Schema({
   },
   employement_type: {
     type: String,
-    enum: ['Full-Time', 'Part-Time', 'Contract', 'Temporary'],
+    enum: ['','Full-Time', 'Part-Time', 'Contract', 'Temporary'],
     default: 'Full-Time',
   },
   employement_date: {
@@ -83,7 +99,7 @@ var userSchema = mongoose.Schema({
   },
   education_degree: {
     type: String,
-    enum: ['Student', 'Deploma', 'Bachelor', 'Master', 'Doctorate',],
+    enum: ['','Student', 'Deploma', 'Bachelor', 'Master', 'Doctorate',],
     default: 'Bachelor',
   },
   languages: [
@@ -142,6 +158,10 @@ var userSchema = mongoose.Schema({
   },
   safety_training_certification: {
     type: String,
+    default: "",enum:["","Yes","No"]
+  },
+  resources: {
+    type: String,
     default: ""
   },
   termination_date: {
@@ -160,7 +180,7 @@ var userSchema = mongoose.Schema({
       date: { type: Date },
     },
   ],
-  gender: { type: String },
+ 
   ref_link: { type: String },
   profile_photo: {
     type: String,
@@ -205,7 +225,15 @@ var userSchema = mongoose.Schema({
   },
   resetPasswordExpires: {
     type: Date,
-    default: "",
+    default: null,
+  },
+  last_login: {
+    type: Date,
+    default: null,
+  },
+  last_activity: {
+    type: Date,
+    default: null,
   },
 });
 

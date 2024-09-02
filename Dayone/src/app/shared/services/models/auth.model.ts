@@ -1,13 +1,13 @@
 export class AuthModel {
-  token: string = '';
-  email: string = '';
-  full_name: string = '';
-  resources: string = '';
-
+  token: string | undefined;
+  refreshToken: string | undefined;
+  expiresIn: Date | undefined;
+  resourses: String = '';
+  
   setAuth(auth: AuthModel) {
+    this.resourses = auth.resourses;
     this.token = auth.token;
-    this.email = auth.email;
-    this.full_name = auth.full_name;
-    this.resources = auth.resources;
+    this.refreshToken = auth.refreshToken;
+    this.expiresIn = auth.expiresIn;
   }
 }

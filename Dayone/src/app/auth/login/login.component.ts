@@ -8,7 +8,7 @@ import { DicService } from 'src/app/@core/service/dic/dic.service';
 import { HttpService } from 'src/app/@core/service/http/http.service';
 import { setItem, StorageItem } from 'src/app/@core/utils';
 import { AuthService } from 'src/app/shared/services/firebase/auth.service';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -71,15 +71,14 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.signIn(this.model).subscribe(
       (res: any) => {
-        console.log(res);
         
-        if (res.success == true) {
+        if (res['success'] == true) {
           this.authService.value = true;
          
             // setItem(StorageItem.Auth, { token: res.token, email: res.email });
-            this.httpService.createToast('success', res.message);
-            // this.router.navigate(['/bas-home']);
-            window.location.href = '/home';
+            this.httpService.createToast('success', res['message']);
+            this.router.navigate(['/home']);
+            // window.location.href = '/home';
         } else {
           this.httpService.createToast('error', res.message);
         }
@@ -89,14 +88,14 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  successAlert() {
-    Swal.fire({
-      icon: 'success',
-      title: 'Well Done!',
-      text: 'You clicked the button!',
-      confirmButtonColor: '#6259ca',
-    });
-  }
+  // successAlert() {
+  //   Swal.fire({
+  //     icon: 'success',
+  //     title: 'Well Done!',
+  //     text: 'You clicked the button!',
+  //     confirmButtonColor: '#6259ca',
+  //   });
+  // }
   createToast(style: string, message: any): void {
     this.ngxNotifierService.createToast(style, message, 5000);
     return;

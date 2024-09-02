@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,16 +19,30 @@ import { VerifyEmailComponent } from './auth/verify-email/verify-email.component
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgxNotifierModule, NgxNotifierService } from 'ngx-notifier';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PipesModule } from './@core/pipes/pipes.module';
 import { CoreModule } from './@core/core.module';
 import { Error404Component } from './auth/error404/error404.component';
+import { AuthService } from './shared/services/firebase/auth.service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { JwtInterceptor, ServerErrorInterceptor } from './@core/interceptors';
+import { ConfigService } from './config.server/config.service';
+import { InitializerModule } from './config.server/initializer';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
+
+function appInitializer(authService: AuthService) {
+  return () => {
+    return new Promise((resolve) => {
+      //@ts-ignore
+       authService.getUserByToken().subscribe().add(resolve);
+    });
+  };
+}
 
 @NgModule({
   declarations: [
@@ -58,13 +72,24 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgxNotifierModule,
     PipesModule,
     CoreModule,
+    // InitializerModule
   ],
   providers: [
     // NgxNotifierService,
+
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
+    ,
+    ConfigService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerErrorInterceptor,
+      multi: true,
+    },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

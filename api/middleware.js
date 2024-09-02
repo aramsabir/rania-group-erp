@@ -120,6 +120,7 @@ exports.checkAccess = async (req, res, next) => {
       }
       req.query.sort = sort
     }
+    await User.updateOne({_id: req.query.userID},{$set:{last_activity:Date.now()}})
 
     // var company_permission = []
     // for (let index = 0; index < userInfo.companies.length; index++) {

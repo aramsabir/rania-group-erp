@@ -1,26 +1,13 @@
 
 module.exports = {
 
-  CreateTransportation: "create-transportation",
-  UpdateTransportation: "update-transportation",
-  UpdateTransportationVehicles: "update-transportation-vehicles",
-  AddBasicDataTransportation: "add-basic-data-transportation",
-  ConfirmationLoading: "confirmation-loading",
-  ConfirmationChange: "confirmation-change",
-  ApproveLoading: "approve-loading",
-  ConfirmationTransportation: "confirmation-transportation",
-  ApproveTransportation: "approve-transportation",
-  ApproveOrder: "approve-order",
-  ChangeVehicleeOnLoading: "change-order-vehicle",
-  DeleteTransportation: "delete-transportation",
+  CreateJobTitle: "create-job-title",
+  UpdateJobTitle: "update-job-title",
+  DeleteJobTitle: "delete-job-title",
 
-  CreateProduct: "create-product",
-  UpdateProduct: "update-product",
-  DeleteProduct: "delete-product",
-
-  CreateAccount: "create-account",
-  UpdateAccount: "update-account",
-  DeleteAccount: "delete-account",
+  CreateDepartment: "create-department",
+  UpdateDepartment: "update-department",
+  DeleteDepartment: "delete-department",
 
   CreateCustomer: "create-customer",
   UpdateCustomer: "update-customer",
