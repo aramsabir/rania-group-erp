@@ -84,6 +84,20 @@ export var allRoleEN = [
   }
   ,
   {
+    head: 'Recruitment',
+    role_value: 'recruitment:',
+    indeterminate: false,
+    allChecked: false,
+    counter: 0,
+    options: [
+      { label: 'Read', value: 'read', checked: false },
+      { label: 'Add', value: 'add', checked: false },
+      { label: 'Update', value: 'update', checked: false },
+      { label: 'Delete', value: 'delete', checked: false },
+    ],
+  }
+  ,
+  {
     head: 'Settings',
     role_value: 'setting:',
     indeterminate: false,
