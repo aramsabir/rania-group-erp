@@ -9,13 +9,14 @@ import { ConfigService } from './config.server/config.service';
 })
 export class AppComponent {
   
-  constructor( private config: ConfigService) {}
+  constructor( private authService: ConfigService) {}
 
   ngOnInit() {
     
-    this.config.api$.subscribe((data) => {
-      console.log('app initializer => ', data);
-    });
+    // this.config.api$.subscribe((data) => {
+    //   console.log('app initializer => ', data);
+    // });
+
     fromEvent(window, 'load').subscribe(() => document.querySelector('#glb-loader')?.classList.remove('loaderShow'));
 
   }

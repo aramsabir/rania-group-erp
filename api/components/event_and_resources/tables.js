@@ -10,6 +10,7 @@ module.exports = {
   VehicleTrip: "VehicleTrip",
   Product: "Product",
   Customer: "Customer",
+  BasicData: "BasicData",
   Trip: "Trip",
   Company: "Company",
   Inventory: "Inventory",
