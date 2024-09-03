@@ -15,6 +15,7 @@ import { DepartmentComponent } from './components/departments/list.component';
 import { BasicDataComponent } from './components/basic-data/list.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { EmployeeAttachmentsComponent } from './components/employee_attachments/list.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -25,7 +26,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MainComponent,
     DepartmentComponent,
     BasicDataComponent,
-    ViewEmployeeComponent
+    ViewEmployeeComponent,
+    EmployeeAttachmentsComponent
 
   ],
   imports: [
@@ -37,7 +39,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     PipesModule,
     QRCodeModule,
-    NgCircleProgressModule.forRoot({"responsive": true})
+    NgCircleProgressModule.forRoot({"responsive": true}),
+    
 
   ], 
   providers: [

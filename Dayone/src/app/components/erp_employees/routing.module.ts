@@ -5,6 +5,7 @@ import { MainComponent } from './main.component';
 import { DepartmentComponent } from './components/departments/list.component';
 import { BasicDataComponent } from './components/basic-data/list.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
+import { EmployeeAttachmentsComponent } from './components/employee_attachments/list.component';
  
 const routes: Routes = [
   {
@@ -39,6 +40,14 @@ const routes: Routes = [
       {
         path: 'view_employee',
         component: ViewEmployeeComponent,
+        canActivate:[RoleGuard],
+        data:{
+          expectedRole:'employee:read'
+        }
+      },
+      {
+        path: 'view_employee/attachments',
+        component: EmployeeAttachmentsComponent,
         canActivate:[RoleGuard],
         data:{
           expectedRole:'employee:read'

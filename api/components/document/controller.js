@@ -1,48 +1,70 @@
-var Auth = require('../../auth/authController')
+var multer = require('multer');
 var mongoose = require('mongoose');
-var Schema = require('../../settings/company/schema')
-const resources = require('../../event_and_resources/resources');
-const events = require('../../event_and_resources/events');
-const log = require('../../activities/logController')
-const terms = require('../../event_and_resources/terms')
+var Schema = require('./schema')
+const events = require('../event_and_resources/events');
+const log = require('../activities/logController')
+const terms = require('../event_and_resources/terms')
+const { fileLimit } = require("../event_and_resources/constants");
+const { documentPath } = require('../../configAPI/configuration');
+
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, documentPath);
+        // cb(null, GuidelinePaths);
+    },
+    filename: function (req, file, cb) {
+        var moment = require("moment");
+
+        var datetimestamp = moment(Date.now()).format("YYYY_MM_DD_HH_mm_ss");
+
+        const ext = file.originalname.split(".")[file.originalname.split(".").length - 1];
+        var nameImage = file.originalname.split(".")[0];
+        nameImage = "Document_" + datetimestamp + "." + ext;
+        req.body.file_source = nameImage;
+        cb(null, nameImage);
+    },
+});
+
+(exports.upload = multer({ storage: storage, limits: { fieldSize: fileLimit } }).single("file")),
+    function (req, res) {
+        if (req) {
+        }
+        req.body.file_source = req.body.file.originalname;
+    };
 
 
 exports.New = async (req, res) => {
 
-    if (!req.body.en_name) {
-        res.json({ status: false, message: "English " + terms.name_required })
-        return 0
+    var newData = new Schema(req.body);
+    var validate = await newData.validation(req.body, 'create')
+    if (!validate.status) {
+        res.json({ status: false, message: validate.message });
+        return 0;
     }
 
-    if (!req.body.ar_name) {
-        res.json({ status: false, message: "Arabic " + terms.name_required })
-        return 0
-    }
-
-   
 
     await Schema.findOne({
         $or: [
             {
                 $and: [
                     {
-                        en_name: req.body.en_name
+                        company_id: req.body.company_id
+                    },
+                    {
+                        department_id: req.body.department_id
+                    },
+                    {
+                        employee_id: req.body.employee_id
+                    },
+                    {
+                        name: req.body.name
                     },
                     {
                         deleted_at: null
                     }
                 ]
             },
-            {
-                $and: [
-                    {
-                        ar_name: req.body.ar_name
-                    },
-                    {
-                        deleted_at: null
-                    }
-                ]
-            }
         ]
     })
 
@@ -56,7 +78,7 @@ exports.New = async (req, res) => {
                 newRecord.created_at = Date.now()
                 newRecord.updated_at = Date.now()
                 newRecord.save()
-                log.saveLog(req, req.query.userFullName, req.query.userID, events.CreateCompany, '', newRecord)
+                log.saveLog(req, newRecord._id, req.query.userFullName, req.query.userID, events.CreateDocument, '', newRecord)
                 res.json({ status: true, message: terms.success })
                 return 0
             }
@@ -65,7 +87,98 @@ exports.New = async (req, res) => {
 }
 
 
+exports.downloadDoc = async (req, res) => {
+    var fs = require('fs')
 
+    var data = await Schema.findOne({ $and: [{ deleted_at: null }, { _id: req.query.file_name }] })
+
+    var file = fs.createReadStream(documentPath + '/' + data.file_source);
+    var stat = fs.statSync(documentPath + '/' + data.file_source);
+    res.setHeader('Content-Length', stat.size);
+
+    var ext = data.file_source.split('.')[data.file_source.split('.').length - 1]
+    if (ext == 'xlsx' || ext == 'xls') {
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    } else
+        if (ext == 'png') {
+            res.setHeader('Content-type', 'image/png');
+        } else
+            if (ext == 'jpg' || ext == 'jpeg') {
+                res.setHeader('Content-type', 'image/jpeg');
+            } else
+                if (ext == 'pptx') {
+                    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+                } else
+                    if (ext == 'docx' || ext == 'doc') {
+                        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                    } else
+                        res.setHeader('Content-Type', 'application/pdf');
+
+
+    file.pipe(res);
+
+};
+
+exports.ListForEmployee = async (req, res) => {
+
+    if (!req.query._id) {
+        res.json({ status: false, message: "Employee ID required" })
+        return 0
+    }
+    var search = {
+        employee_id: mongoose.Types.ObjectId(req.query._id)
+    }
+
+    var count = await Schema.countDocuments({
+        $and: [
+            search,
+            {
+                deleted_at: null
+            }
+        ]
+    }).exec()
+    var data = await Schema.find({
+        $and: [
+            search,
+            {
+                deleted_at: null
+            }
+        ]
+    })
+        .populate('creator')
+        .skip(parseInt(req.query.skip))
+        .limit(parseInt(req.query.limit))
+        .sort(req.query.sort)
+        .exec()
+
+    res.json({ status: true, count, data: data })
+
+
+}
+exports.CountEmployeeDocuments = async (req, res) => {
+
+    if (!req.query._id) {
+        res.json({ status: false, message: "Employee ID required" })
+        return 0
+    }
+    var search = {
+        employee_id: mongoose.Types.ObjectId(req.query._id)
+    }
+
+    var count = await Schema.countDocuments({
+        $and: [
+            search,
+            {
+                deleted_at: null
+            }
+        ]
+    }).exec()
+
+
+    res.json({ status: true, count})
+
+
+}
 
 exports.List = async (req, res) => {
 
@@ -73,14 +186,6 @@ exports.List = async (req, res) => {
     if (req.query.search && req.query.search !== 'undefined') {
         const regex = new RegExp(req.query.search, 'i'); // 'i' flag for case-insensitive matching
         search = {
-            $or: [
-                {
-                    "en_name": { $regex: regex }
-                },
-                {
-                    "ar_name": { $regex: regex }
-                },
-            ]
         }
     }
 
@@ -147,7 +252,7 @@ exports.Available = async (req, res) => {
 
 
 }
- 
+
 
 exports.One = async (req, res) => {
 
@@ -189,7 +294,6 @@ exports.Update = async (req, res) => {
         res.json({ status: false, message: "Type " + terms.name_required })
         return 0
     }
-    console.log(req.body.type);
     // if (!['Organization', 'Personal', 'Governmental'].includes(req.body.type) || !req.body.type || req.body.type == 'undefined') {
     //     res.json({ status: false, message: "type required or not valid" })
     //     return 0
@@ -205,7 +309,7 @@ exports.Update = async (req, res) => {
             response.save(function (err, update) {
                 if (err) throw err;
                 if (update) {
-                    log.saveLog(req, req.query.userFullName, req.query.userID, events.UpdateCompany, old, update)
+                    log.saveLog(req, req.query.userFullName, req.query.userID, events.UpdateDocument, old, update)
                     res.json({ status: true, message: terms.data_has_been_updated })
 
                 } else {
@@ -244,7 +348,7 @@ exports.Delete = async (req, res) => {
         ).exec(function (e, r) {
             if (e) throw e;
             if (r) {
-                log.saveLog(req, req.query.userFullName, req.query.userID, events.DeleteCompany, '', r)
+                log.saveLog(req,r._id, req.query.userFullName, req.query.userID, events.DeleteDocument, '', r)
                 res.json({ status: true, message: terms.data_has_been_deleted });
                 return 0;
             } else {

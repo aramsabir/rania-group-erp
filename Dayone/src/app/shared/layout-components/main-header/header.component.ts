@@ -57,6 +57,8 @@ export class MainHeaderComponent implements OnInit {
     this.lang = localStorage.getItem(MainConsts.Language);
 
     this.myCompanies();
+
+ 
   }
 
   ngOnInit() {
@@ -64,20 +66,20 @@ export class MainHeaderComponent implements OnInit {
   }
 
   userInfo() {
-    this.httpService.call('userinfo', ApiMethod.GET, {}).subscribe(
-      (res: any) => {
-        if (res.status == true) {
-          this.userData = res.data;
+    // this.httpService.call('userinfo', ApiMethod.GET, {}).subscribe(
+    //   (res: any) => {
+    //     if (res.status == true) {
+          this.userData = this.authService.currentUserValue
 
           this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`;
-        } else {
-          this.httpService.createToast('error', res.message);
-        }
-      },
-      () => {
-        this.httpService.createToast('error', 'Network error');
-      }
-    );
+    //     } else {
+    //       this.httpService.createToast('error', res.message);
+    //     }
+    //   },
+    //   () => {
+    //     this.httpService.createToast('error', 'Network error');
+    //   }
+    // );
   }
 
   myCompanies() {

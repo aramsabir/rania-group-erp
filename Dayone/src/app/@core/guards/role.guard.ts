@@ -26,14 +26,15 @@ export class RoleGuard implements CanActivate {
     routerData: ActivatedRouteSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean | any {
     const expectedRole = routerData.data['expectedRole'];
-    let url = `${environment.apiUrl}/${'my-roles'}?`;
+    // let url = `${environment.apiUrl}/${'my-roles'}?`;
 
-    return  this.httpClient
-    .get(url)
-    .pipe(
-      map((res:any): boolean   => {
-        if (res.status) {
-          if (res.resources) {
+    // return  this.httpClient
+    // .get(url)
+    // .pipe(
+    //   map((res:any): boolean   => {
+    //     if (res.status) {
+    var res = this.auth.getUserData()
+          if (res?.resources) {
             if (res.resources.split(',').includes(expectedRole))
               return true;
             else {
@@ -44,11 +45,11 @@ export class RoleGuard implements CanActivate {
             this.router.navigate(['/']);
             return false;
           }
-        } else {
-          this.router.navigate(['/']);
-          return false;
-        }
-      }
-      ))
+      //   } else {
+      //     this.router.navigate(['/']);
+      //     return false;
+      //   }
+      // }
+      // ))
   }
 }

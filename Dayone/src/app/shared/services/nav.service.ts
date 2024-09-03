@@ -57,7 +57,7 @@ export class NavService implements OnDestroy {
 
 
 	constructor(private router: Router,private dic:DicService,private httpService:HttpService) {
-		this.getInfo()
+		// this.getInfo()
 
 		this.setScreenWidth(window.innerWidth);
 		fromEvent(window, 'resize').pipe(

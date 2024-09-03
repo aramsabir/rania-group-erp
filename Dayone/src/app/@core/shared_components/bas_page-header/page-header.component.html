@@ -9,6 +9,9 @@
                         <a *ngIf="i==0" [href]="route.route"  ><i [class]="route.icon" aria-hidden="true"></i> {{route.name|dic}}</a>
                     </li>
                     
+                    <li class="breadcrumb-item active" *ngIf="last_page != ''" (click)="back()">
+                        <a href="javascript:;">{{last_page}}</a>
+                    </li>
                     <li class="breadcrumb-item active">{{title|dic}}</li>
                 </ol>
             </nav>

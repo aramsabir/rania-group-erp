@@ -4,6 +4,7 @@ import * as sidebarFn from '../sidebar/sidebar'
 export function localStorageBackUp() {
   let html = document.querySelector('html')?.style;
   let body = document.querySelector('body');
+    body?.classList.add('horizontal');
   if (localStorage.getItem('Dayonelight-primary-color') !== null) {
     body?.classList.add('light-mode');
     let light = document.getElementById('myonoffswitch1') as HTMLInputElement;

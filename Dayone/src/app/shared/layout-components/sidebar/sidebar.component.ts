@@ -15,6 +15,7 @@ import { HttpService } from 'src/app/@core/service/http/http.service';
 import { environment } from 'src/environments/environment';
 import { Menu, NavService } from '../../services/nav.service';
 import { checkHoriMenu, parentNavActive, switcherArrowFn } from './sidebar';
+import { AuthService } from '../../services/firebase/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -74,6 +75,7 @@ export class SidebarComponent {
     private httpService: HttpService,
     public elRef: ElementRef,
     private datePipe: DatePipe,
+    private authService: AuthService,
     private breakpointObserver: BreakpointObserver
   ) {
     this.from = this.datePipe.transform(new Date().setMonth(new Date().getMonth() - 1), "yyyy-MM-dd")
@@ -92,20 +94,23 @@ export class SidebarComponent {
         this.checkNavActiveOnLoad();
       }
     })
+
+    console.log("authService.currentUser$");
+    console.log(this.authService.currentUser$);
   }
 
   userInfo() {
-    this.httpService.call('userinfo', ApiMethod.GET, {}).subscribe((res: any) => {
-      if (res.status == true) {
-        this.userData = res.data
+    // this.httpService.call('userinfo', ApiMethod.GET, {}).subscribe((res: any) => {
+    //   if (res.status == true) {
+        this.userData = this.authService.getUserData()
         this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
 
-      } else {
-        this.httpService.createToast('danger', res.message)
-      }
-    }, () => {
-      this.httpService.createToast('danger', 'Network error')
-    });
+    //   } else {
+    //     this.httpService.createToast('danger', res.message)
+    //   }
+    // }, () => {
+    //   this.httpService.createToast('danger', 'Network error')
+    // });
   }
 
 
@@ -116,13 +121,13 @@ export class SidebarComponent {
 
 
 
-    this.httpService.call('userinfo', ApiMethod.GET, {}).subscribe((res: any) => {
-      if (res.status == true) {
-        this.userData = res.data
-        this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
+    // this.httpService.call('userinfo', ApiMethod.GET, {}).subscribe((res: any) => {
+    //   if (res.status == true) {
+    //     this.userData = res.data
+    //     this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
 
-        var resources: any = []
-        if (res.data.role_id)
+    //     var resources: any = []
+    //     if (res.data.role_id)
         //   resources = res.data.role_id.resource.split(',')
 
         // if (resources.includes('user:read'))
@@ -683,8 +688,8 @@ export class SidebarComponent {
             }, 200)
           }
         })
-      }
-    })
+    //   }
+    // })
 
   }
 

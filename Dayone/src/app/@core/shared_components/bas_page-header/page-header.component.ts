@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiMethod } from '../../service/apis';
 import { HttpService } from '../../service/http/http.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-bas-page-header',
@@ -12,8 +13,9 @@ export class BasPageHeaderComponent implements OnInit {
   @Input() title!: string;
   @Input() routes!: any;
   @Input() actions!: any;
+  @Input() last_page!: any;
   voucherGroups: any = [];
-  constructor(private httpService: HttpService, private router: Router) {}
+  constructor(private httpService: HttpService, private router: Router,private location:Location) {}
   elements: any = [];
   ngOnInit(): void {
     for (let index = 0; index < this.actions.length; index++) {
@@ -30,5 +32,8 @@ export class BasPageHeaderComponent implements OnInit {
   goTo(url: any, event: any) {
     console.log(url, event);
     this.router.navigate([url], { queryParams: { group: event } });
+  }
+  back(){
+    this.location.back();
   }
 }

@@ -34,12 +34,14 @@ export class ViewEmployeeComponent implements OnInit {
   modelAddLang: any = {};
   languages: any = [];
   modelAddCertificate: any ={};
+  documents: any = 0;
   constructor(
     config: NgbRatingConfig,
     private routes: ActivatedRoute,
     private datePipe: DatePipe,
     private httpService: HttpService
   ) {
+
     this.httpService
       .call(`${'available_companies'}`, ApiMethod.GET, this.params)
       .subscribe(
@@ -160,8 +162,26 @@ export class ViewEmployeeComponent implements OnInit {
       ];
 
       this.getData();
+      this.getSmartButtonsData()
     });
   }
+
+  getSmartButtonsData() {
+
+    this.httpService
+    .call(`${'count-employee-documents'}`, ApiMethod.GET, this.params)
+    .subscribe(
+      (res: any) => {
+        if (res.status) {
+          this.documents = res.count;
+        }
+      },
+      (error: any) => {
+        this.httpService.createToast('error', error);
+      }
+    );
+  }
+
   ngOnInit(): void {}
 
   getData() {
@@ -350,8 +370,11 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
 
-  getColor(){
-    var items = ['red', 'green', 'yellow', 'info']
-    return items[Math.floor(Math.random()*items.length)];
+  getColor(i:any){
+    var items = ['red', 'green', 'yellow', 'info','warning','danger']
+    if(i >5){
+      i = i-5
+    }
+    return items[i]
   }
 }

@@ -14,7 +14,9 @@ export class AppComponent {
   }
 
   ngOnInit() {
-
+    if(localStorage.getItem('list_type') == '' || localStorage.getItem('list_type') ==  null){
+      localStorage.setItem('list_type','list');
+    }
     // this.config.api$.subscribe((data) => {
     //   console.log('app initializer => ', data);
     // });
