@@ -4,6 +4,7 @@ import { ApiMethod } from 'src/app/@core/service/apis';
 import { DicService } from 'src/app/@core/service/dic/dic.service';
 import { HttpService } from 'src/app/@core/service/http/http.service';
 import { SeoService } from 'src/app/@core/service/seo';
+import { AuthService } from 'src/app/shared/services/firebase/auth.service';
 import { environment } from 'src/environments/environment';
 // import { ActivatedRoute, Router } from '@angular/router';
 // import { ApiEndPoints, ApiMethod } from 'src/app/@core/service/apis';
@@ -37,16 +38,21 @@ export class MainComponent implements OnInit {
   pg_header: any = [];
   list_item: string | null;
   endPoint: any = environment.apiIMG + '/images/';
+  user$: any;
 
   constructor(
     private dic: DicService,
     private routes: ActivatedRoute,
     private httpService: HttpService,
-    private metaService: SeoService
+    private metaService: SeoService,
+    private authService: AuthService
   ) {
     this.list_item = localStorage.getItem('list_type');
     this.metaService.setTitle(environment.app_title, this.titlePage);
+    this.user$ = this.authService.currentUserSubject.asObservable();
+    console.log(this.user$);
 
+    console.log(this.authService.hasPermission('employee:read'));
     this.routes.queryParams.subscribe((params: any) => {
       this.params.skip = params.skip ? params.skip : 0;
       this.params.limit = params.limit ? params.limit : 30;
@@ -88,5 +94,5 @@ export class MainComponent implements OnInit {
       );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

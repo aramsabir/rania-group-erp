@@ -28,8 +28,6 @@ import { Error404Component } from './auth/error404/error404.component';
 import { AuthService } from './shared/services/firebase/auth.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { JwtInterceptor, ServerErrorInterceptor } from './@core/interceptors';
-import { ConfigService } from './config.server/config.service';
-import { InitializerModule } from './config.server/initializer';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -39,7 +37,25 @@ function appInitializer(authService: AuthService) {
   return () => {
     return new Promise((resolve) => {
       //@ts-ignore
-       authService.getUserByToken().subscribe().add(resolve);
+      return authService.getUserByToken().subscribe(
+        {
+          next: user => {
+            // console.log('app initializer', user);
+            if (user) {
+              // console.log('User loaded during app initialization', user);
+              authService.currentUserSubject.next(user);
+            } else {
+              // console.log('No user found during app initialization');
+            }
+            resolve(null);
+          },
+          error: (error) => {
+            // console.error('Error during app initialization', error);
+            resolve(null);
+          }
+        }
+      )
+
     });
   };
 }
@@ -82,12 +98,12 @@ function appInitializer(authService: AuthService) {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
     ,
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: appInitializer,
-    //   multi: true,
-    //   deps: [AuthService],
-    // },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializer,
+      multi: true,
+      deps: [AuthService],
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

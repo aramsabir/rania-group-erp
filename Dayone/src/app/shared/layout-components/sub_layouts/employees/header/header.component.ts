@@ -23,9 +23,9 @@ export class EmployeesHeaderComponent implements OnInit {
   userPhoto: any = './assets/images/users/16.jpg';
   model: any = {};
   companies: any = [
-   
+
   ];
-  default_company : any = "All"
+  default_company: any = "All"
   constructor(
     public layout: SwitcherService,
     public authService: AuthService,
@@ -99,8 +99,8 @@ export class EmployeesHeaderComponent implements OnInit {
     else localStorage.removeItem('DayoneDarkTheme');
   }
   changeCompany(company: any) {
-   localStorage.setItem('default_company_id', company._id);
-   localStorage.setItem('default_company_name', company.name);
+    localStorage.setItem('default_company_id', company._id);
+    localStorage.setItem('default_company_name', company.name);
   }
   changeDir(language: any) {
     if (this.lang != language) {

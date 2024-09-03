@@ -779,7 +779,7 @@ exports.userInformation = async (req, res) => {
 
   if (user) {
     user.resources = req.query.resources
-    res.json({ data:user, status: true });
+    res.json({ data: user, status: true });
     return 0;
   } else {
     res.json({ status: false });
