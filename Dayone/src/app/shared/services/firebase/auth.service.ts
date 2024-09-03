@@ -124,6 +124,9 @@ export class AuthService implements OnInit {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
+  getUserData(){
+    return  this.currentUserValue
+  }
   hasPermission(permission: string) {
     const role = this.currentUserValue?.resources;
     // console.log(this.currentUserValue);
@@ -265,12 +268,8 @@ export class AuthService implements OnInit {
     return this.httpService.call('userinfo', ApiMethod.GET, {}).pipe(
       map((res: any) => {
         if (res.status) {
-          console.log('user', res.data);
-
           const u = res.data;
-
           this.currentUserSubject.next(u);
-          console.log('user', this.currentUserSubject);
           return u;
         } else {
           this.SignOut();

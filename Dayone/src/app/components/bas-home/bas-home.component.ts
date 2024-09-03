@@ -63,9 +63,9 @@ export class BasHomeComponent implements OnInit {
     // this.user$ = this.authService.currentUserSubject.asObservable();
     // console.log(this.user$);
 
-    console.log(this.authService.hasPermission('employee:read'));
+    // console.log(this.authService.hasPermission('employee:read'));
     //  this.authService.getUserByToken().subscribe(user => {console.log(user)});
-    console.log(this.authService.hasPermission('employee:read'));
+    // console.log(this.authService.hasPermission('employee:read'));
 
     // this.http.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
     //   if (res.status == true) {

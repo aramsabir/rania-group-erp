@@ -100,17 +100,17 @@ export class SidebarComponent {
   }
 
   userInfo() {
-    this.httpService.call('userinfo', ApiMethod.GET, {}).subscribe((res: any) => {
-      if (res.status == true) {
-        this.userData = res.data
+    // this.httpService.call('userinfo', ApiMethod.GET, {}).subscribe((res: any) => {
+    //   if (res.status == true) {
+        this.userData = this.authService.getUserData()
         this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
 
-      } else {
-        this.httpService.createToast('danger', res.message)
-      }
-    }, () => {
-      this.httpService.createToast('danger', 'Network error')
-    });
+    //   } else {
+    //     this.httpService.createToast('danger', res.message)
+    //   }
+    // }, () => {
+    //   this.httpService.createToast('danger', 'Network error')
+    // });
   }
 
 
@@ -121,13 +121,13 @@ export class SidebarComponent {
 
 
 
-    this.httpService.call('userinfo', ApiMethod.GET, {}).subscribe((res: any) => {
-      if (res.status == true) {
-        this.userData = res.data
-        this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
+    // this.httpService.call('userinfo', ApiMethod.GET, {}).subscribe((res: any) => {
+    //   if (res.status == true) {
+    //     this.userData = res.data
+    //     this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
 
-        var resources: any = []
-        if (res.data.role_id)
+    //     var resources: any = []
+    //     if (res.data.role_id)
         //   resources = res.data.role_id.resource.split(',')
 
         // if (resources.includes('user:read'))
@@ -688,8 +688,8 @@ export class SidebarComponent {
             }, 200)
           }
         })
-      }
-    })
+    //   }
+    // })
 
   }
 

@@ -11,40 +11,46 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-employee-attachments',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
 export class EmployeeAttachmentsComponent implements OnInit {
-
-  titlePage :any = "Employee Attachments"
-  bercumberRoutes:any = [
-    {icon:'feather feather-home',route:'/home',name:"Home"},
-    {icon:'feather feather-file-text',route:'/employees',name:"Employees"},
-  ]
-  last_page:any ='View Employee'
-  actions:any = []
-  list_item: any ="";
+  titlePage: any = 'Employee Attachments';
+  bercumberRoutes: any = [
+    { icon: 'feather feather-home', route: '/home', name: 'Home' },
+    {
+      icon: 'feather feather-file-text',
+      route: '/employees',
+      name: 'Employees',
+    },
+  ];
+  last_page: any = 'View Employee';
+  actions: any = [];
+  list_item: any = '';
   params: any = {};
   page: number = 0;
-  pg_header:any = [];
+  pg_header: any = [];
   dataSource: any;
   length: any;
-  Allphotos: any =[];
-  current: any = {}
+  Allphotos: any = [];
+  current: any = {};
   isLoading: boolean = false;
+  delete: boolean;
   constructor(
     private dic: DicService,
     private routes: ActivatedRoute,
     private httpService: HttpService,
+    private authService: AuthService,
     private metaService: SeoService,
     private modalService: NgbModal
   ) {
+    this.delete = this.authService.hasPermission('document:delete');
     this.list_item = localStorage.getItem('list_type');
     this.metaService.setTitle(environment.app_title, this.titlePage);
     this.routes.queryParams.subscribe((params: any) => {
       this.params.skip = params.skip ? params.skip : 0;
       this.params.limit = params.limit ? params.limit : 30;
       this.params.sort = params.sort ? params.sort : 'created_at';
-      this.params._id = params._id  
+      this.params._id = params._id;
       this.page = this.params.skip / this.params.limit + 1;
       this.getData();
 
@@ -52,18 +58,14 @@ export class EmployeeAttachmentsComponent implements OnInit {
         { link: '/home', params: {}, value: 'Home' },
         // {link:'/home/settings/sources',params:params,value:"sources"},
       ];
-
     });
-
   }
   ngOnInit(): void {
     this.list_item = localStorage.getItem('list_type');
-
   }
   setListToStorage(type: string) {
     localStorage.setItem('list_type', type);
   }
-
 
   showModal(modal: any): void {
     this.modalService.open(modal, { size: 'md' });
@@ -79,9 +81,7 @@ export class EmployeeAttachmentsComponent implements OnInit {
             this.httpService.createToast('success', res.message);
             this.dataSource = res.data;
             for (let index = 0; index < this.dataSource.length; index++) {
-              var el = this.dataSource[index] 
-             
-              
+              var el = this.dataSource[index];
             }
             this.length = res.count;
           } else {
@@ -97,7 +97,6 @@ export class EmployeeAttachmentsComponent implements OnInit {
   attachment!: File;
   fileURL: any;
   modelAttahment: any = {};
-  
 
   appendFormData(object: any) {
     const formData = new FormData();
@@ -121,9 +120,9 @@ export class EmployeeAttachmentsComponent implements OnInit {
   }
   uploadFile() {
     this.isLoading = true;
-    this.modelAttahment.employee_id = this.params._id
+    this.modelAttahment.employee_id = this.params._id;
     var form = this.appendFormData(this.modelAttahment);
-    
+
     if (
       ![
         'jpeg',
@@ -136,6 +135,7 @@ export class EmployeeAttachmentsComponent implements OnInit {
         'PDF',
         'dwg',
         'DWG',
+        'vnd.openxmlformats-officedocument.presentationml.presentation',
         'vnd.openxmlformats-officedocument.wordprocessingml.document',
         'vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'csv',
@@ -165,22 +165,22 @@ export class EmployeeAttachmentsComponent implements OnInit {
     }
   }
   downloadFile(data: any) {
-    let link = `${environment.apiUrl}/download_guidline_files?file_name=${data}`;
+    let link = `${environment.apiUrl}/download-document?file_name=${data}`;
     window.location.href = link;
   }
-  deleteIMG(data: any): any {
+  deleteIMG(item: any): any {
+   if(confirm('Are you sure you want to delete')){
     this.httpService
-      .call(
-        `${'form_guidline_files'}`,
-        ApiMethod.DELETE,
-        { _id: data._id },
-      ).subscribe((ptr: any) => {
-        if (ptr.status)
-          this.httpService.createToast('success', ptr.message);
-        else
-          this.httpService.createToast('error', ptr.message);
-        window.location.reload()
-      })
+    .call(`${'document'}`, ApiMethod.DELETE, { _id: item._id })
+    .subscribe((ptr: any) => {
+      if (ptr.status) {
+        this.getData()
+        this.httpService.createToast('success', ptr.message);
+      } else {
+        this.httpService.createToast('error', ptr.message);
+      }
+    });
+    }
   }
 
   showPhoto(item: any) {
@@ -195,17 +195,20 @@ export class EmployeeAttachmentsComponent implements OnInit {
         item.split('.')[item.split('.').length - 1] == 'PDF'
       ) {
         ext = 'pdf';
-      }else 
-      if (
+      } else if (
         item.split('.')[item.split('.').length - 1] == 'xlsx' ||
         item.split('.')[item.split('.').length - 1] == 'csv'
       ) {
         ext = 'xslx';
+      } else if (
+        item.split('.')[item.split('.').length - 1] == 'png' ||
+        item.split('.')[item.split('.').length - 1] == 'jpeg' ||
+        item.split('.')[item.split('.').length - 1] == 'jpg'
+      ) {
+        ext = 'image';
+      } else {
+        ext = 'file';
       }
     return ext;
   }
-
- 
-
-}   
-
+}

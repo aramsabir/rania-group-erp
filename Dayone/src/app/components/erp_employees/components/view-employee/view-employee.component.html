@@ -186,28 +186,28 @@
     <div class="col-xl-9 col-md-12 col-lg-12 card">
         <div class="navbar">
             <a [routerLink]="'/employees/view_employee/attachments'" [queryParams]="{skip:0,limit:30,sort:'-created_at', _id:modelEmployee._id}" class="navbar-item">
-                <i class="fe fe-file-text fs-40 mx-2"></i>
-                <span class="fs-20">12 <br> Documents</span>
+                <i class="text-info fe fe-file-text fs-40 mx-2"></i>
+                <span class="text-info fs-20">{{documents|number}} <br>  Documents  </span>
             </a>
-            <a href="#" class="navbar-item">
-                <i class="fa fa-calendar fs-40 mx-2"></i>
-                <span class="fs-20">2 <br> Time off</span>
+            <a  class="navbar-item">
+                <i class="text-cyan fa fa-calendar fs-40 mx-2"></i>
+                <span class="text-cyan fs-20">2 <br> Time off</span>
             </a>
-            <a href="#" class="navbar-item">
-                <i class="fa fa-clock-o fs-40 mx-2"></i>
-                <span class="fs-20">3 <br> Overtimes</span>
+            <a  class="navbar-item">
+                <i class="text-danger fa fa-clock-o fs-40 mx-2"></i>
+                <span class="text-danger fs-20">3 <br> Overtimes</span>
             </a>
-            <a href="#" class="navbar-item">
-                <i class="mdi mdi-account-check fs-40 mx-2"></i>
-                <span class="fs-20">10 <br> Approvals</span>
+            <a  class="navbar-item">
+                <i class="text-orange mdi mdi-account-check fs-40 mx-2"></i>
+                <span class="text-orange fs-20">10 <br> Approvals</span>
             </a>
-            <a href="#" class="navbar-item">
-                <i class="fa fa-cc-diners-club fs-40 mx-2"></i>
-                <span class="fs-20">6 <br> Payslips</span>
+            <a  class="navbar-item">
+                <i class="text-primary fa fa-cc-diners-club fs-40 mx-2"></i>
+                <span class="text-primary fs-20">6 <br> Payslips</span>
             </a>
-            <a href="#" class="navbar-item">
-                <i class="fa fa-drivers-license fs-40 mx-2"></i>
-                <span class="fs-20">1 <br> Contracts</span>
+            <a  class="navbar-item">
+                <i class="text-success fa fa-drivers-license fs-40 mx-2"></i>
+                <span class="text-success fs-20">1 <br> Contracts</span>
             </a>
            
         </div>
@@ -862,96 +862,7 @@
                                     </div>
                                 </ng-template>
                             </li>
-                            <li [ngbNavItem]="4">
-                                <a ngbNavLink>Upload Documents</a>
-                                <ng-template ngbNavContent>
-                                    <div class="tab-pane" id="tab8">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-label mb-0 mt-2">Resume</div>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="form-group">
-                                                            <label for="form-label" class="form-label"></label>
-                                                            <input class="form-control" type="file">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-label mb-0 mt-2">ID Proof</div>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="form-group">
-                                                            <label for="form-label" class="form-label"></label>
-                                                            <input class="form-control" type="file">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-label mb-0 mt-2">Offer Letter</div>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="form-group">
-                                                            <label for="form-label"
-                                                                class="form-label">Attachment:</label>
-                                                            <input class="form-control" type="file">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-label mb-0 mt-2">Joining Letter</div>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="form-group">
-                                                            <label for="form-label" class="form-label"></label>
-                                                            <input class="form-control" type="file">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-label mb-0 mt-2">Agreement Letter</div>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="form-group">
-                                                            <label for="form-label"
-                                                                class="form-label">Attachment:</label>
-                                                            <input class="form-control" type="file">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-label mb-0 mt-2">Experience Letter</div>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="form-group">
-                                                            <label for="form-label"
-                                                                class="form-label">Attachment:</label>
-                                                            <input class="form-control" type="file">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </li>
+                        
                         </ul>
                     </div>
                 </div>

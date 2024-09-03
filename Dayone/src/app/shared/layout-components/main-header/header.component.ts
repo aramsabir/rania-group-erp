@@ -58,9 +58,7 @@ export class MainHeaderComponent implements OnInit {
 
     this.myCompanies();
 
-
-    console.log("authService.currentUser$");
-    console.log(this.authService.currentUserValue);
+ 
   }
 
   ngOnInit() {

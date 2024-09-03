@@ -15,6 +15,7 @@ import { HttpService } from 'src/app/@core/service/http/http.service';
 import { environment } from 'src/environments/environment';
 import { Menu, NavService } from '../../../../services/nav.service';
 import { checkHoriMenu, parentNavActive, switcherArrowFn } from './sidebar';
+import { AuthService } from 'src/app/shared/services/firebase/auth.service';
 
 @Component({
   selector: 'app-settings-sidebar',
@@ -43,6 +44,7 @@ export class SidebarSettingsComponent {
   constructor(
     private dic: DicService,
     private router: Router,
+    private authService: AuthService,
     private navServices: NavService,
     private httpService: HttpService,
     public elRef: ElementRef,
@@ -74,14 +76,14 @@ export class SidebarSettingsComponent {
 
 
 
-    this.httpService.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
-      if (res.status == true) {
-        this.userData = res.data
+    // this.httpService.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
+    //   if (res.status == true) {
+        this.userData =  this.authService.getUserData()
         this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
 
         var resources: any = []
-        if (res.resources)
-          resources = res.resources.split(',')
+        if (this.userData.resources)
+          resources = this.userData.resources.split(',')
 
         this.menuItems = []
      
@@ -166,8 +168,8 @@ export class SidebarSettingsComponent {
             }, 200)
           }
         })
-      }
-    })
+    //   }
+    // })
 
   }
 

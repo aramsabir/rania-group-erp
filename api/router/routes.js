@@ -80,11 +80,13 @@ module.exports = function (app) {
    
     //     //  Attachments
     app.get('/employee-documents', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.DocumentRead) }, checkAccess, documentController.ListForEmployee)
+       .get('/count-employee-documents', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.DocumentRead) }, checkAccess, documentController.CountEmployeeDocuments)
         // .get('/available_job_titles', checkExpireToken, AddQueryData, jobTitleController.Available)
         // .get('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.One)
         .post('/document', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.DocumentWrite) }, checkAccess,documentController.upload, documentController.New)
+        .get('/download-document',  documentController.downloadDoc)
         // .put('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.Update)
-        // .delete('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.Delete)
+        .delete('/document', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.DocumentDelete) }, checkAccess, documentController.Delete)
    
         //  Basic Data
     app.get('/basic_datas', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.List)

@@ -39,7 +39,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     PipesModule,
     QRCodeModule,
-    NgCircleProgressModule.forRoot({"responsive": true})
+    NgCircleProgressModule.forRoot({"responsive": true}),
+    
 
   ], 
   providers: [

@@ -5,11 +5,12 @@ const events = require('../event_and_resources/events');
 const log = require('../activities/logController')
 const terms = require('../event_and_resources/terms')
 const { fileLimit } = require("../event_and_resources/constants");
+const { documentPath } = require('../../configAPI/configuration');
 
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "./public/documents");
+        cb(null, documentPath);
         // cb(null, GuidelinePaths);
     },
     filename: function (req, file, cb) {
@@ -36,14 +37,13 @@ var storage = multer.diskStorage({
 exports.New = async (req, res) => {
 
     var newData = new Schema(req.body);
-    // var validate = await newData.validation(req.body, 'create')
-    // if (!validate.status) {
-    //     res.json({ status: false, message: validate.message });
-    //     return 0;
-    // }
+    var validate = await newData.validation(req.body, 'create')
+    if (!validate.status) {
+        res.json({ status: false, message: validate.message });
+        return 0;
+    }
 
-    console.log(req.body);
-    
+
     await Schema.findOne({
         $or: [
             {
@@ -78,7 +78,7 @@ exports.New = async (req, res) => {
                 newRecord.created_at = Date.now()
                 newRecord.updated_at = Date.now()
                 newRecord.save()
-                log.saveLog(req,newRecord._id, req.query.userFullName, req.query.userID, events.CreateAttachment, '', newRecord)
+                log.saveLog(req, newRecord._id, req.query.userFullName, req.query.userID, events.CreateDocument, '', newRecord)
                 res.json({ status: true, message: terms.success })
                 return 0
             }
@@ -87,12 +87,40 @@ exports.New = async (req, res) => {
 }
 
 
+exports.downloadDoc = async (req, res) => {
+    var fs = require('fs')
 
+    var data = await Schema.findOne({ $and: [{ deleted_at: null }, { _id: req.query.file_name }] })
+
+    var file = fs.createReadStream(documentPath + '/' + data.file_source);
+    var stat = fs.statSync(documentPath + '/' + data.file_source);
+    res.setHeader('Content-Length', stat.size);
+
+    var ext = data.file_source.split('.')[data.file_source.split('.').length - 1]
+    if (ext == 'xlsx' || ext == 'xls') {
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    } else
+        if (ext == 'png') {
+            res.setHeader('Content-type', 'image/png');
+        } else
+            if (ext == 'jpg' || ext == 'jpeg') {
+                res.setHeader('Content-type', 'image/jpeg');
+            } else
+                if (ext == 'pptx') {
+                    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+                } else
+                    if (ext == 'docx' || ext == 'doc') {
+                        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                    } else
+                        res.setHeader('Content-Type', 'application/pdf');
+
+
+    file.pipe(res);
+
+};
 
 exports.ListForEmployee = async (req, res) => {
 
-    console.log(req.query._id);
-    
     if (!req.query._id) {
         res.json({ status: false, message: "Employee ID required" })
         return 0
@@ -124,6 +152,30 @@ exports.ListForEmployee = async (req, res) => {
         .exec()
 
     res.json({ status: true, count, data: data })
+
+
+}
+exports.CountEmployeeDocuments = async (req, res) => {
+
+    if (!req.query._id) {
+        res.json({ status: false, message: "Employee ID required" })
+        return 0
+    }
+    var search = {
+        employee_id: mongoose.Types.ObjectId(req.query._id)
+    }
+
+    var count = await Schema.countDocuments({
+        $and: [
+            search,
+            {
+                deleted_at: null
+            }
+        ]
+    }).exec()
+
+
+    res.json({ status: true, count})
 
 
 }
@@ -242,7 +294,6 @@ exports.Update = async (req, res) => {
         res.json({ status: false, message: "Type " + terms.name_required })
         return 0
     }
-    console.log(req.body.type);
     // if (!['Organization', 'Personal', 'Governmental'].includes(req.body.type) || !req.body.type || req.body.type == 'undefined') {
     //     res.json({ status: false, message: "type required or not valid" })
     //     return 0
@@ -258,7 +309,7 @@ exports.Update = async (req, res) => {
             response.save(function (err, update) {
                 if (err) throw err;
                 if (update) {
-                    log.saveLog(req, req.query.userFullName, req.query.userID, events.UpdateCompany, old, update)
+                    log.saveLog(req, req.query.userFullName, req.query.userID, events.UpdateDocument, old, update)
                     res.json({ status: true, message: terms.data_has_been_updated })
 
                 } else {
@@ -297,7 +348,7 @@ exports.Delete = async (req, res) => {
         ).exec(function (e, r) {
             if (e) throw e;
             if (r) {
-                log.saveLog(req, req.query.userFullName, req.query.userID, events.DeleteCompany, '', r)
+                log.saveLog(req,r._id, req.query.userFullName, req.query.userID, events.DeleteDocument, '', r)
                 res.json({ status: true, message: terms.data_has_been_deleted });
                 return 0;
             } else {
