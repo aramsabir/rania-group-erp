@@ -24,8 +24,8 @@ export class HeaderComponent implements OnInit {
   userData: any;
   userPhoto: any = './assets/images/users/16.jpg';
   model: any = {};
- 
-  default_company : any = "All"
+
+  default_company: any = "All"
 
   my_companies: any = [];
   company: any = '';
@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
     private modalService: NgbModal,
     private dicService: DicService
   ) {
-    
+
     this.myCompanies()
     this.default_company = localStorage.getItem('default_company_name');
     this.lang = localStorage.getItem('language');
@@ -207,8 +207,8 @@ export class HeaderComponent implements OnInit {
     else localStorage.removeItem('DayoneDarkTheme');
   }
   changeCompany(company: any) {
-   localStorage.setItem('default_company_id', company._id);
-   localStorage.setItem('default_company_name', company.name);
+    localStorage.setItem('default_company_id', company._id);
+    localStorage.setItem('default_company_name', company.name);
   }
   changeDir(language: any) {
     if (this.lang != language) {

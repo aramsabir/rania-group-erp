@@ -17,7 +17,7 @@ export class SupportHeaderComponent implements OnInit {
     public layout: SwitcherService,
     public navServices: NavService,
     private modalService: NgbModal
-  ) {}
+  ) { }
   private supportMenuClick$;
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -84,7 +84,7 @@ export class SupportHeaderComponent implements OnInit {
     // unsubscribing the Observable
     this.supportMenuClick$.unsubscribe();
   }
-  sidebarClose(){
+  sidebarClose() {
     document.querySelector('.app')?.classList.remove('active');
   }
 }

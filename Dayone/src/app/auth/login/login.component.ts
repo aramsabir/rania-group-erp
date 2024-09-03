@@ -71,14 +71,14 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.signIn(this.model).subscribe(
       (res: any) => {
-        
+
         if (res['success'] == true) {
-          this.authService.value = true;
-         
-            // setItem(StorageItem.Auth, { token: res.token, email: res.email });
-            this.httpService.createToast('success', res['message']);
-            this.router.navigate(['/home']);
-            // window.location.href = '/home';
+          // this.authService.value = true;
+
+          // setItem(StorageItem.Auth, { token: res.token, email: res.email });
+          this.httpService.createToast('success', res['message']);
+          this.router.navigate(['/home']);
+          // window.location.href = '/home';
         } else {
           this.httpService.createToast('error', res.message);
         }
@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
     this.ngxNotifierService.createToast(style, message, 5000);
     return;
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   setLtr() {
     {

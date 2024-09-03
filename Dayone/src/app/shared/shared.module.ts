@@ -41,7 +41,6 @@ import { ToggleSearchDirective } from './directives/toggle-search.directive copy
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BasDicPipe } from '../@core/pipes/bas_dic.pipe';
 import { DicService } from '../@core/service/dic/dic.service';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { MainContentComponent } from './layout-components/layout/main-content/content.component';
 import { MainHeaderComponent } from './layout-components/main-header/header.component';
 import { SettingsContentComponent } from './layout-components/sub_layouts/settings/content/content.component';
@@ -59,18 +58,18 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 @NgModule({
   declarations: [
-   
-    
+
+
 
     SettingsContentComponent,
     SettingsHeaderComponent,
     SidebarSettingsComponent,
-    
+
 
     EmployeesContentComponent,
     EmployeesHeaderComponent,
     SidebarEmployeesComponent,
-    
+
     MainHeaderComponent,
     MainContentComponent,
     BasDicPipe,
@@ -106,7 +105,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     RouterModule,
     PerfectScrollbarModule,
-    PdfViewerModule,
     NgbModule,
     MatFormFieldModule,
     MatDatepickerModule,
@@ -116,7 +114,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatDialogModule,
     ColorPickerModule,
     NgSelectModule,
-    
+
   ],
   providers: [
     {

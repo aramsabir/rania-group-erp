@@ -1,4 +1,4 @@
-import { Injectable, OnInit, NgZone } from '@angular/core';
+import { Injectable, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
@@ -18,6 +18,7 @@ import {
   of,
   Subscription,
   switchMap,
+  tap,
 } from 'rxjs';
 import { getItem, removeItem, setItem, StorageItem } from 'src/app/@core/utils';
 import { environment } from 'src/environments/environment';
@@ -42,22 +43,20 @@ interface User {
   providedIn: 'root',
 })
 export class AuthService implements OnInit {
-  private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
-
-  isLoggedIn$ = new BehaviorSubject<boolean>(
-    !!localStorage.getItem(this.authLocalStorageToken)
-  );
   private apiBaseUrl = `${environment.apiUrl}`;
 
-  public userData: any;
-  public user!: firebase.User;
-  public showLoader: boolean = false;
+  private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
 
-  currentUser$!: Observable<any>;
+
+  isLoggedIn$ = new Observable<boolean>;
+  isLoggedOut$ = new Observable<boolean>;
+
+  currentUserSubject = new BehaviorSubject<UserType>(undefined);
+
+  currentUser$: Observable<UserType> = this.currentUserSubject.asObservable();
   isLoading$!: Observable<boolean>;
   // templateSaveSubject = new BehaviorSubject<UserType>(undefined);
 
-  currentUserSubject = new BehaviorSubject<UserType>(undefined);
   isLoadingSubject = new BehaviorSubject<boolean>(false);
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
@@ -73,15 +72,19 @@ export class AuthService implements OnInit {
   }
 
   constructor(
-    public afs: AngularFirestore,
+    // public afs: AngularFirestore,
     public httpService: HttpService,
     public afAuth: AngularFireAuth,
+    // public ngZone: NgZone,
     public router: Router,
-    public ngZone: NgZone,
-    private http: HttpClient,
-    public toster: ToastrService,
+    // private http: HttpClient,
     private cookieService: CookieService
   ) {
+    // this.getUserByToken();
+
+    this.isLoggedIn$ = this.currentUserSubject.asObservable().pipe(map(user => !!this.currentUser$));
+    this.isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));
+
     // this.afAuth.authState.subscribe(user => {
     //   if (user) {
     //     this.userData = user;
@@ -92,17 +95,32 @@ export class AuthService implements OnInit {
     //   }
     // });
 
-    this.isLoadingSubject = new BehaviorSubject<boolean>(false);
-    this.currentUserSubject = new BehaviorSubject<UserType>(undefined);
-    this.currentUser$ = this.currentUserSubject.asObservable();
-    this.isLoading$ = this.isLoadingSubject.asObservable();
-    const subscr = this.getUserByToken().subscribe();
-    this.unsubscribe.push(subscr);
+    // this.isLoadingSubject = new BehaviorSubject<boolean>(false);
+    // this.currentUserSubject = new BehaviorSubject<UserType>(undefined);
+    // this.currentUser$ = this.currentUserSubject.asObservable();
+    // this.isLoading$ = this.isLoadingSubject.asObservable();
+    // const subscr = this.getUserByToken().subscribe();
+    // console.log('auth service ', subscr);
+
+    // this.unsubscribe.push(subscr);
 
     // this.unsubscribe.push(subscr);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  // get isLoggedIn(): boolean {
+  //   return this.isLoggedIn$.getValue();
+  // }
+
+  // public set value(v: boolean) {
+  //   this.isLoggedIn$.next(v);
+  // }
+
+  ngOnDestroy() {
+    this.unsubscribe.forEach((sb) => sb.unsubscribe());
+  }
 
   hasPermission(permission: string) {
     const role = this.currentUserValue?.resources;
@@ -149,13 +167,7 @@ export class AuthService implements OnInit {
     return hasPermission;
   }
 
-  get isLoggedIn(): boolean {
-    return this.isLoggedIn$.getValue();
-  }
 
-  public set value(v: boolean) {
-    this.isLoggedIn$.next(v);
-  }
 
   checkToken() {
     this.httpService.call(ApiEndPoints.Check, ApiMethod.GET).subscribe(
@@ -181,31 +193,38 @@ export class AuthService implements OnInit {
   signIn(payload: any): Observable<any> {
     return this.httpService.call('login', ApiMethod.POST, {}, payload).pipe(
       map((auth: any) => {
-        this.currentUserSubject.next(auth);
-        // console.log(this.currentUserSubject);
+        if (auth['success'] == true) {
+          this.currentUserSubject.next(auth);
+        }
+        // console.log('at login ', this.currentUserSubject);
+        // console.log('at login ', this.isLoggedIn$);
+
         // this.getUserByToken()
         const result = this.setAuthFromLocalStorage(auth);
-        if (result) {
-          this.isLoggedIn$.next(true);
-        }
+        // if (result) {
+        //   this.isLoggedIn$.next(true);
+        // }
         return auth;
       })
     );
 
-    return this.http.post<any>(
-      `${this.apiBaseUrl}/login_aadministrator`,
-      payload
-    );
+    // return this.http.post<any>(
+    //   `${this.apiBaseUrl}/login_aadministrator`,
+    //   payload
+    // );
   }
 
   private getAuthFromLocalStorage(): AuthModel | undefined {
     try {
-      const lsValue = localStorage.getItem(this.authLocalStorageToken);
-      if (!lsValue) {
+      const lsValue = localStorage.getItem(this.authLocalStorageToken) ?? '';
+      console.log(lsValue);
+
+      if (lsValue?.length == 0) {
         return undefined;
       }
 
       const authData = JSON.parse(lsValue);
+
       return authData;
     } catch (error) {
       // console.error(error);
@@ -213,28 +232,47 @@ export class AuthService implements OnInit {
     }
   }
 
-  logout() {
+  // Sign out
+  SignOut() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+    this.currentUserSubject.next(undefined);
     localStorage.removeItem(this.authLocalStorageToken);
+    localStorage.removeItem('App/auth');
+    this.cookieService.deleteAll('user', '/auth/login');
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });
+    // return this.afAuth.signOut().then(() => {
+    //   // localStorage.clear();
+    //   // this.isLoggedIn$.next(false);
+    // });
   }
 
+
   getUserByToken(): Observable<UserType> {
-    const auth = this.getAuthFromLocalStorage();
-    if (!auth || !auth.token) {
+    const auth = localStorage.getItem(this.authLocalStorageToken) ?? '';
+
+    if (!auth) {
       return of(undefined);
     }
+
     // this.isLoadingSubject.next(true);
     this.isLoadingSubject.next(true);
     return this.httpService.call('userinfo', ApiMethod.GET, {}).pipe(
-      map((user: any) => {
-        if (user) {
-          this.currentUserSubject.next(user.data);
+      map((res: any) => {
+        if (res.status) {
+          console.log('user', res.data);
+
+          const u = res.data;
+
+          this.currentUserSubject.next(u);
+          console.log('user', this.currentUserSubject);
+          return u;
         } else {
-          this.logout();
+          this.SignOut();
         }
-        return user;
       }),
       finalize(() => this.isLoadingSubject.next(false))
 
@@ -244,130 +282,115 @@ export class AuthService implements OnInit {
     );
   }
 
-  signOut(): void {
-    localStorage.removeItem(this.authLocalStorageToken);
-    this.isLoggedIn$.next(false);
-  }
+
   // sign in function
-  SignIn(email: any, password: any) {
-    return this.afAuth
-      .signInWithEmailAndPassword(email, password)
-      .then((result: any) => {
-        if (result.user.emailVerified !== true) {
-          this.SetUserData(result.user);
-          this.SendVerificationMail();
-          this.showLoader = true;
-        } else {
-          this.showLoader = false;
-          this.ngZone.run(() => {
-            this.router.navigate(['/auth/login']);
-          });
-        }
-      })
-      .catch((error: any) => {
-        this.toster.error('You have enter Wrong Email or Password.');
-      });
-  }
-  // Sign up with email/password
+  // SignIn(email: any, password: any) {
+  //   return this.afAuth
+  //     .signInWithEmailAndPassword(email, password)
+  //     .then((result: any) => {
+  //       if (result.user.emailVerified !== true) {
+  //         this.SetUserData(result.user);
+  //         this.SendVerificationMail();
+  //         this.showLoader = true;
+  //       } else {
+  //         this.showLoader = false;
+  //         this.ngZone.run(() => {
+  //           this.router.navigate(['/auth/login']);
+  //         });
+  //       }
+  //     })
+  //     .catch((error: any) => {
+  //       this.toster.error('You have enter Wrong Email or Password.');
+  //     });
+  // }
+  // // Sign up with email/password
   SignUp(email: any, password: any) {
-    return this.afAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
-        up and returns promise */
-        this.SendVerificationMail();
-        this.SetUserData(result.user);
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+    //   return this.afAuth
+    //     .createUserWithEmailAndPassword(email, password)
+    //     .then((result) => {
+    //       /* Call the SendVerificaitonMail() function when new user sign 
+    //       up and returns promise */
+    //       this.SendVerificationMail();
+    //       this.SetUserData(result.user);
+    //     })
+    //     .catch((error) => {
+    //       window.alert(error.message);
+    //     });
   }
 
-  // main verification function
+  // // main verification function
   SendVerificationMail() {
-    return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['/hr-dashboard/dashboard']);
-      });
+    //   return this.afAuth.currentUser
+    //     .then((u: any) => u.sendEmailVerification())
+    //     .then(() => {
+    //       this.router.navigate(['/hr-dashboard/dashboard']);
+    //     });
   }
 
   // Sign in with Facebook
   signInFacebok() {
-    return this.AuthLogin(new firebase.auth.FacebookAuthProvider());
+    //   return this.AuthLogin(new firebase.auth.FacebookAuthProvider());
   }
 
-  // Sign in with Twitter
+  // // Sign in with Twitter
   signInTwitter() {
-    return this.AuthLogin(new firebase.auth.TwitterAuthProvider());
+    //   return this.AuthLogin(new firebase.auth.TwitterAuthProvider());
   }
 
-  // Sign in with Google
+  // // Sign in with Google
   GoogleAuth() {
-    return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
+    //   return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
 
   ForgotPassword(passwordResetEmail: any) {
-    return this.afAuth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
-      })
-      .catch((error: any) => {
-        window.alert(error);
-      });
+    //   return this.afAuth
+    //     .sendPasswordResetEmail(passwordResetEmail)
+    //     .then(() => {
+    //       window.alert('Password reset email sent, check your inbox.');
+    //     })
+    //     .catch((error: any) => {
+    //       window.alert(error);
+    //     });
   }
 
-  // Authentication for Login
+  // // Authentication for Login
   AuthLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then((result: any) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['/hr-dashboard/dashboard']);
-        });
-        this.SetUserData(result.user);
-      })
-      .catch((error: any) => {
-        window.alert(error);
-      });
+    //   return this.afAuth
+    //     .signInWithPopup(provider)
+    //     .then((result: any) => {
+    //       this.ngZone.run(() => {
+    //         this.router.navigate(['/hr-dashboard/dashboard']);
+    //       });
+    //       this.SetUserData(result.user);
+    //     })
+    //     .catch((error: any) => {
+    //       window.alert(error);
+    //     });
   }
 
   // Set user
-  SetUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
-    // console.log(this.afs.doc(`users/${user.uid}`))
-    const userData: User = {
-      email: user.email,
-      displayName: user.displayName,
-      uid: user.uid,
-      photoURL: user.photoURL || 'src/favicon.ico',
-      emailVerified: user.emailVerified,
-    };
-    userRef
-      .delete()
-      .then(function () {})
-      .catch(function (error) {});
-    return userRef.set(userData, {
-      merge: true,
-    });
-  }
+  // SetUserData(user: any) {
+  //   const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+  //     `users/${user.uid}`
+  //   );
+  //   // console.log(this.afs.doc(`users/${user.uid}`))
+  //   const userData: User = {
+  //     email: user.email,
+  //     displayName: user.displayName,
+  //     uid: user.uid,
+  //     photoURL: user.photoURL || 'src/favicon.ico',
+  //     emailVerified: user.emailVerified,
+  //   };
+  //   userRef
+  //     .delete()
+  //     .then(function () {})
+  //     .catch(function (error) {});
+  //   return userRef.set(userData, {
+  //     merge: true,
+  //   });
+  // }
 
-  // Sign out
-  SignOut() {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
-    return this.afAuth.signOut().then(() => {
-      this.showLoader = false;
-      // localStorage.clear();
-      localStorage.removeItem('App/auth');
-      this.cookieService.deleteAll('user', '/auth/login');
-      this.router.navigate(['/auth/login']);
-    });
-  }
+
 
   // get isLoggedIn(): boolean {
   //   const user = JSON.parse(this.cookieService.get('user')|| '{}');

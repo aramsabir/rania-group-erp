@@ -2,10 +2,11 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DlDateTimePickerChange } from 'angular-bootstrap-datetimepicker';
+import { Observable } from 'rxjs';
 import { ApiMethod } from 'src/app/@core/service/apis';
 import { DicService } from 'src/app/@core/service/dic/dic.service';
 import { HttpService } from 'src/app/@core/service/http/http.service';
-import { AuthService } from 'src/app/shared/services/firebase/auth.service';
+import { AuthService, UserType } from 'src/app/shared/services/firebase/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -41,6 +42,8 @@ export class BasHomeComponent implements OnInit {
   from: string | null;
   to: string | null;
 
+  user$: any;
+
 
   constructor(
     private authService: AuthService,
@@ -52,14 +55,18 @@ export class BasHomeComponent implements OnInit {
     this.now = this.datePipe.transform(new Date(), "yyyy-MM-ddTHH:mm")
     this.hour_before_now = this.datePipe.transform(new Date().setHours(new Date().getHours() - 1), "yyyy-MM-ddTHH:mm")
 
+
   }
 
   ngOnInit() {
+    // this.user$ = this.authService.currentUser$
+    this.user$ = this.authService.currentUserSubject.asObservable();
+    console.log(this.user$);
 
-    // console.log("this.authService.hasPermission('employee:read')");
-  //  this.authService.getUserByToken().subscribe(user => {console.log(user)});
+    console.log(this.authService.hasPermission('employee:read'));
+    //  this.authService.getUserByToken().subscribe(user => {console.log(user)});
     // console.log(this.authService.hasPermission('employee:read'));
-    
+
     this.http.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
       if (res.status == true) {
         this.userData = res.data
@@ -157,12 +164,12 @@ export class BasHomeComponent implements OnInit {
             active: true,
             type: 'href',
             router: '/settings/main',
-            query: {skip:0,limit:20,sort:'-created_at'},
+            query: { skip: 0, limit: 20, sort: '-created_at' },
             name: 'Settings',
             logo: './assets/applications/settings.png',
           });
         }
- 
+
       }
     })
 

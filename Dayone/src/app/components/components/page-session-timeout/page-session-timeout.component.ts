@@ -16,7 +16,7 @@ export class PageSessionTimeoutComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private authService : AuthService
+    private authService: AuthService
   ) { }
 
 
