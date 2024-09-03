@@ -34,6 +34,8 @@ export class SwitcherComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    let mainContent = document.querySelector('.main-content');
+    mainContent?.classList.remove('app-content');
     switcher.localStorageBackUp();
     switcher.customClickFn();
     switcher.updateChanges();
@@ -152,7 +154,7 @@ export class SwitcherComponent implements OnInit {
     localStorage.setItem('Dayonelight-primary-hover', this.color1);
     localStorage.setItem('Dayonelight-primary-border', this.color1);
     let light = document.getElementById('myonoffswitch1') as HTMLInputElement;
-    light.checked = true;
+    light.checked = false;
 
     // Adding
     this.body?.classList.add('light-mode');

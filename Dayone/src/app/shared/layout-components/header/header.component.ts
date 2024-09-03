@@ -49,6 +49,10 @@ export class HeaderComponent implements OnInit {
     this.default_company = localStorage.getItem('default_company_name');
     this.lang = localStorage.getItem('language');
     this.userInfo();
+
+    console.log("authService.currentUser$");
+    console.log(authService.currentUser$);
+    
   }
 
   ngOnInit() {

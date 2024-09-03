@@ -60,24 +60,24 @@ export class BasHomeComponent implements OnInit {
 
   ngOnInit() {
     // this.user$ = this.authService.currentUser$
-    this.user$ = this.authService.currentUserSubject.asObservable();
-    console.log(this.user$);
+    // this.user$ = this.authService.currentUserSubject.asObservable();
+    // console.log(this.user$);
 
     console.log(this.authService.hasPermission('employee:read'));
     //  this.authService.getUserByToken().subscribe(user => {console.log(user)});
-    // console.log(this.authService.hasPermission('employee:read'));
+    console.log(this.authService.hasPermission('employee:read'));
 
-    this.http.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
-      if (res.status == true) {
-        this.userData = res.data
-        this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
+    // this.http.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
+    //   if (res.status == true) {
+    //     this.userData = res.data
+    //     this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
 
-        var resources: any = []
-        if (res.resources)
-          resources = res.resources.split(',')
+    //     var resources: any = []
+    //     if (res.resources)
+    //       resources = res.resources.split(',')
 
 
-        if (resources.includes('employee:read')) {
+        if (this.authService.hasPermission('employee:read')) {
           this.arrayLinks.push({
             active: true,
             type: 'href',
@@ -87,7 +87,7 @@ export class BasHomeComponent implements OnInit {
             logo: './assets/applications/employee.png',
           });
         }
-        if (resources.includes('sales:read')) {
+        if (this.authService.hasPermission('sales:read')) {
           this.arrayLinks.push({
             active: true,
             type: 'href',
@@ -97,7 +97,7 @@ export class BasHomeComponent implements OnInit {
             logo: './assets/applications/sales.png',
           });
         }
-        if (resources.includes('payroll:read')) {
+        if (this.authService.hasPermission('payroll:read')) {
           this.arrayLinks.push({
             active: true,
             type: 'href',
@@ -107,7 +107,7 @@ export class BasHomeComponent implements OnInit {
             logo: './assets/applications/payroll.png',
           });
         }
-        if (resources.includes('approval:read')) {
+        if (this.authService.hasPermission('approval:read')) {
           this.arrayLinks.push({
             active: true,
             type: 'href',
@@ -118,7 +118,7 @@ export class BasHomeComponent implements OnInit {
           });
         }
 
-        if (resources.includes('time-off:read')) {
+        if (this.authService.hasPermission('time-off:read')) {
           this.arrayLinks.push({
             active: true,
             type: 'href',
@@ -129,7 +129,7 @@ export class BasHomeComponent implements OnInit {
           });
         }
 
-        if (resources.includes('purchase:read')) {
+        if (this.authService.hasPermission('purchase:read')) {
           this.arrayLinks.push({
             active: true,
             type: 'href',
@@ -139,7 +139,7 @@ export class BasHomeComponent implements OnInit {
             logo: './assets/applications/purchase.png',
           });
         }
-        if (resources.includes('recruitment:read')) {
+        if (this.authService.hasPermission('recruitment:read')) {
           this.arrayLinks.push({
             active: true,
             type: 'href',
@@ -149,7 +149,7 @@ export class BasHomeComponent implements OnInit {
             logo: './assets/applications/recruitment.png',
           });
         }
-        if (resources.includes('document:read')) {
+        if (this.authService.hasPermission('document:read')) {
           this.arrayLinks.push({
             active: true,
             type: 'href',
@@ -159,7 +159,7 @@ export class BasHomeComponent implements OnInit {
             logo: './assets/applications/document.png',
           });
         }
-        if (resources.includes('setting:read')) {
+        if (this.authService.hasPermission('setting:read')) {
           this.arrayLinks.push({
             active: true,
             type: 'href',
@@ -170,8 +170,8 @@ export class BasHomeComponent implements OnInit {
           });
         }
 
-      }
-    })
+    //   }
+    // })
 
   }
 

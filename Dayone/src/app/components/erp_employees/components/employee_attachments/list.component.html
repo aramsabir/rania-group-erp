@@ -1,0 +1,159 @@
+<app-bas-page-header [title]="titlePage" [routes]="bercumberRoutes" [last_page]="last_page" [actions]="actions"></app-bas-page-header>
+
+<div class="row">
+   
+    <div class="col-xl-12 col-lg-12">
+        <div class="row">
+            <div class="col mb-4">
+                <a href="javascript:;" class="btn btn-primary mb-1" (click)="showModal(addModal)"><i class="fe fe-plus"></i> Upload New Files</a>
+            </div>
+            <div class="col col-auto mb-4 row">
+                <a (click)="setListToStorage('grid')" (click)="list_item = 'grid'" href="javascript:;" placement="bottom"
+                ngbtooltip="Grid" class="option-dots border " [ngClass]="{'text-primary':list_item == 'grid'}"><span
+                class="feather feather-grid active"></span></a>
+                <a (click)="setListToStorage('list')" (click)="list_item = 'list'" href="javascript:;" placement="bottom"
+                    ngbtooltip="List" class="option-dots border" [ngClass]="{'text-primary':list_item == 'list'}"><span
+                    class="feather feather-list"></span></a>
+            </div>
+            <!-- <div class="col col-auto mb-4">
+                <div class="form-group w-100">
+                    <div class="input-icon">
+                        <span class="input-icon-addon">
+                            <i class="fe fe-search"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Search Files">
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="e-table">
+                    <div class="table-responsive mt-3 card-table table-vcenter table-hover text-nowrap">
+                        <table *ngIf="list_item != 'grid'" class="table" id="example1">
+                            <tbody>
+                                <tr *ngFor="let el of dataSource"> 
+                                    <td class="align-middle w-5">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                                value="option2">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="d-flex">
+                                            <pdf-viewer *ngIf="getttachmentExtention(el.file_source) === 'pdf'"   src="{{apiEndPointShow+el.file_source}}" [render-text]="true" [original-size]="true" [zoom]="1.2" [fit-to-page]="true"
+                                            [stick-to-page]="true" style="display: block; height:70vh; width: 100%"></pdf-viewer>
+                                            <img *ngIf="getttachmentExtention(el.file_source) === 'image'" [src]="el.file_source? apiEndPointShow+el.file_source : './assets/images/media/blog-details.jpg'" alt="img" class="rounded-5 w-100">
+                                            <i class="fa fa-file-excel-o" data-bs-toggle="tooltip" style="font-size:70px" *ngIf="getttachmentExtention(el.file_source) === 'xslx'" title="xslx file"></i>
+                                            <div class="mt-1">
+                                                {{el.name}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap align-middle"><span>{{el.created_at|date:'dd-MM-yyyy'}}</span></td>
+                                    <td class="text-nowrap align-middle">
+                                        {{el.file_source.split('.')[1]|titlecase}}
+                                    </td>
+                                    <!-- <td class="text-nowrap align-middle">
+                                        453kb
+                                    </td> -->
+                                </tr>
+                             
+                               
+                            </tbody>
+                        </table>
+
+                        <div class="row" *ngIf="list_item == 'grid'" >
+                            <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let el of dataSource">
+                                <div class="card border p-0 shadow-none">
+                                    <div class="d-flex align-items-center px-4 pt-4">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                                value="option2">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                        <div class="float-end ms-auto">
+                                            <div class="btn-group ms-3 mb-0" ngbDropdown>
+                                                <a href="javascript:;" class="option-dots" ngbDropdownToggle aria-haspopup="true"
+                                                    aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                <div ngbDropdownMenu class="dropdown-menu-start">
+                                                    <a ngbDropdownItem href="javascript:;"><i class="fe fe-edit me-2"></i> Edit</a>
+                                                    <a ngbDropdownItem href="javascript:;"><i class="fe fe-share me-2"></i> Share</a>
+                                                    <a ngbDropdownItem href="javascript:;"><i class="fe fe-download me-2"></i> Download</a>
+                                                    <a ngbDropdownItem href="javascript:;"><i class="fe fe-trash me-2"></i> Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0 text-center">
+                                        <div class="file-manger-icon">
+                                            <!-- <pdf-viewer *ngIf="getttachmentExtention(el.file_source) === 'pdf'"   src="{{apiEndPointShow+el.file_source}}" [render-text]="true" [original-size]="true" [zoom]="1.2" [fit-to-page]="true"
+                                            [stick-to-page]="true" style="display: block; height:40px; width: 40px"></pdf-viewer> -->
+                                            <img *ngIf="getttachmentExtention(el.file_source) === 'image'" [src]="el.file_source? apiEndPointShow+el.file_source : './assets/images/media/blog-details.jpg'" alt="img" class="rounded-5 w-50">
+                                            <i class="fa fa-file-excel-o" data-bs-toggle="tooltip" style="font-size:70px" *ngIf="getttachmentExtention(el.file_source) === 'xslx'" title="xslx file"></i>
+                                            <i class="fa fa-file-pdf-o" data-bs-toggle="tooltip" style="font-size:70px" *ngIf="getttachmentExtention(el.file_source) === 'pdf'" title="xslx file"></i>
+
+                                        </div>
+                                        <h6 class="mb-1 font-weight-semibold mt-4">{{el.name}}</h6>
+                                        <span class="text-muted"> {{el.file_source.split('.')[1]|titlecase}}</span>
+                                        <!-- <span class="text-muted">23kb</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row -->
+
+
+
+<ng-template #addModal let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">{{'Add new document'|dic}}</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal row">
+
+      
+
+            <div class="form-group ">
+                <label class=" form-label">{{'Name'|dic|titlecase}}</label>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="modelAttahment.name" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="form-label">{{'Attachment'|dic|titlecase}}</label>
+                <input class="form-control" type="file" (change)="onAttachmentChange($event)">
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="dimmer active" [ngStyle]="{'display':  isLoading?'block':'none'}">
+            <div class="sk-circle">
+                <div class="sk-circle1 sk-child"></div>
+                <div class="sk-circle2 sk-child"></div>
+                <div class="sk-circle3 sk-child"></div>
+                <div class="sk-circle4 sk-child"></div>
+                <div class="sk-circle5 sk-child"></div>
+                <div class="sk-circle6 sk-child"></div>
+                <div class="sk-circle7 sk-child"></div>
+                <div class="sk-circle8 sk-child"></div>
+                <div class="sk-circle9 sk-child"></div>
+                <div class="sk-circle10 sk-child"></div>
+                <div class="sk-circle11 sk-child"></div>
+                <div class="sk-circle12 sk-child"></div>
+            </div>
+        </div>
+        <button class="btn ripple btn-primary" (click)="uploadFile()" type="button">{{'Save'|dic}}</button>
+        <button type="button" id="closeAdd" class="btn ripple btn-danger" (click)="modal.close('Close click')" (click)="isLoading = false">{{'Close'|dic}}</button>
+    </div>
+</ng-template>

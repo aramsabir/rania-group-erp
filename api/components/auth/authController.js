@@ -57,7 +57,7 @@ exports.login = async (req, res) => {
               auth.token = token;
               auth.save(async function (err) {
                 if (err) throw err;
-                log.saveLog(req, user.user_name, user._id, events.LoginSuccess, ("email: " + req.body.email), '')
+                log.saveLog(req,user._id, user.user_name, user._id, events.LoginSuccess, ("email: " + req.body.email), '')
                 await User.updateOne({_id: user._id},{$set:{last_login:Date.now()}})
                 res.json({
                   success: true,
@@ -92,7 +92,7 @@ exports.login = async (req, res) => {
               auth.save(async function (err) {
                 if (err) throw err;
 
-                log.saveLog(req, user.user_name, user._id, events.LoginSuccess, ("email: " + req.body.email), '')
+                log.saveLog(req, user._id,user.user_name, user._id, events.LoginSuccess, ("email: " + req.body.email), '')
                 await User.updateOne({_id: user._id},{$set:{last_login:Date.now()}})
 
                 res.json({
@@ -112,7 +112,7 @@ exports.login = async (req, res) => {
             }
           });
         } else {
-          log.saveLog(req, user.user_name, user._id, events.LoginFailedUserActivation, ("email: " + req.body.email), '')
+          log.saveLog(req,user._id, user.user_name, user._id, events.LoginFailedUserActivation, ("email: " + req.body.email), '')
           res.json({
             success: false,
             message: "User banned please call administrator",
@@ -121,7 +121,7 @@ exports.login = async (req, res) => {
         }
 
       } else {
-        log.saveLog(req, user.user_name, user._id, events.LoginFailedIncorectData, ("email: " + req.body.email), '')
+        log.saveLog(req,user._id, user.user_name, user._id, events.LoginFailedIncorectData, ("email: " + req.body.email), '')
 
         res.json({
           success: false,
@@ -130,7 +130,7 @@ exports.login = async (req, res) => {
         return 0;
       }
     } else {
-      log.saveLog(req, '', null, events.LoginFailedIncorectData, ("email: " + req.body.email), '')
+      log.saveLog(req,null, '', null, events.LoginFailedIncorectData, ("email: " + req.body.email), '')
       res.json({
         success: false,
         message: "Incorrect email or password",

@@ -15,6 +15,7 @@ import { HttpService } from 'src/app/@core/service/http/http.service';
 import { environment } from 'src/environments/environment';
 import { Menu, NavService } from '../../services/nav.service';
 import { checkHoriMenu, parentNavActive, switcherArrowFn } from './sidebar';
+import { AuthService } from '../../services/firebase/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -74,6 +75,7 @@ export class SidebarComponent {
     private httpService: HttpService,
     public elRef: ElementRef,
     private datePipe: DatePipe,
+    private authService: AuthService,
     private breakpointObserver: BreakpointObserver
   ) {
     this.from = this.datePipe.transform(new Date().setMonth(new Date().getMonth() - 1), "yyyy-MM-dd")
@@ -92,6 +94,9 @@ export class SidebarComponent {
         this.checkNavActiveOnLoad();
       }
     })
+
+    console.log("authService.currentUser$");
+    console.log(this.authService.currentUser$);
   }
 
   userInfo() {

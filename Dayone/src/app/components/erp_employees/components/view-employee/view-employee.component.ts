@@ -350,8 +350,11 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
 
-  getColor(){
-    var items = ['red', 'green', 'yellow', 'info']
-    return items[Math.floor(Math.random()*items.length)];
+  getColor(i:any){
+    var items = ['red', 'green', 'yellow', 'info','warning','danger']
+    if(i >5){
+      i = i-5
+    }
+    return items[i]
   }
 }

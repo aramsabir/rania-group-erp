@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 export class MainComponent implements OnInit {
   url: any = 'companies';
   actionRoute: any = 'company';
+
   titlePage: any = 'Employees';
   actions: any = [];
   bercumberRoutes: any = [
@@ -49,10 +50,9 @@ export class MainComponent implements OnInit {
   ) {
     this.list_item = localStorage.getItem('list_type');
     this.metaService.setTitle(environment.app_title, this.titlePage);
-    this.user$ = this.authService.currentUserSubject.asObservable();
-    console.log(this.user$);
+    // this.user$ = this.authService.currentUserSubject.asObservable();
 
-    console.log(this.authService.hasPermission('employee:read'));
+    // console.log(this.authService.hasPermission('employee:read'));
     this.routes.queryParams.subscribe((params: any) => {
       this.params.skip = params.skip ? params.skip : 0;
       this.params.limit = params.limit ? params.limit : 30;

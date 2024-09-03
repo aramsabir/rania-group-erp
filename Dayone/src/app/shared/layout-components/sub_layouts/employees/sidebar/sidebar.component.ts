@@ -38,34 +38,9 @@ export class SidebarEmployeesComponent {
   to: string | null;
   prev_year: any;
   arr_years_expence: any = [];
-  generator_maintenance: boolean = false;
-  constant_values: boolean = false;
-  product_read: boolean = false;
-  company_read: boolean = false;
-  log_read: boolean = false;
   now: any
   hour_before_now: any
-  ActivitySubjects_read: boolean = false;
-  LetterSubjects_read: boolean = false;
-  Visit_read: boolean = false;
-  Visit_add: boolean = false;
-  Activity_read: boolean = false;
-  Activity_add: boolean = false;
-  Warning_read: boolean = false;
-  Warning_add: boolean = false;
-  Accident_read: boolean = false;
-  Accident_add: boolean = false;
-  Letters_read: boolean = false;
-  Letters_add: boolean = false;
-  VisitReasons_add: boolean = false;
-  AccidentReasons_add: boolean = false;
-  WarningReasons_add: boolean = false;
-  WarningTypes_add: boolean = false;
-  Contractors_add: boolean = false;
-  Cases_add: boolean = false;
-  Complaint_read: any = false;
-  Complaint_add: any = false;
-  employee_read: any = false;
+ 
 
   constructor(
     private dic: DicService,
@@ -76,6 +51,8 @@ export class SidebarEmployeesComponent {
     private datePipe: DatePipe,
     private breakpointObserver: BreakpointObserver
   ) {
+
+    
     this.from = this.datePipe.transform(new Date().setMonth(new Date().getMonth() - 12), "yyyy-MM-dd")
     this.to = this.datePipe.transform(new Date(), "yyyy-MM-dd")
    
@@ -91,37 +68,10 @@ export class SidebarEmployeesComponent {
     })
   }
 
-  userInfo() {
-    this.httpService.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
-      if (res.status == true) {
-        this.userData = res.data
-        this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
-
-      } else {
-        this.httpService.createToast('danger', res.message)
-      }
-    }, () => {
-      this.httpService.createToast('danger', 'Network error')
-    });
-  }
-
-
+ 
   // To set Active on Load
   checkNavActiveOnLoad() {
-    // this.company = this.router.url.split('/')[1]
-    // console.log(this.company);
-
-
-
-    this.httpService.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
-      if (res.status == true) {
-        this.userData = res.data
-        this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
-
-        var resources: any = []
-        if (res.resources)
-          resources = res.resources.split(',')
-
+ 
         this.menuItems = []
      
         this.menuItems.push(
@@ -222,8 +172,6 @@ export class SidebarEmployeesComponent {
             }, 200)
           }
         })
-      }
-    })
 
   }
 

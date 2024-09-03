@@ -9,6 +9,10 @@ module.exports = {
   UpdateJobTitle: "update-job-title",
   DeleteJobTitle: "delete-job-title",
 
+  CreateAttachment: "create-attachment",
+  UpdateAttachment: "update-attachment",
+  DeleteAttachment: "delete-attachment",
+
   CreateDepartment: "create-department",
   UpdateDepartment: "update-department",
   DeleteDepartment: "delete-department",

@@ -36,6 +36,8 @@ export class SettingsHeaderComponent implements OnInit {
   ) {
     this.lang = localStorage.getItem('language');
     this.userInfo();
+    console.log("authService.currentUser$");
+    console.log(authService.currentUser$);
   }
 
   ngOnInit() {
