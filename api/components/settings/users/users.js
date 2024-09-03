@@ -27,7 +27,7 @@ var userSchema = mongoose.Schema({
   address: { type: String },
   job_title_id: {
     type: mongoose.Schema.ObjectId,
-    ref: "Job_Title",
+    ref: "Basic_Data",
     default: null,
   },
   department_id: {
@@ -97,28 +97,33 @@ var userSchema = mongoose.Schema({
     type: String,
     default: '',
   },
-  education_degree: {
-    type: String,
-    enum: ['','Student', 'Deploma', 'Bachelor', 'Master', 'Doctorate',],
-    default: 'Bachelor',
+  education_degree_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Basic_Data",
+    default: null,
   },
   languages: [
     {
-      name: {
+      language_id: {
         type: mongoose.Schema.ObjectId,
-        ref: "Language",
+        ref: "Basic_Data",
         default: null,
       },
+      percentage: {
+        type: Number,
+        default: 0,
+      }
     },
   ],
   certifications: [
     {
-      title: { type: String },
+      name: { type: String },
+      year:{ type: String },
     },
   ],
   skills: [
     {
-      title: { type: String },
+      name: { type: String },
     },
   ],
   bussiness_type: {
@@ -131,10 +136,7 @@ var userSchema = mongoose.Schema({
     type: String,
     default: '',
   },
-  bank_account_details: {
-    type: String,
-    default: '',
-  },
+ 
   work_permit_or_visa_details: {
     type: String,
     default: '',
@@ -191,7 +193,15 @@ var userSchema = mongoose.Schema({
     ref: "Company",
     default: null,
   },
-  
+  bank_account_holder_name:{ type: String, default:""},
+  bank_account_holder_number:{ type: String, default:""},
+  bank_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Basic_Data",
+    default: null,
+  },
+  bank_branch_location:{ type: String, default:""},
+  bank_code:{ type: String, default:""},
   creator: {
     type: mongoose.Schema.ObjectId,
     ref: "User",

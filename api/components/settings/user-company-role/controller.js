@@ -2,7 +2,7 @@ const Schema = require("./schema");
 const CompanySchema = require("../company/schema");
 var mongoose = require("mongoose");
 const events = require("../../event_and_resources/events");
-const log = require("../../log/logController");
+const log = require("../../activities/logController");
 
 
 
@@ -19,7 +19,7 @@ exports.New = async (req, res) => {
   newData.save(function (err, r) {
     if (err) throw err;
     else {
-      log.saveLog(req, req.query.userFullName, req.query.userID, events.CreateUserCompanyRole, '', newData)
+      log.saveLog(req,newRecord._id, req.query.userFullName, req.query.userID, events.CreateUserCompanyRole, '', newData)
       res.json({ status: true, message: "Success" });
       return 0;
     }
@@ -157,7 +157,7 @@ exports.Update = async (req, res) => {
   ).exec(function (e, r) {
     if (e) throw e;
     if (r) {
-      log.saveLog(req, req.query.userFullName, req.query.userID, events.UpdateUserCompanyRole, old, r)
+      log.saveLog(req,req.body._id, req.query.userFullName, req.query.userID, events.UpdateUserCompanyRole, old, r)
       res.json({ status: true, message: "Success" });
       return 0;
     } else {

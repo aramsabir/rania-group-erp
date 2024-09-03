@@ -4,7 +4,7 @@ var Auth = require("./auth");
 var mongoose = require("mongoose");
 let jwt = require("jsonwebtoken");
 let config = require("../../configAPI/jwt.config");
-var log = require('../log/logController');
+var log = require('../activities/logController');
 const events = require("../event_and_resources/events");
 
 

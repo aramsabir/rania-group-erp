@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RoleGuard } from 'src/app/@core/guards';
 import { MainComponent } from './main.component';
 import { DepartmentComponent } from './components/departments/list.component';
-import { JobTitleComponent } from './components/job_titles/list.component';
+import { BasicDataComponent } from './components/basic-data/list.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
  
 const routes: Routes = [
@@ -45,8 +45,8 @@ const routes: Routes = [
         }
       },
       {
-        path: 'job_titles',
-        component: JobTitleComponent,
+        path: 'basic-datas',
+        component: BasicDataComponent,
         canActivate:[RoleGuard],
         data:{
           expectedRole:'employee:admin'

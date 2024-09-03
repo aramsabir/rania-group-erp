@@ -1,6 +1,10 @@
 
 module.exports = {
 
+  CreateBasicData: "create-basic-data",
+  UpdateBasicData: "update-basic-data",
+  DeleteBasicData: "delete-basic-data",
+
   CreateJobTitle: "create-job-title",
   UpdateJobTitle: "update-job-title",
   DeleteJobTitle: "delete-job-title",

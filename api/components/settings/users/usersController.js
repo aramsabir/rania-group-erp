@@ -7,7 +7,7 @@ var mongoose = require("mongoose");
 const { ProfilePhoto } = require('../../../configDB/public_paths')
 const events = require('../../event_and_resources/events')
 const terms = require('../../event_and_resources/terms')
-const log = require('../../log/logController')
+const log = require('../../activities/logController')
 const Company = require('../company/schema')
 
 var storage = multer.diskStorage({
@@ -195,9 +195,14 @@ exports.newUser = async (req, res) => {
     user.creator = req.query.userID;
     user.created_at = Date.now();
     user.updated_at = Date.now();
-    user.save(function (err) {
+    user.save(function (err, user) {
       if (err) throw err;
-      else res.json({ status: true, message: "user inserted" });
+      else {
+        log.saveLog(req,user._id, req.query.userFullName, req.query.userID, events.CreateBasicData, '', newRecord)
+
+        res.json({ status: true, message: "user inserted" });
+        return 0;
+      }
     });
   }
 };
@@ -556,7 +561,7 @@ exports.editUser = async (req, res) => {
     return 0;
   }
 
-
+  var old =  await User.findById(req.query._id)
   await User.findById(req.query._id).exec(function (error, response) {
     if (error) throw error;
     if (response) {
@@ -568,6 +573,7 @@ exports.editUser = async (req, res) => {
       response.save(function (err, update) {
         if (err) throw err;
         if (update) {
+          log.saveLog(req,update._id, req.query.userFullName, req.query.userID, events.CreateBasicData, old, update)
           res.json({ status: true, message: "User updated" });
         } else {
           res.json({ status: true, message: "error" });
@@ -622,7 +628,7 @@ exports.getCompanyListForUser = async (req, res) => {
   return 0
 }
 
-exports.pushCompanyForUser = async (req, res) => {
+exports.pushLanguageForEmployee = async (req, res) => {
 
   if (!req.body._id) {
     res.json({ status: false, message: "User required" });
@@ -633,44 +639,48 @@ exports.pushCompanyForUser = async (req, res) => {
     return 0;
   }
 
-  if (!req.body.company_id) {
-    res.json({ status: false, message: "company required" });
+  if (!req.body.language_id) {
+    res.json({ status: false, message: "language required" });
     return 0;
   }
-  if (!mongoose.Types.ObjectId.isValid(req.body.company_id)) {
-    res.json({ status: false, message: "Invalid company" });
+  if (!mongoose.Types.ObjectId.isValid(req.body.language_id)) {
+    res.json({ status: false, message: "Invalid language" });
+    return 0;
+  }
+  if (!req.body.percentage) {
+    res.json({ status: false, message: "Percentage required" });
     return 0;
   }
 
   var user = await User.aggregate([
     {
-      $match: { $and: [{ 'companies.company_id': mongoose.Types.ObjectId(req.body.company_id) }, { _id: mongoose.Types.ObjectId(req.body._id) }] }
+      $match: { $and: [{ 'languages.language_id': mongoose.Types.ObjectId(req.body.language_id) }, { _id: mongoose.Types.ObjectId(req.body._id) }] }
     },
     {
-      $unwind: "$companies"
+      $unwind: "$languages"
     },
     {
-      $match: { $and: [{ 'companies.company_id': mongoose.Types.ObjectId(req.body.company_id) }] }
+      $match: { $and: [{ 'languages.language_id': mongoose.Types.ObjectId(req.body.language_id) }] }
     }
   ])
   if (user.length > 0) {
-    res.json({ status: false, message: "company alredy exist" });
+    res.json({ status: false, message: "Language alredy exist" });
     return 0;
   }
 
   var update = await User.findOneAndUpdate(
     { _id: req.body._id },
-    { $push: { companies: { company_id: req.body.company_id, part: req.body.type, creator: req.query.userID, created_at: Date.now() } } }).exec()
+    { $push: { languages: { language_id: req.body.language_id, percentage: req.body.percentage, creator: req.query.userID, created_at: Date.now() } } }).exec()
 
   if (update) {
-    res.json({ status: true, message: "company added successfully" })
+    res.json({ status: true, message: "language added successfully" })
     return 0
   } else {
-    res.json({ status: false, message: "Error company was not added" })
+    res.json({ status: false, message: "Error language was not added" })
     return 0
   }
 }
-exports.popCompanyForUser = async (req, res) => {
+exports.popLanguageForEmployee = async (req, res) => {
 
 
   if (!req.body._id) {
@@ -682,33 +692,124 @@ exports.popCompanyForUser = async (req, res) => {
     return 0;
   }
 
-  if (!req.body.company_id) {
-    res.json({ status: false, message: "company required" });
+  if (!req.body.doc_id) {
+    res.json({ status: false, message: "language required" });
     return 0;
   }
-  if (!mongoose.Types.ObjectId.isValid(req.body.company_id)) {
-    res.json({ status: false, message: "Invalid company" });
+  if (!mongoose.Types.ObjectId.isValid(req.body.doc_id)) {
+    res.json({ status: false, message: "Invalid language" });
     return 0;
   }
 
-  var userFinder = await User.findOne({ $and: [{ 'companies.company_id': req.body.company_id }, { _id: req.body._id }] }).exec()
+  var userFinder = await User.findOne({ $and: [{ 'languages._id': req.body.doc_id }, { _id: req.body._id }] }).exec()
 
   if (userFinder != null) {
 
 
     var update = await User.findOneAndUpdate(
       { _id: req.body._id },
-      { $pull: { "companies": { company_id: req.body.company_id, } } }).exec()
+      { $pull: { "languages": { _id: req.body.doc_id } } }).exec()
 
     if (update) {
-      res.json({ status: true, message: "company removed successfully" })
+      res.json({ status: true, message: "language removed successfully" })
       return 0
     } else {
-      res.json({ status: false, message: "Error, company was not removed" })
+      res.json({ status: false, message: "Error, language was not removed" })
       return 0
     }
   } else {
     res.json({ status: false, message: "company does not exist" });
+    return 0;
+  }
+}
+
+exports.pushCertificateForEmployee = async (req, res) => {
+
+  if (!req.body._id) {
+    res.json({ status: false, message: "User required" });
+    return 0;
+  }
+  if (!mongoose.Types.ObjectId.isValid(req.body._id)) {
+    res.json({ status: false, message: "Invalid user" });
+    return 0;
+  }
+
+  if (!req.body.name) {
+    res.json({ status: false, message: "name required" });
+    return 0;
+  }
+  if (!req.body.year) {
+    res.json({ status: false, message: "year required" });
+    return 0;
+  }
+
+  var user = await User.aggregate([
+    {
+      $match: { $and: [{ 'certifications.name': req.body.name }, { _id: mongoose.Types.ObjectId(req.body._id) }] }
+    },
+    {
+      $unwind: "$certifications"
+    },
+    {
+      $match: { $and: [{ 'certifications.name':req.body.name }] }
+    }
+  ])
+  if (user.length > 0) {
+    res.json({ status: false, message: "certificate alredy exist" });
+    return 0;
+  }
+
+  var update = await User.findOneAndUpdate(
+    { _id: req.body._id },
+    { $push: { certifications: { name: req.body.name, year: req.body.year, creator: req.query.userID, created_at: Date.now() } } }).exec()
+
+  if (update) {
+    res.json({ status: true, message: "certificate added successfully" })
+    return 0
+  } else {
+    res.json({ status: false, message: "Error certificate was not added" })
+    return 0
+  }
+}
+exports.popCertificateForEmployee = async (req, res) => {
+
+
+  if (!req.body._id) {
+    res.json({ status: false, message: "User required" });
+    return 0;
+  }
+  if (!mongoose.Types.ObjectId.isValid(req.body._id)) {
+    res.json({ status: false, message: "Invalid user" });
+    return 0;
+  }
+
+  if (!req.body.doc_id) {
+    res.json({ status: false, message: "certificate required" });
+    return 0;
+  }
+  if (!mongoose.Types.ObjectId.isValid(req.body.doc_id)) {
+    res.json({ status: false, message: "Invalid certificate" });
+    return 0;
+  }
+
+  var userFinder = await User.findOne({ $and: [{ 'certifications._id': req.body.doc_id }, { _id: req.body._id }] }).exec()
+
+  if (userFinder != null) {
+
+
+    var update = await User.findOneAndUpdate(
+      { _id: req.body._id },
+      { $pull: { "certifications": { _id: req.body.doc_id } } }).exec()
+
+    if (update) {
+      res.json({ status: true, message: "certificate removed successfully" })
+      return 0
+    } else {
+      res.json({ status: false, message: "Error, certificate was not removed" })
+      return 0
+    }
+  } else {
+    res.json({ status: false, message: "certificate does not exist" });
     return 0;
   }
 }
@@ -779,7 +880,7 @@ exports.userInformation = async (req, res) => {
 
   if (user) {
     user.resources = req.query.resources
-    res.json({ data:user, status: true });
+    res.json({ data: user, status: true });
     return 0;
   } else {
     res.json({ status: false });
@@ -802,6 +903,7 @@ exports.FindOne = async (req, res) => {
     return;
   }
   var user = await User.findOne({ _id: req.query._id })
+    .populate("languages.language_id")
     .populate('department_id')
     .populate('job_title_id')
     .populate('main_company_id')

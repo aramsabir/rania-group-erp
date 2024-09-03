@@ -109,16 +109,12 @@ export class DataTableTailwindComponent implements OnInit {
       this.params.skip = +params.skip;
       this.params.limit = params.limit;
       this.params.search = params.search;
+      this.params.cond = params.cond;
       this.params.from = params.from;
       this.params.to = params.to;
       this.params.company_id = params.company_id;
       this.params.emp_id = params.emp_id;
-      this.params.subject_id = params.subject_id;
       this.params.type = params.type;
-      this.params.contractor_id = params.contractor_id;
-      this.params.warning_reason_id = params.warning_reason_id;
-      this.params.warned_type = params.warned_type;
-      this.params.warning_type_id = params.warning_type_id;
       this.params._id = params._id;
       this.page = this.params.skip / this.params.limit + 1;
 
@@ -154,13 +150,8 @@ export class DataTableTailwindComponent implements OnInit {
         from: this.params.from,
         to: this.params.to,
         company_id: this.params.company_id,
-        subject_id: this.params.subject_id,
         type: this.params.type,
         emp_id: this.params.emp_id,
-        contractor_id: this.params.contractor_id,
-        warning_reason_id: this.params.warning_reason_id,
-        warned_type: this.params.warned_type,
-        warning_type_id: this.params.warning_type_id,
         _id: this.params._id
       },
     });
@@ -180,12 +171,7 @@ export class DataTableTailwindComponent implements OnInit {
         to: this.params.to,
         company_id: this.params.company_id,
         emp_id: this.params.emp_id,
-        subject_id: this.params.subject_id,
         type: this.params.type,
-        contractor_id: this.params.contractor_id,
-        warning_reason_id: this.params.warning_reason_id,
-        warned_type: this.params.warned_type,
-        warning_type_id: this.params.warning_type_id,
       },
     });
   }
@@ -223,13 +209,8 @@ export class DataTableTailwindComponent implements OnInit {
         from: this.params.from,
         to: this.params.to,
         company_id: this.params.company_id,
-        subject_id: this.params.subject_id,
         type: this.params.type,
         emp_id: this.params.emp_id,
-        contractor_id: this.params.contractor_id,
-        warning_reason_id: this.params.warning_reason_id,
-        warned_type: this.params.warned_type,
-        warning_type_id: this.params.warning_type_id,
         _id: this.params._id,
       },
     });
@@ -245,13 +226,8 @@ export class DataTableTailwindComponent implements OnInit {
         from: this.params.from,
         to: this.params.to,
         company_id: this.params.company_id,
-        subject_id: this.params.subject_id,
         type: this.params.type,
         emp_id: this.params.emp_id,
-        contractor_id: this.params.contractor_id,
-        warning_reason_id: this.params.warning_reason_id,
-        warned_type: this.params.warned_type,
-        warning_type_id: this.params.warning_type_id,
         _id: this.params._id,
       },
     });
@@ -300,23 +276,19 @@ export class DataTableTailwindComponent implements OnInit {
 
   getData() {
     this.DataIsLoading = true;
-    var paramiters ={
+    var paramiters = {
       skip: this.params.skip,
       limit: this.params.limit,
       sort: this.params.sort,
       search: this.params.search,
+      cond: this.params.cond,
       from: this.params.from,
       to: this.params.to,
       company_id: this.params.company_id,
-      subject_id: this.params.subject_id,
       type: this.params.type,
       emp_id: this.params.emp_id,
-      contractor_id: this.params.contractor_id,
-      warning_reason_id: this.params.warning_reason_id,
-      warned_type: this.params.warned_type,
-      warning_type_id: this.params.warning_type_id,
       _id: this.params._id ? this.params._id : '',
-    }
+    };
     this.httpService
       .call(this.url, ApiMethod.GET, paramiters)
       .subscribe((res: any) => {
@@ -591,7 +563,7 @@ export class DataTableTailwindComponent implements OnInit {
       );
   }
 
-  loadUrls(fields: any) {
+  loadUrls(fields: any, type?: any) {
     for (const el of fields) {
       if (el.type == 'selectUrl') {
         this.httpService
@@ -625,60 +597,27 @@ export class DataTableTailwindComponent implements OnInit {
               // this.customForm = this.insertForm;
             }
           });
-      } else if (el.type == 'number') el.value = 0;
-      else el.value = '';
+      } else
+        if (el.type == 'number') {
+          if (!el.value) {
+            el.value = 0
+          }
+          // el.value = 0;
+        }
+        else {
+          if (type == '') {
+            el.value = ''
+          }
+        }
     }
   }
-
   loadData() {
     // this.customForm = this.insertForm;
 
     // this.loadUrls(this.customForm.data.fields);
     this.loadUrls(this.insertForm.data.fields);
   }
-
-  // generateForm(form: any, fields: any) {
-
-  //   for (const el of fields) {
-
-  //     switch (el.type) {
-  //       case 'group': {
-  //         const newForm = {};
-  //         const tmpForm = this.generateForm(newForm, el.fields);
-  //         form[el.name] = this.formBuilder.group(tmpForm);
-  //         break;
-  //       }
-  //       case 'selectLocal': {
-  //         form[el.name] = el.selected;
-  //         break;
-  //       }
-  //       case 'number': {
-  //         form[el.name] = new FormControl({ value: el.value, disabled: el.disabled })
-  //         break;
-  //       }
-  //       default:
-  //         if (el.required) {
-  //           form[el.name] = [el.value, Validators.required];
-  //         } else {
-  //           form[el.name] = [el.value];
-  //         }
-  //     }
-  //   }
-
-  //   return form;
-  // }
-
-  // loadUrls(fields: any) {
-  //   for (const el of fields) {
-  //     switch (el.type) {
-  //       case "group": {
-  //         this.loadUrls(el.fields);
-  //         break;
-  //       }
-  //     }
-  //   }
-  // }
-
+ 
   submitForm(type: any) {
     this.isLoading = true;
     if (type == 'add') {

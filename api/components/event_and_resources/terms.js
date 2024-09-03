@@ -8,6 +8,7 @@ module.exports = {
     you_are_not_authorized: "You are not authorized",
     data_has_been_deleted: "Data has been deleted",
     name_required: "name required",
+    type_required: "type required",
     duplicated: 'duplicated',
     id_required: "id required",
     barcode_required: "barcode required",

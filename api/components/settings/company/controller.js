@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = require('../../settings/company/schema')
 const resources = require('../../event_and_resources/resources');
 const events = require('../../event_and_resources/events');
-const log = require('../../log/logController')
+const log = require('../../activities/logController')
 const terms = require('../../event_and_resources/terms')
 
 
@@ -60,7 +60,7 @@ exports.New = async (req, res) => {
                 newRecord.created_at = Date.now()
                 newRecord.updated_at = Date.now()
                 newRecord.save()
-                log.saveLog(req, req.query.userFullName, req.query.userID, events.CreateCompany, '', newRecord)
+                log.saveLog(req,newRecord._id, req.query.userFullName, req.query.userID, events.CreateCompany, '', newRecord)
                 res.json({ status: true, message: terms.success })
                 return 0
             }
@@ -193,23 +193,22 @@ exports.Update = async (req, res) => {
         res.json({ status: false, message: "Type " + terms.name_required })
         return 0
     }
-    console.log(req.body.type);
     // if (!['Organization', 'Personal', 'Governmental'].includes(req.body.type) || !req.body.type || req.body.type == 'undefined') {
     //     res.json({ status: false, message: "type required or not valid" })
     //     return 0
     // }
 
+    var old =  await Schema.findById(mongoose.Types.ObjectId(req.body._id))
     await Schema.findById(mongoose.Types.ObjectId(req.body._id)).exec(function (error, response) {
         if (error) throw error;
         if (response) {
-            var old = response
             response.set(req.body);
             response.updated_at = Date.now()
             response.editor = req.query.userID
             response.save(function (err, update) {
                 if (err) throw err;
                 if (update) {
-                    log.saveLog(req, req.query.userFullName, req.query.userID, events.UpdateCompany, old, update)
+                    log.saveLog(req,req.body._id, req.query.userFullName, req.query.userID, events.UpdateCompany, old, update)
                     res.json({ status: true, message: terms.data_has_been_updated })
 
                 } else {
