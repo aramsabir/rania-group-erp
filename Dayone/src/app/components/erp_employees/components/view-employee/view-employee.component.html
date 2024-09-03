@@ -35,28 +35,28 @@
             </div>
             <div class="card-footer p-0">
                 <div class="row">
-                    <div class="col-4 text-center py-5 border-end">
-                        <h5 class="fs-12 font-weight-semibold mb-3">January</h5>
+                    <!-- <div class="col-4 text-center py-5 border-end">
+                        <h5 class="fs-12 font-weight-semibold mb-3">Appro</h5>
                         <h5 class="mb-2">
                             <span class="fs-18 text-success">22</span>
                             <span class="my-auto fs-9 font-weight-normal  ms-1 me-1">/</span>
                             <span class="fs-18 font-weight-semibold text-dark">31</span>
                         </h5>
                         <h5 class="fs-12 mb-0">Attendance</h5>
-                    </div>
-                    <div class="col-4  py-5 text-center border-end">
-                        <h5 class="fs-12 font-weight-semibold mb-3">Year-2021</h5>
+                    </div> -->
+                    <div class="col-6  py-5 text-center border-end">
+                        <h5 class="fs-12 font-weight-semibold mb-3">Year-2024</h5>
                         <h5 class="mb-2">
-                            <span class="fs-18 text-orange">0</span>
+                            <span class="fs-18 text-orange">20</span>
                             <span class="my-auto fs-9 font-weight-normal  ms-1 me-1">/</span>
                             <span class="fs-18 font-weight-semibold text-dark">41</span>
                         </h5>
                         <h5 class="fs-12 mb-0">Leaves</h5>
                     </div>
-                    <div class="col-4 text-center py-5">
-                        <h5 class="fs-12 font-weight-semibold mb-3">Year-2021</h5>
+                    <div class="col-6 text-center py-5">
+                        <h5 class="fs-12 font-weight-semibold mb-3">Year-2024</h5>
                         <h5 class="mb-2">
-                            <span class="fs-18 text-primary">0</span>
+                            <span class="fs-18 text-primary">5</span>
                         </h5>
                         <h5 class="fs-12 mb-0">Awards</h5>
                     </div>
@@ -65,18 +65,24 @@
         </div>
         <div class="card">
             <div class="card-header  border-0">
-                <div class="card-title">Statistics-2021</div>
+                <div class="card-title">Statistics</div>
             </div>
             <div class="card-body">
                 <div class="row mb-7">
-                    <div class="col-4 text-center">
-                        <circle-progress [percent]="89" [radius]="32" [space]="-5" [outerStrokeWidth]="5"
-                            [innerStrokeWidth]="5" [showInnerStroke]="true" [outerStrokeColor]="'#3366ff'"
-                            [innerStrokeColor]="'#93abf3'" [showUnits]="false" [showSubtitle]="false" [animation]="true"
+                    <div class="col-4 text-center mb-3"  *ngFor="let lang of modelEmployee.languages">
+                        <circle-progress [percent]="lang.percentage" [radius]="32" [space]="-5" [outerStrokeWidth]="5"
+                            [innerStrokeWidth]="5" [showInnerStroke]="true" [outerStrokeColor]="getCicleColorOuter(lang.percentage)"
+                            [innerStrokeColor]="getCicleColorInner(lang.percentage)" [showUnits]="false" [showSubtitle]="false" [animation]="true"
                             [animationDuration]="300"></circle-progress>
-                        <h6 class="fs-14 font-weight-semibold mt-3">Attendance</h6>
+                        <div class="row justify-content-between">
+                            <div class="col-12">
+                                <h6 class="fs-14  font-weight-semibold mt-0">{{lang?.language_id?.name}}  &nbsp; <a class=" mb-5 mt-0  " style="cursor:pointer" (click)="removeLang(lang._id)"> <i class="text-danger feather feather-trash-2"></i> </a></h6> 
+                            </div>
+                           
+                        </div>
+
                     </div>
-                    <div class="col-4 text-center">
+                    <!-- <div class="col-4 text-center">
                         <circle-progress [percent]="23" [radius]="32" [space]="-5" [outerStrokeWidth]="5"
                             [innerStrokeWidth]="5" [showInnerStroke]="true" [outerStrokeColor]="'#fe7f00'"
                             [innerStrokeColor]="'#f7cba0'" [showUnits]="false" [showSubtitle]="false" [animation]="true"
@@ -89,29 +95,89 @@
                             [innerStrokeColor]="'#87e9cb'" [showUnits]="false" [showSubtitle]="false" [animation]="true"
                             [animationDuration]="300"></circle-progress>
                         <h6 class="fs-14 font-weight-semibold mt-3">Performance</h6>
+                    </div> -->
+                </div>
+                <!-- <div  *ngFor="let lang of modelEmployee.languages">
+                    <div class="d-flex align-items-end justify-content-between mg-b-5 mb-0">
+                        <h6 class="">{{lang?.language_id?.name}}</h6> 
+                        <h6 class="font-weight-bold mb-1">%{{lang.percentage}}</h6>
+                    </div>
+                    <div class="row">
+                        <div class="progress progress-sm mb-5 mt-4 col-10">
+                            <div class="progress-bar bg-success bg-{{lang.percentage <25 ? 'danger':lang.percentage <50 ? 'orange':lang.percentage <75 ? 'cyan':'success'}} w-{{lang.percentage}}"></div>
+                        </div>
+                        <div class="  mb-5 col-2">
+                            <a class="btn mb-5" (click)="removeLang(lang._id)"> <i class="fa fa-minus"></i> </a>
+                        </div>
+                    </div>
+                   
+                </div> -->
+                <div class="row align-items-end justify-content-between mg-b-5">
+                    <div class="form-group col-12 ">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="form-label mb-0 mt-2">Language</label>
+                            </div>
+                            <div class="col-md-9">
+                                <ng-select class="form-control custom-select"
+                                [(ngModel)]="modelAddLang.language_id">
+                                <ng-option *ngFor="let op of languages" [value]="op._id">{{op.name}}</ng-option>
+                            </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 ">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="form-label mb-0 mt-2">Percentage</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control mb-md-0 mb-5" placeholder="Percentage"
+                                    [(ngModel)]="modelAddLang.percentage">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 ">
+                        <a (click)="addLang()" class="me-2 btn btn-primary">Add language</a>
+
                     </div>
                 </div>
-                <div class="d-flex align-items-end justify-content-between mg-b-5">
-                    <h6 class="">This Week</h6>
-                    <h6 class="font-weight-bold mb-1">01</h6>
+                <div class="row align-items-end justify-content-between mg-b-5">
+                    <h6 class="form-label mb-0 mt-2">Certificates</h6>
+                    <div class="row">
+                        <div class="col-6 my-2"  *ngFor="let cert of modelEmployee.certifications" >
+                            <span class="tag tag-{{getColor()}}"> {{cert?.name}} - {{cert.year}} <a (click)="removeCertificate(cert._id)" class="tag-addon"><i class="fe fe-x"></i></a></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-7 ">
+                        <div class="">
+                            <div class="col-md-12">
+                                <label class="form-label mb-0 mt-2">name</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control mb-md-0 mb-5" placeholder="name"
+                                [(ngModel)]="modelAddCertificate.name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-5 ">
+                        <div class="">
+                            <div class="col-md-12">
+                                <label class="form-label mb-0 mt-2">year</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control mb-md-0 mb-5" placeholder="year"
+                                [(ngModel)]="modelAddCertificate.year">
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group col-12 ">
+                        <a (click)="AddCertificate()" class="me-2 btn btn-primary">Add certificate</a>
+
+                    </div>
                 </div>
-                <div class="progress progress-sm mb-5">
-                    <div class="progress-bar bg-danger w-10"></div>
-                </div>
-                <div class="d-flex align-items-end justify-content-between mg-b-5">
-                    <h6 class="">This Month</h6>
-                    <h6 class="font-weight-bold mb-1">05</h6>
-                </div>
-                <div class="progress progress-sm mb-5">
-                    <div class="progress-bar bg-info w-30"></div>
-                </div>
-                <div class="d-flex align-items-end justify-content-between mg-b-5">
-                    <h6 class="">This Year</h6>
-                    <h6 class="font-weight-bold mb-1">22</h6>
-                </div>
-                <div class="progress progress-sm mb-5">
-                    <div class="progress-bar bg-warning w-50"></div>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -306,12 +372,12 @@
                                                             <div class="custom-controls-stacked d-md-flex">
                                                                 <label class="custom-control custom-radio me-4">
                                                                     <input type="radio" class="custom-control-input"
-                                                                        name="example-radios4" value="option1">
+                                                                        name="example-radios4"  [ngModelOptions]="{standalone: true}" [(ngModel)]="modelEmployee.gender" value="Male">
                                                                     <span class="custom-control-label">Male</span>
                                                                 </label>
                                                                 <label class="custom-control custom-radio">
                                                                     <input type="radio" class="custom-control-input"
-                                                                        name="example-radios4" value="option2" checked>
+                                                                        name="example-radios4"  [ngModelOptions]="{standalone: true}" [(ngModel)]="modelEmployee.gender" value="Female" checked>
                                                                     <span class="custom-control-label">Female</span>
                                                                 </label>
                                                             </div>
@@ -340,15 +406,9 @@
                                                             <label class="form-label mb-0 mt-2">Education degree</label>
                                                         </div>
                                                         <div class="col-md-9">
-                                                            <ng-select name="projects"
-                                                                [ngModelOptions]="{standalone: true}"
-                                                                [(ngModel)]="modelEmployee.education_degree"
-                                                                class="form-control custom-select">
-                                                                <ng-option value="Student">Student</ng-option>
-                                                                <ng-option value="Deploma">Deploma</ng-option>
-                                                                <ng-option value="Bachelor">Bachelor</ng-option>
-                                                                <ng-option value="Master">Master</ng-option>
-                                                                <ng-option value="Doctorate">Doctorate</ng-option>
+                                                            <ng-select class="form-control custom-select" [(ngModel)]="modelEmployee.education_degree_id">
+                                                                <ng-option *ngFor="let op of eductaion_degrees"
+                                                                    [value]="op._id">{{op.name}}</ng-option>
                                                             </ng-select>
                                                         </div>
                                                     </div>
@@ -404,7 +464,7 @@
                                                         <div class="col-md-9">
                                                             <input type="number" class="form-control"
                                                                 [ngModelOptions]="{standalone: true}"
-                                                                [(ngModel)]="modelEmployee.emergency_contact_number"
+                                                                [(ngModel)]="modelEmployee.emergency_contact_phone"
                                                                 placeholder="Contact Number">
                                                         </div>
                                                     </div>
@@ -726,7 +786,8 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <input type="text" class="form-control" placeholder="Name"
-                                                            value="Faith Harris">
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        [(ngModel)]="modelEmployee.bank_account_holder_name">
                                                     </div>
                                                 </div>
                                             </div>
@@ -737,7 +798,8 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <input type="text" class="form-control" placeholder="Number"
-                                                            value="36985214704">
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        [(ngModel)]="modelEmployee.bank_account_holder_number">
                                                     </div>
                                                 </div>
                                             </div>
@@ -747,8 +809,10 @@
                                                         <label class="form-label mb-0 mt-2">Bank Name</label>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" placeholder="Name"
-                                                            value="ABCD Bank">
+                                                        <ng-select class="form-control custom-select" [(ngModel)]="modelEmployee.bank_id">
+                                                            <ng-option *ngFor="let op of banks"
+                                                                [value]="op._id">{{op.name}}</ng-option>
+                                                        </ng-select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -759,7 +823,8 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <input type="text" class="form-control" placeholder="Location"
-                                                            value="Little Rock Arkansas">
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        [(ngModel)]="modelEmployee.bank_branch_location">
                                                     </div>
                                                 </div>
                                             </div>
@@ -773,23 +838,12 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <input type="text" class="form-control" placeholder="Code"
-                                                            value="ABC0002189">
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        [(ngModel)]="modelEmployee.bank_code">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <label class="form-label mb-0 mt-2">Tax Payer ID (PAN)
-                                                            <span class="form-help" placement="top"
-                                                                ngbTooltip="Taxpayer Identification Number Used in your Country">?</span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <input type="text" class="form-control" placeholder="ID No">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                 </ng-template>
@@ -896,7 +950,7 @@
             <div [ngbNavOutlet]="nav" class="tab-content">
             </div>
             <div class="card-footer text-end">
-                <a href="javascript:;" class="me-2 btn btn-primary">Updated</a>
+                <a (click)="updateEmp()" class="me-2 btn btn-primary">Updated</a>
                 <a href="javascript:;" class="btn btn-danger">Cancel</a>
             </div>
         </div>

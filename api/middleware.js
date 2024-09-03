@@ -80,8 +80,9 @@ exports.checkAccess = async (req, res, next) => {
       return 0;
     }
 
+    
     var search_companies = []
-    if (req.query.companies) {
+    if (req.query.companies && req.query.companies.length >0 && req.query.companies != null && req.query.companies != undefined) { 
       for (let index = 0; index < req.query.companies.split(',').length; index++) {
         if (mongoose.Types.ObjectId.isValid(req.query.companies.split(',')[index]))
           search_companies.push(mongoose.Types.ObjectId(req.query.companies.split(',')[index]))

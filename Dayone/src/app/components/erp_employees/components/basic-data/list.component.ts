@@ -8,15 +8,15 @@ import { environment } from 'src/environments/environment';
 // import { HttpService } from 'src/app/@core/service/http/http.service';
 
 @Component({
-  selector: 'app-job_titles',
+  selector: 'app-basic-data',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class JobTitleComponent implements OnInit {
+export class BasicDataComponent implements OnInit {
 
-  url: any = "job_titles"
-  actionRoute: any = "job_title"
-  titlePage: any = "Job titles"
+  url: any = "basic_datas"
+  actionRoute: any = "basic_data"
+  titlePage: any = ""
   actions: any = [
 
   ]
@@ -57,32 +57,11 @@ export class JobTitleComponent implements OnInit {
     },
   ];
 
-  modalForm = {
-    width: '300px',
-    type: "modal",
-    data: {
-      dialogType: 'update',
-      url: 'job_title',
-      header: 'Update job_title',
-      fields: [
-        { type: 'text', name: 'name', title: 'Name', required: true },
-        { type: 'number', name: 'order', title: 'Order', required: true },
-      ]
-    },
+  modalForm :any = {
+   
   };
-  insertForm = {
-    width: '300px',
-    type: "modal",
-    data: {
-      dialogType: 'create',
-      url: 'job_title',
-      header: 'Create job title',
-      fields: [
-        { type: 'text', name: 'name', title: 'Name', required: true },
-        { type: 'number', name: 'order', title: 'Order', required: true },
-      ]
-    },
-  };
+  insertForm:any = {
+  }
   modalActions: any = [
     {
       label: 'Save',
@@ -107,7 +86,7 @@ export class JobTitleComponent implements OnInit {
   pageSize = 10;
   pageIndex: any;
   params: any = {};
-  part: any = 'job_titles';
+  part: any = 'basic-datas';
   length: any;
   queryParams: any = {};
   pg_header: any = []
@@ -123,10 +102,54 @@ export class JobTitleComponent implements OnInit {
       this.params.skip = params.skip ? params.skip :0;
       this.params.limit = params.limit ? params.limit : 10;
       this.params.sort = params.sort ? params.sort : 'created_at'
+      this.params.type = params.type
       this.pg_header = [
         { link: '/home', params: {}, value: "Home" },
       ]
-
+      this.titlePage = params.type
+      this.modalForm = {
+        width: '300px',
+        type: "modal",
+        data: {
+          dialogType: 'update',
+          url: 'job_title',
+          header: 'Update job_title',
+          fields: [
+            { type: 'text', name: 'name', title: 'Name', required: true },
+            {
+              type: 'text',
+              name: 'type',
+              value: this.params.type,
+              title: 'Type',
+              disabled: true,
+              required: true,
+            },
+            { type: 'number', name: 'order', title: 'Order',value:1, required: true },
+          ]
+        },
+      }
+      this.insertForm = {
+        width: '300px',
+        type: "modal",
+        data: {
+          dialogType: 'update',
+          url: 'job_title',
+          header: 'Update job_title',
+          fields: [
+            { type: 'text', name: 'name', title: 'Name', required: true },
+            {
+              type: 'text',
+              name: 'type',
+              value: this.params.type,
+              title: 'Type',
+              disabled: true,
+              required: true,
+            },
+            { type: 'number', name: 'order', title: 'Order',value:1,  required: true },
+          ]
+        },
+      }
+      
     });
     // routes.queryParams.subscribe(() => {
     // });

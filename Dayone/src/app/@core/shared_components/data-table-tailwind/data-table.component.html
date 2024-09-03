@@ -42,23 +42,24 @@
       </div>
 
       <div class="card-body">
-
+        <div class="form-group form-inline" style="justify-content: space-between !important">
+          <div *ngIf="hasSearch">
+            <input class="form-control ms-2" type="text" [placeholder]="'Search text'|dic" name="searchTerm"
+              [(ngModel)]="params.search" />
+            <a (click)="search()" class="btn btn-info">{{'Search'|dic}}</a>
+          </div>
+          <div *ngIf="!hasSearch"></div>
+          <div>
+            <a *ngIf="customForm.type === 'modal'" (click)="showModal(largemodaladd,'add')" (click)="loadData()"
+              class="btn btn-info">{{'Add'|dic}}</a>
+            <a *ngIf="customForm.type === 'page'" (click)="newPage()" class="btn btn-info">{{'Add'|dic}}</a>
+          </div>
+        </div>
+        
         <div *ngIf="list_item === 'list'">
           <div class="table-responsive">
             <form>
-              <div class="form-group form-inline" style="justify-content: space-between !important">
-                <div *ngIf="hasSearch">
-                  <input class="form-control ms-2" type="text" [placeholder]="'Search text'|dic" name="searchTerm"
-                    [(ngModel)]="params.search" />
-                  <a (click)="search()" class="btn btn-info">{{'Search'|dic}}</a>
-                </div>
-                <div *ngIf="!hasSearch"></div>
-                <div>
-                  <a *ngIf="customForm.type === 'modal'" (click)="showModal(largemodaladd,'add')" (click)="loadData()"
-                    class="btn btn-info">{{'Add'|dic}}</a>
-                  <a *ngIf="customForm.type === 'page'" (click)="newPage()" class="btn btn-info">{{'Add'|dic}}</a>
-                </div>
-              </div>
+        
 
               <div class="table-responsive mb-0 table-regcompany">
                 <app-bas-page_loader *ngIf="DataIsLoading"></app-bas-page_loader>
@@ -402,8 +403,8 @@
         <div class="form-group row" *ngIf="row.type === 'text'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text"
-              type="text" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [disabled]="row.disabled" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text" 
+                   type="text" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'email'">
@@ -535,15 +536,14 @@
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
             <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text"
-              type="date" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
+              type="date" [id]="'form_name'+i" [required]="row.required"  [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'text'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
-            <input [ngModelOptions]="{standalone: true}" [disabled]="row.disabled" [(ngModel)]="row.value"
-              [name]="'field'+i" placeholder="text" type="text" [id]="'form_name'+i" [required]="row.required"
-              [name]="'form_name'+i" class="form-control">
+            <input [ngModelOptions]="{standalone: true}" [disabled]="row.disabled" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text" 
+                   type="text" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'email'">

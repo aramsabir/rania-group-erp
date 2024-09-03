@@ -5,10 +5,10 @@ const userController = require('../components/settings/users/usersController')
 const companyController = require('../components/settings/company/controller')
 const userCompanyController = require('../components/settings/user-company-role/controller')
 const departmentController = require('../components/settings/department/controller')
-const jobTitleController = require('../components/settings/job_title/controller')
+const basicDataController = require('../components/settings/basic-data/controller')
 const resources = require('../components/event_and_resources/resources');
 
-var logController = require('../components/log/logController')
+var logController = require('../components/activities/logController')
 
 
 module.exports = function (app) {
@@ -36,6 +36,10 @@ module.exports = function (app) {
         .put("/change_my_password", checkExpireToken, userController.changemypassword)
         .post("/reset_password", checkExpireToken, userController.restPasswordForUser)
         .put("/update-employee-activation", checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeUpdate) }, checkAccess, userController.updateUserStatus)
+        .post("/add-lang-employee", checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeUpdate) }, checkAccess, userController.pushLanguageForEmployee)
+        .put("/pull-lang-employee", checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeDelete) }, checkAccess, userController.popLanguageForEmployee)
+        .post("/add-certificate-employee", checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeUpdate) }, checkAccess, userController.pushCertificateForEmployee)
+        .put("/pull-certificate-employee", checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeDelete) }, checkAccess, userController.popCertificateForEmployee)
         .get('/employee/:_id', checkExpireToken, userController.userInformation)
         .get('/employee_data', checkExpireToken, userController.userInformation)
         .put("/employee_photo", checkExpireToken, userController.uploadProfile, userController.EditMyProfile)
@@ -73,13 +77,21 @@ module.exports = function (app) {
         .put('/department', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, departmentController.Update)
         .delete('/department', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, departmentController.Delete)
    
-        //  JobTitle
-    app.get('/job_titles', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.List)
-        .get('/available_job_titles', checkExpireToken, AddQueryData, jobTitleController.Available)
-        .get('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.One)
-        .post('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.New)
-        .put('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.Update)
-        .delete('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.Delete)
+    //     //  JobTitle
+    // app.get('/job_titles', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.List)
+    //     .get('/available_job_titles', checkExpireToken, AddQueryData, jobTitleController.Available)
+    //     .get('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.One)
+    //     .post('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.New)
+    //     .put('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.Update)
+    //     .delete('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.Delete)
+   
+        //  Basic Data
+    app.get('/basic_datas', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.List)
+        .get('/available_basic_datas', checkExpireToken, AddQueryData, basicDataController.Available)
+        .get('/basic_data', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.One)
+        .post('/basic_data', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.New)
+        .put('/basic_data', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.Update)
+        .delete('/basic_data', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.Delete)
 
 
 
@@ -102,7 +114,7 @@ module.exports = function (app) {
     app.get('/', checkExpireToken, middleware.testToken);
     app.get('/ip', middleware.getIterfacesIP);
 
-    app.get('/logs', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.LogRead) }, checkAccess, logController.allData)
+    app.get('/logs', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.LogRead) }, checkAccess, logController.getLogsOfRecord)
 
     function addHeader(req, res, cb, access) {
         req.query.access = access; cb()

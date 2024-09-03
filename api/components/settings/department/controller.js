@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = require('./schema')
 const resources = require('../../event_and_resources/resources');
 const events = require('../../event_and_resources/events');
-const log = require('../../log/logController')
+const log = require('../../activities/logController')
 const terms = require('../../event_and_resources/terms')
 
 
