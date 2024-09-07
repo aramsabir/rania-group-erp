@@ -46,6 +46,9 @@ export class UserCompanyRoleComponent implements OnInit {
   inputValue: string | null = null;
   textValue: string | null = null;
   lang: any;
+  updateRoleStruc: any = {
+    resources:[]
+  };
 
   constructor(
     private dic: DicService,
@@ -147,9 +150,15 @@ export class UserCompanyRoleComponent implements OnInit {
           resource +=  this.roles[index].role_value +  this.roles[index].options[index2].value +  ',';
       }
     }
-    this.roleData.resources = resource;
+    this.updateRoleStruc.resources = resource;
+
+    this.updateRoleStruc._id = this.roleData._id;
+    this.updateRoleStruc.user_id = this.roleData.user_id._id;
+    this.updateRoleStruc.company_id = this.roleData.company_id._id;
+    console.log(this.roleData._id);
+    
     this.httpService
-      .call(`${'user_company_resources'}`, ApiMethod.PUT, this.params, this.roleData)
+      .call(`${'user_company_resources'}`, ApiMethod.PUT, this.params, this.updateRoleStruc )
       .subscribe(
         (res: any) => {
           if (res.status) {

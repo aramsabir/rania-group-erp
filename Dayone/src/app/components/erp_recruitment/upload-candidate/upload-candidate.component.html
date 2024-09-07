@@ -1,0 +1,154 @@
+<app-bas-page-header [title]="pageTitle"
+                     [routes]="bercumberRoutes"
+                     [actions]="actions"></app-bas-page-header>
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">{{'Details'|dic}}</div>
+            <div class="card-options">
+                <div class="btn-list me-2">
+                    <span class="btn btn-sm btn-{{dataSource?.status=='Process'?'secondary':
+                    dataSource?.status=='Completed'?'success':'danger'}}">{{dataSource?.status|dic}}</span>
+                    <span class="btn btn-primary"
+                          routerLink="/recruitments/update"
+                          [queryParams]="{_id:dataSource._id}"><i class="feather feather-edit"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body row">
+            <div class="col-md-4">
+                <div class="table-responsive">
+                    <table class="table table-responsive-sm">
+                        <tr *ngIf="dataSource?.company_id">
+                            <td class="font-weight-bold">{{'Company'|dic}}</td>
+                            <td>{{dataSource?.company_id[lang=='en'?'name':'name']??''}}</td>
+                        </tr>
+                        <tr *ngIf="dataSource?.department_id">
+                            <td class="font-weight-bold">{{'Department'|dic}}</td>
+                            <td>{{dataSource?.department_id[lang=='en'?'name':'name']??''}}</td>
+                        </tr>
+                        <tr *ngIf="dataSource?.post_id">
+                            <td class="font-weight-bold">{{'Post'|dic}}</td>
+                            <td>{{dataSource?.post_id[lang=='en'?'name':'name']??''}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Gender'|dic}}</td>
+                            <td>{{dataSource?.gender|dic}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Salary'|dic}}</td>
+                            <td>{{dataSource?.salary|number}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Request type'|dic}}</td>
+                            <td>{{dataSource?.request_type|dic}}</td>
+                        </tr>
+                        <!-- <tr *ngIf="dataSource?.grade_id">
+                            <td class="font-weight-bold">{{'Grade'|dic}}</td>
+                            <td>{{dataSource?.grade_id[lang=='en'?'name':'name']??''}}</td>
+                        </tr> -->
+                        <tr>
+                            <td class="font-weight-bold">{{'Deadline'|dic}}</td>
+                            <td>{{dataSource?.deadline|date:'dd-MM-yyyy HH:mm'}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="table-responsive">
+                    <table class="table table-responsive-sm">
+                        <tr>
+                            <td class="font-weight-bold">{{'Date request'|dic}}</td>
+                            <td>{{dataSource?.date_request|date:'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Date filled'|dic}}</td>
+                            <td>{{dataSource?.date_filled|date:'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Date quit'|dic}}</td>
+                            <td>{{dataSource?.date_quit|date:'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Hiring reason'|dic}}</td>
+                            <td>{{dataSource?.hiring_reason|dic}}</td>
+                        </tr>
+                        <tr *ngIf="dataSource?.hiring_reason == 'Alternative' && dataSource?.prev_emp_id?.name">
+                            <td class="font-weight-bold">{{'Employee'|dic}}</td>
+                            <td>{{dataSource?.prev_emp_id.name}}</td>
+                        </tr>
+                        <tr *ngIf="dataSource?.unfilled_reason_id">
+                            <td class="font-weight-bold">{{'Unfilled reason'|dic}}</td>
+                            <td>{{dataSource?.unfilled_reason_id[lang=='en'?'name':'name']??''}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h5 class="font-weight-bold">{{'Note'|dic}}</h5>
+                <p>{{dataSource.note}}</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="row">
+  
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="form-group mt-5">
+            <!-- <a (click)="search()" class="btn btn-primary btn-block">{{'Search'|dic}}</a> -->
+            
+            <input type="file"  class="form-control" (change)="onFileChange($event)"  >
+           
+        </div>
+    </div>
+  
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="form-group mt-5">
+            <a (click)="uploadCandidate()"  *ngIf="applicationsModel.length"
+            class="btn btn-danger btn-block">{{'Enter the candidates'|dic}}</a>
+           
+        </div>
+    </div>
+</div>
+ 
+<div class="card">
+    <div class="row">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-vcenter text-nowrap border-top  mb-0"
+                       id="tasktable">
+                    <thead>
+                        <tr>
+                            <td *ngFor="let el of candidate_headers">{{el|dic}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of applicationsModel">
+                            <td >{{data.level}}</td>
+                            <td >{{data.candidate_name}}</td>
+                            <td >{{data.email}}</td>
+                            <td >{{data.phone}}</td>
+                            <td >{{data.interview_type}}</td>
+                            <td >{{data.application_date|date:'dd-MM-yyyy'}}</td>
+                            <td >{{data.screening_date|date:'dd-MM-yyyy'}}</td>
+                            <td >{{data.shortlist_date|date:'dd-MM-yyyy'}}</td>
+                            <td >{{data.phone_screen_date|date:'dd-MM-yyyy'}}</td>
+                            <td >{{data.interview_date|date:'dd-MM-yyyy'}}</td>
+                            <td >{{data.second_round_interview_date|date:'dd-MM-yyyy'}}</td>
+                            <td >{{data.offer_date|date:'dd-MM-yyyy'}}</td>
+                            <td >{{data.hiring_date|date:'dd-MM-yyyy'}}</td>
+                            <td >{{data.joining_date|date:'dd-MM-yyyy'}}</td>
+                            <td >{{data.probationary_date|date:'dd-MM-yyyy'}}</td>
+                            <td >{{data.note}}</td>
+                            <td >{{data.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+ 

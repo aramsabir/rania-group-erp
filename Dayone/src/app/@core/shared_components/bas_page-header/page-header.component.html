@@ -1,27 +1,22 @@
-<!--Page header-->
-<div class="page-header d-lg-flex d-block pb-0 mb-0">
+<div class="page-header d-lg-flex d-block pb-0 mb-6 mb-lg-0">
     <div class="page-leftheader">
         <div class="card-body">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mb-0 p-0">
-                    <li *ngFor="let route of routes;let i = index" class="breadcrumb-item">
-                        <a *ngIf="i!=0" [routerLink]="route.route" [queryParams]="route.queryParams"><i [class]="route.icon" aria-hidden="true"></i> {{route.name|dic}}</a>
-                        <a *ngIf="i==0" [href]="route.route"  ><i [class]="route.icon" aria-hidden="true"></i> {{route.name|dic}}</a>
+                    <li *ngFor="let route of routes" class="breadcrumb-item">
+                        <a  [routerLink]="route.route" [queryParams]="route.queryParams"><i [class]="route.icon" aria-hidden="true"></i> {{route.name|dic}}</a>
                     </li>
                     
-                    <li class="breadcrumb-item active" *ngIf="last_page != ''" (click)="back()">
-                        <a href="javascript:;">{{last_page}}</a>
-                    </li>
                     <li class="breadcrumb-item active">{{title|dic}}</li>
                 </ol>
             </nav>
         </div>
     </div>
     <div class="page-rightheader ms-md-auto">
-        <div class=" btn-list">
-           <div  *ngFor="let elment of actions">
-            <a *ngIf="element.part != 'dropdown'" [ngClass]="element.class" placement="top" [routerLink]="element.url" [queryParams]="element.qp" [ngbTooltip]="element.ngbTooltip" [target]="element?.target?? ''"> <i
-                [ngClass]="element.icon"></i> 
+        <div class=" btn-list d-flex">
+            <div *ngFor="let element of actions" class="me-2">
+            <a *ngIf="element.part != 'dropdown'" [ngClass]="element.class" placement="top" [routerLink]="element.url" [queryParams]="element.qp" [ngbTooltip]="element.ngbTooltip" [target]="element?.target?? ''">
+                <i class="me-2 fs-15" [ngClass]="element.icon"></i> {{element.text??''}}
             </a>
             <div  *ngIf="element?.part == 'dropdown' && element?.end_point == 'voucher_groups'" class="form-group">
                 <label for="heroId" class="form-label">{{element.ngbTooltip}}</label>
@@ -35,4 +30,3 @@
         </div>
     </div>
 </div>
-<!--End Page header-->

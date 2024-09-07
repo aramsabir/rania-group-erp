@@ -78,7 +78,7 @@
                             [animationDuration]="300"></circle-progress>
                         <div class="row justify-content-between">
                             <div class="col-12">
-                                <h6 class="fs-14  font-weight-semibold mt-0">{{lang?.language_id?.name}}  &nbsp; <a class=" mb-5 mt-0  " style="cursor:pointer" (click)="removeLang(lang._id)"> <i class="text-danger feather feather-trash-2"></i> </a></h6> 
+                                <h6 class="fs-14  font-weight-semibold mt-0">{{lang?.language_id?.name}}  &nbsp; <a class=" mb-5 mt-0  " style="cursor:pointer" *ngIf="delete_permission" (click)="removeLang(lang._id)"> <i class="text-danger feather feather-trash-2"></i> </a></h6> 
                             </div>
                            
                         </div>
@@ -114,7 +114,7 @@
                     </div>
                    
                 </div> -->
-                <div class="row align-items-end justify-content-between mg-b-5">
+                <div class="row align-items-end justify-content-between mg-b-5" *ngIf="add_permission">
                     <div class="form-group col-12 ">
                         <div class="row">
                             <div class="col-md-3">
@@ -148,7 +148,7 @@
                     <h6 class="form-label mb-0 mt-2">Certificates</h6>
                     <div class="row">
                         <div class="col-6 my-2"  *ngFor="let cert of modelEmployee.certifications;let i = index" >
-                            <span class="tag tag-{{getColor(i)}}" > {{cert?.name}} - {{cert.year}} <a (click)="removeCertificate(cert._id)" class="tag-addon"><i class="fe fe-trash"></i></a></span>
+                            <span class="tag tag-{{getColor(i)}}" > {{cert?.name}} - {{cert.year}} <a *ngIf="delete_permission" (click)="removeCertificate(cert._id)" class="tag-addon"><i class="fe fe-trash"></i></a></span>
                         </div>
                     </div>
                     <div class="form-group col-7 ">
@@ -162,7 +162,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-5 ">
+                    <div class="form-group col-5  " *ngIf="add_permission">
                         <div class="">
                             <div class="col-md-12">
                                 <label class="form-label mb-0 mt-2">year</label>
@@ -174,7 +174,7 @@
                         </div>
                     </div>
                    
-                    <div class="form-group col-12 ">
+                    <div class="form-group col-12 " *ngIf="add_permission">
                         <a (click)="AddCertificate()" class="me-2 btn btn-primary">Add certificate</a>
 
                     </div>
@@ -875,8 +875,8 @@
             <div [ngbNavOutlet]="nav" class="tab-content">
             </div>
             <div class="card-footer text-end">
-                <a (click)="updateEmp()" class="me-2 btn btn-primary">Updated</a>
-                <a href="javascript:;" class="btn btn-danger">Cancel</a>
+                <a (click)="updateEmp()" class="me-2 btn btn-primary" *ngIf="update_permission">Updated</a>
+                <!-- <a href="javascript:;" class="btn btn-danger">Cancel</a> -->
             </div>
         </div>
     </div>

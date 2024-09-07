@@ -117,8 +117,13 @@ exports.FindOne = async (req, res) => {
     res.json({ status: false, message: "ID required" });
     return 0;
   }
+  if (!mongoose.Types.ObjectId.isValid(req.query._id)) {
+    res.json({ status: false, message: "ID not valid" });
+    return 0;
+  }
   var _id = req.query._id;
-
+  console.log(_id);
+  
   var data = await Schema.findOne({ $and: [{ deleted_at: null }, { _id: _id }] })
     .populate('user_id')
     .populate('company_id')
@@ -192,7 +197,7 @@ exports.UpdateResources = async (req, res) => {
   ).exec(function (e, r) {
     if (e) throw e;
     if (r) {
-      log.saveLog(req, req.query.userFullName, req.query.userID, events.UpdateUserCompanyRole, old, r)
+      log.saveLog(req,old._id, req.query.userFullName, req.query.userID, events.UpdateUserCompanyRole, old, r)
       res.json({ status: true, message: "Success" });
       return 0;
     } else {

@@ -21,7 +21,7 @@ export class MainComponent implements OnInit {
 
   ]
   bercumberRoutes: any = [
-    { icon: 'feather feather-home', route: '/home', name: "Home" },
+    // { icon: 'feather feather-home', route: '/home', name: "Home" },
   ]
   columns: any = [
     {

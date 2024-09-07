@@ -143,7 +143,7 @@ export class BasHomeComponent implements OnInit {
           this.arrayLinks.push({
             active: true,
             type: 'href',
-            // router: '/hilal-bricks',
+            router: '/recruitments/main',
             query: {},
             name: 'Recruitment',
             logo: './assets/applications/recruitment.png',

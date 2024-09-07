@@ -21,7 +21,7 @@ export const content: Routes = [
   // },
   {
     path: 'home',
-    loadChildren: () => import('../../components/bas-home/bas-home.module').then(m => m.BasHomeModule)
+    loadChildren: () => import('../../components/erp_home/bas-home.module').then(m => m.BasHomeModule)
   },
   // {
   //   path: 'error-page',

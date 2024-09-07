@@ -195,6 +195,11 @@ export class EmployeeAttachmentsComponent implements OnInit {
         item.split('.')[item.split('.').length - 1] == 'PDF'
       ) {
         ext = 'pdf';
+      } else
+      if (
+        item.split('.')[item.split('.').length - 1] == 'pptx' 
+      ) {
+        ext = 'pptx';
       } else if (
         item.split('.')[item.split('.').length - 1] == 'xlsx' ||
         item.split('.')[item.split('.').length - 1] == 'csv'

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { content } from './shared/routes/content.routes';
 
@@ -13,6 +13,7 @@ import { MainContentComponent } from './shared/layout-components/layout/main-con
 import { Error404Component } from './auth/error404/error404.component';
 import { SettingsContentComponent } from './shared/layout-components/sub_layouts/settings/content/content.component';
 import { EmployeesContentComponent } from './shared/layout-components/sub_layouts/employees/content/content.component';
+import { RecruitmentContentComponent } from './shared/layout-components/sub_layouts/recruitments/content/content.component';
 
 const routes: Routes = [
   {
@@ -23,12 +24,17 @@ const routes: Routes = [
   {
     path: 'home',
     component: MainContentComponent,
-    canActivate: [AuthGuard], loadChildren: () => import('../app/components/bas-home/bas-home.module').then((m) => m.BasHomeModule),
+    canActivate: [AuthGuard], loadChildren: () => import('../app/components/erp_home/bas-home.module').then((m) => m.BasHomeModule),
   },
   {
     path: 'employees',
     component: EmployeesContentComponent,
     canActivate: [AuthGuard], loadChildren: () => import('../app/components/erp_employees/module').then((m) => m.EmployeesModule),
+  },
+  {
+    path: 'recruitments',
+    component: RecruitmentContentComponent,
+    canActivate: [AuthGuard], loadChildren: () => import('../app/components/erp_recruitment/recruitment.module').then((m) => m.RecruitmentModule),
   },
   {
     path: 'settings',
@@ -111,6 +117,7 @@ const routes: Routes = [
   imports: [
     [
       RouterModule.forRoot(routes, {
+        preloadingStrategy: PreloadAllModules,
         anchorScrolling: 'enabled',
         scrollPositionRestoration: 'enabled',
         relativeLinkResolution: 'legacy',

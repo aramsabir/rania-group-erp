@@ -93,7 +93,10 @@ export var allRoleEN = [
       { label: 'Read', value: 'read', checked: false },
       { label: 'Add', value: 'add', checked: false },
       { label: 'Update', value: 'update', checked: false },
+      { label: 'Approve', value: 'approve', checked: false },
+      { label: 'Salary', value: 'salary', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
+      { label: 'Admin', value: 'admin', checked: false },
     ],
   }
   ,

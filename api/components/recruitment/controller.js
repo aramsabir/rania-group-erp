@@ -1,11 +1,8 @@
-var Auth = require('../auth/authController')
 var fs = require('fs');
 var mongoose = require('mongoose');
 var path = require('path');
 var Schema = require('./schema')
-var BasicData = require('../settings/basic_data/schema')
-var UserSchema = require('../settings/users/users')
-const resources = require('../event_and_resources/resources');
+var BasicData = require('../settings/basic-data/schema')
 
 
 exports.newData = async (req, res) => {
@@ -21,10 +18,10 @@ exports.newData = async (req, res) => {
         res.json({ status: false, message: "Post required" })
         return
     }
-    if (!req.body.grade_id) {
-        res.json({ status: false, message: "Grade required" })
-        return
-    }
+    // if (!req.body.grade_id) {
+    //     res.json({ status: false, message: "Grade required" })
+    //     return
+    // }
     if (!req.body.date_request) {
         res.json({ status: false, message: "Date request required" })
         return
@@ -52,7 +49,7 @@ exports.newData = async (req, res) => {
             { department_id: req.body.department_id },
             { post_id: req.body.post_id },
             { date_request: req.body.date_request },
-            { grade_id: req.body.grade_id },
+            // { grade_id: req.body.grade_id },
             { gender: req.body.gender },
         ]
     }).exec(function (err, found) {
@@ -171,8 +168,15 @@ exports.postBoard = async (req, res) => {
         }
     }
 
-
-    var data = await Schema.findOne({ $and: [{ deleted_at: null }, searchID, searchCompanies, searchDepartments, searchDate] })
+    var searchPermissionAdmin = {}
+    if (req.query.resources.split(',').includes('recruitment:admin')) {
+        searchPermissionAdmin = {}
+    } else {
+        searchPermissionAdmin = {
+            department_id: req.query.userID
+        }
+    }
+    var data = await Schema.findOne({ $and: [{ deleted_at: null }, searchID, searchPermissionAdmin, searchCompanies, searchDepartments, searchDate] })
 
     // var application = await Schema.aggregate([
     //     {
@@ -389,14 +393,21 @@ exports.getOne = async (req, res) => {
         return
     }
     searchID = { $and: [{ '_id': mongoose.Types.ObjectId(req.query._id) },] }
-
+    var searchPermissionAdmin = {}
+    if (req.query.resources.split(',').includes('recruitment:admin')) {
+        searchPermissionAdmin = {}
+    } else {
+        searchPermissionAdmin = {
+            department_id: req.query.userID
+        }
+    }
 
     // var data = await Schema.findOne({ $and: [{ deleted_at: null }, searchID, searchCompanies, searchDepartments, searchDate] })
     var data = []
     try {
         data = await Schema.aggregate([
             {
-                $match: { $and: [{ deleted_at: null }, searchID] }
+                $match: { $and: [{ deleted_at: null }, searchPermissionAdmin, searchID] }
             },
             {
                 $lookup: {
@@ -439,20 +450,20 @@ exports.getOne = async (req, res) => {
                     as: 'grade_id'
                 },
             },
-            {
-                $unwind: { path: "$grade_id", preserveNullAndEmptyArrays: true }
-            },
-            {
-                $lookup: {
-                    from: 'basicdatas',
-                    localField: 'unfilled_reason_id',
-                    foreignField: '_id',
-                    as: 'unfilled_reason_id'
-                },
-            },
-            {
-                $unwind: { path: "$unfilled_reason_id", preserveNullAndEmptyArrays: true }
-            },
+            // {
+            //     $unwind: { path: "$grade_id", preserveNullAndEmptyArrays: true }
+            // },
+            // {
+            //     $lookup: {
+            //         from: 'basicdatas',
+            //         localField: 'unfilled_reason_id',
+            //         foreignField: '_id',
+            //         as: 'unfilled_reason_id'
+            //     },
+            // },
+            // {
+            //     $unwind: { path: "$unfilled_reason_id", preserveNullAndEmptyArrays: true }
+            // },
             {
                 $lookup: {
                     from: 'employees',
@@ -530,12 +541,20 @@ exports.allData = async (req, res) => {
 
     to = new Date(to.setMonth(new Date(to).getMonth() + 1))
 
-    var count = await Schema.countDocuments({ $and: [{ deleted_at: null }, searchCompanies, searchDate, searchDepartments] })
 
-    var data = await Schema.find({ $and: [{ deleted_at: null }, searchCompanies, searchDate, searchDepartments] })
+    var searchPermissionAdmin = {}
+    if (req.query.resources.split(',').includes('recruitment:admin')) {
+        searchPermissionAdmin = {}
+    } else {
+        searchPermissionAdmin = {
+            department_id: req.query.userID
+        }
+    }
+    var count = await Schema.countDocuments({ $and: [{ deleted_at: null }, searchPermissionAdmin, searchCompanies, searchDate, searchDepartments] })
+
+    var data = await Schema.find({ $and: [{ deleted_at: null }, searchPermissionAdmin, searchCompanies, searchDate, searchDepartments] })
         .populate('company_id')
         .populate('department_id')
-        .populate('grade_id')
         .populate('post_id')
         .populate('creator')
 
@@ -543,6 +562,7 @@ exports.allData = async (req, res) => {
     return
 
 }
+
 
 exports.findByID = async (req, res) => {
 
@@ -553,8 +573,16 @@ exports.findByID = async (req, res) => {
     }
     searchID = { _id: mongoose.Types.ObjectId(req.query._id) }
 
+    var searchPermissionAdmin = {}
+    if (req.query.resources.split(',').includes('recruitment:admin')) {
+        searchPermissionAdmin = {}
+    } else {
+        searchPermissionAdmin = {
+            department_id: req.query.userID
+        }
+    }
 
-    var data = await Schema.findOne({ $and: [searchID, { deleted_at: null }] })
+    var data = await Schema.findOne({ $and: [searchID, searchPermissionAdmin, { deleted_at: null }] })
 
     res.json({ status: true, data: data })
     return
@@ -572,10 +600,18 @@ exports.findOne = async (req, res) => {
     searchID = { _id: mongoose.Types.ObjectId(req.query._id) }
 
 
+    var searchPermissionAdmin = {}
+    if (req.query.resources.split(',').includes('recruitment:admin')) {
+        searchPermissionAdmin = {}
+    } else {
+        searchPermissionAdmin = {
+            department_id: req.query.userID
+        }
+    }
 
 
 
-    var data = await Schema.findOne({ $and: [searchID, { deleted_at: null }] })
+    var data = await Schema.findOne({ $and: [searchID, searchPermissionAdmin, { deleted_at: null }] })
         .populate('company_id')
         .populate('applications.reject_type')
         .populate('department_id')
@@ -828,10 +864,10 @@ exports.updateData = async (req, res) => {
         res.json({ status: false, message: "Post required" })
         return
     }
-    if (!req.body.grade_id) {
-        res.json({ status: false, message: "Grade required" })
-        return
-    }
+    // if (!req.body.grade_id) {
+    //     res.json({ status: false, message: "Grade required" })
+    //     return
+    // }
     if (!req.body.date_request) {
         res.json({ status: false, message: "Date request required" })
         return
@@ -841,10 +877,10 @@ exports.updateData = async (req, res) => {
         return
     }
 
-    var grade_finder = await BasicData.findOne({ _id: req.body.grade_id })
-    if (grade_finder) {
-        req.body.grade_days = grade_finder.days
-    }
+    // var grade_finder = await BasicData.findOne({ _id: req.body.grade_id })
+    // if (grade_finder) {
+    //     req.body.grade_days = grade_finder.days
+    // }
     var doublicate = await Schema.findOne({
         $and: [
             { _id: { $ne: req.query._id } },
@@ -852,7 +888,7 @@ exports.updateData = async (req, res) => {
             { department_id: req.body.department_id },
             { post_id: req.body.post_id },
             { date_request: req.body.date_request },
-            { grade_id: req.body.grade_id },
+            // { grade_id: req.body.grade_id },
             { gender: req.body.gender },
         ]
     })
@@ -923,12 +959,120 @@ exports.delete = async (req, res) => {
 }
 
 
+
+
+
+exports.UploadCandidates = async (req, res) => {
+
+    if (!req.query._id) {
+        res.json({ status: false, message: terms.id_required });
+        return 0;
+    }
+    if (!mongoose.Types.ObjectId.isValid(req.query._id)) {
+        res.json({ status: false, message: terms.invalid_data });
+        return 0;
+    }
+
+
+    var old = await Schema.findOne(
+        {
+            $and: [
+                { _id: req.query._id },
+                { deleted_at: null }
+            ]
+        }
+    )
+
+    if (!old) {
+        return res.json({ status: false, message: 'Post not found' })
+
+    }
+    if (old.deadline < Date.now()) {
+        return res.json({ status: false, message: 'Post is closed' })
+
+    }
+
+
+    if (!req.body.data) {
+        res.json({ status: false, message: "Data required" });
+        return 0;
+    }
+    if (req.body.data.length == 0) {
+        res.json({ status: false, message: "Data required" });
+        return 0;
+    }
+
+    for (let index = 0; index < req.body.data.length; index++) {
+        delete req.body.data[index]["#"]
+        if (!req.body.data[index].level) {
+            res.json({ status: false, message: "Level required" + ' in candidate ' + (index + 1) });
+            return 0;
+        }
+        if (!req.body.data[index].level || !["Application", "Screening", "Shortlist", "Phone screen", "Interview", "Second round interview", "Offer", "Hire", "Probationary"].includes(req.body.data[index].level)) {
+            res.json({ status: false, message: "Post status required or not valid" + ' in candidate ' + (index + 1) })
+            return
+        }
+        if (!req.body.data[index].candidate_name) {
+            res.json({ status: false, message: "Candidate " + terms.name_required + ' in candidate ' + (index + 1) });
+            return 0;
+        }
+
+        if (!req.body.data[index].email) {
+            res.json({ status: false, message: terms.email_required + ' in candidate ' + (index + 1) });
+            return 0;
+        }
+        if (!req.body.data[index].phone) {
+            res.json({ status: false, message: terms.phone_required + ' in candidate ' + (index + 1) });
+            return 0;
+        }
+
+        req.body.data[index].creator = req.query.userID
+        req.body.data[index].created_at = Date.now()
+        req.body.data[index].updated_at = Date.now()
+    }
+
+    await Schema.findOneAndUpdate(
+        { _id: req.query._id },
+        {
+            $push: {
+                applications: {
+                    $each: req.body.data,
+                }
+            },
+        }
+    ).exec(function (err, r) {
+        if (err) throw err;
+        else {
+            res.json({ status: true, message: "Candidates has been uploaded" });
+            return 0;
+        }
+    });
+}
+
+
+
 var moment = require("moment");
 var fs = require("fs");
 var multer = require("multer");
 const { CVBankAttachment } = require('../../configDB/public_paths');
 const terms = require('../event_and_resources/terms');
-const log = require('../log/log');
+
+var storagePublic = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, CVBankAttachment);
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = moment(Date.now()).format("YYYY_MM_DD_HH_mm_ss");
+
+        const ext = file.originalname.split(".")[1];
+        nameImage = "CV_" + datetimestamp + "." + ext;
+        req.body.name = file.originalname.split(".")[0];
+        req.body.file_name = nameImage;
+        cb(null, nameImage);
+    },
+});
+
+
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -951,77 +1095,6 @@ var storage = multer.diskStorage({
         }
         req.body.file_name = req.body.file.originalname;
     };
-
-
-    exports.UploadCandidates = async (req, res) => {
-
-        if (!req.query._id) {
-            res.json({ status: false, message: terms.id_required });
-            return 0;
-        }
-        if (!mongoose.Types.ObjectId.isValid(req.query._id)) {
-            res.json({ status: false, message: terms.invalid_data });
-            return 0;
-        }
-    
-     
-    
-        if (!req.body.data) {
-            res.json({ status: false, message: "Data required" });
-            return 0;
-        }
-        if (req.body.data.length == 0) {
-            res.json({ status: false, message: "Data required" });
-            return 0;
-        }
-
-        for (let index = 0; index < req.body.data.length; index++) {
-            delete req.body.data[index]["#"]
-            if (!req.body.data[index].level) {
-                res.json({ status: false, message: "Level required" +' in candidate '+(index+1)});
-                return 0;
-            }
-            if (!req.body.data[index].level || !["Application", "Screening", "Shortlist", "Phone screen", "Interview", "Second round interview", "Offer", "Hire", "Probationary"].includes(req.body.data[index].level)) {
-                res.json({ status: false, message: "Post status required or not valid" +' in candidate '+(index+1) })
-                return
-            }
-            if (!req.body.data[index].candidate_name) {
-                res.json({ status: false, message: "Candidate " + terms.name_required +' in candidate '+(index+1)});
-                return 0;
-            }
-        
-            if (!req.body.data[index].email) {
-                res.json({ status: false, message: terms.email_required +' in candidate '+(index+1)});
-                return 0;
-            }
-            if (!req.body.data[index].phone) {
-                res.json({ status: false, message: terms.phone_required +' in candidate '+(index+1)});
-                return 0;
-            }
-
-            req.body.data[index].creator= req.query.userID
-            req.body.data[index].created_at= Date.now()
-            req.body.data[index].updated_at= Date.now()
-        }
-    
-        await Schema.findOneAndUpdate(
-            { _id: req.query._id },
-            {
-                $push: {
-                    applications: {
-                        $each: req.body.data,
-                    }
-                },
-            }
-        ).exec(function (err, r) {
-            if (err) throw err;
-            else {
-                res.json({ status: true, message: "Candidates has been uploaded" });
-                return 0;
-            }
-        });
-    }
-
 exports.UploadCV = async (req, res) => {
 
     if (!req.query._id) {
@@ -1069,7 +1142,23 @@ exports.UploadCV = async (req, res) => {
         }
 
     }
+    var old = await Schema.findOne(
+        {
+            $and: [
+                { _id: req.query._id },
+                { deleted_at: null }
+            ]
+        }
+    )
 
+    if (!old) {
+        return res.json({ status: false, message: 'Post not found' })
+
+    }
+    if (old.deadline < Date.now()) {
+        return res.json({ status: false, message: 'Post is closed' })
+
+    }
 
     await Schema.findOneAndUpdate(
         { _id: req.query._id },
@@ -1123,6 +1212,23 @@ exports.removeCV = async (req, res) => {
 
     var search = { "applications._id": mongoose.Types.ObjectId(req.query._id) }
 
+    var old = await Schema.findOne(
+        {
+            $and: [
+                { 'applications._id': req.query._id },
+                { deleted_at: null }
+            ]
+        }
+    )
+
+    if (!old) {
+        return res.json({ status: false, message: 'Post not found' })
+
+    }
+    if (old.deadline < Date.now()) {
+        return res.json({ status: false, message: 'Post is closed' })
+
+    }
 
     var data = await Schema.aggregate([
         {
@@ -1155,10 +1261,6 @@ exports.removeCV = async (req, res) => {
 
 
 };
-
-
-
-
 
 exports.report = async (req, res) => {
 
@@ -1228,4 +1330,153 @@ exports.report = async (req, res) => {
     res.json({ status: true, count: count, data: data })
     return
 
+}
+
+
+
+
+
+
+
+exports.availablePoststForPublic = async (req, res) => {
+    var searchDate = { deadline: { $gte: new Date() } }
+
+    var count = await Schema.countDocuments({ $and: [{ deleted_at: null }, searchDate] })
+
+    var data = await Schema.find({ $and: [{ deleted_at: null }, searchDate] })
+        .populate('company_id')
+        .populate('department_id')
+        .populate('post_id')
+        .populate('creator')
+
+    res.json({ status: true, count: count, data: data })
+    return
+
+}
+
+exports.onePosttForPublic = async (req, res) => {
+    var searchDate = { deadline: { $gte: new Date() } }
+    var searchID = {}
+    if (!req.query._id || !mongoose.Types.ObjectId.isValid(req.query._id)) {
+        res.json({ status: false, message: "ID required" })
+        return
+    }
+    searchID = { _id: mongoose.Types.ObjectId(req.query._id) }
+
+
+    var data = await Schema.find({ $and: [{ deleted_at: null }, searchDate, searchID] })
+        .populate('company_id')
+        .populate('department_id')
+        .populate('post_id')
+        .populate('creator')
+
+    res.json({ status: true, count: count, data: data })
+    return
+
+}
+
+
+
+
+
+(exports.uploadPublic = multer({ storage: storagePublic, limits: { fieldSize: 20 * 1024 * 1024 } }).single("file")),
+    function (req, res) {
+        if (req) {
+        }
+        req.body.file_name = req.body.file.originalname;
+    };
+exports.UploadCVPublic = async (req, res) => {
+
+    if (!req.query._id) {
+        res.json({ status: false, message: terms.id_required });
+        return 0;
+    }
+    if (!mongoose.Types.ObjectId.isValid(req.query._id)) {
+        res.json({ status: false, message: terms.invalid_data });
+        return 0;
+    }
+
+    req.body.level = 'Application';
+
+    if (!req.body.candidate_name) {
+        res.json({ status: false, message: "Candidate " + terms.name_required });
+        return 0;
+    }
+
+    if (!req.body.email) {
+        res.json({ status: false, message: terms.email_required });
+        return 0;
+    }
+    if (!req.body.phone) {
+        res.json({ status: false, message: terms.phone_required });
+        return 0;
+    }
+
+
+    if (req.body.file) {
+        try {
+            var file_name = `CV_PUBLIC_${Date.now()}.${req.body.file_type}`
+            var file_path = `${CVBankAttachment}/${file_name}`
+            let buffer = Buffer.from(req.body.file.split(',')[1], "base64")
+            fs.writeFileSync(path.join(file_path), buffer)
+            req.body.file_name = file_name
+        } catch (error) {
+            throw error
+        }
+    } else {
+        res.json({ status: false, message: "File required" });
+        return 0;
+    }
+
+    var old = await Schema.findOne(
+        {
+            $and: [
+                { _id: req.query._id },
+                { deleted_at: null }
+            ]
+        }
+    )
+
+    if (!old) {
+        if(req.body.file_name){
+            fs.unlinkSync(path.join(CVBankAttachment, req.body.file_name))
+        }
+        return res.json({ status: false, message: 'Post not found' })
+
+    }
+    if (old.deadline < Date.now()) {
+        if(req.body.file_name){
+            fs.unlinkSync(path.join(CVBankAttachment, req.body.file_name))
+        }
+        return res.json({ status: false, message: 'Post is closed' })
+    }
+
+    await Schema.findOneAndUpdate(
+        { _id: req.query._id },
+        {
+            $push: {
+                applications: {
+                    candidate_name: req.body.candidate_name,
+                    email: req.body.email,
+                    phone: req.body.phone,
+                    level: req.body.level,
+                    note: req.body.note,
+                    reject_reason_id: null,
+                    joining_date: null,
+                    probationary_date: null,
+                    hiring_date: null,
+                    cv:  eq.body.file_name_path ,
+                    creator: null,
+                    created_at: Date.now(),
+                    updated_at: Date.now(),
+                }
+            },
+        }
+    ).exec(function (err, r) {
+        if (err) throw err;
+        else {
+            res.json({ status: true, message: "Your CV Has been uploaded, thank you" });
+            return 0;
+        }
+    });
 }

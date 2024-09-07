@@ -14,13 +14,13 @@ import { environment } from 'src/environments/environment';
 })
 export class UsersComponent implements OnInit {
 
-  url: any = "employees"
+  url: any = "employees-settings"
   titlePage: any = "Users"
   actions: any = [
 
   ]
   bercumberRoutes: any = [
-    { icon: 'feather feather-home', route: '/home', name: "Home" },
+    // { icon: 'feather feather-home', route: '/home', name: "Home" },
   ]
   columns: any = [
     {
@@ -72,6 +72,18 @@ export class UsersComponent implements OnInit {
       value: 'department_id'
     },
     {
+      header: 'Manager',
+      cell: (el: any) => el.manager_id?.full_name,
+      type: 'text',
+      value: 'manager_id'
+    },
+    {
+      header: 'Coach',
+      cell: (el: any) => el.coach_id?.full_name,
+      type: 'text',
+      value: 'coach_id'
+    },
+    {
       header: 'Main company',
       cell: (el: any) => el.main_company_id?.name,
       type: 'text',
@@ -114,10 +126,10 @@ export class UsersComponent implements OnInit {
         { type: 'text', name: 'phone', title: 'phone', required: true },
         { type: 'number', name: 'code', title: 'Employee ID', required: true },
         { type: 'password', name: 'password', title: 'Password', required: true },
-        {
-          type: 'selectUrl', name: 'job_title_id', title: 'Job title', val_name: 'job_title_id', cap_name: 'name', required: true,
-          url: 'available_job_titles', params: { skip: 0, limit: 1000, sort: 'name' }
-        },
+        // {
+        //   type: 'selectUrl', name: 'job_title_id', title: 'Job title', val_name: 'job_title_id', cap_name: 'name', required: true,
+        //   url: 'available_job_titles', params: { skip: 0, limit: 1000, sort: 'name' }
+        // },
         {
           type: 'selectUrl', name: 'main_company_id', title: 'Company', val_name: 'main_company_id', cap_name: 'name', required: true,
           url: 'available_companies', params: { skip: 0, limit: 1000, sort: 'name' }
@@ -125,6 +137,14 @@ export class UsersComponent implements OnInit {
         {
           type: 'selectUrl', name: 'department_id', title: 'Department', val_name: 'department_id', cap_name: 'name', required: true,
           url: 'available_departments', params: { skip: 0, limit: 1000, sort: 'name' }
+        },
+        {
+          type: 'selectUrl', name: 'manager_id', title: 'manager', val_name: 'manager_id', cap_name: 'full_name', required: true,
+          url: 'available_employees', params: { skip: 0, limit: 1000, sort: 'full_name' }
+        },
+        {
+          type: 'selectUrl', name: 'coach_id', title: 'Coach', val_name: 'coach_id', cap_name: 'full_name', required: true,
+          url: 'available_employees', params: { skip: 0, limit: 1000, sort: 'full_name' }
         },
       ]
     },
@@ -143,10 +163,10 @@ export class UsersComponent implements OnInit {
         { type: 'text', name: 'phone', title: 'phone', required: true },
         { type: 'number', name: 'code', title: 'Employee ID', required: true },
         { type: 'password', name: 'password', title: 'Password', required: true },
-        {
-          type: 'selectUrl', name: 'job_title_id', title: 'Job title', val_name: 'job_title_id', cap_name: 'name', required: true,
-          url: 'available_job_titles', params: { skip: 0, limit: 1000, sort: 'name' }
-        },
+        // {
+        //   type: 'selectUrl', name: 'job_title_id', title: 'Job title', val_name: 'job_title_id', cap_name: 'name', required: true,
+        //   url: 'available_job_titles', params: { skip: 0, limit: 1000, sort: 'name' }
+        // },
         {
           type: 'selectUrl', name: 'main_company_id', title: 'Company', val_name: 'main_company_id', cap_name: 'name', required: true,
           url: 'available_companies', params: { skip: 0, limit: 1000, sort: 'name' }
@@ -154,6 +174,14 @@ export class UsersComponent implements OnInit {
         {
           type: 'selectUrl', name: 'department_id', title: 'Department', val_name: 'department_id', cap_name: 'name', required: true,
           url: 'available_departments', params: { skip: 0, limit: 1000, sort: 'name' }
+        },
+        {
+          type: 'selectUrl', name: 'manager_id', title: 'manager', val_name: 'manager_id', cap_name: 'full_name', required: true,
+          url: 'available_employees', params: { skip: 0, limit: 1000, sort: 'full_name' }
+        },
+        {
+          type: 'selectUrl', name: 'coach_id', title: 'Coach', val_name: 'coach_id', cap_name: 'full_name', required: true,
+          url: 'available_employees', params: { skip: 0, limit: 1000, sort: 'full_name' }
         },
       ]
     },
@@ -200,7 +228,7 @@ export class UsersComponent implements OnInit {
       this.params.sort = params.sort ? params.sort : 'created_at'
       this.params.companies = ""
       this.pg_header = [
-        { link: '/home', params: {}, value: "Home" },
+        // { link: '/home', params: {}, value: "Home" },
       ]
 
     });

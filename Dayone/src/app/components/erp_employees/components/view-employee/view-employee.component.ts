@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiMethod } from 'src/app/@core/service/apis';
 import { HttpService } from 'src/app/@core/service/http/http.service';
+import { AuthService } from 'src/app/shared/services/firebase/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -35,12 +36,19 @@ export class ViewEmployeeComponent implements OnInit {
   languages: any = [];
   modelAddCertificate: any ={};
   documents: any = 0;
+  add_permission: boolean;
+  update_permission: boolean;
+  delete_permission: boolean;
   constructor(
     config: NgbRatingConfig,
     private routes: ActivatedRoute,
     private datePipe: DatePipe,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private authService: AuthService
   ) {
+    this.add_permission = this.authService.hasPermission('employee:add')
+    this.update_permission = this.authService.hasPermission('employee:update')
+    this.delete_permission = this.authService.hasPermission('employee:delete')
 
     this.httpService
       .call(`${'available_companies'}`, ApiMethod.GET, this.params)
@@ -371,10 +379,9 @@ export class ViewEmployeeComponent implements OnInit {
 
 
   getColor(i:any){
-    var items = ['red', 'green', 'yellow', 'info','warning','danger']
-    if(i >5){
-      i = i-5
-    }
+    var items = ['red', 'green', 'yellow', 'info','warning','danger','cyan']
+      i = i%5
+    
     return items[i]
   }
 }

@@ -1,0 +1,450 @@
+<app-task-dashboard-page-header></app-task-dashboard-page-header>
+<!-- Row -->
+<div class="row">
+    <div class="col-md-4 ">
+        <div class="card">
+            <div class="card-header  border-0">
+                <div class="card-title">{{'Details'|dic}}</div>
+                <div class="ms-auto btn-list d-flex">
+                    <a href="javascript:;" class="btn btn-primary" *ngIf="update" [routerLink]="'/task-managements/edit-task'" [queryParams]="{_id:model._id}">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- <div class="text-center">
+                    <div class="widget-user-image mx-auto text-center">
+                        <img class="avatar avatar-xxl brround rounded-circle" alt="img"
+                            src="./assets/images/users/1.jpg">
+                    </div>
+                    <div class="pro-user mt-3">
+                        <h5 class="pro-user-username text-dark mb-1 fs-16">Faith Harris</h5>
+                        <h6 class="pro-user-desc text-muted fs-12">Web Designer</h6>
+                    </div>
+                </div> -->
+                <div class="table-responsive mt-5">
+                    <table class="table mb-0 " style="height: 650px;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="w-50">{{'Assign To'|dic}}</span>
+                                </td>
+                                <td>:</td>
+                                <td colspan="2">
+                                    <div class="avatar-list avatar-list-stacked ms-auto">
+                                        <span *ngFor="let member of model.members" class="avatar brround" placement="top" [ngbTooltip]="member?.assign_to?.full_name"
+                                            style="background-image: url({{userPhotoRoute+member?.assign_to?.profile_photo}})"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="w-50">{{'Unit'|dic}}</span>
+                                </td>
+                                <td>:</td>
+                                <td colspan="2">
+                                    <span class="font-weight-semibold">{{model.unit?.name}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="w-50">{{'Title'|dic}}</span>
+                                </td>
+                                <td>:</td>
+                                <td colspan="2">
+                                    <span class="font-weight-semibold">{{model.task_title}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="w-50">{{'Start date'|dic}}</span>
+                                </td>
+                                <td>:</td>
+                                <td colspan="2">
+                                    <span class="font-weight-semibold">{{model.from|date:'dd-MM-YYY HH:mm'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="w-50">{{'Dead line'|dic}}</span>
+                                </td>
+                                <td>:</td>
+                                <td colspan="2">
+                                    <span class="font-weight-semibold">{{model.to|date:'dd-MM-YYY HH:mm'}}</span>
+                                </td>
+                             </tr>
+                            <tr>
+                                <td>
+                                    <span class="w-50">{{'Time taken'|dic}}</span>
+                                </td>
+                                <td>:</td>
+                                <td >
+                                    <label for="">{{'Hours'|dic}}</label>
+                                    <input  type="number" [disabled]="model.approved" class="form-control" [(ngModel)]="model.hour_taken" placeholder="{{'2'}}">
+                                </td>
+                                <td >
+                                    <label for="">{{"Minute(s)"|dic}}</label>
+                                    <input  type="number" [disabled]="model.approved" class="form-control" [(ngModel)]="model.time_taken" placeholder="{{'2'}}">
+                                </td>
+                             </tr>
+ 
+                             <tr>
+                                    <td>
+                                        <span class="w-50">{{'Task Priority'|dic}}</span>
+                                    </td>
+                                    <td>:</td>
+                                    <td colspan="2">
+                                        <ng-select  *ngIf="!model.approved"  [items]="priorityOptions" bindLabel="label" [disabled]="component == 'update' && !update" bindValue="value" placeholder="{{'Select Priority'|dic}}" class="form-control custom-select" [(ngModel)]="model.priority">
+                                            <ng-template class="d-flex" ng-option-tmp let-item="item" let-index="index">
+                                                <div class="d-flex">
+                                                    <i   class="ml-2 mr-3 mdi mdi-alert-circle mx-3 {{'text-'+item.color}}"></i>
+                                                    <span >{{item.label}}</span>
+                                                </div>
+                                            </ng-template>
+                                        </ng-select>
+                                        <span  *ngIf="model.approved"  class="badge badge-{{priorityColor(model.priority)}}-light">{{model.priority|dic}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="w-50">{{'Status'|dic}}</span>
+                                    </td>
+                                    <td>:</td>
+                                    <td colspan="2">
+                                        <ng-select  *ngIf="!model.approved" [items]="statusOptions" bindLabel="label" [disabled]="component == 'update' && !update" bindValue="value" placeholder="{{'Select status'|dic}}" class="form-control custom-select" [(ngModel)]="model.status">
+                                            <ng-template class="d-flex" ng-option-tmp let-item="item" let-index="index">
+                                                <div class="d-flex">
+                                                    <span class="{{'bg-'+item.color}}" class="dot-label1 mx-3 me-2 mt-1"></span>
+                                                    <span>{{item.label}}</span>
+                                                </div>
+                                            </ng-template>
+                                        </ng-select>
+
+                                        <span  *ngIf="model.approved" class="tag tag-{{statusColor(model.status)}}">{{model.status|dic}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group" *ngIf="!model.approved">
+                    <label class="form-label">{{'Progress'|dic}}</label>
+                    <ngx-slider class="slider1" [(value)]="model.progress" [options]="sliderOptions"></ngx-slider>
+                </div>
+                <div  *ngIf="model.approved" class="d-flex align-items-end justify-content-between mt-5">
+                    <h6 class="">{{'Progress'|dic}}</h6>
+                    <h6 class="font-weight-bold mb-1">{{model.progress}}%</h6>
+                </div>
+                <ngb-progressbar  *ngIf="model.approved" height="0.5rem" class="mb-3 h-10"  [striped]="true" [animated]="true" [showValue]="true"  [type]="progressColor(model.progress)"   [value]="model.progress"></ngb-progressbar>
+                <div class="card-footer text-end" *ngIf="!model.approved">
+                    <a href="javascript:;" class="btn btn-success btn-lg" (click)="save()">{{'Submit'|dic}}</a>
+                </div>
+         
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="tab-menu-heading hremp-tabs p-0 ">
+            <div class="tabs-menu1">
+                <!-- Tabs -->
+                <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="panel-tabs">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink>{{'Details'|dic}}</a>
+                        <ng-template ngbNavContent>
+                            <div class="tab-pane">
+                                <div class="card-body">
+                                    <h5 class="mb-4 font-weight-semibold">{{'Description'|dic}}</h5>
+                                    <div class="main-profile-bio mb-0">
+                                        <p style="white-space: pre-wrap">{{model.description}}</p>
+                                        <!-- <h5 class="mb-4 mt-5 font-weight-semibold">Attachments</h5>
+                                        <div class="row attachments-doc">
+                                            <div class="col-md-12 col-xl-4">
+                                                <div class="list-group-item  align-items-center">
+                                                    <div class="d-md-flex">
+                                                        <img src="./assets/images/files/attachments/2.png" alt="img" class="avatar bg-transparent avatar-xl">
+                                                        <a href="javascript:;" class="font-weight-semibold fs-14 mt-5">document.pdf<span class="text-muted ms-2">(23 KB)</span></a>
+                                                        <div class="ms-auto d-flex mt-4 text-end">
+                                                            <a href="javascript:;" class="action-btns1"><i class="feather feather-download-cloud text-primary"></i></a>
+                                                            <a href="javascript:;" class="action-btns1  me-0"><i class="feather feather-trash-2 text-danger"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-xl-4 mt-4 mt-xl-0">
+                                                <div class="list-group-item  align-items-center">
+                                                    <div class="d-md-flex">
+                                                        <img src="./assets/images/files/attachments/4.png" alt="img" class="avatar bg-transparent avatar-xl">
+                                                        <a href="javascript:;" class="font-weight-semibold fs-14 mt-5">Project<span class="text-muted ms-2">(578.6MB)</span></a>
+                                                        <div class="ms-auto d-flex mt-4 text-end">
+                                                            <a href="javascript:;" class="action-btns1"><i class="feather feather-download-cloud text-primary"></i></a>
+                                                            <a href="javascript:;" class="action-btns1 me-0"><i class="feather feather-trash-2 text-danger"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-xl-4 mt-4 mt-xl-0">
+                                                <div class="list-group-item  align-items-center">
+                                                    <div class="d-md-flex">
+                                                        <img src="./assets/images/files/attachments/3.png" alt="img" class="avatar bg-transparent avatar-xl">
+                                                        <a href="javascript:;" class="font-weight-semibold fs-14 mt-5">files.doc<span class="text-muted ms-2">(2.67 KB)</span></a>
+                                                        <div class="ms-auto d-flex mt-4 text-end">
+                                                            <a href="javascript:;" class="action-btns1"><i class="feather feather-download-cloud text-primary"></i></a>
+                                                            <a href="javascript:;" class="action-btns1 me-0"><i class="feather feather-trash-2 text-danger"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink>{{'Attachments'|dic}}</a>
+                        <ng-template ngbNavContent>
+                            <div class="tab-pane">
+                                <div class="card-body attachments-doc">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-6 col-xl-6 col-xxl-4">
+                                            <div class="list-group-item  align-items-center">
+                                                <div class="  align-items-center text-center">
+                                                    <a  (click)="showmodalAttachment(addAttachment)" class="text-center fs-35 text-primary">
+                                                        <i class="fe feather-file-plus"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngFor="let attachment of model.attachments" class="col-md-12 col-lg-6 col-xl-6 col-xxl-4">
+                                            <div class="list-group-item  align-items-center">
+                                                <div class="d-flex">
+                                                    <img *ngIf="getFileExtention(attachment.file_name) == 'image'" [src]="endPoint+attachment.file_name" alt="img" class="avatar bg-transparent avatar-xl me-2">
+                                                    <i class="fa fa-file-pdf-o" style="font-size: 50px;"  *ngIf="getFileExtention(attachment.file_name) == 'pdf'"></i>
+                                                    <i class="fa fa-file-excel-o" style="font-size: 50px;"  *ngIf="getFileExtention(attachment.file_name) == 'xlsx'"></i>
+                                                    <i class="fa fa-file-word-o" style="font-size: 50px;"  *ngIf="getFileExtention(attachment.file_name) == 'doc'"></i>
+                                                    <a href="javascript:;" class="font-weight-semibold fs-14 mt-5">{{attachment.file_name.split('.')[attachment.file_name.split('.').length-1]}} </a>
+                                                    <div class="ms-auto d-flex mt-4 text-end">
+                                                        <a *ngIf="upload_attachment" (click)="downloadFile(attachment.file_name)" class="action-btns1"><i class="feather feather-download-cloud text-primary"></i></a>
+                                                        <a *ngIf="delete_attachment" (click)="setDeleteItem(deleteModal,attachment)" class="action-btns1  me-0"><i class="feather feather-trash-2 text-danger"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+
+                    <li [ngbNavItem]="3">
+                        <a ngbNavLink>{{'Comments'|dic}}</a>
+                        <ng-template ngbNavContent>
+                            <div class="tab-pane">
+                                <div class="card-body">
+                                    <div class="pt-4 pb-4 text-end" *ngIf="chat">
+                                        <a href="javascript:;"  (click)="showmodal(addCommentmodal)" class="btn btn-primary"> <i class="feather feather-plus"></i> {{'Add Comment'|dic}} </a>
+                                    </div>
+                                    <div class="card shadow-none border card-body" *ngIf="model.chat?.length == 0">
+                                  
+                                                <div class="container text-center">
+                                                    <div class="display-1 text-primary mb-5 font-weight-bold"><span class="ti ti-face-sad"></span></div>
+                                                    <h1 class="h3  mb-3 font-weight-semibold">{{'Comments not found, you can add your commect by click on add comment button'|dic}}</h1>
+                                                </div>
+                                    </div>
+                                    <div class="card shadow-none border" *ngFor="let comment of model.chat;let i = index">
+                                        <!-- <div class="card-header" *ngIf="comment.creator._id == userInfo._id">
+                                            <div class="card-options">
+                                                <a (click)="WarningOpen(warningmodal,comment)" class="action-btns1">
+                                                    <i class="feather feather-trash-2 text-danger" data-bs-toggle="tooltip" title="feather-trash"></i>
+                                                </a>
+                                            </div>
+                                        </div> -->
+                                        <div class="d-sm-flex p-5">
+                                            <div class="d-flex me-3">
+                                                <a href="javascript:;"><img class="media-object brround avatar-lg" alt="64x64" src="{{userPhotoRoute+comment?.creator?.profile_photo}}"> </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <h5 class="mt-1 mb-1 font-weight-semibold">{{comment?.creator?.full_name}}</h5>
+                                                <small class="text-muted"><i class="fa fa-clock-o"></i><span class="mx-2 ms-3  me-3">{{comment.created_at|date:'dd-MM-YYY HH:mm'}}</span></small>
+                                                <p class="fs-13 mb-2 mt-1" style="white-space: pre-wrap;">
+                                                    {{comment.description}}
+                                                </p>
+                                              
+                                            </div>
+                                            <div class="card-options">
+                                                <a (click)="WarningOpen(warningmodal,comment,i)" *ngIf="comment.creator._id == userInfo._id && (i+1) == model.chat.length" class="action-btns1">
+                                                    <i class="feather feather-trash-2 text-danger" data-bs-toggle="tooltip" title="feather-trash"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         </ng-template>
+                    </li>
+                    <li [ngbNavItem]="4">
+                        <a ngbNavLink>{{'Logs'|dic}}</a>
+                        <ng-template ngbNavContent>
+                            <div class="tab-pane">
+                                <div   class="mt-4"  *ngIf="notifications?.length > 0">
+                                    <div class="card-body" >
+                                        <div class="list-group-item  align-items-center  border-bottom" *ngFor="let item of notifications;let i = index">
+                                            <div class="d-flex"  >
+                                                <img [src]="userPhoto+item.creator_profile" alt="img" class="avatar avatar-xl " style="border-radius: 50%;">
+                                                
+                                                <div class="mt-1 me-3"></div>
+                                                <div class="mt-1 me-3">
+                                                    <h6 class="font-weight-normal fs-16">{{item.creator}} </h6>
+                                                    <span class="clearfix"></span>
+                                                    <span class="text-muted font-weight-normal fs-16">{{item.task_name }} </span>
+                                                    <span class="clearfix"></span>
+                                                    <span class="text-muted mt-1 fs-13 ms-auto">
+                                                        <span class="badge badge-{{statusColor(item.status_from)}}"> {{item.status_from|dic}}</span>
+                                                        <i class="mdi mdi-arrow-{{lang == 'en'?'right':'left'}}"></i>
+                                                        <span class="badge badge-{{statusColor(item.status_to)}}"> {{item.status_to|dic}}</span>
+                                                    </span>
+                                                   
+                                                </div>
+                                                <div class="text-muted fs-13 ms-auto">
+                                                    <span class="text-muted fs-13 ms-auto"><i class="mdi mdi-clock text-muted me-1"></i>{{item.date|date: 'yyyy-MM-dd HH:mm'}}</span>
+                                                    <span class="clearfix"></span>
+                                                    <span class="text-muted fs-13 ms-auto"><i class="fa fa-building-O text-muted me-1"></i>{{item.unit}}</span>
+                                                    <span class="clearfix"></span>
+                                                    <span class="text-muted fs-13 ms-auto">
+                                                        <span class="badge badge-{{progressColor(item.progress_from)}}"> %{{item.progress_from}}</span>
+                                                        <i class="mdi mdi-arrow-{{lang == 'en'?'right':'left'}}"></i>
+                                                        <span class="badge badge-{{progressColor(item.progress_to)}}"> %{{item.progress_to}}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 
+                                </div>
+                            </div>
+                         </ng-template>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="panel-body tabs-menu-body hremp-tabs1 p-0">
+            <div [ngbNavOutlet]="nav"></div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #deleteModal let-modal>
+    <!-- Warning MODAL -->
+    <div class="modal-body text-center p-4">
+        <button type="button" id="close-delete" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- <i class="fe fe-x-circle fs-70 text-danger lh-1 mb-4 d-inline-block"></i> -->
+        <i class="fe fe-trash fs-70 text-danger lh-1 mb-4 d-inline-block"></i>
+        <h4 class="tx-danger mg-b-20">{{'Do you want to delete these data?'|dic}}</h4>
+        <p class="mg-b-20 mg-x-20"> {{'When you approve it, this Data will be deleted'|dic}} </p>
+        <button type="button" class="btn btn-danger pd-x-25 me-0" (click)="deleteAttachment(selected_item)" (click)="modal.close('Close click')">{{'Yes'|dic}}</button>
+    </div>
+</ng-template>
+
+<!-- End Row-->
+<ng-template #addCommentmodal let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">{{'Add Comment'|dic}}</h6>
+        <button type="button" class="btn add-btn-close" id="add-btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center p-4">
+        <form class="form-horizontal row">
+            <div class="form-group row">
+                <label class="col-md-3 form-label">{{'Comment'|dic}}</label>
+                <div class="col-md-9">
+                    <textarea class="form-control" rows="6" [ngModelOptions]="{standalone: true}" [(ngModel)]="newComment.description" name="description" placeholder="0" id="description"
+                        name="description" class="form-control"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="dimmer active" [ngStyle]="{'display':  isLoading?'block':'none'}">
+            <div class="sk-circle">
+                <div class="sk-circle1 sk-child"></div>
+                <div class="sk-circle2 sk-child"></div>
+                <div class="sk-circle3 sk-child"></div>
+                <div class="sk-circle4 sk-child"></div>
+                <div class="sk-circle5 sk-child"></div>
+                <div class="sk-circle6 sk-child"></div>
+                <div class="sk-circle7 sk-child"></div>
+                <div class="sk-circle8 sk-child"></div>
+                <div class="sk-circle9 sk-child"></div>
+                <div class="sk-circle10 sk-child"></div>
+                <div class="sk-circle11 sk-child"></div>
+                <div class="sk-circle12 sk-child"></div>
+            </div>
+        </div>
+        <button class="btn ripple btn-primary" (click)="addComment()" type="button">{{'Save'|dic}}</button>
+        <button type="button" id="closeUpdate" class="btn ripple btn-danger" (click)="modal.close('Close click')">{{'Close'|dic}}</button>
+    </div>
+</ng-template>
+
+<ng-template #addAttachment let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">{{'Add Attachment'|dic}}</h6>
+        <button type="button" class="btn add-btn-close" id="add-btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center p-4">
+        <form class="form-horizontal row">
+            <div class="form-group row">
+                <div class="form-group">
+                    <label class="form-label">{{'File name'|dic}}</label>
+                    <input class="form-control" [(ngModel)]="attachmentModel.file_name" [ngModelOptions]="{standalone: true}" name="file_name" type="text" placeholder="{{'File name'|dic}}">
+                </div>            
+            </div>
+            <div class="form-group row">
+                <div class="form-group">
+                    <label class="form-label">{{'File'|dic}}</label>
+                    <input class="form-control" (change)="onAttachmentChange($event)" [ngModelOptions]="{standalone: true}" type="file" placeholder="{{'File'|dic}}">
+                </div>            
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="dimmer active" [ngStyle]="{'display':  isLoadingAttachment == true?'block':'none'}">
+            <div class="sk-circle">
+                <div class="sk-circle1 sk-child"></div>
+                <div class="sk-circle2 sk-child"></div>
+                <div class="sk-circle3 sk-child"></div>
+                <div class="sk-circle4 sk-child"></div>
+                <div class="sk-circle5 sk-child"></div>
+                <div class="sk-circle6 sk-child"></div>
+                <div class="sk-circle7 sk-child"></div>
+                <div class="sk-circle8 sk-child"></div>
+                <div class="sk-circle9 sk-child"></div>
+                <div class="sk-circle10 sk-child"></div>
+                <div class="sk-circle11 sk-child"></div>
+                <div class="sk-circle12 sk-child"></div>
+            </div>
+        </div>
+        <button class="btn ripple btn-primary"  (click)="uploadFile()" type="button">{{'Save'|dic}}</button>
+        <button type="button" id="closeUpdate" class="btn ripple btn-danger" (click)="modal.close('Close click')">{{'Close'|dic}}</button>
+    </div>
+</ng-template>
+<ng-template #warningmodal let-modal>
+    <!-- Warning MODAL -->
+    <div class="modal-body text-center p-4">
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- <i class="fe fe-x-circle fs-70 text-danger lh-1 mb-4 d-inline-block"></i> -->
+        <i class="fe fe-trash fs-70 text-danger lh-1 mb-4 d-inline-block"></i>
+        <h4 class="tx-danger mg-b-20">{{'Do you want to delete these data?'|dic}}</h4>
+        <p class="mg-b-20 mg-x-20"> {{'When you approve it, this Data will be deleted'|dic}} </p>
+        <button type="button" class="btn btn-danger pd-x-25 me-0" (click)="deleteComment()" (click)="modal.close('Close click')">{{'Yes'|dic}}</button>
+    </div>
+</ng-template>
