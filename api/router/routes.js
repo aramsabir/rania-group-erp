@@ -7,6 +7,7 @@ const userCompanyController = require('../components/settings/user-company-role/
 const departmentController = require('../components/settings/department/controller')
 const basicDataController = require('../components/settings/basic-data/controller')
 const documentController = require('../components/document/controller')
+const recruitmentController = require('../components/recruitment/controller')
 const resources = require('../components/event_and_resources/resources');
 
 var logController = require('../components/activities/logController')
@@ -28,6 +29,7 @@ module.exports = function (app) {
     //  users
     app.post('/employee', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeWrite) }, checkAccess, userController.newUser)
         .get('/employees', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeRead) }, checkAccess, userController.List)
+        .get('/employees-settings', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsRead) }, checkAccess, userController.ListSettings)
         .put('/employee', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeUpdate) }, checkAccess, userController.editUser)
         .delete('/employee', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeDelete) }, checkAccess, userController.delete)
         .get('/employee-one', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeRead) }, checkAccess, userController.FindOne)
@@ -77,18 +79,18 @@ module.exports = function (app) {
         .post('/department', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, departmentController.New)
         .put('/department', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, departmentController.Update)
         .delete('/department', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, departmentController.Delete)
-   
+
     //     //  Attachments
     app.get('/employee-documents', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.DocumentRead) }, checkAccess, documentController.ListForEmployee)
-       .get('/count-employee-documents', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.DocumentRead) }, checkAccess, documentController.CountEmployeeDocuments)
+        .get('/count-employee-documents', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.DocumentRead) }, checkAccess, documentController.CountEmployeeDocuments)
         // .get('/available_job_titles', checkExpireToken, AddQueryData, jobTitleController.Available)
         // .get('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.One)
-        .post('/document', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.DocumentWrite) }, checkAccess,documentController.upload, documentController.New)
-        .get('/download-document',  documentController.downloadDoc)
+        .post('/document', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.DocumentWrite) }, checkAccess, documentController.upload, documentController.New)
+        .get('/download-document', documentController.downloadDoc)
         // .put('/job_title', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, jobTitleController.Update)
         .delete('/document', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.DocumentDelete) }, checkAccess, documentController.Delete)
-   
-        //  Basic Data
+
+    //  Basic Data
     app.get('/basic_datas', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.List)
         .get('/available_basic_datas', checkExpireToken, AddQueryData, basicDataController.Available)
         .get('/basic_data', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.One)
@@ -107,6 +109,31 @@ module.exports = function (app) {
         .put('/user_company', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsUpdate) }, checkAccess, userCompanyController.Update)
         .put('/user_company_resources', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsUpdate) }, checkAccess, userCompanyController.UpdateResources)
         .delete('/user_company', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.SettingsUpdate) }, checkAccess, userCompanyController.Delete)
+
+
+
+    // recruitment api 
+
+    app.post('/recruitments', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsRead) }, checkAccess, recruitmentController.allData)
+        .get('/recruitment', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsRead) }, checkAccess, recruitmentController.getOne)
+        .post('/post-board', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsRead) }, checkAccess, recruitmentController.postBoard)
+        .post('/recruitment-candidates', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsWrite) }, checkAccess, recruitmentController.UploadCandidates)
+        .post('/change-level-candidate', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsUpdate) }, checkAccess, recruitmentController.updateLevel)
+        .post('/update-candidate', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsUpdate) }, checkAccess, recruitmentController.updateCandidate)
+        .get('/recruitment-for-edit', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsRead) }, checkAccess, recruitmentController.findByID)
+        .get('/recruitment', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsRead) }, checkAccess, recruitmentController.findOne)
+        .post('/recruitment', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsWrite) }, checkAccess, recruitmentController.newData)
+        .put('/recruitment', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsUpdate) }, checkAccess, recruitmentController.updateData)
+        .post('/undo-approve-recruitment', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsApprove) }, checkAccess, recruitmentController.undoApprovePost)
+        .post('/approve-recruitment', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsApprove) }, checkAccess, recruitmentController.approvePost)
+        .delete('/recruitment', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsDelete) }, checkAccess, recruitmentController.delete)
+        .post('/post-attachment', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsUpdate) }, checkAccess, recruitmentController.UploadCV)
+        .delete('/post-attachment', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.RecruitmentsDelete) }, checkAccess, recruitmentController.removeCV)
+        .get('/download-post-attachment', recruitmentController.downloadFile)
+
+        .post('/recruitments/post-attachment-public', recruitmentController.uploadPublic, recruitmentController.UploadCVPublic)
+        .get('/recruitments/post', recruitmentController.onePosttForPublic)
+        .get('/recruitments/posts', recruitmentController.availablePoststForPublic)
 
 
 

@@ -404,12 +404,65 @@ exports.List = async (req, res) => {
   let sort = req.query.sort;
 
   // console.log(req.query.search_companies );
+  var searchPermissions = {}
+  if(req.query.resources.split(',').includes('employee:admin')){
+    searchPermissions = {}
+  }else{
+    searchPermissions = {
+      $or:[
+        {_id: req.query.userID},
+        {coach_id: req.query.userID},
+        {manager_id: req.query.userID}
+,      ] 
+    }
+  }
 
+  
+  
 
-  await User.find({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } }, { main_company_id: { $in: req.query.search_companies } }] })
+  await User.find({ $and: [{ deleted_at: null }, searchPermissions,{ main_company_id: { $in: req.query.company_permission } }, { main_company_id: { $in: req.query.search_companies } }] })
     .populate("main_company_id")
     .populate("department_id")
     .populate("job_title_id")
+    .populate({ path: "creator", select: { password: 0 } })
+    .select({ password: 0 })
+    .skip(skip)
+    .limit(limit)
+    .sort(sort)
+    .exec(function (err, response) {
+      if (response) {
+        User.countDocuments({ $and: [{ deleted_at: null },searchPermissions, { main_company_id: { $in: req.query.company_permission } }, { main_company_id: { $in: req.query.search_companies } }] }).exec(function (err, count) {
+          res.json({
+            status: true,
+            data: response,
+            count: count,
+          });
+        });
+      } else {
+        console.log(err);
+        res.json({ status: false })
+      }
+    });
+};
+
+exports.ListSettings = async (req, res) => {
+
+
+
+  let skip = parseInt(req.query.skip);
+  let limit = parseInt(req.query.limit);
+  let sort = req.query.sort;
+
+
+
+  
+
+  await User.find({ $and: [{ deleted_at: null },{ main_company_id: { $in: req.query.company_permission } }, { main_company_id: { $in: req.query.search_companies } }] })
+    .populate("main_company_id")
+    .populate("department_id")
+    .populate("job_title_id")
+    .populate("coach_id")
+    .populate("manager_id")
     .populate({ path: "creator", select: { password: 0 } })
     .select({ password: 0 })
     .skip(skip)
@@ -425,7 +478,6 @@ exports.List = async (req, res) => {
           });
         });
       } else {
-        console.log(err);
         res.json({ status: false })
       }
     });

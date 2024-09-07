@@ -123,6 +123,13 @@ export class MainHeaderComponent implements OnInit {
     } else return false;
   }
 
+  setCompanyAll(){
+    console.log('setCompany')
+  }
+  allCompaniesSelected(){
+    return false
+  }
+
   setCompany(id: any, name: any, image: any) {
     id = id + '';
     var comapnies: any = localStorage.getItem(MainConsts.Company)?.split(',');

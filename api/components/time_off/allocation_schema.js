@@ -1,11 +1,12 @@
 
 var mongoose = require('mongoose');
+const { leaveTypes } = require('../event_and_resources/constants');
 mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema({
     company_id: { type: mongoose.Schema.ObjectId, ref: 'Company', default: null },
     department_id: { type: mongoose.Schema.ObjectId, ref: 'Department', default: null },
     employee_id: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
-    leave_type: { type: String, default: "Yearly balance", enum: ['Yearly balance', 'Sick balance','Study balance', 'Work balance', 'Unpaid', 'Maternity balance', 'Paternity balance', 'Marriage balance'] },
+    leave_type: { type: String, default: "Yearly balance", enum: leaveTypes },
     hours: { type: Number, default: 0 },
     editor: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
     creator: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },

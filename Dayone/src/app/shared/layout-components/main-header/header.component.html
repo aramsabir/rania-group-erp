@@ -64,9 +64,18 @@
                   <span *ngIf="selected_company?.length == 0 ">{{'Select your company'|dic}} </span>
                 </h5>
                 <div ngbDropdownMenu class="dropdown-menu-end dropdown-menu-arrow animated">
+                  <!-- <a (click)="setCompanyAll()"  href="javascript:;"  ngbDropdownItem class="d-flex px-0 justify-content-arround">  
+                    <div  class="d-flex w-100" style="justify-content: space-between"> 
+                      <span class="mx-4 my-auto h6">   {{'All'|dic}}</span> 
+                      <label class="custom-control custom-checkbox" (click)="setCompanyAll()">
+                        <input type="checkbox"  (click)="setCompanyAll()" class="custom-control-input" name="example-checkbox1" value="option1" [checked]="allCompaniesSelected()">
+                        <span class="custom-control-label"></span>
+                      </label>
+                    </div>
+                  </a> -->
                   <a (click)="setCompany(el._id,el.name,el.image)"  *ngFor="let el of my_companies"  href="javascript:;"  ngbDropdownItem class="d-flex px-0 justify-content-between">  
-                    <div class="d-flex w-100" style="justify-content: space-around"> 
-                      <img  *ngIf="el?.image" style="height:30px ;" [src]="endPoint+el?.image" alt="">
+                    <div class="d-flex w-100" style="justify-content: space-between"> 
+                      <img class="mx-4"  *ngIf="el?.image" style="height:30px ;" [src]="endPoint+el?.image" alt="">
                       <span class="my-auto h6">   {{el?.name}}</span> 
 
                       <label class="custom-control custom-checkbox" (click)="setCompany(el._id,el.name,el.image)">

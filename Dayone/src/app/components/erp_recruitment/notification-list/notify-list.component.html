@@ -1,0 +1,57 @@
+<app-bas-page-header [title]="'Notification list'" [routes]="bercumberRoutes" [actions]="actions"></app-bas-page-header>
+<!-- <app-bas-page-header [title]="'Transportations'" [routes]="bercumberRoutes" [actions]="actions"></app-bas-page-header> -->
+ 
+<!-- Container -->
+<div class="container">
+    <ul class="notification">
+        <li *ngFor="let item of notifications;let i = index"  >
+            <div class="notification-time">
+                <span class="date">{{item.date|date:'dd-MM-yyyy'}}</span>
+                <span class="time">{{item.date|date:'HH:mm'}}</span>
+            </div>
+            <div class="notification-icon"  >
+                <a  [ngClass]="{'bg-primary':!item.viewed}" href="javascript:void(0);"></a>
+            </div>
+            <div class="notification-time-date mb-2 d-block d-md-none">
+                <span class="date">{{item.date|date:'dd-MM-yyyy'}}</span>
+                <span class="time ms-2">{{item.date|date:'HH:mm'}}</span>
+            </div>
+            <div class=" notification-body" style="cursor: pointer;"  [routerLink]="['/task-managements/view-task']" [queryParams]="{_id:item.taskID,notification_id:item._id}" >
+                <div class="media mt-0">
+                    <div class="main-avatar avatar-md online">
+                        <img alt="avatar" class="br-7"  [src]="userPhoto+item.creator_profile" >
+                    </div>
+                    <div class="media-body ms-3 d-flex">
+                        <div class="">
+                            <p class="fs-15 text-dark fw-bold mb-0">{{item?.creator}}</p>
+                            <p class="mb-0 fs-13 text-dark">{{item.task_name|slice:0:30}}...</p>
+                        </div>
+                        <div class="mx-3">
+                            <p class="fs-10 text-dark fw-bold mb-0">{{item?.unit}}</p>
+                            <p class="mb-0 fs-13 text-dark">{{item.date|date:'dd-MM-yyyy'}}</p>
+                        </div>
+                        <div class="notify-time">
+                            <span class="text-muted fs-13 ms-auto">
+                                <span class="badge badge-{{statusColor(item.status_from)}}"> {{item.status_from|dic}}</span>
+                                <i class="mdi mdi-arrow-{{lang == 'en'?'right':'left'}}"></i>
+                                <span class="badge badge-{{statusColor(item.status_to)}}"> {{item.status_to|dic}}</span>
+                            </span>
+                            <span class="clearfix"></span>
+                            <span class="text-muted fs-13 ms-auto">
+                                <span class="badge badge-{{progressColor(item.progress_from)}}"> %{{item.progress_from}}</span>
+                                <i class="mdi mdi-arrow-{{lang == 'en'?'right':'left'}}"></i>
+                                <span class="badge badge-{{progressColor(item.progress_to)}}"> %{{item.progress_to}}</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+   
+    </ul>
+    <!-- <div class="text-center mb-4">
+            <button class="btn ripple btn-primary w-md">{{'Load more'|dic}}</button>
+        </div> -->
+</div>
+<!-- End Container -->
+<!-- /Row -->

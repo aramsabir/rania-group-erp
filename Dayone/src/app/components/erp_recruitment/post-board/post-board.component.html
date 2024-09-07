@@ -1,0 +1,1444 @@
+<app-bas-page-header [title]="pageTitle"
+                     [routes]="bercumberRoutes"
+                     [actions]="actions"></app-bas-page-header>
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">{{'Details'|dic}}</div>
+            <div class="card-options">
+                <div class="btn-list me-2">
+                    <span class="btn btn-sm btn-{{dataSource?.status=='Process'?'secondary':
+                    dataSource?.status=='Completed'?'success':'danger'}}">{{dataSource?.status|dic}}</span>
+                    <span class="btn btn-primary"
+                          routerLink="/recruitments/update"
+                          [queryParams]="{_id:dataSource._id}"><i class="feather feather-edit"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body row">
+            <div class="col-md-4">
+                <div class="table-responsive">
+                    <table class="table table-responsive-sm">
+                        <tr *ngIf="dataSource?.company_id">
+                            <td class="font-weight-bold">{{'Company'|dic}}</td>
+                            <td>{{dataSource?.company_id[lang=='en'?'name':'name']??''}}</td>
+                        </tr>
+                        <tr *ngIf="dataSource?.department_id">
+                            <td class="font-weight-bold">{{'Department'|dic}}</td>
+                            <td>{{dataSource?.department_id[lang=='en'?'name':'name']??''}}</td>
+                        </tr>
+                        <tr *ngIf="dataSource?.post_id">
+                            <td class="font-weight-bold">{{'Post'|dic}}</td>
+                            <td>{{dataSource?.post_id[lang=='en'?'name':'name']??''}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Gender'|dic}}</td>
+                            <td>{{dataSource?.gender|dic}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Salary'|dic}}</td>
+                            <td>{{dataSource?.salary|number}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Request type'|dic}}</td>
+                            <td>{{dataSource?.request_type|dic}}</td>
+                        </tr>
+                        <!-- <tr *ngIf="dataSource?.grade_id">
+                            <td class="font-weight-bold">{{'Grade'|dic}}</td>
+                            <td>{{dataSource?.grade_id[lang=='en'?'name':'name']??''}}</td>
+                        </tr> -->
+                        <tr>
+                            <td class="font-weight-bold">{{'Deadline'|dic}}</td>
+                            <td>{{dataSource?.deadline|date:'dd-MM-yyyy HH:mm'}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="table-responsive">
+                    <table class="table table-responsive-sm">
+                   
+                        <tr>
+                            <td class="font-weight-bold">{{'Date request'|dic}}</td>
+                            <td>{{dataSource?.date_request|date:'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Date filled'|dic}}</td>
+                            <td>{{dataSource?.date_filled|date:'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Date quit'|dic}}</td>
+                            <td>{{dataSource?.date_quit|date:'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">{{'Hiring reason'|dic}}</td>
+                            <td>{{dataSource?.hiring_reason|dic}}</td>
+                        </tr>
+                        <tr *ngIf="dataSource?.hiring_reason == 'Alternative' && dataSource?.prev_emp_id?.name">
+                            <td class="font-weight-bold">{{'Employee'|dic}}</td>
+                            <td>{{dataSource?.prev_emp_id.name}}</td>
+                        </tr>
+                        <tr *ngIf="dataSource?.unfilled_reason_id">
+                            <td class="font-weight-bold">{{'Unfilled reason'|dic}}</td>
+                            <td>{{dataSource?.unfilled_reason_id[lang=='en'?'name':'name']??''}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h5 class="font-weight-bold">{{'Note'|dic}}</h5>
+                <p>{{dataSource.note}}</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="form-group mt-5">
+            <!-- <a (click)="search()" class="btn btn-primary btn-block">{{'Search'|dic}}</a> -->
+            <a (click)="showModal(largemodaladd,'add','Application')"
+               class="btn btn-primary btn-block">{{'Add new application'|dic}}</a>
+         
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="form-group mt-5">
+            <!-- <a (click)="search()" class="btn btn-primary btn-block">{{'Search'|dic}}</a> -->
+            <a [routerLink]="['/recruitments/upload-candidates']" [queryParams]="{_id:params._id}"
+            class="btn btn-danger btn-block">{{'Upload candidates throw excel file'|dic}}</a>
+         
+        </div>
+    </div>
+</div>
+<!-- Row -->
+<div class="examples">
+    <div class="parent1 row">
+        <div class="wrapper col-md-6 col-lg-4 col-xl-3">
+            <div class="card task-board-card">
+                <div class="card-header border-0">
+                    <h4 class="card-title mb-6">{{'Application'|dic}}</h4>
+                </div>
+                <div class="card-body task-board-body pt-0 task-hold">
+                    <perfect-scrollbar>
+                        <div dragula="DRAGULA_EVENTS"
+                             id="Application"
+                             *ngIf="dataSource.applications?.Application">
+                            <div [id]="item._id"
+                                 [zone]="'Application'"
+                                 [seq]="index"
+                                 *ngFor="let item of dataSource.applications?.Application;let index = index"
+                                 class="card ">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        {{item.candidate_name}}
+                                    </div>
+                                    <div class="card-options">
+                                        <div ngbDropdown
+                                             class="dropdown dropleft ms-auto">
+                                            <button aria-expanded="false"
+                                                    aria-haspopup="true"
+                                                    class="btn ripple p-0 no-caret"
+                                                    ngbDropdownToggle>
+                                                <i class="feather-more-horizontal fs-18"></i>
+                                            </button>
+                                            <ul ngbDropdownMenu
+                                                class="fs-13 dropdown-menu-end">
+                                                <li>
+                                                    <a (click)="showModal(largemodaladd,'edit',item)">
+                                                        <i class="feather feather-edit-2 me-2"></i>
+                                                        {{'Edit'|dic}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex  mb-1">
+                                        <a href="tel:{{item.phone}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-phone me-1"></i>{{item.phone}}
+                                        </a>
+                                    </div>
+                                    <div class="d-flex  mb-1">
+                                        <a href="mailto:{{item.email}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-mail me-1"></i>{{item.email}}
+                                        </a>
+                                    </div>
+
+                                    <p *ngIf="item.hiring_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Hiring date'|dic}} {{item?.hiring_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.joining_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Joining date'|dic}} {{item?.joining_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.probationary_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Probationary date'|dic}} {{item?.probationary_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Note'|dic}}: {{item?.note|slice:'0:40'}}
+                                    </p>
+
+                                    <div class="d-flex mt-4">
+                                        <div class="mt-1">
+                                            <span class="messages"
+                                                  style="cursor: pointer;" *ngIf="item.cv"
+                                                  (click)="openModal(viewmodal,item.cv)"><i class=" m-2 feather feather-file text-primary"></i> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+                <a (click)="showModal(largemodaladd,'add','Application')"
+                   class="btn btn-white  btn-lg addtaskbtn"
+                   data-bs-toggle="modal"
+                   data-bs-target="#addtaskmodal">
+                    <i class="fe fe-plus-circle"></i> {{'Add new application'|dic}}
+                </a>
+            </div>
+        </div>
+        <div class="wrapper col-md-6 col-lg-4 col-xl-3">
+            <div class="card task-board-card">
+                <div class="card-header border-0">
+                    <h4 class="card-title mb-6">{{'Screening'|dic}}</h4>
+                </div>
+                <div class="card-body task-board-body pt-0 task-in">
+                    <perfect-scrollbar>
+                        <div dragula="DRAGULA_EVENTS"
+                             id="Screening">
+                            <div [id]="item._id"
+                                 [seq]="index"
+                                 *ngFor="let item of dataSource.applications?.Screening;let index = index"
+                                 class="card ">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        {{item.candidate_name}}
+                                    </div>
+                                    <div class="card-options">
+                                        <div ngbDropdown
+                                             class="dropdown dropleft ms-auto">
+                                            <button aria-expanded="false"
+                                                    aria-haspopup="true"
+                                                    class="btn ripple p-0 no-caret"
+                                                    ngbDropdownToggle>
+                                                <i class="feather-more-horizontal fs-18"></i>
+                                            </button>
+                                            <ul ngbDropdownMenu
+                                                class="fs-13 dropdown-menu-end">
+                                                <li>
+                                                    <a (click)="showModal(largemodaladd,'edit',item)">
+                                                        <i class="feather feather-edit-2 me-2"></i>
+                                                        {{'Edit'|dic}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex  mb-1">
+                                        <a href="tel:{{item.phone}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-phone me-1"></i>{{item.phone}}
+                                        </a>
+                                    </div>
+                                    <div class="d-flex  mb-1">
+                                        <a href="mailto:{{item.email}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-mail me-1"></i>{{item.email}}
+                                        </a>
+                                    </div>
+
+                                    <p *ngIf="item.hiring_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Hiring date'|dic}} {{item?.hiring_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.joining_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Joining date'|dic}} {{item?.joining_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.probationary_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Probationary date'|dic}} {{item?.probationary_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Note'|dic}}: {{item?.note|slice:'0:40'}}
+                                    </p>
+
+                                    <div class="d-flex mt-4">
+                                        <div class="mt-1">
+                                            <span class="messages"
+                                                  style="cursor: pointer;" *ngIf="item.cv"
+                                                  (click)="openModal(viewmodal,item.cv)"><i class=" m-2 feather feather-file text-primary"></i> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+                <a (click)="showModal(largemodaladd,'add','Screening')"
+                   class="btn btn-white  btn-lg addtaskbtn"
+                   data-bs-toggle="modal"
+                   data-bs-target="#addtaskmodal">
+                    <i class="fe fe-plus-circle"></i> {{'Add new application'|dic}}
+                </a>
+            </div>
+        </div>
+        <div class="wrapper col-md-6 col-lg-4 col-xl-3">
+            <div class="card task-board-card">
+                <div class="card-header border-0">
+                    <h4 class="card-title mb-6">{{'Shortlist'|dic}}</h4>
+                </div>
+                <div class="card-body task-board-body pt-0 task-hold">
+                    <perfect-scrollbar>
+                        <div dragula="DRAGULA_EVENTS"
+                             id="Shortlist">
+                            <div [id]="item._id"
+                                 [seq]="index"
+                                 *ngFor="let item of dataSource.applications?.Shortlist;let index = index"
+                                 class="card ">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        {{item.candidate_name}}
+                                    </div>
+                                    <div class="card-options">
+                                        <div ngbDropdown
+                                             class="dropdown dropleft ms-auto">
+                                            <button aria-expanded="false"
+                                                    aria-haspopup="true"
+                                                    class="btn ripple p-0 no-caret"
+                                                    ngbDropdownToggle>
+                                                <i class="feather-more-horizontal fs-18"></i>
+                                            </button>
+                                            <ul ngbDropdownMenu
+                                                class="fs-13 dropdown-menu-end">
+                                                <li>
+                                                    <a (click)="showModal(largemodaladd,'edit',item)">
+                                                        <i class="feather feather-edit-2 me-2"></i>
+                                                        {{'Edit'|dic}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex  mb-1">
+                                        <a href="tel:{{item.phone}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-phone me-1"></i>{{item.phone}}
+                                        </a>
+                                    </div>
+                                    <div class="d-flex  mb-1">
+                                        <a href="mailto:{{item.email}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-mail me-1"></i>{{item.email}}
+                                        </a>
+                                    </div>
+
+                                    <p *ngIf="item.hiring_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Hiring date'|dic}} {{item?.hiring_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.joining_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Joining date'|dic}} {{item?.joining_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.probationary_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Probationary date'|dic}} {{item?.probationary_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Note'|dic}}: {{item?.note|slice:'0:40'}}
+                                    </p>
+
+                                    <div class="d-flex mt-4">
+                                        <div class="mt-1">
+                                            <span class="messages"
+                                                  style="cursor: pointer;" *ngIf="item.cv"
+                                                  (click)="openModal(viewmodal,item.cv)"><i class=" m-2 feather feather-file text-primary"></i> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+                <a (click)="showModal(largemodaladd,'add','Shortlist')"
+                   class="btn btn-white  btn-lg addtaskbtn"
+                   data-bs-toggle="modal"
+                   data-bs-target="#addtaskmodal">
+                    <i class="fe fe-plus-circle"></i> {{'Add new application'|dic}}
+                </a>
+            </div>
+        </div>
+        <div class="wrapper col-md-6 col-lg-4 col-xl-3">
+            <div class="card task-board-card">
+                <div class="card-header border-0">
+                    <h4 class="card-title mb-6">{{'Phone screen'|dic}}</h4>
+                </div>
+                <div class="card-body task-board-body pt-0 task-hold">
+                    <perfect-scrollbar>
+                        <div dragula="DRAGULA_EVENTS"
+                             id="Phone screen"
+                             *ngIf="dataSource.applications">
+                            <div [id]="item._id"
+                                 [seq]="index"
+                                 *ngFor="let item of dataSource.applications['Phone screen'];let index = index"
+                                 class="card ">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        {{item.candidate_name}}
+                                    </div>
+                                    <div class="card-options">
+                                        <div ngbDropdown
+                                             class="dropdown dropleft ms-auto">
+                                            <button aria-expanded="false"
+                                                    aria-haspopup="true"
+                                                    class="btn ripple p-0 no-caret"
+                                                    ngbDropdownToggle>
+                                                <i class="feather-more-horizontal fs-18"></i>
+                                            </button>
+                                            <ul ngbDropdownMenu
+                                                class="fs-13 dropdown-menu-end">
+                                                <li>
+                                                    <a (click)="showModal(largemodaladd,'edit',item)">
+                                                        <i class="feather feather-edit-2 me-2"></i>
+                                                        {{'Edit'|dic}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex  mb-1">
+                                        <a href="tel:{{item.phone}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-phone me-1"></i>{{item.phone}}
+                                        </a>
+                                    </div>
+                                    <div class="d-flex  mb-1">
+                                        <a href="mailto:{{item.email}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-mail me-1"></i>{{item.email}}
+                                        </a>
+                                    </div>
+
+                                    <p *ngIf="item.hiring_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Hiring date'|dic}} {{item?.hiring_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.joining_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Joining date'|dic}} {{item?.joining_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.probationary_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Probationary date'|dic}} {{item?.probationary_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Note'|dic}}: {{item?.note|slice:'0:40'}}
+                                    </p>
+
+                                    <div class="d-flex mt-4">
+                                        <div class="mt-1">
+                                            <span class="messages"
+                                                  style="cursor: pointer;" *ngIf="item.cv"
+                                                  (click)="openModal(viewmodal,item.cv)"><i class=" m-2 feather feather-file text-primary"></i> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+                <a (click)="showModal(largemodaladd,'add','Phone screen')"
+                   class="btn btn-white  btn-lg addtaskbtn"
+                   data-bs-toggle="modal"
+                   data-bs-target="#addtaskmodal">
+                    <i class="fe fe-plus-circle"></i> {{'Add new application'|dic}}
+                </a>
+            </div>
+        </div>
+        <div class="wrapper col-md-6 col-lg-4 col-xl-3">
+            <div class="card task-board-card">
+                <div class="card-header border-0">
+                    <h4 class="card-title mb-6">{{'Interview'|dic}}</h4>
+                </div>
+                <div class="card-body task-board-body pt-0 task-hold">
+                    <perfect-scrollbar>
+                        <div dragula="DRAGULA_EVENTS"
+                             id="Interview">
+                            <div [id]="item._id"
+                                 [seq]="index"
+                                 *ngFor="let item of dataSource.applications?.Interview;let index = index"
+                                 class="card ">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        {{item.candidate_name}}
+                                    </div>
+                                    <div class="card-options">
+                                        <div ngbDropdown
+                                             class="dropdown dropleft ms-auto">
+                                            <button aria-expanded="false"
+                                                    aria-haspopup="true"
+                                                    class="btn ripple p-0 no-caret"
+                                                    ngbDropdownToggle>
+                                                <i class="feather-more-horizontal fs-18"></i>
+                                            </button>
+                                            <ul ngbDropdownMenu
+                                                class="fs-13 dropdown-menu-end">
+                                                <li>
+                                                    <a (click)="showModal(largemodaladd,'edit',item)">
+                                                        <i class="feather feather-edit-2 me-2"></i>
+                                                        {{'Edit'|dic}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex  mb-1">
+                                        <a href="tel:{{item.phone}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-phone me-1"></i>{{item.phone}}
+                                        </a>
+                                    </div>
+                                    <div class="d-flex  mb-1">
+                                        <a href="mailto:{{item.email}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-mail me-1"></i>{{item.email}}
+                                        </a>
+                                    </div>
+
+                                    <p *ngIf="item.hiring_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Hiring date'|dic}} {{item?.hiring_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.joining_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Joining date'|dic}} {{item?.joining_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.probationary_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Probationary date'|dic}} {{item?.probationary_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Note'|dic}}: {{item?.note|slice:'0:40'}}
+                                    </p>
+
+                                    <p>
+                                        {{"Interview type"|dic}}:
+                                        <span class="badge badge-md badge-info-light mb-2">{{item.interview_type|dic}}</span>
+                                    </p>
+
+                                    <div class="d-flex mt-4">
+                                        <div class="mt-1">
+                                            <span class="messages"
+                                                  style="cursor: pointer;" *ngIf="item.cv"
+                                                  (click)="openModal(viewmodal,item.cv)"><i class=" m-2 feather feather-file text-primary"></i> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+                <a (click)="showModal(largemodaladd,'add','Interview')"
+                   class="btn btn-white  btn-lg addtaskbtn"
+                   data-bs-toggle="modal"
+                   data-bs-target="#addtaskmodal">
+                    <i class="fe fe-plus-circle"></i> {{'Add new application'|dic}}
+                </a>
+            </div>
+        </div>
+        <div class="wrapper col-md-6 col-lg-4 col-xl-3">
+            <div class="card task-board-card">
+                <div class="card-header border-0">
+                    <h4 class="card-title mb-6">{{'Second round interview'|dic}}</h4>
+                </div>
+                <div class="card-body task-board-body pt-0 task-hold">
+                    <perfect-scrollbar>
+                        <div dragula="DRAGULA_EVENTS"
+                             id="Second round interview"
+                             *ngIf="dataSource.applications">
+                            <div [id]="item._id"
+                                 [seq]="index"
+                                 *ngFor="let item of dataSource.applications['Second round interview'];let index = index"
+                                 class="card ">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        {{item.candidate_name}}
+                                    </div>
+                                    <div class="card-options">
+                                        <div ngbDropdown
+                                             class="dropdown dropleft ms-auto">
+                                            <button aria-expanded="false"
+                                                    aria-haspopup="true"
+                                                    class="btn ripple p-0 no-caret"
+                                                    ngbDropdownToggle>
+                                                <i class="feather-more-horizontal fs-18"></i>
+                                            </button>
+                                            <ul ngbDropdownMenu
+                                                class="fs-13 dropdown-menu-end">
+                                                <li>
+                                                    <a (click)="showModal(largemodaladd,'edit',item)">
+                                                        <i class="feather feather-edit-2 me-2"></i>
+                                                        {{'Edit'|dic}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex  mb-1">
+                                        <a href="tel:{{item.phone}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-phone me-1"></i>{{item.phone}}
+                                        </a>
+                                    </div>
+                                    <div class="d-flex  mb-1">
+                                        <a href="mailto:{{item.email}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-mail me-1"></i>{{item.email}}
+                                        </a>
+                                    </div>
+
+                                    <p *ngIf="item.hiring_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Hiring date'|dic}} {{item?.hiring_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.joining_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Joining date'|dic}} {{item?.joining_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.probationary_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Probationary date'|dic}} {{item?.probationary_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Note'|dic}}: {{item?.note|slice:'0:40'}}
+                                    </p>
+
+                                    <div class="d-flex mt-4">
+                                        <div class="mt-1">
+                                            <span class="messages"
+                                                  style="cursor: pointer;" *ngIf="item.cv"
+                                                  (click)="openModal(viewmodal,item.cv)"><i class=" m-2 feather feather-file text-primary"></i> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+                <a (click)="showModal(largemodaladd,'add','Second round interview')"
+                   class="btn btn-white  btn-lg addtaskbtn"
+                   data-bs-toggle="modal"
+                   data-bs-target="#addtaskmodal">
+                    <i class="fe fe-plus-circle"></i> {{'Add new application'|dic}}
+                </a>
+            </div>
+        </div>
+        <div class="wrapper col-md-6 col-lg-4 col-xl-3">
+            <div class="card task-board-card">
+                <div class="card-header border-0">
+                    <h4 class="card-title mb-6">{{'Offer'|dic}}</h4>
+                </div>
+                <div class="card-body task-board-body pt-0 task-hold">
+                    <perfect-scrollbar>
+                        <div dragula="DRAGULA_EVENTS"
+                             id="Offer">
+                            <div [id]="item._id"
+                                 [seq]="index"
+                                 *ngFor="let item of dataSource.applications?.Offer;let index = index"
+                                 class="card ">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        {{item.candidate_name}}
+                                    </div>
+                                    <div class="card-options">
+                                        <div ngbDropdown
+                                             class="dropdown dropleft ms-auto">
+                                            <button aria-expanded="false"
+                                                    aria-haspopup="true"
+                                                    class="btn ripple p-0 no-caret"
+                                                    ngbDropdownToggle>
+                                                <i class="feather-more-horizontal fs-18"></i>
+                                            </button>
+                                            <ul ngbDropdownMenu
+                                                class="fs-13 dropdown-menu-end">
+                                                <li>
+                                                    <a (click)="showModal(largemodaladd,'edit',item)">
+                                                        <i class="feather feather-edit-2 me-2"></i>
+                                                        {{'Edit'|dic}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex  mb-1">
+                                        <a href="tel:{{item.phone}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-phone me-1"></i>{{item.phone}}
+                                        </a>
+                                    </div>
+                                    <div class="d-flex  mb-1">
+                                        <a href="mailto:{{item.email}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-mail me-1"></i>{{item.email}}
+                                        </a>
+                                    </div>
+                                    <h6 *ngIf="item.offers.length> 0">{{'Offers'|dic}}: </h6>
+                                    <div class="d-flex  mb-1"
+                                         *ngFor="let el of item.offers;let o = index">
+                                        <p class="-13 text-muted mb-0">
+                                            <span> {{o+1}}</span>: {{el.salary}} {{el.note}}
+                                        </p>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <p class="fs-13 text-muted"> {{el.date|date:'dd-MM-yyyy'}}
+                                            <i class="feather feather-clock  me-2"></i>
+                                        </p>
+                                    </div>
+
+                                    <p *ngIf="item.hiring_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Hiring date'|dic}} {{item?.hiring_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.joining_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Joining date'|dic}} {{item?.joining_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.probationary_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Probationary date'|dic}} {{item?.probationary_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Note'|dic}}: {{item?.note|slice:'0:40'}}
+                                    </p>
+
+                                    <div class="d-flex mt-4">
+                                        <div class="mt-1">
+                                            <span class="messages"
+                                                  style="cursor: pointer;" *ngIf="item.cv"
+                                                  (click)="openModal(viewmodal,item.cv)"><i class=" m-2 feather feather-file text-primary"></i> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+                <a (click)="showModal(largemodaladd,'add','Offer')"
+                   class="btn btn-white  btn-lg addtaskbtn"
+                   data-bs-toggle="modal"
+                   data-bs-target="#addtaskmodal">
+                    <i class="fe fe-plus-circle"></i> {{'Add new application'|dic}}
+                </a>
+            </div>
+        </div>
+
+        <div class="wrapper col-md-6 col-lg-4 col-xl-3">
+            <div class="card task-board-card">
+                <div class="card-header border-0">
+                    <h4 class="card-title mb-6">{{'Hire'|dic}}</h4>
+                </div>
+                <div class="card-body task-board-body pt-0 task-hold">
+                    <perfect-scrollbar>
+                        <div dragula="DRAGULA_EVENTS"
+                             id="Hire">
+                            <div [id]="item._id"
+                                 [seq]="index"
+                                 *ngFor="let item of dataSource.applications?.Hire;let index = index"
+                                 class="card ">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        {{item.candidate_name}}
+                                    </div>
+                                    <div class="card-options">
+                                        <div ngbDropdown
+                                             class="dropdown dropleft ms-auto">
+                                            <button aria-expanded="false"
+                                                    aria-haspopup="true"
+                                                    class="btn ripple p-0 no-caret"
+                                                    ngbDropdownToggle>
+                                                <i class="feather-more-horizontal fs-18"></i>
+                                            </button>
+                                            <ul ngbDropdownMenu
+                                                class="fs-13 dropdown-menu-end">
+                                                <li>
+                                                    <a (click)="showModal(largemodaladd,'edit',item)">
+                                                        <i class="feather feather-edit-2 me-2"></i>
+                                                        {{'Edit'|dic}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex  mb-1">
+                                        <a href="tel:{{item.phone}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-phone me-1"></i>{{item.phone}}
+                                        </a>
+                                    </div>
+                                    <div class="d-flex  mb-1">
+                                        <a href="mailto:{{item.email}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-mail me-1"></i>{{item.email}}
+                                        </a>
+                                    </div>
+                                    <h6 *ngIf="item.offers.length> 0">{{'Offers'|dic}}: </h6>
+                                    <div class="d-flex  mb-1"
+                                         *ngFor="let el of item.offers;let o = index">
+                                        <p class="-13 text-muted mb-0">
+                                            <span> {{o+1}}</span>: {{el.salary}} {{el.note}}
+                                        </p>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <p class="fs-13 text-muted"> {{el.date|date:'dd-MM-yyyy'}}
+                                            <i class="feather feather-clock  me-2"></i>
+                                        </p>
+                                    </div>
+                                    <p *ngIf="item.hiring_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Hiring date'|dic}} {{item?.hiring_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.joining_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Joining date'|dic}} {{item?.joining_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.probationary_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Probationary date'|dic}} {{item?.probationary_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Note'|dic}}: {{item?.note|slice:'0:40'}}
+                                    </p>
+
+                                    <div class="d-flex mt-4">
+                                        <div class="mt-1">
+                                            <span class="messages"
+                                                  style="cursor: pointer;" *ngIf="item.cv"
+                                                  (click)="openModal(viewmodal,item.cv)"><i class=" m-2 feather feather-file text-primary"></i> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+                <a (click)="showModal(largemodaladd,'add','Hire')"
+                   class="btn btn-white  btn-lg addtaskbtn"
+                   data-bs-toggle="modal"
+                   data-bs-target="#addtaskmodal">
+                    <i class="fe fe-plus-circle"></i> {{'Add new application'|dic}}
+                </a>
+            </div>
+        </div>
+        <div class="wrapper col-md-6 col-lg-4 col-xl-3">
+            <div class="card task-board-card">
+                <div class="card-header border-0">
+                    <h4 class="card-title mb-6">{{'Probationary'|dic}}</h4>
+                </div>
+                <div class="card-body task-board-body pt-0 task-hold">
+                    <perfect-scrollbar>
+                        <div dragula="DRAGULA_EVENTS"
+                             id="Probationary">
+                            <div [id]="item._id"
+                                 [seq]="index"
+                                 *ngFor="let item of dataSource.applications?.Probationary;let index = index"
+                                 class="card ">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        {{item.candidate_name}}
+                                    </div>
+                                    <div class="card-options">
+                                        <div ngbDropdown
+                                             class="dropdown dropleft ms-auto">
+                                            <button aria-expanded="false"
+                                                    aria-haspopup="true"
+                                                    class="btn ripple p-0 no-caret"
+                                                    ngbDropdownToggle>
+                                                <i class="feather-more-horizontal fs-18"></i>
+                                            </button>
+                                            <ul ngbDropdownMenu
+                                                class="fs-13 dropdown-menu-end">
+                                                <li>
+                                                    <a (click)="showModal(largemodaladd,'edit',item)">
+                                                        <i class="feather feather-edit-2 me-2"></i>
+                                                        {{'Edit'|dic}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex  mb-1">
+                                        <a href="tel:{{item.phone}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-phone me-1"></i>{{item.phone}}
+                                        </a>
+                                    </div>
+                                    <div class="d-flex  mb-1">
+                                        <a href="mailto:{{item.email}}"
+                                           class="-13 text-muted mb-0">
+                                            <i class="fe feather-mail me-1"></i>{{item.email}}
+                                        </a>
+                                    </div>
+                                    <h6 *ngIf="item.offers.length> 0">{{'Offers'|dic}}: </h6>
+                                    <div class="d-flex  mb-1"
+                                         *ngFor="let el of item.offers;let o = index">
+                                        <p class="-13 text-muted mb-0">
+                                            <span> {{o+1}}</span>: {{el.salary}} {{el.note}}
+                                        </p>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <p class="fs-13 text-muted"> {{el.date|date:'dd-MM-yyyy'}}
+                                            <i class="feather feather-clock  me-2"></i>
+                                        </p>
+                                    </div>
+                                    <p *ngIf="item.hiring_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Hiring date'|dic}} {{item?.hiring_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.joining_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Joining date'|dic}} {{item?.joining_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p *ngIf="item.probationary_date"
+                                       style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Probationary date'|dic}} {{item?.probationary_date|date:'dd-MM-yyyy'}}
+                                    </p>
+                                    <p style="white-space:pre-line"
+                                       class="fs-13 mt-2 text-muted text-wrap">
+                                        {{'Note'|dic}}: {{item?.note|slice:'0:40'}}
+                                    </p>
+
+                                    <div class="d-flex mt-4"
+                                         *ngIf="item.cv">
+                                        <div class="mt-1">
+                                            <span class="messages"
+                                                  style="cursor: pointer;" *ngIf="item.cv"
+                                                  (click)="openModal(viewmodal,item.cv)"><i class=" m-2 feather feather-file text-primary"></i> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+                <a (click)="showModal(largemodaladd,'add','Probationary')"
+                   class="btn btn-white  btn-lg addtaskbtn"
+                   data-bs-toggle="modal"
+                   data-bs-target="#addtaskmodal">
+                    <i class="fe fe-plus-circle"></i> {{'Add new application'|dic}}
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- End Row-->
+
+<ng-template #largemodaladd
+             let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title"
+            id="modal-basic-title ">{{addModal?('Add'|dic):'Edit'|dic}}</h6>
+        <button type="button"
+                class="btn-close"
+                id="close-add"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal row"
+              (ngSubmit)="submitForm()">
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Level'|dic}}</label>
+                    <ng-select name="attendance"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="applicationModel.level"
+                               class="form-control custom-select">
+                        <ng-option *ngFor="let el of levels"
+                                   [value]="el.value">{{el.name|dic}}</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Candidate name'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.candidate_name"
+                           name="candidate_name"
+                           type="text"
+                           id="candidate_name">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Email'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.email"
+                           name="email"
+                           type="text"
+                           id="email">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Phone'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.phone"
+                           name="phone"
+                           type="text"
+                           id="phone">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Upload or existing'|dic}}</label>
+                    <ng-select name="attendance"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="applicationModel.is_selected"
+                               class="form-control custom-select">
+                        <ng-option [value]="true">{{'Existing'|dic}}</ng-option>
+                        <ng-option [value]="false">{{'Upload'|dic}}</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4"
+                 *ngIf="applicationModel.is_selected">
+                <div class="form-group">
+                    <label class="form-label">{{'CV file name'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.file_name_path"
+                           name="file_name_path"
+                           type="text"
+                           id="file_name_path">
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-xxl-4 col-lg-4"
+                 *ngIf="!applicationModel.is_selected">
+                <label class="form-label">{{'Attachment'|dic}} </label>
+                <input type="file"
+                       (change)="onAttachmentChange($event)"
+                       class="form-control">
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Interview type'|dic}}</label>
+                    <ng-select name="attendance"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="applicationModel.interview_type"
+                               class="form-control custom-select">
+                        <ng-option [value]="'In-person'">{{'In-person'|dic}}</ng-option>
+                        <ng-option [value]="'Online'">{{'Online'|dic}}</ng-option>
+                        <ng-option [value]="'On-phone'">{{'On-phone'|dic}}</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Reject reason'|dic}}</label>
+                    <ng-select name="attendance"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="applicationModel.reject_reason_id"
+                               class="form-control custom-select">
+                        <ng-option *ngFor="let item of reject_reasons"
+                                   [value]="item.value">{{item.label}}</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Status'|dic}}</label>
+                    <ng-select name="attendance"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="applicationModel.status"
+                               class="form-control custom-select">
+                        <ng-option [value]="true">{{'Yes'|dic}}</ng-option>
+                        <ng-option [value]="false">{{'No'|dic}}</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+
+            <div class="col-12 form-group row card-body">
+                <div class="col-11">
+                    <h5>{{'Offers'|dic}}</h5>
+                </div>
+                <div class="col-1">
+                    <a class="action-btns1"
+                       (click)="pushOffer()"><i class="fa fa-plus m-1  text-success"></i></a>
+                </div>
+                <div class="col-12 row"
+                     *ngFor="let offer of applicationModel.offers;let offerIndex = index">
+                    <div class="col-md-3 form-group">
+                        <label class="form-label">{{'Date'|dic}}</label>
+                        <input type="date"
+                               class="form-control "
+                               [(ngModel)]="applicationModel.offers[offerIndex].date"
+                               [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label class="form-label">{{'Salary'|dic}}</label>
+                        <input type="number"
+                               class="form-control "
+                               [(ngModel)]="applicationModel.offers[offerIndex].salary"
+                               [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">{{'Status'|dic}}</label>
+                        <ng-select name="attendance"
+                                   [ngModelOptions]="{standalone: true}"
+                                   [(ngModel)]="applicationModel.offers[offerIndex].status"
+                                   class="form-control custom-select">
+                            <ng-option [value]="true">{{'Yes'|dic}}</ng-option>
+                            <ng-option [value]="false">{{'No'|dic}}</ng-option>
+                        </ng-select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label class="form-label">{{'Note'|dic}}</label>
+                        <textarea class="form-control"
+                                  id="{{'note'}}"
+                                  name="{{'note'}}"
+                                  [(ngModel)]="applicationModel.offers[offerIndex].note"
+                                  [ngModelOptions]="{standalone: true}"></textarea>
+
+                    </div>
+
+                    <div class="col-1 form-group pt-6">
+
+                        <a class="action-btns1"
+                           (click)="removeOffer(offerIndex)"><i class="fa fa-minus m-1  text-danger"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="form-label">{{'Note'|dic}}</label>
+                    <textarea class="form-control"
+                              id="{{'note'}}"
+                              name="{{'note'}}"
+                              [(ngModel)]="applicationModel.note"
+                              [ngModelOptions]="{standalone: true}"></textarea>
+                </div>
+            </div>
+
+
+            <h3>{{'Dates'|dic}}</h3>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Application date'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.application_date"
+                           name="application_date"
+                           type="date"
+                           id="application_date">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Screening date'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.screening_date"
+                           name="screening_date"
+                           type="date"
+                           id="screening_date">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Shortlist date'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.shortlist_date"
+                           name="shortlist_date"
+                           type="date"
+                           id="shortlist_date">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Phone screen date'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.phone_screen_date"
+                           name="phone_screen_date"
+                           type="date"
+                           id="phone_screen_date">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Interview date'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.interview_date"
+                           name="interview_date"
+                           type="date"
+                           id="interview_date">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Second round interview date'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.second_round_interview_date"
+                           name="second_round_interview_date"
+                           type="date"
+                           id="second_round_interview_date">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Offer date'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.offer_date"
+                           name="offer_date"
+                           type="date"
+                           id="offer_date">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Hiring date'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.hiring_date"
+                           name="hiring_date"
+                           type="date"
+                           id="hiring_date">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Joining date'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.joining_date"
+                           name="joining_date"
+                           type="date"
+                           id="joining_date">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">{{'Probationary date'|dic}}</label>
+                    <input [ngModelOptions]="{standalone: true}"
+                           class="form-control"
+                           [(ngModel)]="applicationModel.probationary_date"
+                           name="probationary_date"
+                           type="date"
+                           id="probationary_date">
+                </div>
+            </div>
+
+
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <span class="me-2 btn text-danger">{{message|dic}}</span>
+        <div class="dimmer active"
+             [ngStyle]="{'display':  isLoading?'block':'none'}">
+            <div class="sk-circle">
+                <div class="sk-circle1 sk-child"></div>
+                <div class="sk-circle2 sk-child"></div>
+                <div class="sk-circle3 sk-child"></div>
+                <div class="sk-circle4 sk-child"></div>
+                <div class="sk-circle5 sk-child"></div>
+                <div class="sk-circle6 sk-child"></div>
+                <div class="sk-circle7 sk-child"></div>
+                <div class="sk-circle8 sk-child"></div>
+                <div class="sk-circle9 sk-child"></div>
+                <div class="sk-circle10 sk-child"></div>
+                <div class="sk-circle11 sk-child"></div>
+                <div class="sk-circle12 sk-child"></div>
+            </div>
+        </div>
+        <button *ngIf="addModal"
+                [disabled]="isLoading"
+                class="btn ripple btn-primary"
+                (click)="save()"
+                type="button">{{'Save'|dic}}</button>
+        <button *ngIf="editModal"
+                [disabled]="isLoading"
+                class="btn ripple btn-primary"
+                (click)="edit()"
+                type="button">{{'Save'|dic}}</button>
+        <button type="button"
+                [disabled]="isLoading"
+                id="closeInsert"
+                class="btn ripple btn-danger"
+                (click)="handleCancel('add')"
+                (click)="modal.close('Close click')">{{'Close'|dic}}</button>
+    </div>
+</ng-template>
+
+<ng-template #viewmodal
+             let-modal>
+    <div class="modal-header">
+        <button type="button"
+                class="btn-close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center p-4">
+
+        <div class="row mt-3">
+            <pdf-viewer *ngIf="getttachmentExtention(attachment) === 'pdf'"
+                        src="{{apiEndPoint+attachment}}"
+                        [render-text]="true"
+                        [original-size]="true"
+                        [zoom]="1"
+                        [fit-to-page]="true"
+                        style="display: block; height:100vh; width: 100%"></pdf-viewer>
+            <img *ngIf="getttachmentExtention(attachment) === 'image'"
+                 [src]="attachment? apiEndPoint+attachment : './assets/images/media/blog-details.jpg'"
+                 alt="img"
+                 class="rounded-5 w-100">
+            <i *ngIf="getttachmentExtention(attachment) === 'xlsx'"
+               style="size:70px"
+               class="fa fa-file-excel-o"
+               data-bs-toggle="tooltip"
+               title="fa fa-file-o"></i>
+            <ngx-doc-viewer viewer="mammoth"
+                            [url]="apiEndPoint+attachment"
+                            style="width:100%;height:auto;">
+            </ngx-doc-viewer>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #upload_candidates
+             let-modal>
+    <div class="modal-header">
+        <button type="button"
+                class="btn-close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center p-4">
+
+        <div class="row mt-3">
+            <div class="row">
+                <input type="file"  class="form-control" (change)="onFileChange($event)"  >
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <td *ngFor="let el of candidate_headers">{{el}}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of applicationsModel">
+                        <td >{{data.level}}</td>
+                        <td >{{data.candidate_name}}</td>
+                        <td >{{data.email}}</td>
+                        <td >{{data.phone}}</td>
+                        <td >{{data.interview_type}}</td>
+                        <td >{{data.application_date}}</td>
+                        <td >{{data.screening_date}}</td>
+                        <td >{{data.shortlist_date}}</td>
+                        <td >{{data.phone_screen_date}}</td>
+                        <td >{{data.interview_date}}</td>
+                        <td >{{data.second_round_interview_date}}</td>
+                        <td >{{data.offer_date}}</td>
+                        <td >{{data.hiring_date}}</td>
+                        <td >{{data.joining_date}}</td>
+                        <td >{{data.probationary_date}}</td>
+                        <td >{{data.note}}</td>
+                        <td >{{data.status}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-template>

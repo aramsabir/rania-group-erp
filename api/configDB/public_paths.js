@@ -8,7 +8,7 @@ module.exports = {
     // ProfilePhoto: "../../../../home/reports_data/images/profile_photos",
 
 
-    warningAttachments: "./public/warnings",
+    CVBankAttachment: "./public/cvs",
     activityAttachments: "./public/activities",
     visitAttachments: "./public/visits",
     accidentAttachments: "./public/accidents",

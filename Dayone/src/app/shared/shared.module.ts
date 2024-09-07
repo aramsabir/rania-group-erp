@@ -49,6 +49,8 @@ import { SidebarSettingsComponent } from './layout-components/sub_layouts/settin
 import { EmployeesContentComponent } from './layout-components/sub_layouts/employees/content/content.component';
 import { EmployeesHeaderComponent } from './layout-components/sub_layouts/employees/header/header.component';
 import { SidebarEmployeesComponent } from './layout-components/sub_layouts/employees/sidebar/sidebar.component';
+import { RecruitmentContentComponent } from './layout-components/sub_layouts/recruitments/content/content.component';
+import { SidebarRecruitmentComponent } from './layout-components/sub_layouts/recruitments/sidebar/sidebar.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -69,6 +71,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EmployeesContentComponent,
     EmployeesHeaderComponent,
     SidebarEmployeesComponent,
+
+    RecruitmentContentComponent,
+    SidebarRecruitmentComponent,
 
     MainHeaderComponent,
     MainContentComponent,

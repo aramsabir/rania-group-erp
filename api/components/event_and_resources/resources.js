@@ -1,6 +1,13 @@
 module.exports = {
  
 
+  RecruitmentsRead: "recruitment:read",
+  RecruitmentsWrite: "recruitment:add",
+  RecruitmentsUpdate: "recruitment:update",
+  RecruitmentsDelete: "recruitment:delete",
+  RecruitmentsApprove: "recruitment:approve",
+  RecruitmentsSalary: "recruitment:salary",
+
   SettingsRead: "setting:read",
   SettingsWrite: "setting:add",
   SettingsUpdate: "setting:update",

@@ -1,0 +1,278 @@
+<app-bas-page-header [title]="pageTitle"
+                     [routes]="bercumberRoutes"
+                     [actions]="actions"></app-bas-page-header>
+<!-- Row -->
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Company'|dic}}</label>
+                            <ng-select name="attendance"
+                                       [(ngModel)]="model.company_id"
+                                       [disabled]="component == 'update' && !update"
+                                       class="form-control custom-select">
+                                <ng-option *ngFor="let el of companies"
+                                           [value]="el._id">{{el.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Department'|dic}}</label>
+                            <ng-select name="department_id"
+                                       [(ngModel)]="model.department_id"
+                                       [disabled]="component == 'update' && !update"
+                                       class="form-control custom-select">
+                                <ng-option *ngFor="let el of departments"
+                                           [value]="el._id">{{el.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Post'|dic}}</label>
+                            <ng-select name="post_id"
+                                       [(ngModel)]="model.post_id"
+                                       [disabled]="component == 'update' && !update"
+                                       class="form-control custom-select">
+                                <ng-option *ngFor="let el of posts"
+                                           [value]="el._id">{{el.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Grade'|dic}}</label>
+                            <ng-select name="grade_id"
+                                       [(ngModel)]="model.grade_id"
+                                       [disabled]="component == 'update' && !update"
+                                       class="form-control custom-select">
+                                <ng-option *ngFor="let el of grades"
+                                           [value]="el._id">{{el.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div> -->
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Salary'|dic}}</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                </div><input class="form-control"
+                                       [disabled]="component == 'update' && !update && can_see_salary"
+                                       [(ngModel)]="model.salary"
+                                       type="number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Date request'|dic}}</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                </div><input class="form-control fc-datepicker"
+                                       [disabled]="component == 'update' && !update"
+                                       [(ngModel)]="model.date_request"
+                                       placeholder="DD-MM-YYY"
+                                       type="datetime-local">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Deadline'|dic}}</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                </div><input class="form-control fc-datepicker"
+                                       [disabled]="component == 'update' && !update"
+                                       [(ngModel)]="model.deadline"
+                                       placeholder="DD-MM-YYY"
+                                       type="datetime-local">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Date filled'|dic}}</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                </div><input class="form-control fc-datepicker"
+                                       [disabled]="component == 'update' && !update"
+                                       [(ngModel)]="model.date_filled"
+                                       placeholder="DD-MM-YYY"
+                                       type="datetime-local">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Date quit'|dic}}</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                </div><input class="form-control fc-datepicker"
+                                       [disabled]="component == 'update' && !update"
+                                       [(ngModel)]="model.date_quit"
+                                       placeholder="DD-MM-YYY"
+                                       type="datetime-local">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Gender'|dic}}</label>
+                            <ng-select [items]="genderOptions"
+                                       bindLabel="label"
+                                       [disabled]="component == 'update' && !update"
+                                       bindValue="value"
+                                       class="form-control custom-select"
+                                       [(ngModel)]="model.gender">
+                                <ng-template class="d-flex"
+                                             ng-option-tmp
+                                             let-item="item"
+                                             let-index="index">
+                                    <div class="d-flex">
+                                        <i class="ml-2 mr-3 mdi mdi-gender-{{item.gender}} mx-3 {{'text-'+item.color}}"></i>
+                                        <span>{{item.label}}</span>
+                                    </div>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Request type'|dic}}</label>
+                            <ng-select [items]="requestTypeOptions"
+                                       bindLabel="label"
+                                       [disabled]="component == 'update' && !update"
+                                       bindValue="value"
+                                       class="form-control custom-select"
+                                       [(ngModel)]="model.request_type">
+                                <ng-template class="d-flex"
+                                             ng-option-tmp
+                                             let-item="item"
+                                             let-index="index">
+                                    <div class="d-flex">
+                                        <i class="ml-2 mr-3 {{item.icon}} mx-3 {{'text-'+item.color}}"></i>
+                                        <span>{{item.label}}</span>
+                                    </div>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Hiring reason'|dic}}</label>
+                            <ng-select [items]="hiringReasonOptions"
+                                       bindLabel="label"
+                                       [disabled]="component == 'update' && !update"
+                                       bindValue="value"
+                                       class="form-control custom-select"
+                                       [(ngModel)]="model.hiring_reason">
+                                <ng-template class="d-flex"
+                                             ng-option-tmp
+                                             let-item="item"
+                                             let-index="index">
+                                    <div class="d-flex">
+                                        <i class="ml-2 mr-3 mdi mdi-{{item.type}} mx-3 {{'text-'+item.color}}"></i>
+                                        <span>{{item.label}}</span>
+                                    </div>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4"
+                         *ngIf="model.hiring_reason == 'Alternative'">
+                        <div class="form-group">
+                            <label class="form-label">{{'Previous employee'|dic}}</label>
+                            <ng-select name="attendance"
+                                       [(ngModel)]="model.prev_emp_id"
+                                       [disabled]="component == 'update' && !update"
+                                       class="form-control custom-select">
+                                <ng-option *ngFor="let el of employees"
+                                           [value]="el._id">{{el.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Unfilled reason'|dic}}</label>
+                            <ng-select name="unfilled_reason_id"
+                                       [(ngModel)]="model.unfilled_reason_id"
+                                       [disabled]="component == 'update' && !update"
+                                       class="form-control custom-select">
+                                <ng-option *ngFor="let el of unfilled_reasons"
+                                           [value]="el._id">{{el.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Status'|dic}}</label>
+                            <ng-select [items]="statusOptions"
+                                       bindLabel="label"
+                                       [disabled]="component == 'update' && !update"
+                                       bindValue="value"
+                                       class="form-control custom-select"
+                                       [(ngModel)]="model.status">
+                                <ng-template class="d-flex"
+                                             ng-option-tmp
+                                             let-item="item"
+                                             let-index="index">
+                                    <div class="d-flex">
+                                        <span class="{{'bg-'+item.color}}"
+                                              class="dot-label1 mx-3 me-2 mt-1"></span>
+                                        <span>{{item.label}}</span>
+                                    </div>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xxl-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Reference'|dic}}</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                </div><input class="form-control fc-datepicker"
+                                       [disabled]="component == 'update' && !update"
+                                       [(ngModel)]="model.reference"
+                                       placeholder="#1234"
+                                       type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="form-label">{{'Description'|dic}}</label>
+                            <textarea class="form-control"
+                                      id="{{'note'}}"
+                                      name="{{'note'}}"
+                                      [disabled]="component == 'update' && !update"
+                                      [(ngModel)]="model.note"
+                                      [ngModelOptions]="{standalone: true}"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <div class="col-12">
+                    <div class="form-group">
+                        <label class="form-label">{{'Progress'|dic}}</label>
+                        <ngx-slider class="slider1" [(value)]="model.progress" [options]="sliderOptions"></ngx-slider>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <a href="javascript:;"
+               class="btn btn-success btn-lg"
+               (click)="save()">{{'Submit'|dic}}</a>
+        </div>
+    </div>
+</div>
+<!-- End Row-->

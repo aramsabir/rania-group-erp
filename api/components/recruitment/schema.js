@@ -1,16 +1,17 @@
 var mongoose = require('mongoose');
-const { Recruitment, User, Companies, BasicData, Employee } = require('../event_and_resources/tables');
+const { Recruitment, User, Basic_Data } = require('../event_and_resources/tables');
 mongoose.Promise = global.Promise;
 var schema = mongoose.Schema({
     no: { type: Number, default: 1 },
     company_id: { type: mongoose.Schema.ObjectId, ref: "Company", default: null },
     department_id: { type: mongoose.Schema.ObjectId, ref: "Department", default: null },
     prev_emp_id: { type: mongoose.Schema.ObjectId, ref: "User", default: null },
-    post_id: { type: mongoose.Schema.ObjectId, ref: BasicData, default: null },
-    unfilled_reason_id: { type: mongoose.Schema.ObjectId, ref: BasicData, default: null },
+    post_id: { type: mongoose.Schema.ObjectId, ref: Basic_Data, default: null },
+    unfilled_reason_id: { type: mongoose.Schema.ObjectId, ref: Basic_Data, default: null },
     reference: { type: String, default: "" },
     grade_days: { type: Number },
     salary: { type: Number, default: 0 },
+    deadline: { type: Date, default: null },
     date_request: { type: Date, default: null },
     date_filled: { type: Date, default: null },
     date_quit: { type: Date, default: null },
@@ -30,7 +31,7 @@ var schema = mongoose.Schema({
             phone: { type: String, default: "" },
             cv: { type: String, default: "" },
             interview_type: { type: String, default: "In-person", enum: ['In-person', 'Online', 'On-phone'] },
-            reject_reason_id: { type: mongoose.Schema.ObjectId, ref: BasicData, default: null },
+            reject_reason_id: { type: mongoose.Schema.ObjectId, ref: Basic_Data, default: null },
             offers: [
                 {
                     date: { type: Date, default: null, },

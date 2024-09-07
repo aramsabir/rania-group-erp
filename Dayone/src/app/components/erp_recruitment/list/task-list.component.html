@@ -1,0 +1,322 @@
+<app-bas-page-header [title]="pageTitle"
+                     [routes]="bercumberRoutes"
+                     [actions]="actions"></app-bas-page-header>
+
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header  border-0">
+                <h4 class="card-title">{{'Recruitments'|dic}}</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 col-xl-4">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">{{'From'|dic}}</label>
+                                    <div class="input-group">
+                                        <input class="form-control fc-datepicker "
+                                               type="date"
+                                               [(ngModel)]="params.from"
+                                               placeholder="yyyy-mm-dd">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">{{'To'|dic}}</label>
+                                    <div class="input-group">
+                                        <input class="form-control fc-datepicker "
+                                               type="date"
+                                               [(ngModel)]="params.to"
+                                               placeholder="yyyy-mm-dd">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-12 col-lg-4 col-xl-3 col-xxl-4">
+                        <div class="form-group">
+                            <label class="form-label">{{'Company'|dic}}</label>
+                            <ng-select name="companies"
+                                       [(ngModel)]="params.companies"
+                                       class="form-control custom-select"
+                                       multiple="true">
+                                <ng-option *ngFor="let el of companies"
+                                           [value]="el._id">{{el.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div> -->
+                    <div class="col-md-12 col-lg-4 col-xl-3 col-xxl-2">
+                        <div class="form-group">
+                            <label class="form-label">{{'Department'|dic}}</label>
+                            <ng-select name="departments"
+                                       [(ngModel)]="params.departments"
+                                       class="form-control custom-select"
+                                       multiple="true">
+                                <ng-option *ngFor="let el of departments"
+                                           [value]="el._id">{{el.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4 col-xl-3 col-xxl-2">
+                        <div class="form-group">
+                            <label class="form-label">{{'Post'|dic}}</label>
+                            <ng-select name="posts"
+                                       [(ngModel)]="params.posts"
+                                       class="form-control custom-select"
+                                       multiple="true">
+                                <ng-option *ngFor="let el of posts"
+                                           [value]="el._id">{{el.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-12 col-lg-4 col-xl-3 col-xxl-2">
+                        <div class="form-group">
+                            <label class="form-label">{{'Grade'|dic}}</label>
+                            <ng-select name="grades"
+                                       [(ngModel)]="params.grades"
+                                       class="form-control custom-select"
+                                       multiple="true">
+                                <ng-option *ngFor="let el of grades"
+                                           [value]="el._id">{{el.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div> -->
+                    <div class="col-md-12 col-lg-4 col-xl-2 col-xxl-2">
+                        <div class="form-group">
+                            <label class="form-label">{{'Status'|dic}}</label>
+                            <ng-select [items]="statusOptions"
+                                       bindLabel="label"
+                                       bindValue="value"
+                                       class="form-control custom-select"
+                                       [(ngModel)]="params.status">
+                                <ng-template class="d-flex"
+                                             ng-option-tmp
+                                             let-item="item"
+                                             let-index="index">
+                                    <div class="d-flex">
+                                        <i class=" mdi mdi-alert-circle  {{'text-'+item.color}}"></i>
+                                        <span class=" mx-1 ">{{item.label}}</span>
+                                    </div>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-4 col-xl-3 col-xxl-2">
+                        <div class="form-group mt-5">
+                            <a (click)="search()"
+                               class="btn btn-primary btn-block"> {{'Search'|dic}} <i class="fa fa-search"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-vcenter text-nowrap border-top  mb-0"
+                           id="tasktable">
+                        <thead>
+                            <tr>
+                                <th *ngFor="let head of displayedColumns"
+                                    class="wd-25p border-bottom-0">{{head|dic}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of dataSource; ">
+                                <td><span class="text-dark font-weight-semibold">{{row.no}}</span></td>
+                                <td>
+                                    <i
+                                       class="fa fa-{{row.status == 'Pending'?('refresh'):(row.status == 'Completed'?'check':'times')}} fs-16 text-{{row.status == 'Pending'?('warning'):(row.status == 'Completed'?'success':'danger')}}"></i>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <span>{{lang == 'en'?row.company_id?.name:row.company_id?.name}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{lang == 'en'?row.department_id?.name:row.department_id?.name}}
+                                </td>
+                                <td>
+                                    {{lang == 'en'?row.post_id?.name:row.post_id?.name}}
+                                </td>
+                              
+                                <td>{{row.date_request|date:'dd-MM-yyyy HH:MM'}}</td>
+                                <td>{{row.deadline|date:'dd-MM-yyyy HH:mm'}}</td>
+                                <!-- <td class="text-{{deadlineText(datePlusDays(row?.date_request,row?.grade_days))}}">{{datePlusDays(row?.date_request,row?.grade_days)|date:'dd-MM-yyyy HH:MM' }}</td> -->
+                                <td>{{row.gender |dic}}</td>
+                                <td>{{row.hiring_reason |dic}}</td>
+                                <td>{{row.applications.length}}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a *ngIf="row.approved"
+                                           style="cursor: pointer;"
+                                           (click)="undoApproval(row._id)"
+                                           class="action-btns1"
+                                           placement="top"
+                                           ngbTooltip="Undo approval"><i class="feather feather-refresh-ccw text-secondary"></i></a>
+                                        <a *ngIf="!row.approved && row.status == 'Completed'"
+                                           style="cursor: pointer;"
+                                           (click)="approve(row._id)"
+                                           class="action-btns1"
+                                           placement="top"
+                                           ngbTooltip="Approve"><i class="feather feather-check-circle text-success"></i></a>
+                                        <a [routerLink]="['/recruitments/process']"
+                                           [queryParams]="{_id:row._id}"
+                                           class="action-btns1"
+                                           placement="top"
+                                           ngbTooltip="View Task"><i class="feather feather-eye text-primary"></i></a>
+                                        <a [routerLink]="['/recruitments/update'] "
+                                           [queryParams]="{_id:row._id}"
+                                           class="action-btns1"
+                                           placement="top"
+                                           ngbTooltip="Edit">
+                                            <i class="feather feather-edit-2  text-info"></i>
+                                        </a>
+                                        <a (click)="WarningOpen(warningmodal,row)"
+                                           href="javascript:;"
+                                           class="action-btns1"
+                                           placement="top"
+                                           ngbTooltip="Delete">
+                                            <i class="feather feather-trash-2 text-danger"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-between p-2">
+                    <app-pagination [pagesToShow]="7"
+                                    [page]="page"
+                                    [perPage]="params.limit"
+                                    [pageData]="params"
+                                    [count]="length"></app-pagination>
+                </div>
+
+                <!-- <div class="table-responsive">
+                   <mat-form-field appearance="standard" >
+                        <mat-label>Filter</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Search" #input>
+                      </mat-form-field>
+
+                      <div class="">
+                        <table mat-table [dataSource]="dataSource" matSort class="table table-vcenter text-nowrap table-bordered border-bottom">
+
+                          <ng-container matColumnDef="No">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> No </th>
+                            <td mat-cell *matCellDef="let row"> {{row.No}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Task">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Task </th>
+                            <td mat-cell *matCellDef="let row">
+                                <div class="d-flex">
+                                <span class="bg-{{row.badge}} dot-label1 me-2 mt-1"></span>
+                                <span>{{row.Task}}</span>
+                                </div>
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Department">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+                            <td mat-cell *matCellDef="let row"> {{row.Department}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="AssignTo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> AssignTo </th>
+                            <td mat-cell *matCellDef="let row">
+                                <div class="d-flex">
+                                <span class="avatar avatar brround me-3"
+                                            style="background-image: url({{row.img}})"></span>
+                                        <div class="me-3 mt-0 mt-sm-2 d-block">
+                                            <h6 class="mb-1 fs-14">{{row.AssignTo}}</h6>
+                                        </div>
+                            </div>
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Priority">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority </th>
+                            <td mat-cell *matCellDef="let row">
+                                <span class="badge badge-{{row.PriorityStatus}}-light"> {{row.Priority}}</span>
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="StartDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> StartDate </th>
+                            <td mat-cell *matCellDef="let row"> {{row.StartDate}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Deadline">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Deadline </th>
+                            <td mat-cell *matCellDef="let row" >{{row.Deadline}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="Progress">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
+                            <td mat-cell *matCellDef="let row" >
+                                <ngb-progressbar class="me-3" type="{{row.PriorityStatus}}" height="0.5rem" [value]="row.progress"></ngb-progressbar>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="WorkStatus">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> WorkStatus </th>
+                            <td mat-cell *matCellDef="let row" >
+                                <span class="badge badge-{{row.worksStatus}}">{{row.worksText}}</span>
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Action">
+                            <th mat-header-cell *matHeaderCellDef> Action </th>
+                            <td mat-cell *matCellDef="let row">
+                               <div class="d-flex">
+                                    <a routerLink="/task-dashboard/view-tasks/" class="action-btns1" placement="top" ngbTooltip="View Task"><i class="feather feather-eye text-primary"></i></a>
+                                    <a (click)="edit(editContent)" href="javascript:;" class="action-btns1" placement="top" ngbTooltip="View">
+                                        <i class="feather feather-edit-2  text-primary"></i>
+                                    </a>
+                                    <a (click)="removeData(row.id)" href="javascript:;" class="action-btns1" placement="top" ngbTooltip="Delete">
+                                        <i class="feather feather-trash-2 text-danger"></i>
+                                    </a>
+                               </div>
+                            </td>
+                          </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                          <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                          </tr>
+                        </table>
+
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                      </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row-->
+<ng-template #warningmodal
+             let-modal>
+    <!-- Warning MODAL -->
+    <div class="modal-body text-center p-4">
+        <button type="button"
+                class="btn-close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- <i class="fe fe-x-circle fs-70 text-danger lh-1 mb-4 d-inline-block"></i> -->
+        <i class="fe fe-trash fs-70 text-danger lh-1 mb-4 d-inline-block"></i>
+        <h4 class="tx-danger mg-b-20">{{'Do you want to delete these data?'|dic}}</h4>
+        <p class="mg-b-20 mg-x-20"> {{'When you approve it, this Data will be deleted'|dic}} </p>
+        <button type="button"
+                class="btn btn-danger pd-x-25 me-0"
+                (click)="deleteItem()"
+                (click)="modal.close('Close click')">{{'Yes'|dic}}</button>
+    </div>
+</ng-template>
