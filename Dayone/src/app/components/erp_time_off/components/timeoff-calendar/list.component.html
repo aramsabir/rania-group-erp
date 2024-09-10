@@ -1,0 +1,26 @@
+<!-- <app-bas-page-header [title]="titlePage" [routes]="bercumberRoutes" [actions]="actions"></app-bas-page-header> -->
+
+
+ 
+<div class="card">
+  <div class="card-header">
+ 
+      <div class="page-rightheader ms-md-auto">
+          <div class=" btn-list d-flex">
+              <div  class="me-2">
+                <a   class="btn brn-primary" placement="top"   [ngbTooltip]="'Add time off'"  >
+                    <i class="me-2 fs-15" [ngClass]="'fa fa-plus'"></i> {{'New time off'}}
+                </a>
+            
+             </div>
+          </div>
+      </div>
+  </div>
+  <div class="card-body">
+
+      <angular-calendar-year-view [themecolor]="themecolor" [events]="events" [viewDate]="viewDate"
+      (eventClicked)="eventClicked($event)" (actionClicked)="actionClicked($event)">
+    </angular-calendar-year-view>
+  </div>
+
+</div>

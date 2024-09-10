@@ -7,6 +7,7 @@ const userCompanyController = require('../components/settings/user-company-role/
 const departmentController = require('../components/settings/department/controller')
 const basicDataController = require('../components/settings/basic-data/controller')
 const documentController = require('../components/document/controller')
+const allocationController = require('../components/time_off/allocation_controller')
 const recruitmentController = require('../components/recruitment/controller')
 const resources = require('../components/event_and_resources/resources');
 
@@ -97,6 +98,14 @@ module.exports = function (app) {
         .post('/basic_data', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.New)
         .put('/basic_data', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.Update)
         .delete('/basic_data', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.Delete)
+
+    //  Allocations
+    app.get('/allocations', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, allocationController.List)
+        .get('/available_allocations', checkExpireToken, AddQueryData, allocationController.Available)
+        .get('/allocation', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, allocationController.One)
+        .post('/allocation', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, allocationController.New)
+        .put('/allocation', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, allocationController.Update)
+        .delete('/allocation', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, allocationController.Delete)
 
 
 

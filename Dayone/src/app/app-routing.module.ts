@@ -14,6 +14,7 @@ import { Error404Component } from './auth/error404/error404.component';
 import { SettingsContentComponent } from './shared/layout-components/sub_layouts/settings/content/content.component';
 import { EmployeesContentComponent } from './shared/layout-components/sub_layouts/employees/content/content.component';
 import { RecruitmentContentComponent } from './shared/layout-components/sub_layouts/recruitments/content/content.component';
+import { TimeOffContentComponent } from './shared/layout-components/sub_layouts/time-off/content/content.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,11 @@ const routes: Routes = [
     path: 'recruitments',
     component: RecruitmentContentComponent,
     canActivate: [AuthGuard], loadChildren: () => import('../app/components/erp_recruitment/recruitment.module').then((m) => m.RecruitmentModule),
+  },
+  {
+    path: 'time-offs',
+    component: TimeOffContentComponent,
+    canActivate: [AuthGuard], loadChildren: () => import('../app/components/erp_time_off/module').then((m) => m.TimeOffModule),
   },
   {
     path: 'settings',
@@ -71,12 +77,12 @@ const routes: Routes = [
   //   component: FMContentComponent,
   //   canActivate: [AuthGuard],  loadChildren: () =>  import('../app/components/family-mall/module').then(  (m) => m.Module ),
   // },
-  // {
-  //   path: 'settings',
-  //   component: ContentComponent,
-  //   canActivate: [AuthGuard],
-  //   children: content,
-  // },
+  {
+    path: '',
+    component: ContentComponent,
+    canActivate: [AuthGuard],
+    children: content,
+  },
   // {
   //   path: '',
   //   component: ErrorComponent,
