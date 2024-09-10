@@ -25,6 +25,12 @@ module.exports = {
   DocumentDelete: "document:delete",
   DocumentAdmin: "document:admin",
 
+  TimeOffRead: "time-off:read",
+  TimeOffWrite: "time-off:add",
+  TimeOffUpdate: "time-off:update",
+  TimeOffDelete: "time-off:delete",
+  TimeOffAdmin: "time-off:admin",
+
   CompanyRead: "companies:read",
   CompanyWrite: "companies:add",
   CompanyUpdate: "companies:update",

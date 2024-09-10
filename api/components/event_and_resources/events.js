@@ -13,6 +13,10 @@ module.exports = {
   UpdateDocument: "update-document",
   DeleteDocument: "delete-document",
 
+  CreateAllocation: "create-allocation",
+  UpdateAllocation: "update-allocation",
+  DeleteAllocation: "delete-allocation",
+
   CreateDepartment: "create-department",
   UpdateDepartment: "update-department",
   DeleteDepartment: "delete-department",

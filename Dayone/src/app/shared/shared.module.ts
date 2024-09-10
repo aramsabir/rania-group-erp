@@ -51,6 +51,8 @@ import { EmployeesHeaderComponent } from './layout-components/sub_layouts/employ
 import { SidebarEmployeesComponent } from './layout-components/sub_layouts/employees/sidebar/sidebar.component';
 import { RecruitmentContentComponent } from './layout-components/sub_layouts/recruitments/content/content.component';
 import { SidebarRecruitmentComponent } from './layout-components/sub_layouts/recruitments/sidebar/sidebar.component';
+import { TimeOffContentComponent } from './layout-components/sub_layouts/time-off/content/content.component';
+import { SidebarTimeOffComponent } from './layout-components/sub_layouts/time-off/sidebar/sidebar.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -74,6 +76,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     RecruitmentContentComponent,
     SidebarRecruitmentComponent,
+
+    TimeOffContentComponent,
+    SidebarTimeOffComponent,
 
     MainHeaderComponent,
     MainContentComponent,

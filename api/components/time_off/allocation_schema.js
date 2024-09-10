@@ -7,6 +7,11 @@ var Schema = mongoose.Schema({
     department_id: { type: mongoose.Schema.ObjectId, ref: 'Department', default: null },
     employee_id: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
     leave_type: { type: String, default: "Yearly balance", enum: leaveTypes },
+    
+    date: {
+        type: Date,
+        default: null
+    },
     hours: { type: Number, default: 0 },
     editor: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
     creator: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
