@@ -6,3 +6,46 @@
         background-color: inherit !important;;
     }
 }
+
+
+
+.availability {
+    display: flex;
+    gap: 40px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.availability-item {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.icon {
+    font-size: 50px;
+    color: #8d6a9f;
+    margin-right: 10px;
+}
+
+.text {
+    text-align: left;
+}
+
+h2 {
+    font-size: 40px;
+    color: #8d6a9f;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    color: #7c6d89;
+}
+
+p:last-child {
+    font-size: 12px;
+    color: #999999;
+}

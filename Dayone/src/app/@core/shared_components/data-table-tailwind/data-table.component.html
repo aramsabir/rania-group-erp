@@ -89,10 +89,10 @@
                         <td class="px-6 py-4" [ngClass]="{'en-font':el.lang == 'en'}"
                           *ngIf="el.header !== 'Actions' && el.header !== '#'">
                           <span *ngIf="el.type === 'text'" [ngClass]="el.class != null? el.class(item):''">
-                            <span *ngIf="el.cell(item) !== 'expired | expired soon'">{{ el.cell
-                              !== undefined ? el.cell(item) : '' }}</span>
-                            <span *ngIf="el.cell(item) === 'expired | expired soon'">{{
-                              el.cell(item) |dic}}</span>
+                              {{el.cell(item) }}
+                          </span>
+                          <span *ngIf="el.type === 'color'" [ngClass]="el.class != null? el.class(item):''">
+                               <input type="color" disabled [value]="el.cell(item)">
                           </span>
                           <span *ngIf="el.type === 'image'" [ngClass]="el.class != null? el.class(item):''"> <img
                               style="height:20px ;" [src]="el?.cell(item).split('#')[1]" alt=""></span>
@@ -407,6 +407,13 @@
                    type="text" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
+        <div class="form-group row" *ngIf="row.type === 'color'">
+          <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
+          <div class="col-md-9">
+            <input [ngModelOptions]="{standalone: true}" [disabled]="row.disabled" [(ngModel)]="row.value" [name]="'field'+i" placeholder="color" 
+                   type="color" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
+          </div>
+        </div>
         <div class="form-group row" *ngIf="row.type === 'email'">
           <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
           <div class="col-md-9">
@@ -537,6 +544,13 @@
           <div class="col-md-9">
             <input [ngModelOptions]="{standalone: true}" [(ngModel)]="row.value" [name]="'field'+i" placeholder="text"
               type="date" [id]="'form_name'+i" [required]="row.required"  [name]="'form_name'+i" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="row.type === 'color'">
+          <label class="col-md-3 form-label" [for]="'form_name'+i">{{row.title|dic|titlecase}}</label>
+          <div class="col-md-9">
+            <input [ngModelOptions]="{standalone: true}" [disabled]="row.disabled" [(ngModel)]="row.value" [name]="'field'+i" placeholder="color" 
+                   type="color" [id]="'form_name'+i" [required]="row.required" [name]="'form_name'+i" class="form-control">
           </div>
         </div>
         <div class="form-group row" *ngIf="row.type === 'text'">

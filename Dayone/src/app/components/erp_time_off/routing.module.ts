@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RoleGuard } from 'src/app/@core/guards';
 import { MainComponent } from './main.component';
-import { EmployeeTimeoffComponent } from './components/timeoff-calendar/list.component';
+import { EmployeeTimeOffComponent } from './components/timeoff-calendar/list.component';
 import { AllocationsComponent } from './components/allocations/list.component';
+import { TimeOffTypeComponent } from './components/time_off_types/list.component';
  
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'employee-calendar',
-        component: EmployeeTimeoffComponent,
+        component: EmployeeTimeOffComponent,
         canActivate:[RoleGuard],
         data:{
           expectedRole:'time-off:read'
@@ -36,7 +37,15 @@ const routes: Routes = [
         component: AllocationsComponent,
         canActivate:[RoleGuard],
         data:{
-          expectedRole:'time-off:read'
+          expectedRole:'time-off:admin'
+        }
+      },
+      {
+        path: 'time-off-types',
+        component: TimeOffTypeComponent,
+        canActivate:[RoleGuard],
+        data:{
+          expectedRole:'time-off:admin'
         }
       },
       

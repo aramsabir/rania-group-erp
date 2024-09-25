@@ -39,6 +39,7 @@ export class ViewEmployeeComponent implements OnInit {
   add_permission: boolean;
   update_permission: boolean;
   delete_permission: boolean;
+  time_offs: any;
   constructor(
     config: NgbRatingConfig,
     private routes: ActivatedRoute,
@@ -182,6 +183,19 @@ export class ViewEmployeeComponent implements OnInit {
       (res: any) => {
         if (res.status) {
           this.documents = res.count;
+        }
+      },
+      (error: any) => {
+        this.httpService.createToast('error', error);
+      }
+    );
+    
+    this.httpService
+    .call(`${'count-employee-time-offs'}`, ApiMethod.GET, this.params)
+    .subscribe(
+      (res: any) => {
+        if (res.status) {
+          this.time_offs = res.count;
         }
       },
       (error: any) => {

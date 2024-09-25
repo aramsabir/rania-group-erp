@@ -1,18 +1,20 @@
 
 var mongoose = require('mongoose');
-const { leaveTypes } = require('../event_and_resources/constants');
+const { leaveTypes } = require('../../event_and_resources/constants');
 mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema({
     company_id: { type: mongoose.Schema.ObjectId, ref: 'Company', default: null },
     department_id: { type: mongoose.Schema.ObjectId, ref: 'Department', default: null },
     employee_id: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
-    leave_type: { type: String, default: "Yearly balance", enum: leaveTypes },
-    
-    date: {
-        type: Date,
-        default: null
-    },
-    hours: { type: Number, default: 0 },
+    start_date: { type: Date, default: null },
+    end_date: { type: Date, default: null },
+    start_time: { type: String, default: null },
+    end_time: { type: String, default: null },
+    type: { type: String, default: "Hours", enum: ['Day', 'Hours']},
+    leave_type_id: { type: mongoose.Schema.ObjectId, ref: 'HR_Leave_Type', default: null },
+    duration_days: { type: Number, default: 0 },
+    duration_hours: { type: Number, default: 0 },
+    duration_minutes: { type: Number, default: 0 },
     editor: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
     creator: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
     created_at: {
@@ -30,10 +32,10 @@ var Schema = mongoose.Schema({
 
 });
 
-Schema.virtual('HR_Allocation', {
-    ref: 'HR_Allocation', // The model to use
+Schema.virtual('HR_TimeOff', {
+    ref: 'HR_TimeOff', // The model to use
     localField: '_id', // Find people where `localField`
     foreignField: '_id', // is equal to `foreignField`
     justOne: false
 });
-module.exports = mongoose.model('HR_Allocation', Schema);
+module.exports = mongoose.model('HR_TimeOff', Schema);

@@ -66,6 +66,7 @@ export var allRoleEN = [
       { label: 'Add', value: 'add', checked: false },
       { label: 'Update', value: 'update', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
+      { label: 'Admin', value: 'admin', checked: false },
     ],
   }
   ,

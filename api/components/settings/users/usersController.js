@@ -491,7 +491,7 @@ exports.Available = async (req, res) => {
   let limit = parseInt(req.query.limit);
   let sort = req.query.sort;
 
-  await User.find({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } }] })
+  await User.find({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } },{ main_company_id: { $in: req.query.search_companies } }] })
     .populate("main_company_id")
     .populate("department_id")
     .populate("job_title_id")
@@ -502,7 +502,7 @@ exports.Available = async (req, res) => {
     .sort(sort)
     .exec(function (err, response) {
       if (response) {
-        User.countDocuments({ $and: [{ deleted_at: null }] }).exec(function (err, count) {
+        User.countDocuments({ $and: [{ deleted_at: null }, { main_company_id: { $in: req.query.company_permission } },{ main_company_id: { $in: req.query.search_companies } }] }).exec(function (err, count) {
           res.json({
             status: true,
             data: response,
