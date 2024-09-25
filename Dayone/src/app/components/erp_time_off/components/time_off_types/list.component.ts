@@ -9,15 +9,15 @@ import { environment } from 'src/environments/environment';
 // import { HttpService } from 'src/app/@core/service/http/http.service';
 
 @Component({
-  selector: 'app-allocations',
+  selector: 'app-time-off-type',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class AllocationsComponent implements OnInit {
+export class TimeOffTypeComponent implements OnInit {
 
-  url: any = "allocations"
-  actionRoute: any = "allocation"
-  titlePage: any = "Allocations"
+  url: any = "time_off_types"
+  actionRoute: any = "time_off_type"
+  titlePage: any = "Time off types"
   actions: any = [
 
   ]
@@ -32,40 +32,28 @@ export class AllocationsComponent implements OnInit {
       value: '_id'
     },
     {
-      header: 'Company',
-      cell: (el: any) => el?.company_id?.name,
+      header: 'Name',
+      cell: (el: any) => el?.name,
       type: 'text',
-      value: 'company_id'
+      value: 'name'
     },
     {
-      header: 'Department',
-      cell: (el: any) => el?.department_id?.name,
+      header: 'Code',
+      cell: (el: any) => el?.code,
       type: 'text',
-      value: 'department_id'
+      value: 'code'
     },
     {
-      header: 'Employee',
-      cell: (el: any) => el?.employee_id?.full_name,
-      type: 'text',
-      value: 'employee_id'
+      header: 'Primary color',
+      cell: (el: any) => el?.primary_color,
+      type: 'color',
+      value: 'primary_color'
     },
     {
-      header: 'Leave type',
-      cell: (el: any) => el.leave_type_id?.name,
-      type: 'text',
-      value: 'leave_type_id'
-    },
-    {
-      header: 'Hours',
-      cell: (el: any) => el.hours,
-      type: 'number',
-      value: 'hours'
-    },
-    {
-      header: 'Date',
-      cell: (el: any) => el.date,
-      type: 'date_formal',
-      value: 'date'
+      header: 'Secondary color',
+      cell: (el: any) => el?.secondary_color,
+      type: 'color',
+      value: 'secondary_color'
     },
     {
       header: 'Created at',
@@ -87,19 +75,13 @@ export class AllocationsComponent implements OnInit {
     type: "modal",
     data: {
       dialogType: 'update',
-      url: 'allocation',
-      header: 'Update allocation',
+      url: 'time_off_type',
+      header: 'Update time_off_type',
       fields: [
-        { type: 'date', name: 'date', title: 'Date', required: true },
-        { type: 'number', name: 'hours', title: 'Hours', required: true },
-        {
-          type: 'selectUrl', name: 'leave_type_id', title: 'Leave type', val_name: 'leave_type_id', cap_name: 'name', required: true,
-          url: 'available_time_off_types', params: { skip: 0, limit: 1000, sort: 'name' }
-        },
-        {
-          type: 'selectUrl', name: 'employee_id', title: 'Employee', val_name: 'employee_id', cap_name: 'full_name', required: true,
-          url: 'available_employees', params: { skip: 0, limit: 1000, sort: 'full_name' }
-        },
+        { type: 'text', name: 'name', title: 'Name', required: true },
+        { type: 'text', name: 'code', title: 'Code', required: true },
+        { type: 'color', name: 'primary_color', title: 'Primary color', required: true },
+        { type: 'color', name: 'secondary_color', title: 'Secondary color', required: true },
       ]
     },
   };
@@ -108,19 +90,14 @@ export class AllocationsComponent implements OnInit {
     type: "modal",
     data: {
       dialogType: 'create',
-      url: 'allocation',
-      header: 'Create allocation',
+      url: 'time_off_type',
+      header: 'Create time_off_type',
       fields: [
-        { type: 'date', name: 'date', title: 'Date', required: true },
-        { type: 'number', name: 'hours', title: 'Hours', required: true },
-        {
-          type: 'selectUrl', name: 'leave_type_id', title: 'Leave type', val_name: 'leave_type_id', cap_name: 'name', required: true,
-          url: 'available_time_off_types', params: { skip: 0, limit: 1000, sort: 'name' }
-        },
-        {
-          type: 'selectUrl', name: 'employee_id', title: 'Employee', val_name: 'employee_id', cap_name: 'full_name', required: true,
-          url: 'available_employees', params: { skip: 0, limit: 1000, sort: 'full_name' }
-        },
+        { type: 'text', name: 'name', title: 'Name', required: true },
+        { type: 'text', name: 'code', title: 'Code', required: true },
+        { type: 'color', name: 'primary_color', title: 'Primary color', required: true },
+        { type: 'color', name: 'secondary_color', title: 'Secondary color', required: true },
+      
       ]
     },
   };
@@ -148,7 +125,7 @@ export class AllocationsComponent implements OnInit {
   pageSize = 10;
   pageIndex: any;
   params: any = {};
-  part: any = 'allocations';
+  part: any = 'time_off_types';
   length: any;
   queryParams: any = {};
   pg_header: any = []

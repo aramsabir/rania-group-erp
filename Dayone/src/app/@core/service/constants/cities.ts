@@ -30,13 +30,13 @@ export enum MainConsts {
 }
 
 export const LeaveTypes: any = [
-  { value: 'Yearly balance',caption: 'Yearly balance' },
-  { value: 'Sick balance',caption: 'Sick balance' },
-  { value: 'Study balance',caption: 'Study balance' },
-  { value: 'Work balance',caption: 'Work balance' },
+  { value: 'Yearly leave',caption: 'Yearly leave' },
+  { value: 'Sick leave',caption: 'Sick leave' },
+  { value: 'Study leave',caption: 'Study leave' },
+  { value: 'Work leave',caption: 'Work leave' },
   { value: 'Unpaid' ,caption: 'Unpaid' },
-  { value: 'Maternity balance',caption: 'Maternity balance' },
-  { value: 'Paternity balance',caption: 'Paternity balance' },
-  { value: 'Marriage balance',caption: 'Marriage balance' },
+  { value: 'Maternity leave',caption: 'Maternity leave' },
+  { value: 'Paternity leave',caption: 'Paternity leave' },
+  { value: 'Marriage leave',caption: 'Marriage leave' },
 ];
 export const LeaveStatus: any = ['Pending', 'Approved', 'Denied', 'Canceled'];

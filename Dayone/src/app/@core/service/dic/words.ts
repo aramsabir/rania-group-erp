@@ -931,18 +931,73 @@ export const WORDS = [
     ar: '',
   },
   {
-    en: 'Halabja Concrete',
-    ku: 'کۆنکرێتی هەڵەبجە',
+    en: 'Minute(s)',
+    ku: 'خولەک',
     ar: '',
   },
   {
-    en: 'Aran Asphalt',
-    ku: 'کارگەی قیری ئاران',
+    en: 'Marriage leave',
+    ku: 'مۆڵەتی هاوسەرگیری',
     ar: '',
   },
   {
-    en: 'Halabja Petrol Station',
-    ku: 'وێستگەی سوتەمەنی هەڵەبجە',
+    en: 'Study leave',
+    ku: 'مۆڵەتی خوێندن',
+    ar: '',
+  },
+  {
+    en: 'Yearly leave',
+    ku: 'مۆڵەتی ساڵانە',
+    ar: '',
+  },
+  {
+    en: 'Sick leave',
+    ku: 'مۆڵەتی نەخۆشی',
+    ar: '',
+  },
+  {
+    en: 'Unpaid',
+    ku: 'بێ موچە',
+    ar: '',
+  },
+  {
+    en: 'Used',
+    ku: 'بەکارهاتوو',
+    ar: '',
+  },
+  {
+    en: 'Maternity leave',
+    ku: 'مۆڵەتی دایکانە',
+    ar: '',
+  },
+  {
+    en: 'Paternity leave',
+    ku: 'مۆڵەتی باوکانە',
+    ar: '',
+  },
+  {
+    en: 'Work leave',
+    ku: 'مۆڵەتی کارکردن',
+    ar: '',
+  },
+  {
+    en: 'HOURS AVAILABLE',
+    ku: 'کاژێری بەردەست',
+    ar: '',
+  },
+  {
+    en: 'VALID UNTIL',
+    ku: 'بەردەستە تا',
+    ar: '',
+  },
+  {
+    en: 'Hour(s)',
+    ku: 'کاژێر',
+    ar: '',
+  },
+  {
+    en: 'Day(s)',
+    ku: 'ڕۆژ',
     ar: '',
   },
   {

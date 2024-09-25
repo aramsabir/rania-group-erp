@@ -15,6 +15,7 @@ import { HttpService } from 'src/app/@core/service/http/http.service';
 import { environment } from 'src/environments/environment';
 import { Menu, NavService } from '../../../../services/nav.service';
 import { checkHoriMenu, parentNavActive, switcherArrowFn } from './sidebar';
+import { AuthService } from 'src/app/shared/services/firebase/auth.service';
 
 @Component({
   selector: 'app-time-off-sidebar',
@@ -45,8 +46,9 @@ export class SidebarTimeOffComponent {
   constructor(
     private dic: DicService,
     private router: Router,
-    private navServices: NavService,
     private httpService: HttpService,
+    private authService: AuthService,
+    private navServices: NavService,
     public elRef: ElementRef,
     private datePipe: DatePipe,
     private breakpointObserver: BreakpointObserver
@@ -74,18 +76,31 @@ export class SidebarTimeOffComponent {
  
         this.menuItems = []
      
+      
         this.menuItems.push(
           {
             title: this.dic.translate('Applications'), status: true, icon: 'fe fe-apps', type: 'href', path: '/home', badgeType: 'success', badgeValue: '2', active: false,
           },
         )
-        this.menuItems.push(
-            { title: this.dic.translate('Dashboard'), status: true,icon: 'fe fe-clock-o', type: 'link', path: '/time-offs/main', badgeType: 'primary', badgeValue: '2', active: false, },
-        )
-  
-        this.menuItems.push(
-            { title: this.dic.translate('Allocations'), status: true,icon: 'fe fe-clock-o', type: 'link', path: '/time-offs/allocations', badgeType: 'primary', badgeValue: '2', active: false, },
-        )
+       if(this.authService.hasPermission('time-off:read'))
+          this.menuItems.push(
+              { title: this.dic.translate('Dashboard'), status: true,icon: 'fe fe-clock-o', type: 'link', path: '/time-offs/main', badgeType: 'primary', badgeValue: '2', active: false, },
+          )
+        if(this.authService.hasPermission('time-off:admin'))
+          this.menuItems.push(
+              { title: this.dic.translate('Allocations'), status: true,icon: 'fe fe-clock-o', type: 'link', path: '/time-offs/allocations', badgeType: 'primary', badgeValue: '2', active: false, },
+          )
+
+        if(this.authService.hasPermission('time-off:admin'))
+          this.menuItems.push(
+            {
+              title: this.dic.translate('Configuration'), status: true, icon: 'fe fe-cog', type: 'sub', badgeType: 'primary', badgeValue: '2', active: false,
+              children:[
+                { title: this.dic.translate('Timeoff types'), status: true, type: 'link', path: '/time-offs/time-off-types',queryParams:{skip:0,limit:100,sort:'name' }, badgeType: 'primary', badgeValue: '2', active: false, },
+                { title: this.dic.translate('Allocations'), status: true,icon: 'fe fe-clock-o', type: 'link', path: '/time-offs/allocations', badgeType: 'primary', badgeValue: '2', active: false, },
+              ]
+            },
+          )
   
        
        

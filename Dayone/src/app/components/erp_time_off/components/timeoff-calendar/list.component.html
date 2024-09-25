@@ -1,26 +1,304 @@
-<!-- <app-bas-page-header [title]="titlePage" [routes]="bercumberRoutes" [actions]="actions"></app-bas-page-header> -->
+<div class="page-header d-lg-flex d-block pb-0 mb-8 mb-lg-0">
+    <div class="page-leftheader">
+        <nav aria-label="breadcrumb fs-18">
+            <ol class="breadcrumb breadcrumb-style1 mb-0 p-0">
+                <li *ngFor="let route of bercumberRoutes" class="breadcrumb-item">
+                    <a [routerLink]="route.route" [queryParams]="route.queryParams"><i [class]="route.icon"
+                            aria-hidden="true"></i> {{route.name|dic}}</a>
+                </li>
 
-
- 
-<div class="card">
-  <div class="card-header">
- 
-      <div class="page-rightheader ms-md-auto">
-          <div class=" btn-list d-flex">
-              <div  class="me-2">
-                <a   class="btn brn-primary" placement="top"   [ngbTooltip]="'Add time off'"  >
+                <li class="breadcrumb-item active">{{titlePage|dic}} - {{year}}</li>
+                <li class="breadcrumb-item active fs-20">{{employee?.full_name}}</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="page-rightheader ms-md-auto">
+        <div class=" btn-list d-flex">
+            <div class="me-2">
+                <a class="btn btn-primary" placement="top" (click)="showModalAdd(modalAddTimeOff)"
+                    [ngbTooltip]="'Add time off'">
                     <i class="me-2 fs-15" [ngClass]="'fa fa-plus'"></i> {{'New time off'}}
                 </a>
-            
-             </div>
-          </div>
-      </div>
-  </div>
-  <div class="card-body">
 
-      <angular-calendar-year-view [themecolor]="themecolor" [events]="events" [viewDate]="viewDate"
-      (eventClicked)="eventClicked($event)" (actionClicked)="actionClicked($event)">
-    </angular-calendar-year-view>
-  </div>
+            </div>
+        </div>
+
+    </div>
 
 </div>
+<div class="card mt-3" >
+    <div class="card-header d-flex justify-content-center" *ngIf="emp_allocations.length > 0">
+        <div class="availability">
+            <div class="availability-item" *ngFor="let al of emp_allocations">
+                <div class="fa fa-clock-o fs-50 " [ngStyle]="{'color':al?.leave_type_id?.primary_color}"></div>
+                <div class="text">
+                    <h3 [ngStyle]="{'color':al?.leave_type_id?.primary_color}">{{al?.leave_type_id?.name}}</h3>
+                    <h2>{{al?.total_hours|number:'1.0-2'}}</h2>
+                    <p>{{'HOURS AVAILABLE'|dic}}</p>
+                    <p>({{"VALID UNTIL"|dic}} 31/12/{{year}}) 
+                        <i class="fa fa-question-circle" tooltipClass="white-space-pre-line"   ngbTooltip="{{'Balance: '+(al.balance|number:'1.0-2') + '  ' +'Used: '+ (al.used|number:'1.0-2') }}" >
+                        </i> 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+
+        <angular-calendar-year-view [themecolor]="themecolor" [events]="events" [viewDate]="viewDate"
+            (eventClicked)="eventClicked($event)" (actionClicked)="actionClicked($event)">
+        </angular-calendar-year-view>
+    </div>
+
+</div>
+
+
+
+
+<ng-template #modalAddTimeOff let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title">Add new time off</h5>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group col-12 ">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{"Time off type"|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <ng-select class="form-control custom-select" [(ngModel)]="modalData.leave_type_id">
+                        <ng-option *ngFor="let op of emp_allocations" [value]="op.leave_type_id._id">{{op.leave_type_id?.name}}
+                            {{op.total_hours |number:'1.0-2'}} | <span>{{'Used'|dic}}: {{op.used|number:'1.0-2'}}</span> </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 ">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Type'|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <ng-select class="form-control custom-select" [(ngModel)]="modalData.type">
+                        <ng-option [value]="'Day'">{{'Day(s)'}} </ng-option>
+                        <ng-option [value]="'Hours'">{{'Hour(s)'}} </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 " *ngIf="modalData.type == 'Hours'">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Date'|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="date" class="form-control mb-md-0 mb-5" placeholder="year"
+                        [(ngModel)]="modalData.start_date">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Time'|dic}}</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="time" class="form-control mb-md-0 mb-5" (input)="checkTime()" placeholder="year"
+                        [(ngModel)]="modalData.start_time">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <input type="time" class="form-control mb-md-0 mb-5" (input)="checkTime()" placeholder="year"
+                        [(ngModel)]="modalData.end_time">
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 " *ngIf="modalData.type == 'Day'">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Start date'|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="date" class="form-control mb-md-0 mb-5" (input)="checkTime()" placeholder="year"
+                        [(ngModel)]="modalData.start_date">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'End date'|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="date" class="form-control mb-md-0 mb-5" (input)="checkTime()" placeholder="year"
+                        [(ngModel)]="modalData.end_date">
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 ">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Duration'|dic}}</label>
+                </div>
+                <div class="col-md-9" *ngIf="modalData.type== 'Hours'">
+                    {{modalData.duration_hours}} {{'Hour(s)'|dic}} & {{modalData.duration_minutes}} {{'Minute(s)'|dic}}
+                </div>
+                <div class="col-md-9" *ngIf="modalData.type== 'Day'">
+                    {{modalData.duration_days}} {{'Day(s)'|dic}} | {{modalData.duration_hours}} {{'Hour(s)'|dic}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 ">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Description'|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <textarea rows="3" class="form-control" [(ngModel)]="modalData.description"
+                        placeholder="notes"></textarea>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="close()">
+            {{'Close'|dic}}
+        </button>
+        <button type="button" class="btn btn-outline-success" (click)="save()">
+            {{'Send'|dic}}
+        </button>
+    </div>
+</ng-template>
+
+
+
+<ng-template #modalDeleteTimeOff let-modal>
+    <!-- Warning MODAL -->
+    <div class="modal-body text-center p-4">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <!-- <i class="fe fe-x-circle fs-70 text-danger lh-1 mb-4 d-inline-block"></i> -->
+      <i class="fe fe-trash fs-70 text-danger lh-1 mb-4 d-inline-block"></i>
+      <h4 class="tx-danger mg-b-20">{{'Do you want to delete these data?'|dic}}</h4>
+      <p class="mg-b-20 mg-x-20"> {{'When you approve it, this Data will be deleted'|dic}} </p>
+      <button type="button" class="btn btn-danger pd-x-25 me-0" (click)="deleteItem()"
+        (click)="modal.close('Close click')">{{'Yes'|dic}}</button>
+    </div>
+  </ng-template>
+
+<ng-template #modalEditTimeOff let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title">{{"Edit time off"|dic}}</h5>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group col-12 ">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{"Time off type"|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <ng-select class="form-control custom-select" [(ngModel)]="updateModel.leave_type_id">
+                        <ng-option *ngFor="let op of emp_allocations" [value]="op.leave_type_id._id">{{op.leave_type_id?.name}}
+                            {{op.total_hours |number:'1.0-2'}} | <span>{{'Used'|dic}}: {{op.used|number:'1.0-2'}}</span> </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 ">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Type'|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <ng-select class="form-control custom-select" [(ngModel)]="updateModel.type">
+                        <ng-option [value]="'Day'">{{'Day(s)'}} </ng-option>
+                        <ng-option [value]="'Hours'">{{'Hour(s)'}} </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 " *ngIf="updateModel.type == 'Hours'">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Date'|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="date" class="form-control mb-md-0 mb-5" placeholder="year"
+                        [(ngModel)]="updateModel.start_date">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Time'|dic}}</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="time" class="form-control mb-md-0 mb-5" (input)="checkTimeUpdate()" placeholder="year"
+                        [(ngModel)]="updateModel.start_time">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <input type="time" class="form-control mb-md-0 mb-5" (input)="checkTimeUpdate()" placeholder="year"
+                        [(ngModel)]="updateModel.end_time">
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 " *ngIf="updateModel.type == 'Day'">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Start date'|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="date" class="form-control mb-md-0 mb-5" (input)="checkTimeUpdate()" placeholder="year"
+                        [(ngModel)]="updateModel.start_date">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'End date'|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="date" class="form-control mb-md-0 mb-5" (input)="checkTimeUpdate()" placeholder="year"
+                        [(ngModel)]="updateModel.end_date">
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 ">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Duration'|dic}}</label>
+                </div>
+                <div class="col-md-9" *ngIf="updateModel.type== 'Hours'">
+                    {{updateModel.duration_hours}} {{'Hour(s)'|dic}} & {{updateModel.duration_minutes}} {{'Minute(s)'|dic}}
+                </div>
+                <div class="col-md-9" *ngIf="updateModel.type== 'Day'">
+                    {{updateModel.duration_days}} {{'Day(s)'|dic}} | {{updateModel.duration_hours}} {{'Hour(s)'|dic}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 ">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label mb-0 mt-2">{{'Description'|dic}}</label>
+                </div>
+                <div class="col-md-9">
+                    <textarea rows="3" class="form-control" [(ngModel)]="updateModel.description"
+                        placeholder="notes"></textarea>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="close()">
+            {{'Close'|dic}}
+        </button>
+        <button type="button" class="btn btn-outline-success" (click)="update()">
+            {{'Send'|dic}}
+        </button>
+    </div>
+</ng-template>

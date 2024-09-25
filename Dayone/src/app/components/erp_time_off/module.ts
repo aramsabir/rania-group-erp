@@ -16,8 +16,9 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { EmployeeAttachmentsComponent } from './components/employee_attachments/list.component';
 import { MatCalendar } from '@angular/material/datepicker';
 import { AngularCalendarYearViewModule } from 'angular-calendar-year-view';
-import { EmployeeTimeoffComponent } from './components/timeoff-calendar/list.component';
+import { EmployeeTimeOffComponent } from './components/timeoff-calendar/list.component';
 import { AllocationsComponent } from './components/allocations/list.component';
+import { TimeOffTypeComponent } from './components/time_off_types/list.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -26,8 +27,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @NgModule({
   declarations: [
     MainComponent,
-    EmployeeTimeoffComponent,
+    EmployeeTimeOffComponent,
     AllocationsComponent,
+    TimeOffTypeComponent,
+
+    
     ViewEmployeeComponent,
     EmployeeAttachmentsComponent
 

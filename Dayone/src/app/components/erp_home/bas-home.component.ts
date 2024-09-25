@@ -122,7 +122,7 @@ export class BasHomeComponent implements OnInit {
           this.arrayLinks.push({
             active: true,
             type: 'href',
-            // router: '/hilal-bricks',
+            router: '/time-offs/main',
             query: {},
             name: 'Time off',
             logo: './assets/applications/time-off.png',

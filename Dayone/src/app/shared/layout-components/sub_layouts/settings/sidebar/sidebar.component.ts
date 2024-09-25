@@ -78,9 +78,9 @@ export class SidebarSettingsComponent {
 
     // this.httpService.call('my-roles', ApiMethod.GET, {}).subscribe((res: any) => {
     //   if (res.status == true) {
-        this.userData =  this.authService.getUserData()
-        this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
-
+      this.userPhoto = `${environment.apiUrl}/public/profile_photos/${this.userData.profile_photo}`
+      
+       this.userData =  this.authService.getUserData()
         var resources: any = []
         if (this.userData.resources)
           resources = this.userData.resources.split(',')

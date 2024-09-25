@@ -7,7 +7,9 @@ const userCompanyController = require('../components/settings/user-company-role/
 const departmentController = require('../components/settings/department/controller')
 const basicDataController = require('../components/settings/basic-data/controller')
 const documentController = require('../components/document/controller')
-const allocationController = require('../components/time_off/allocation_controller')
+const allocationController = require('../components/time_off/allocations/allocation_controller')
+const timeoffController = require('../components/time_off/time_off/controller')
+const timeOffTypeController = require('../components/time_off/time_off_types/controller')
 const recruitmentController = require('../components/recruitment/controller')
 const resources = require('../components/event_and_resources/resources');
 
@@ -99,13 +101,35 @@ module.exports = function (app) {
         .put('/basic_data', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.Update)
         .delete('/basic_data', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.EmployeeAdmin) }, checkAccess, basicDataController.Delete)
 
+    //  Basic Data
+    app.get('/time_off_types', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeOffTypeController.List)
+        .get('/available_time_off_types', checkExpireToken, AddQueryData, timeOffTypeController.Available)
+        .get('/time_off_type', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeOffTypeController.One)
+        .post('/time_off_type', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeOffTypeController.New)
+        .put('/time_off_type', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeOffTypeController.Update)
+        .delete('/time_off_type', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeOffTypeController.Delete)
+
     //  Allocations
     app.get('/allocations', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, allocationController.List)
         .get('/available_allocations', checkExpireToken, AddQueryData, allocationController.Available)
+        .get('/my-grouped-allocations', checkExpireToken, AddQueryData, allocationController.MyGroupedAllocations)
+        .get('/employee-grouped-allocations', checkExpireToken, AddQueryData, allocationController.EmployeeGroupedAllocations)
         .get('/allocation', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, allocationController.One)
         .post('/allocation', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, allocationController.New)
         .put('/allocation', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, allocationController.Update)
         .delete('/allocation', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, allocationController.Delete)
+
+    //  Allocations
+    app.get('/time-offs', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, timeoffController.List)
+        .get('/my-time-off-per-year', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, timeoffController.MyTimeOffPerYear)
+        .get('/employee-time-off-per-year', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, timeoffController.EmployeeTimeOffPerYear)
+        .get('/count-employee-time-offs', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, timeoffController.CountEmployeeTimeOffPerYear)
+        .get('/time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, timeoffController.One)
+        .post('/time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeoffController.New)
+        .put('/time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeoffController.Update)
+        .post('/employee-time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeoffController.NewEmployeeTimeOff)
+        .put('/employee-time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeoffController.UpdateEmployeeTimeOff)
+        .delete('/time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeoffController.Delete)
 
 
 
