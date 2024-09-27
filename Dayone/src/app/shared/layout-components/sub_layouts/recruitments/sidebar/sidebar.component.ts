@@ -76,16 +76,16 @@ export class SidebarRecruitmentComponent {
      
         this.menuItems.push(
           {
-            title: this.dic.translate('Applications'), status: true, icon: 'fe fe-apps', type: 'href', path: '/home', badgeType: 'success', badgeValue: '2', active: false,
+            title: this.dic.translate('Applications'), status: true, icon: 'mdi mdi-apps', type: 'href', path: '/home', badgeType: 'success', badgeValue: '2', active: false,
           },
         )
         this.menuItems.push(
-            { title: this.dic.translate('Recruitments'), status: true,icon: 'fe fe-users', type: 'link', path: '/recruitments/main', badgeType: 'primary', badgeValue: '2', active: false, },
+            { title: this.dic.translate('Recruitments'), status: true,icon: 'fa fa-users', type: 'link', path: '/recruitments/main', badgeType: 'primary', badgeValue: '2', active: false, },
         )
   
         this.menuItems.push(
           {
-            title: this.dic.translate('Configuration'), status: true, icon: 'fe fe-cog', type: 'sub', badgeType: 'primary', badgeValue: '2', active: false,
+            title: this.dic.translate('Configuration'), status: true, icon: 'fa fa-cogs', type: 'sub', badgeType: 'primary', badgeValue: '2', active: false,
             children:[
               { title: this.dic.translate('Job titles'), status: true, type: 'link', path: '/employees/basic-datas',queryParams:{skip:0,limit:100,sort:'name',type:"Job title"}, badgeType: 'primary', badgeValue: '2', active: false, },
               { title: this.dic.translate('Education degrees'), status: true, type: 'link', path: '/employees/basic-datas',queryParams:{skip:0,limit:100,sort:'name',type:"Education degree"}, badgeType: 'primary', badgeValue: '2', active: false, },

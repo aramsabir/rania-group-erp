@@ -1,0 +1,288 @@
+<app-bas-page-header [title]="titlePage" [routes]="bercumberRoutes" [actions]="actions"></app-bas-page-header>
+ 
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header border-bottom-0">
+                <h4 class="card-title">Timeoff Approvals</h4>
+                <div class="card-options">
+                    <a (click)="setListToStorage('grid')" (click)="list_item = 'grid'" href="javascript:;" placement="bottom"
+                        ngbtooltip="Grid" class="option-dots border " [ngClass]="{'text-primary':list_item == 'grid'}"><span
+                        class="feather feather-grid active"></span></a>
+                    <a (click)="setListToStorage('list')" (click)="list_item = 'list'" href="javascript:;" placement="bottom"
+                        ngbtooltip="List" class="option-dots border" [ngClass]="{'text-primary':list_item == 'list'}"><span
+                        class="feather feather-list"></span></a>
+
+                </div>
+            </div>
+            <div class="card-body">
+             
+                <div class="row" *ngIf="list_item == 'list'">
+                  
+                        <div class="table-responsive attendance_table mt-4">
+                            <table class="table mb-0 text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-start">Img</th>
+                                        <th class="text-start">Employee</th>
+                                        <th class="text-start">Company</th>
+                                        <th class="text-start">Type</th>
+                                        <th class="text-start">Description</th>
+                                        <th class="text-start">Start date</th>
+                                        <th class="text-start">End date</th>
+                                        <th class="text-start">Duration in hours</th>
+                                        <th class="text-start">Duration in days</th>
+                                        <th class="text-start">Status</th>
+                                        <th class="text-start">{{'Activity'|dic}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-bottom" *ngFor="let emp of dataSource;let i =  index">
+                                      <td class="font-weight-semibold fs-14">{{params.skip+(i+1)}}</td>
+                                        <td>
+                                            <img class="avatae avatar-lg brround cover-image" [src]="endPoint+emp?.employee_id?.profile_photo" alt="img">
+                                        </td>
+                                        <td class="font-weight-semibold fs-14">{{emp?.employee_id?.full_name}}</td>
+                                        <td class="font-weight-semibold fs-14"> {{emp?.company_id?.name}} </td>
+                                        
+                                        <td >
+                                          <span class="badge badge-md " [ngStyle]="{'background-color':emp?.leave_type_id?.secondary_color}" >{{emp?.leave_type_id?.name}} </span>
+                                        </td>
+                                        <td class="font-weight-semibold fs-14"> {{emp?.description}} </td>
+                                        <td class="font-weight-semibold fs-14"> {{emp?.start_date| date:'dd-MM-yyyy HH:mm'}} </td>
+                                        <td class="font-weight-semibold fs-14"> {{emp?.end_date| date:'dd-MM-yyyy HH:mm'}} </td>
+                                        <td class="font-weight-semibold fs-14"> {{emp?.duration_hours|number}} hour(s) </td>
+                                        <td class="font-weight-semibold fs-14"> {{emp?.duration_days|number}} day(s)</td>
+                                        <td class="font-weight-semibold fs-14"> 
+                                            <!-- <span class="badge badge-md badge-{{emp?.status == "Accepted" ?'success':emp?.status == "Pending" ?'warning':emp?.status == "Refuse" ?'black':'danger'}} "  >{{emp?.status}} </span> -->
+                                            <span class="badge badge-md " 
+                                              [ngClass]="{'badge-success': emp.status == 'Accepted','badge-warning': emp.status == 'Pending','badge-dark': emp.status == 'Refused','badge-danger': emp.status == 'Canceled'}"
+                                            >{{emp?.status}} </span>
+                                          
+                                        </td>
+                                        <td>
+                                          <div class="btn-group w-auto leaves-btns">
+                                            <a (click)="acceptTimeOff(emp)" class="btn btn-lg btn-outline-light w-50 text-success">
+                                              <i class="fe fe-check-circle"></i>
+                                            </a>
+                                            <a (click)="editTimeOff(emp)" class="btn btn-lg btn-outline-light w-50 text-info">
+                                              <i class="fe fe-edit"></i>
+                                              
+                                            </a>
+                                        </div>
+                                        </td>
+<!--  
+                                        <td >
+                                            <a [routerLink]="['/employees/view_employee']" [queryParams]="{_id:emp._id}" class="action-btns" placement="top"
+                                                ngbTooltip="View employee"><i class="feather feather-eye text-primary"></i></a>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+                <div class="row" *ngIf="list_item == 'grid'">
+                    <div class="col-xl-3 col-lg-6 col-md-12" *ngFor="let emp of dataSource">
+                        <div class="card border p-0 shadow-none">
+                            <!-- <div class="card-header border-0">
+                                <h3 class="card-title">Earned Leave Request</h3>
+                                <div class="ms-auto">
+                                    <span class="badge badge-md badge-warning-light">3 days left</span>
+                                </div>
+                            </div> -->
+                            <div class="d-flex p-4">
+                                <div>
+                                    <span class="avatar avatar-xxl brround cover-image">
+                                      <img class="avatae avatar-xxl brround cover-image" [src]="endPoint+emp?.employee_id?.profile_photo" alt="img">
+                                    </span>
+                                </div>
+                                <div class="ps-3">
+                                    <h5 class="mb-0 mt-2 text-dark fs-22">{{emp?.employee_id?.full_name}}</h5>
+                                    <p class="text-muted fs-16 mt-1 mb-0">  {{emp?.phone}}</p>
+                                    <p class="text-muted fs-16 mt-1 mb-0">
+                                        <span class="badge badge-md  " >
+                                          <span class="badge badge-md fs-16" [ngStyle]="{'background-color':emp?.leave_type_id?.secondary_color}" >{{emp?.leave_type_id?.name}} </span>
+  
+                                        </span>
+                                    </p>
+                                    <p class="text-muted fs-16 mt-1 mb-0">
+                                        <span class="badge badge-md " [ngStyle]="{'background-color':emp?.company_id?.color}" >{{emp?.company_id?.name}} </span>
+                                    </p>
+                                    <p class="text-muted fs-16 mt-1 mb-0">
+                                        {{'Start date'|dic}}: {{emp?.start_date|date :'dd-MM-yyyy HH:mm'}}
+                                    </p>
+                                    <p class="text-muted fs-16 mt-1 mb-0">
+                                        {{'End date'|dic}}: {{emp?.end_date|date :'dd-MM-yyyy HH:mm'}}
+                                    </p>
+                                    <p class="text-muted fs-16 mt-1 mb-0">
+                                        {{'Duration hours'|dic}}: {{emp?.duration_in_hours|number }}
+                                    </p>
+                                    <p class="text-muted fs-16 mt-1 mb-0">
+                                        {{'Duration days'|dic}}: {{emp?.duration_in_days|number }}
+                                    </p>
+                                    <p class="text-muted fs-16 mt-1 mb-0">
+                                     {{'Status'|dic}}: <span class="badge badge-md " 
+                                      [ngClass]="{'badge-success': emp.status == 'Accepted','badge-warning': emp.status == 'Pending','badge-dark': emp.status == 'Refused','badge-danger': emp.status == 'Canceled'}"
+                                    >{{emp?.status}} </span>
+                                    </p>
+
+                                </div>
+                            </div>
+                         
+                           
+                            <div class="card-footer p-0 border-top-0">
+                                <div class="btn-group w-100 leaves-btns">
+                                    <a (click)="acceptTimeOff(emp)" class="btn btn-lg btn-outline-light w-50 text-success">{{'Accept'|dic}}</a>
+                                    <a (click)="editTimeOff(emp)" class="btn btn-lg btn-outline-light w-50 text-info">{{'Edit'|dic}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+        
+                </div>
+                <div class="d-flex justify-content-between p-2">
+                    <app-pagination [pagesToShow]="7" [page]="page" [perPage]="params.limit" [pageData]="params"
+                      [count]="length"></app-pagination>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<ng-template #modalEditTimeOff let-close="close">
+  <div class="modal-header">
+      <h5 class="modal-title">{{"Edit time off"|dic}}</h5>
+      <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <div class="form-group col-12 ">
+          <div class="row">
+              <div class="col-md-3">
+                  <label class="form-label mb-0 mt-2">{{"Time off type"|dic}}</label>
+              </div>
+              <div class="col-md-9">
+                  <ng-select class="form-control custom-select" [(ngModel)]="updateModel.leave_type_id">
+                      <ng-option *ngFor="let op of emp_allocations" [value]="op.leave_type_id._id">{{op.leave_type_id?.name}}
+                          {{op.total_hours |number:'1.0-2'}} | <span>{{'Used'|dic}}: {{op.used|number:'1.0-2'}}</span> </ng-option>
+                  </ng-select>
+              </div>
+          </div>
+      </div>
+      <div class="form-group col-12 ">
+          <div class="row">
+              <div class="col-md-3">
+                  <label class="form-label mb-0 mt-2">{{'Type'|dic}}</label>
+              </div>
+              <div class="col-md-9">
+                  <ng-select class="form-control custom-select" [(ngModel)]="updateModel.type">
+                      <ng-option [value]="'Day'">{{'Day(s)'}} </ng-option>
+                      <ng-option [value]="'Hours'">{{'Hour(s)'}} </ng-option>
+                  </ng-select>
+              </div>
+          </div>
+      </div>
+      <div class="form-group col-12 " *ngIf="updateModel.type == 'Hours'">
+          <div class="row">
+              <div class="col-md-3">
+                  <label class="form-label mb-0 mt-2">{{'Date'|dic}}</label>
+              </div>
+              <div class="col-md-9">
+                  <input type="date" class="form-control mb-md-0 mb-5" placeholder="year"
+                      [(ngModel)]="updateModel.start_date">
+              </div>
+          </div>
+          <div class="row mt-5">
+              <div class="col-md-3">
+                  <label class="form-label mb-0 mt-2">{{'Time'|dic}}</label>
+              </div>
+              <div class="col-md-4">
+                  <input type="time" class="form-control mb-md-0 mb-5" (input)="checkTimeUpdate()" placeholder="year"
+                      [(ngModel)]="updateModel.start_time">
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-4">
+                  <input type="time" class="form-control mb-md-0 mb-5" (input)="checkTimeUpdate()" placeholder="year"
+                      [(ngModel)]="updateModel.end_time">
+              </div>
+          </div>
+      </div>
+      <div class="form-group col-12 " *ngIf="updateModel.type == 'Day'">
+          <div class="row">
+              <div class="col-md-3">
+                  <label class="form-label mb-0 mt-2">{{'Start date'|dic}}</label>
+              </div>
+              <div class="col-md-9">
+                  <input type="date" class="form-control mb-md-0 mb-5" (input)="checkTimeUpdate()" placeholder="year"
+                      [(ngModel)]="updateModel.start_date">
+              </div>
+          </div>
+          <div class="row mt-5">
+              <div class="col-md-3">
+                  <label class="form-label mb-0 mt-2">{{'End date'|dic}}</label>
+              </div>
+              <div class="col-md-9">
+                  <input type="date" class="form-control mb-md-0 mb-5" (input)="checkTimeUpdate()" placeholder="year"
+                      [(ngModel)]="updateModel.end_date">
+              </div>
+          </div>
+      </div>
+      <div class="form-group col-12 ">
+          <div class="row">
+              <div class="col-md-3">
+                  <label class="form-label mb-0 mt-2">{{'Duration'|dic}}</label>
+              </div>
+              <div class="col-md-9" *ngIf="updateModel.type== 'Hours'">
+                  {{updateModel.duration_hours}} {{'Hour(s)'|dic}} & {{updateModel.duration_minutes}} {{'Minute(s)'|dic}}
+              </div>
+              <div class="col-md-9" *ngIf="updateModel.type== 'Day'">
+                  {{updateModel.duration_days}} {{'Day(s)'|dic}} | {{updateModel.duration_hours}} {{'Hour(s)'|dic}}
+              </div>
+          </div>
+      </div>
+      <div class="form-group col-12 ">
+          <div class="row">
+              <div class="col-md-3">
+                  <label class="form-label mb-0 mt-2">{{'Description'|dic}}</label>
+              </div>
+              <div class="col-md-9">
+                  <textarea rows="3" class="form-control" [(ngModel)]="updateModel.description"
+                      placeholder="notes"></textarea>
+              </div>
+          </div>
+      </div>
+      <div class="form-group col-12 ">
+        <div class="row">
+            <div class="col-md-3">
+                <label class="form-label mb-0 mt-2">{{'Status'|dic}}</label>
+            </div>
+            <div class="col-md-9">
+                <ng-select class="form-control custom-select" [(ngModel)]="updateModel.status">
+                    <ng-option [value]="'Accepted'">{{'Accept'}} </ng-option>
+                    <ng-option [value]="'Pending'">{{'Pending'}} </ng-option>
+                    <ng-option [value]="'Refused'">{{'Refuse'}} </ng-option>
+                    <ng-option [value]="'Canceled'">{{'Cancel'}} </ng-option>
+                </ng-select>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="close()">
+          {{'Close'|dic}}
+      </button>
+      <button type="button" class="btn btn-outline-success" (click)="update()">
+          {{'Send'|dic}}
+      </button>
+  </div>
+</ng-template>

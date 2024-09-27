@@ -11,8 +11,7 @@ export var allRoleEN = [
       { label: 'Update', value: 'update', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
     ],
-  }
-  ,
+  },
   {
     head: 'Payroll',
     role_value: 'payroll:',
@@ -25,8 +24,7 @@ export var allRoleEN = [
       { label: 'Update', value: 'update', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
     ],
-  }
-  ,
+  },
   {
     head: 'Purchase',
     role_value: 'purchase:',
@@ -39,8 +37,7 @@ export var allRoleEN = [
       { label: 'Update', value: 'update', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
     ],
-  }
-  ,
+  },
   {
     head: 'Document',
     role_value: 'document:',
@@ -53,8 +50,7 @@ export var allRoleEN = [
       { label: 'Update', value: 'update', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
     ],
-  }
-  ,
+  },
   {
     head: 'Time-off',
     role_value: 'time-off:',
@@ -66,10 +62,10 @@ export var allRoleEN = [
       { label: 'Add', value: 'add', checked: false },
       { label: 'Update', value: 'update', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
+      { label: 'Approval', value: 'approval', checked: false },
       { label: 'Admin', value: 'admin', checked: false },
     ],
-  }
-  ,
+  },
   {
     head: 'Approval',
     role_value: 'approval:',
@@ -82,8 +78,7 @@ export var allRoleEN = [
       { label: 'Update', value: 'update', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
     ],
-  }
-  ,
+  },
   {
     head: 'Recruitment',
     role_value: 'recruitment:',
@@ -99,8 +94,7 @@ export var allRoleEN = [
       { label: 'Delete', value: 'delete', checked: false },
       { label: 'Admin', value: 'admin', checked: false },
     ],
-  }
-  ,
+  },
   {
     head: 'Settings',
     role_value: 'setting:',
@@ -113,8 +107,7 @@ export var allRoleEN = [
       { label: 'Update', value: 'update', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
     ],
-  }
-  ,
+  },
   {
     head: 'Employee',
     role_value: 'employee:',
@@ -128,8 +121,7 @@ export var allRoleEN = [
       { label: 'Delete', value: 'delete', checked: false },
       { label: 'Admin', value: 'admin', checked: false },
     ],
-  }
-  ,
+  },
   {
     head: 'Company',
     role_value: 'company:',
@@ -142,8 +134,7 @@ export var allRoleEN = [
       { label: 'Update', value: 'update', checked: false },
       { label: 'Delete', value: 'delete', checked: false },
     ],
-  }
-  ,
+  },
   {
     head: 'Log',
     role_value: 'log:',

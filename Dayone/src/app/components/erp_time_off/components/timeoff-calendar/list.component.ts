@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -38,7 +38,7 @@ export class EmployeeTimeOffComponent implements OnInit {
     },
   ];
   bercumberRoutes: any = [
-    // { icon: 'feather feather-home', route: '/home', name: 'Home' },
+    { icon: 'feather feather-home', route: '/time-offs/main', name: "Home" },
   ];
 
   dataSource: any = [];
@@ -52,6 +52,7 @@ export class EmployeeTimeOffComponent implements OnInit {
   updateModel: any = {};
   constructor(
     private dic: DicService,
+    private location: Location,
     private routes: ActivatedRoute,
     private httpService: HttpService,
     private datePipe: DatePipe,
@@ -80,6 +81,9 @@ export class EmployeeTimeOffComponent implements OnInit {
     // });
   }
 
+  back(){
+    this.location.back()
+  }
   getData() {
     this.httpService
     .call(`${'employee-grouped-allocations'}`, ApiMethod.GET, this.params)
@@ -313,8 +317,8 @@ export class EmployeeTimeOffComponent implements OnInit {
             this.updateModel.start_date = this.datePipe.transform(ptr.data.start_date,'yyyy-MM-dd');
             this.updateModel.end_date = this.datePipe.transform(ptr.data.end_date,'yyyy-MM-dd');
             if (ptr.data.type == 'Hours') {
-              this.updateModel.start_time = this.datePipe.transform( ptr.data.start_time, 'yyyy-MM-dd');
-              this.updateModel.end_time = this.datePipe.transform( ptr.data.end_time, 'yyyy-MM-dd');
+              // this.updateModel.start_time = this.datePipe.transform( ptr.data.start_time, 'yyyy-MM-dd');
+              // this.updateModel.end_time = this.datePipe.transform( ptr.data.end_time, 'yyyy-MM-dd');
             }
             this.modalService.open(this.modalContent, { size: 'lg' });
           } else {

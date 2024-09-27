@@ -191,6 +191,7 @@ exports.MyGroupedAllocations = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
+                                    { $in: ["$status", ["Approved",'Pending']] },
                                     { $eq: ["$deleted_at", null] },
                                     { $eq: ["$leave_type_id", "$$l_type"] },
                                     { $eq: ["$employee_id", req.query.userID] },
@@ -213,28 +214,28 @@ exports.MyGroupedAllocations = async (req, res) => {
                     {
                         $group: {
                             _id: null,
-                            total_hours: { $sum: "$duration_hours" },
+                            total_hours: { $sum: "$duration_in_hours" },
                             total_minutes: { $sum: "$duration_minutes" },
 
                         }
                     },
-                    {
-                        $project: {
-                            total_hours: {
-                                $divide: [
-                                    {
-                                        $add: [
-                                            {
-                                                $multiply: ["$total_hours", 60]
-                                            },
-                                            "$total_minutes"
-                                        ]
-                                    },
-                                    60
-                                ]
-                            }
-                        }
-                    }
+                    // {
+                    //     $project: {
+                    //         total_hours: {
+                    //             $divide: [
+                    //                 {
+                    //                     $add: [
+                    //                         {
+                    //                             $multiply: ["$total_hours", 60]
+                    //                         },
+                    //                         "$total_minutes"
+                    //                     ]
+                    //                 },
+                    //                 60
+                    //             ]
+                    //         }
+                    //     }
+                    // }
                 ], as: "used"
             }
         },
@@ -260,6 +261,11 @@ exports.MyGroupedAllocations = async (req, res) => {
                 used: { $ifNull: ["$used.total_hours", 0] }
             }
         },
+        {
+            $sort:{
+                total_hours:-1
+            }
+        }
       
     ])
 
@@ -318,6 +324,7 @@ exports.EmployeeGroupedAllocations = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
+                                    { $in: ["$status", ["Approved",'Pending']] },
                                     { $eq: ["$deleted_at", null] },
                                     { $eq: ["$leave_type_id", "$$l_type"] },
                                     { $eq: ["$employee_id", employee_id] },
@@ -340,28 +347,28 @@ exports.EmployeeGroupedAllocations = async (req, res) => {
                     {
                         $group: {
                             _id: null,
-                            total_hours: { $sum: "$duration_hours" },
-                            total_minutes: { $sum: "$duration_minutes" },
+                            total_hours: { $sum: "$duration_in_hours" },
+                            // total_minutes: { $sum: "$duration_minutes" },
 
                         }
                     },
-                    {
-                        $project: {
-                            total_hours: {
-                                $divide: [
-                                    {
-                                        $add: [
-                                            {
-                                                $multiply: ["$total_hours", 60]
-                                            },
-                                            "$total_minutes"
-                                        ]
-                                    },
-                                    60
-                                ]
-                            }
-                        }
-                    }
+                    // {
+                    //     $project: {
+                    //         total_hours: {
+                    //             $divide: [
+                    //                 {
+                    //                     $add: [
+                    //                         {
+                    //                             $multiply: ["$total_hours", 60]
+                    //                         },
+                    //                         "$total_minutes"
+                    //                     ]
+                    //                 },
+                    //                 60
+                    //             ]
+                    //         }
+                    //     }
+                    // }
                 ], as: "used"
             }
         },
@@ -387,6 +394,11 @@ exports.EmployeeGroupedAllocations = async (req, res) => {
                 used: { $ifNull: ["$used.total_hours", 0] }
             }
         },
+        {
+            $sort:{
+                total_hours:-1
+            }
+        }
       
     ])
 

@@ -5,6 +5,7 @@ import { MainComponent } from './main.component';
 import { EmployeeTimeOffComponent } from './components/timeoff-calendar/list.component';
 import { AllocationsComponent } from './components/allocations/list.component';
 import { TimeOffTypeComponent } from './components/time_off_types/list.component';
+import { TimeOffApprovalsComponent } from './components/approval/list.component';
  
 const routes: Routes = [
   {
@@ -38,6 +39,14 @@ const routes: Routes = [
         canActivate:[RoleGuard],
         data:{
           expectedRole:'time-off:admin'
+        }
+      },
+      {
+        path: 'approvals',
+        component: TimeOffApprovalsComponent,
+        canActivate:[RoleGuard],
+        data:{
+          expectedRole:'time-off:approval'
         }
       },
       {

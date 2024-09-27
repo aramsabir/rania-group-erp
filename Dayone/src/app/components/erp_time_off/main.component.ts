@@ -310,8 +310,8 @@ export class MainComponent implements OnInit {
             this.updateModel.start_date = this.datePipe.transform(ptr.data.start_date,'yyyy-MM-dd');
             this.updateModel.end_date = this.datePipe.transform(ptr.data.end_date,'yyyy-MM-dd');
             if (ptr.data.type == 'Hours') {
-              this.updateModel.start_time = this.datePipe.transform( ptr.data.start_time, 'yyyy-MM-dd');
-              this.updateModel.end_time = this.datePipe.transform( ptr.data.end_time, 'yyyy-MM-dd');
+              // this.updateModel.start_time = this.datePipe.transform( ptr.data.start_time, 'HH:mm');
+              // this.updateModel.end_time = this.datePipe.transform( ptr.data.end_time, 'HH:mm');
             }
             this.modalService.open(this.modalContent, { size: 'lg' });
           } else {

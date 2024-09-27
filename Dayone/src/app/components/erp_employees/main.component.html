@@ -44,10 +44,10 @@
                                         <td class="text-center"> {{emp.email}} </td>
                                         <td class="text-center">{{emp.phone}}</td>
                                         <td class="text-center">
-                                            <span class="badge badge-md badge-{{emp?.main_company_id?.color}}" >{{emp?.job_title_id?.name}} </span>
+                                            <span class="badge badge-md "  [ngStyle]="{'background-color':emp?.main_company_id?.color}" >{{emp?.job_title_id?.name}} </span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="badge badge-md fs-12 badge-{{emp?.main_company_id?.color}}">{{emp?.department_id?.name}} </span> /  <span class="badge badge-md fs-13 badge-{{emp?.main_company_id?.color}}">{{emp?.main_company_id?.name}}</span>
+                                            <span class="badge badge-md fs-12 "  [ngStyle]="{'background-color':emp?.main_company_id?.color}">{{emp?.department_id?.name}} </span> /  <span class="badge badge-md fs-13 "  [ngStyle]="{'background-color':emp?.main_company_id?.color}">{{emp?.main_company_id?.name}}</span>
                                         </td>
                                         <td class="text-center">{{emp.last_login|date:'dd-MM-yyyy HH:mm'}}</td>
                                         <td class="text-center">{{emp.last_activity|date:'dd-MM-yyyy HH:mm'}}</td>
@@ -80,7 +80,7 @@
                                     <p class="text-muted fs-16 mt-1 mb-0"><i class="feather feather-mail"></i>  {{emp?.email}}</p>
                                     <p class="text-muted fs-16 mt-1 mb-0"><i class="feather feather-phone"></i> {{emp?.phone}}</p>
                                     <p class="text-muted fs-16 mt-1 mb-0">
-                                        <span class="badge badge-md badge-{{emp?.main_company_id?.color}}" >{{emp?.job_title_id?.name}} </span>
+                                        <span class="badge badge-md "  [ngStyle]="{'background-color':emp?.main_company_id?.color}" >{{emp?.job_title_id?.name}} </span>
                                     </p>
 
                                 </div>
@@ -98,7 +98,7 @@
                             </div>
                             <div class="p-4">
                                 <div class="ms-auto">
-                                    <span class="badge badge-md fs-14 badge-{{emp?.main_company_id?.color}}">{{emp?.department_id?.name}} </span> /  <span class="badge badge-md fs-16 badge-{{emp?.main_company_id?.color}}">{{emp?.main_company_id?.name}}</span>
+                                    <span class="badge badge-md fs-14 "  [ngStyle]="{'background-color':emp?.main_company_id?.color}">{{emp?.department_id?.name}} </span> /  <span class="badge badge-md fs-16 "  [ngStyle]="{'background-color':emp?.main_company_id?.color}">{{emp?.main_company_id?.name}}</span>
                                 </div>
                             </div>
                          

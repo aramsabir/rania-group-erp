@@ -9,15 +9,11 @@ const terms = require('../../event_and_resources/terms')
 
 exports.New = async (req, res) => {
 
-    if (!req.body.en_name) {
+    if (!req.body.name) {
         res.json({ status: false, message: "English " + terms.name_required })
         return 0
     }
-
-    if (!req.body.ar_name) {
-        res.json({ status: false, message: "Arabic " + terms.name_required })
-        return 0
-    }
+ 
 
     // if (!['Organization', 'Personal', 'Governmental'].includes(req.body.type) || !req.body.type || req.body.type == 'undefined') {
     //     res.json({ status: false, message: "type required or not valid" })
@@ -30,23 +26,14 @@ exports.New = async (req, res) => {
             {
                 $and: [
                     {
-                        en_name: req.body.en_name
+                        name: req.body.name
                     },
                     {
                         deleted_at: null
                     }
                 ]
             },
-            {
-                $and: [
-                    {
-                        ar_name: req.body.ar_name
-                    },
-                    {
-                        deleted_at: null
-                    }
-                ]
-            }
+            
         ]
     })
 
@@ -79,11 +66,9 @@ exports.List = async (req, res) => {
         search = {
             $or: [
                 {
-                    "en_name": { $regex: regex }
+                    "name": { $regex: regex }
                 },
-                {
-                    "ar_name": { $regex: regex }
-                },
+                
             ]
         }
     }
@@ -123,11 +108,9 @@ exports.Available = async (req, res) => {
         search = {
             $or: [
                 {
-                    "en_name": { $regex: regex }
+                    "name": { $regex: regex }
                 },
-                {
-                    "ar_name": { $regex: regex }
-                },
+               
             ]
         }
     }
@@ -179,20 +162,12 @@ exports.Update = async (req, res) => {
     }
 
 
-    if (!req.body.en_name) {
+    if (!req.body.name) {
         res.json({ status: false, message: "English " + terms.name_required })
         return 0
     }
 
-    if (!req.body.ar_name) {
-        res.json({ status: false, message: "Arabic " + terms.name_required })
-        return 0
-    }
 
-    if (!req.body.type) {
-        res.json({ status: false, message: "Type " + terms.name_required })
-        return 0
-    }
     // if (!['Organization', 'Personal', 'Governmental'].includes(req.body.type) || !req.body.type || req.body.type == 'undefined') {
     //     res.json({ status: false, message: "type required or not valid" })
     //     return 0

@@ -79,22 +79,26 @@ export class SidebarTimeOffComponent {
       
         this.menuItems.push(
           {
-            title: this.dic.translate('Applications'), status: true, icon: 'fe fe-apps', type: 'href', path: '/home', badgeType: 'success', badgeValue: '2', active: false,
+            title: this.dic.translate('Applications'), status: true, icon: 'mdi mdi-apps', type: 'href', path: '/home', badgeType: 'success', badgeValue: '2', active: false,
           },
         )
        if(this.authService.hasPermission('time-off:read'))
           this.menuItems.push(
-              { title: this.dic.translate('Dashboard'), status: true,icon: 'fe fe-clock-o', type: 'link', path: '/time-offs/main', badgeType: 'primary', badgeValue: '2', active: false, },
+              { title: this.dic.translate('Dashboard'), status: true,icon: 'fa fa-bar-chart-o', type: 'link', path: '/time-offs/main', badgeType: 'primary', badgeValue: '2', active: false, },
+          )
+        if(this.authService.hasPermission('time-off:approval'))
+          this.menuItems.push(
+              { title: this.dic.translate('Approval'), status: true,icon: 'fe fe-check-circle', type: 'link', path: '/time-offs/approvals', badgeType: 'primary', badgeValue: '2', active: false, },
           )
         if(this.authService.hasPermission('time-off:admin'))
           this.menuItems.push(
-              { title: this.dic.translate('Allocations'), status: true,icon: 'fe fe-clock-o', type: 'link', path: '/time-offs/allocations', badgeType: 'primary', badgeValue: '2', active: false, },
+              { title: this.dic.translate('Allocations'), status: true,icon: 'fe fe-clock', type: 'link', path: '/time-offs/allocations', badgeType: 'primary', badgeValue: '2', active: false, },
           )
 
         if(this.authService.hasPermission('time-off:admin'))
           this.menuItems.push(
             {
-              title: this.dic.translate('Configuration'), status: true, icon: 'fe fe-cog', type: 'sub', badgeType: 'primary', badgeValue: '2', active: false,
+              title: this.dic.translate('Configuration'), status: true, icon: 'fa fa-cogs', type: 'sub', badgeType: 'primary', badgeValue: '2', active: false,
               children:[
                 { title: this.dic.translate('Timeoff types'), status: true, type: 'link', path: '/time-offs/time-off-types',queryParams:{skip:0,limit:100,sort:'name' }, badgeType: 'primary', badgeValue: '2', active: false, },
                 { title: this.dic.translate('Allocations'), status: true,icon: 'fe fe-clock-o', type: 'link', path: '/time-offs/allocations', badgeType: 'primary', badgeValue: '2', active: false, },
