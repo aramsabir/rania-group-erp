@@ -37,10 +37,10 @@ export class CompaniesComponent implements OnInit {
       value: 'name'
     },
     {
-      header: 'Admin Email',
-      cell: (el: any) => el.admin_email,
-      type: 'text',
-      value: 'admin_email'
+      header: 'Color class',
+      cell: (el: any) => el.color,
+      type: 'color',
+      value: 'color'
     },
     {
       header: 'Created at',
@@ -66,7 +66,7 @@ export class CompaniesComponent implements OnInit {
       header: 'Update company',
       fields: [
         { type: 'text', name: 'name', title: 'Name', required: true },
-        { type: 'text', name: 'admin_email', title: 'Admin Email', required: true },
+        { type: 'color', name: 'color', title: 'Color class', required: true },
       ]
     },
   };
@@ -79,7 +79,7 @@ export class CompaniesComponent implements OnInit {
       header: 'Create company',
       fields: [
         { type: 'text', name: 'name', title: 'Name', required: true },
-        { type: 'text', name: 'admin_email', title: 'Admin Email', required: true },
+        { type: 'color', name: 'color', title: 'Color class', required: true },
       ]
     },
   };

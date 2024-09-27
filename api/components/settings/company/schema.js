@@ -4,6 +4,7 @@ mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema({
     name: { type: String, default: '' },
     order: { type: Number, default: 1 },
+    color: { type: String, default: '' },
     logo: { type: String, default: 'default.png' },
     editor: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
     creator: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },

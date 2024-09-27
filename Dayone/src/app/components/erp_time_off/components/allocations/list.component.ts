@@ -22,7 +22,7 @@ export class AllocationsComponent implements OnInit {
 
   ]
   bercumberRoutes: any = [
-    { icon: 'feather feather-home', route: '/home', name: "Home" },
+    { icon: 'feather feather-home', route: '/time-offs/main', name: "Home" },
   ]
   columns: any = [
     {

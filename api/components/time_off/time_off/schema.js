@@ -1,6 +1,6 @@
 
 var mongoose = require('mongoose');
-const { leaveTypes } = require('../../event_and_resources/constants');
+const { timeOffApprovalStatus } = require('../../event_and_resources/constants');
 mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema({
     company_id: { type: mongoose.Schema.ObjectId, ref: 'Company', default: null },
@@ -15,20 +15,22 @@ var Schema = mongoose.Schema({
     duration_days: { type: Number, default: 0 },
     duration_hours: { type: Number, default: 0 },
     duration_minutes: { type: Number, default: 0 },
-    editor: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
+    duration_in_hours: { type: Number, default: 0 },
+    duration_in_days: { type: Number, default: 0 },
+    description:{ type:String, default: ""},
+    status:{
+        type: String,
+        default: "Pending",
+        enum: timeOffApprovalStatus
+    },
+    approved_by: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
+    approved_at: { type: Date, default: null },
+    
     creator: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
-    created_at: {
-        type: Date,
-        default: Date.now()
-    },
-    updated_at: {
-        type: Date,
-        default: Date.now()
-    },
-    deleted_at: {
-        type: Date,
-        default: null
-    }
+    editor: { type: mongoose.Schema.ObjectId, ref: 'User', default: null },
+    created_at: { type: Date, default: Date.now() },
+    updated_at: { type: Date, default: Date.now() },
+    deleted_at: { type: Date, default: null  }
 
 });
 

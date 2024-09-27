@@ -11,3 +11,10 @@ exports.leaveTypes = [
     'Paternity leave',
     'Marriage leave'
 ]
+
+exports.timeOffApprovalStatus = [
+    'Approved',
+    'Pending',
+    'Refused',
+    'Canceled'
+]

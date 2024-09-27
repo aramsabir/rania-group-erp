@@ -19,6 +19,7 @@ import { AngularCalendarYearViewModule } from 'angular-calendar-year-view';
 import { EmployeeTimeOffComponent } from './components/timeoff-calendar/list.component';
 import { AllocationsComponent } from './components/allocations/list.component';
 import { TimeOffTypeComponent } from './components/time_off_types/list.component';
+import { TimeOffApprovalsComponent } from './components/approval/list.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -30,8 +31,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EmployeeTimeOffComponent,
     AllocationsComponent,
     TimeOffTypeComponent,
+    TimeOffApprovalsComponent,
 
-    
     ViewEmployeeComponent,
     EmployeeAttachmentsComponent
 
