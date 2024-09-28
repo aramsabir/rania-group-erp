@@ -88,6 +88,8 @@ exports.List = async (req, res) => {
 
     var count = await Schema.countDocuments({
         $and: [
+            { company_id: req.query.search_companies },
+            { company_id: req.query.company_permission },
             search,
             {
                 deleted_at: null
