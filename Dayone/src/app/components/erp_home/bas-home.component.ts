@@ -87,6 +87,27 @@ export class BasHomeComponent implements OnInit {
             logo: './assets/applications/employee.png',
           });
         }
+        if (this.authService.hasPermission('time-off:read')) {
+          this.arrayLinks.push({
+            active: true,
+            type: 'href',
+            router: '/time-offs/main',
+            query: {},
+            name: 'Time off',
+            logo: './assets/applications/time-off.png',
+          });
+        }
+
+        if (this.authService.hasPermission('recruitment:read')) {
+          this.arrayLinks.push({
+            active: true,
+            type: 'href',
+            router: '/recruitments/main',
+            query: {},
+            name: 'Recruitment',
+            logo: './assets/applications/recruitment.png',
+          });
+        }
         if (this.authService.hasPermission('sales:read')) {
           this.arrayLinks.push({
             active: true,
@@ -118,17 +139,7 @@ export class BasHomeComponent implements OnInit {
           });
         }
 
-        if (this.authService.hasPermission('time-off:read')) {
-          this.arrayLinks.push({
-            active: true,
-            type: 'href',
-            router: '/time-offs/main',
-            query: {},
-            name: 'Time off',
-            logo: './assets/applications/time-off.png',
-          });
-        }
-
+      
         if (this.authService.hasPermission('purchase:read')) {
           this.arrayLinks.push({
             active: true,
@@ -139,16 +150,7 @@ export class BasHomeComponent implements OnInit {
             logo: './assets/applications/purchase.png',
           });
         }
-        if (this.authService.hasPermission('recruitment:read')) {
-          this.arrayLinks.push({
-            active: true,
-            type: 'href',
-            router: '/recruitments/main',
-            query: {},
-            name: 'Recruitment',
-            logo: './assets/applications/recruitment.png',
-          });
-        }
+
         if (this.authService.hasPermission('document:read')) {
           this.arrayLinks.push({
             active: true,

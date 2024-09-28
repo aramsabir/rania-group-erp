@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiMethod } from 'src/app/@core/service/apis';
 import { LeaveTypes } from 'src/app/@core/service/constants/cities';
@@ -54,6 +54,7 @@ export class TimeOffApprovalsComponent implements OnInit {
     private routes: ActivatedRoute,
     private httpService: HttpService,
     private metaService: SeoService,
+    private router: Router,
     private datePipe: DatePipe,
     private modalService: NgbModal,
     private authService: AuthService
@@ -67,6 +68,7 @@ export class TimeOffApprovalsComponent implements OnInit {
       this.params.skip = params.skip ? params.skip : 0;
       this.params.limit = params.limit ? params.limit : 30;
       this.params.sort = params.sort ? params.sort : 'created_at';
+      this.params.status = params.status
       this.page = this.params.skip / this.params.limit + 1;
 
       this.pg_header = [
@@ -84,14 +86,15 @@ export class TimeOffApprovalsComponent implements OnInit {
   setListToStorage(type: string) {
     localStorage.setItem('list_type', type);
   }
-
+  search(){
+    this.router.navigate([],{queryParams:this.params})
+  }
   getData() {
     this.httpService
       .call(`${'time-offs'}`, ApiMethod.GET, this.params)
       .subscribe(
         (res: any) => {
           if (res.status) {
-            this.httpService.createToast('success', res.message);
             this.dataSource = res.data;
             this.length = res.count;
           } else {
@@ -105,9 +108,9 @@ export class TimeOffApprovalsComponent implements OnInit {
   }
 
   acceptTimeOff(e:any){
-    e.status = 'Accepted';
+    e.status = 'Approved';
     this.httpService
-    .call(`${'time-off'}`, ApiMethod.PUT, this.params,e)
+    .call(`${'time-off-approve'}`, ApiMethod.PUT, this.params,e)
     .subscribe(
       (res: any) => {
         if (res.status) {

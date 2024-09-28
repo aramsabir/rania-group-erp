@@ -8,6 +8,12 @@
             <div class="card-header border-bottom-0">
                 <h4 class="card-title">Timeoff Approvals</h4>
                 <div class="card-options">
+                    <ng-select class="form-control custom-select w-100" style="width: 200px !important" (change)="search()" [(ngModel)]="params.status">
+                        <ng-option [value]="'Approved'">{{'Approved'}} </ng-option>
+                        <ng-option [value]="'Pending'">{{'Pending'}} </ng-option>
+                        <ng-option [value]="'Refused'">{{'Refused'}} </ng-option>
+                        <ng-option [value]="'Canceled'">{{'Canceled'}} </ng-option>
+                    </ng-select>
                     <a (click)="setListToStorage('grid')" (click)="list_item = 'grid'" href="javascript:;" placement="bottom"
                         ngbtooltip="Grid" class="option-dots border " [ngClass]="{'text-primary':list_item == 'grid'}"><span
                         class="feather feather-grid active"></span></a>
@@ -54,12 +60,12 @@
                                         <td class="font-weight-semibold fs-14"> {{emp?.description}} </td>
                                         <td class="font-weight-semibold fs-14"> {{emp?.start_date| date:'dd-MM-yyyy HH:mm'}} </td>
                                         <td class="font-weight-semibold fs-14"> {{emp?.end_date| date:'dd-MM-yyyy HH:mm'}} </td>
-                                        <td class="font-weight-semibold fs-14"> {{emp?.duration_hours|number}} hour(s) </td>
-                                        <td class="font-weight-semibold fs-14"> {{emp?.duration_days|number}} day(s)</td>
+                                        <td class="font-weight-semibold fs-14"> {{emp?.duration_in_hours|number}} hour(s) </td>
+                                        <td class="font-weight-semibold fs-14"> {{emp?.duration_in_days|number}} day(s)</td>
                                         <td class="font-weight-semibold fs-14"> 
                                             <!-- <span class="badge badge-md badge-{{emp?.status == "Accepted" ?'success':emp?.status == "Pending" ?'warning':emp?.status == "Refuse" ?'black':'danger'}} "  >{{emp?.status}} </span> -->
                                             <span class="badge badge-md " 
-                                              [ngClass]="{'badge-success': emp.status == 'Accepted','badge-warning': emp.status == 'Pending','badge-dark': emp.status == 'Refused','badge-danger': emp.status == 'Canceled'}"
+                                              [ngClass]="{'badge-success': emp.status == 'Approved','badge-warning': emp.status == 'Pending','badge-dark': emp.status == 'Refused','badge-danger': emp.status == 'Canceled'}"
                                             >{{emp?.status}} </span>
                                           
                                         </td>
@@ -125,7 +131,7 @@
                                     </p>
                                     <p class="text-muted fs-16 mt-1 mb-0">
                                      {{'Status'|dic}}: <span class="badge badge-md " 
-                                      [ngClass]="{'badge-success': emp.status == 'Accepted','badge-warning': emp.status == 'Pending','badge-dark': emp.status == 'Refused','badge-danger': emp.status == 'Canceled'}"
+                                      [ngClass]="{'badge-success': emp.status == 'Approved','badge-warning': emp.status == 'Pending','badge-dark': emp.status == 'Refused','badge-danger': emp.status == 'Canceled'}"
                                     >{{emp?.status}} </span>
                                     </p>
 
@@ -268,10 +274,10 @@
             </div>
             <div class="col-md-9">
                 <ng-select class="form-control custom-select" [(ngModel)]="updateModel.status">
-                    <ng-option [value]="'Accepted'">{{'Accept'}} </ng-option>
+                    <ng-option [value]="'Approved'">{{'Approved'}} </ng-option>
                     <ng-option [value]="'Pending'">{{'Pending'}} </ng-option>
-                    <ng-option [value]="'Refused'">{{'Refuse'}} </ng-option>
-                    <ng-option [value]="'Canceled'">{{'Cancel'}} </ng-option>
+                    <ng-option [value]="'Refused'">{{'Refused'}} </ng-option>
+                    <ng-option [value]="'Canceled'">{{'Canceled'}} </ng-option>
                 </ng-select>
             </div>
         </div>

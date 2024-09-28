@@ -126,6 +126,7 @@ module.exports = function (app) {
         .get('/count-employee-time-offs', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, timeoffController.CountEmployeeTimeOffPerYear)
         .get('/time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffRead) }, checkAccess, timeoffController.One)
         .post('/time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeoffController.New)
+        .put('/time-off-approve', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeoffController.Approve)
         .put('/time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeoffController.Update)
         .post('/employee-time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeoffController.NewEmployeeTimeOff)
         .put('/employee-time-off', checkExpireToken, (req, res, cb) => { addHeader(req, res, cb, resources.TimeOffAdmin) }, checkAccess, timeoffController.UpdateEmployeeTimeOff)

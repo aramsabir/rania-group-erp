@@ -88,11 +88,11 @@ export class SidebarTimeOffComponent {
           )
         if(this.authService.hasPermission('time-off:approval'))
           this.menuItems.push(
-              { title: this.dic.translate('Approval'), status: true,icon: 'fe fe-check-circle', type: 'link', path: '/time-offs/approvals', badgeType: 'primary', badgeValue: '2', active: false, },
+              { title: this.dic.translate('Approval'), status: true,icon: 'fe fe-check-circle', type: 'link', path: '/time-offs/approvals',queryParams:{skip:0,limit:100,sort:'-start-date' }, badgeType: 'primary', badgeValue: '2', active: false, },
           )
         if(this.authService.hasPermission('time-off:admin'))
           this.menuItems.push(
-              { title: this.dic.translate('Allocations'), status: true,icon: 'fe fe-clock', type: 'link', path: '/time-offs/allocations', badgeType: 'primary', badgeValue: '2', active: false, },
+              { title: this.dic.translate('Allocations'), status: true,icon: 'fe fe-clock', type: 'link', path: '/time-offs/allocations',queryParams:{skip:0,limit:100,sort:'-date' }, badgeType: 'primary', badgeValue: '2', active: false, },
           )
 
         if(this.authService.hasPermission('time-off:admin'))

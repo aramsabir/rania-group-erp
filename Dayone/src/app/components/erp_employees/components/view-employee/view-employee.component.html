@@ -1,22 +1,22 @@
 <!--Page header-->
-<div class="page-header d-xl-flex d-block">
+<div class="page-header d-lg-flex d-block pb-0 mb-8 mb-lg-0">
     <div class="page-leftheader">
-        <h4 class="page-title">Employee Profile</h4>
+        <nav aria-label="breadcrumb fs-18">
+            <ol class="breadcrumb breadcrumb-style1 mb-0 p-0">
+                <li *ngFor="let route of bercumberRoutes" class="breadcrumb-item">
+                    <a [routerLink]="route.route" [queryParams]="route.queryParams"><i [class]="route.icon"
+                            aria-hidden="true"></i> {{route.name|dic}}</a>
+                </li>
+
+                <li class="breadcrumb-item active" (click)="back()">{{'Employees'|dic}} </li>
+                <li class="breadcrumb-item active fs-20">{{modelEmployeeData?.full_name}}</li>
+            </ol>
+        </nav>
     </div>
-    <div class="page-rightheader ms-md-auto">
-        <div class="align-items-end flex-wrap my-auto right-content breadcrumb-right">
-            <div class="btn-list">
-                <!-- <a routerLink="/hr-dashboard/employees/add-employee" class="btn btn-primary me-3">Add New Employee</a> -->
-                <!-- <button class="btn btn-light" placement="top" ngbTooltip="E-mail"> <i class="feather feather-mail"></i>
-                </button>
-                <button class="btn btn-light" placement="top" ngbTooltip="Contact"> <i
-                        class="feather feather-phone-call"></i> </button> -->
-                <!-- <button class="btn btn-primary" placement="top" ngbTooltip="Info"> <i class="feather feather-info"></i>  
-                 </button> -->
-            </div>
-        </div>
-    </div>
+    
 </div>
+
+ 
 <!--End Page header-->
 <!-- Row -->
 <div class="row">

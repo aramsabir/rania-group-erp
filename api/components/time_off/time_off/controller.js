@@ -6,7 +6,7 @@ const resources = require('../../event_and_resources/resources');
 const events = require('../../event_and_resources/events');
 const log = require('../../activities/logController')
 const terms = require('../../event_and_resources/terms');
-const { leaveTypes } = require('../../event_and_resources/constants');
+const { leaveTypes, timeOffApprovalStatus } = require('../../event_and_resources/constants');
 var Employee = require('../../settings/users/users')
 
 
@@ -95,7 +95,7 @@ exports.New = async (req, res) => {
     req.body.company_id = user.main_company_id
 
     // req.body.duration_hours = new Date(req.body.end_date) - new Date(req.body.start_date) 
-    var duration = (req.body.duration_days * 8) + req.body.duration_hours + (req.body.duration_minutes /60)
+    var duration =  req.body.duration_hours + (req.body.duration_minutes /60)
     req.body.duration_in_days = duration  
     duration = duration / 8
     req.body.duration_in_hours = duration 
@@ -183,7 +183,7 @@ exports.NewEmployeeTimeOff = async (req, res) => {
         res.json({ status: false, message: "Employee ID is required" })
         return 0
     }
-    req.body.employee_id = mongoose.Types.ObjectId(req.params.employee_id)
+    req.body.employee_id = mongoose.Types.ObjectId(req.query.employee_id)
 
     if (!req.body.employee_id) {
         res.json({ status: false, message: "Employee " + terms.required })
@@ -267,8 +267,11 @@ exports.NewEmployeeTimeOff = async (req, res) => {
     req.body.company_id = user.main_company_id
 
     // req.body.duration_hours = new Date(req.body.end_date) - new Date(req.body.start_date) 
-    var duration = (req.body.duration_days * 8) + req.body.duration_hours + (req.body.duration_minutes /60)
+    var duration =  req.body.duration_hours + (req.body.duration_minutes /60)
+    req.body.duration_in_days = duration  
     duration = duration / 8
+    req.body.duration_in_hours = duration 
+
     var remain = await AllocationController.AllocationsForEmployee(req.body)
     if (remain < duration) {
         res.json({ status: false, message: terms.not_enough_leave_hours })
@@ -548,6 +551,13 @@ exports.List = async (req, res) => {
         }
     }
 
+    var searchStatus = {}
+    if (req.query.status && timeOffApprovalStatus.includes(req.query.status) ) {
+        searchStatus = {
+            status: req.query.status
+        }
+    }
+
     var searchPermissions = {}
     if (req.query.resources.split(',').includes('employee:admin')) {
         searchPermissions = {}
@@ -584,7 +594,8 @@ exports.List = async (req, res) => {
             { employee_id: { $in: emp_ids } },
             {
                 deleted_at: null
-            }
+            },
+            searchStatus
         ]
     }).exec()
     var data = await Schema.find({
@@ -592,7 +603,8 @@ exports.List = async (req, res) => {
             { employee_id: { $in: emp_ids } },
             {
                 deleted_at: null
-            }
+            },
+            searchStatus
         ]
     })
         .populate('leave_type_id')
@@ -738,9 +750,9 @@ exports.Update = async (req, res) => {
     req.body.company_id = user.main_company_id
 
     // req.body.duration_hours = new Date(req.body.end_date) - new Date(req.body.start_date) 
-    var old_duration = (old.duration_days * 8) + old.duration_hours  + (old.duration_minutes /60)
+    var old_duration =  old.duration_hours  + (old.duration_minutes /60)
 
-    var duration = (req.body.duration_days * 8) + req.body.duration_hours + (req.body.duration_minutes /60)
+    var duration =   req.body.duration_hours + (req.body.duration_minutes /60)
     req.body.duration_in_hours = duration 
     duration = duration / 8
     req.body.duration_in_days = duration  
@@ -750,7 +762,7 @@ exports.Update = async (req, res) => {
         res.json({ status: false, message: terms.not_enough_leave_hours })
         return 0
     }
-
+ 
 
     await Schema.findById(mongoose.Types.ObjectId(req.body._id)).exec(function (error, response) {
         if (error) throw error;
@@ -764,6 +776,43 @@ exports.Update = async (req, res) => {
                 if (update) {
                     log.saveLog(req, old._id, req.query.userFullName, req.query.userID, events.UpdateCompany, old, update)
                     res.json({ status: true, message: terms.data_has_been_updated })
+
+                } else {
+                    res.json({ status: true, message: terms.error })
+                }
+            })
+        }
+    })
+}
+
+exports.Approve = async (req, res) => {
+
+    if (!req.body._id) {
+        res.json({ status: false, message: terms.id_required });
+        return 0;
+    }
+
+    
+
+    var user = await Employee.findOne({ _id: req.body.employee_id })
+
+    req.body.department_id = user.department_id
+    req.body.company_id = user.main_company_id
+
+
+
+    await Schema.findById(mongoose.Types.ObjectId(req.body._id)).exec(function (error, response) {
+        if (error) throw error;
+        if (response) {
+            var old = response
+            response.set(req.body);
+            response.updated_at = Date.now()
+            response.editor = req.query.userID
+            response.save(function (err, update) {
+                if (err) throw err;
+                if (update) {
+                    log.saveLog(req, old._id, req.query.userFullName, req.query.userID, events.UpdateCompany, old, update)
+                    res.json({ status: true, message: terms.data_has_been_updated,  })
 
                 } else {
                     res.json({ status: true, message: terms.error })
@@ -788,7 +837,7 @@ exports.UpdateEmployeeTimeOff = async (req, res) => {
         res.json({ status: false, message: "Employee ID is required" })
         return 0
     }
-    req.body.employee_id = mongoose.Types.ObjectId(req.params.employee_id)
+    req.body.employee_id = mongoose.Types.ObjectId(req.query.employee_id)
 
     if (!req.body.leave_type_id) {
         res.json({ status: false, message: "Leave type " + terms.required })
@@ -850,11 +899,11 @@ exports.UpdateEmployeeTimeOff = async (req, res) => {
     req.body.company_id = user.main_company_id
 
     // req.body.duration_hours = new Date(req.body.end_date) - new Date(req.body.start_date) 
-    var old_duration = (old.duration_days * 8) + old.duration_hours  + (old.duration_minutes /60)
-    var duration = (req.body.duration_days * 8) + req.body.duration_hours + (req.body.duration_minutes /60)
-    req.body.duration_in_days = duration  
+    var old_duration =   old.duration_hours  + (old.duration_minutes /60)
+    var duration =  req.body.duration_hours + (req.body.duration_minutes /60)
+    req.body.duration_in_hours = duration  
     duration = duration / 8
-    req.body.duration_in_hours = duration 
+    req.body.duration_in_days = duration 
 
     
     var remain = await AllocationController.AllocationsForEmployee(req.body)
