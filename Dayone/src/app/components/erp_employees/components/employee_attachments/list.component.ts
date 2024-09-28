@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -37,6 +38,7 @@ export class EmployeeAttachmentsComponent implements OnInit {
   delete: boolean;
   constructor(
     private dic: DicService,
+    private location: Location,
     private routes: ActivatedRoute,
     private httpService: HttpService,
     private authService: AuthService,
@@ -92,6 +94,11 @@ export class EmployeeAttachmentsComponent implements OnInit {
           this.httpService.createToast('error', error);
         }
       );
+  }
+
+
+  back(){
+    this.location.back();
   }
 
   attachment!: File;

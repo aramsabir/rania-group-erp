@@ -1,4 +1,21 @@
-<app-bas-page-header [title]="titlePage" [routes]="bercumberRoutes" [last_page]="last_page" [actions]="actions"></app-bas-page-header>
+
+<!--Page header-->
+<div class="page-header d-lg-flex d-block pb-0 mb-8 mb-lg-0">
+    <div class="page-leftheader">
+        <nav aria-label="breadcrumb fs-18">
+            <ol class="breadcrumb breadcrumb-style1 mb-0 p-0">
+                <li *ngFor="let route of bercumberRoutes" class="breadcrumb-item">
+                    <a [routerLink]="route.route" [queryParams]="route.queryParams"><i [class]="route.icon"
+                            aria-hidden="true"></i> {{route.name|dic}}</a>
+                </li>
+
+                <li class="breadcrumb-item active" (click)="back()">{{'Employee'|dic}} </li>
+                <li class="breadcrumb-item active fs-20">{{titlePage|dic}}</li>
+            </ol>
+        </nav>
+    </div>
+    
+</div>
 
 <div class="row">
    

@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -23,6 +23,10 @@ export class ViewEmployeeComponent implements OnInit {
   params: any = {};
   pg_header: any = [];
   modelEmployee: any = {};
+  actions: any = [];
+  bercumberRoutes: any = [
+    { icon: 'feather feather-home', route: '/employees/main', name: 'Home' },
+  ];
 
   endPoint: any = environment.apiIMG + '/images/';
   modelEmployeeData: any = {};
@@ -45,7 +49,8 @@ export class ViewEmployeeComponent implements OnInit {
     private routes: ActivatedRoute,
     private datePipe: DatePipe,
     private httpService: HttpService,
-    private authService: AuthService
+    private authService: AuthService,
+    private location: Location
   ) {
     this.add_permission = this.authService.hasPermission('employee:add')
     this.update_permission = this.authService.hasPermission('employee:update')
@@ -202,6 +207,10 @@ export class ViewEmployeeComponent implements OnInit {
         this.httpService.createToast('error', error);
       }
     );
+  }
+
+  back(){
+    this.location.back();
   }
 
   ngOnInit(): void {}

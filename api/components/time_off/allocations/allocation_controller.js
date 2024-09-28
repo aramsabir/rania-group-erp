@@ -83,7 +83,7 @@ exports.List = async (req, res) => {
 
     var search = {}
     if (!req.body.employee_id) {
-        search = { employee_id: req.query.userID }
+        // search = { employee_id: req.query.userID }
     }
 
     var count = await Schema.countDocuments({
@@ -96,6 +96,8 @@ exports.List = async (req, res) => {
     }).exec()
     var data = await Schema.find({
         $and: [
+            { company_id: req.query.search_companies },
+            { company_id: req.query.company_permission },
             search,
             {
                 deleted_at: null
@@ -287,6 +289,8 @@ exports.EmployeeGroupedAllocations = async (req, res) => {
         return 0
     }
     var employee_id = mongoose.Types.ObjectId(req.query.employee_id)
+    console.log(employee_id);
+    
     var data = await Schema.aggregate([
         {
             $match: {
@@ -312,13 +316,14 @@ exports.EmployeeGroupedAllocations = async (req, res) => {
         {
             $group: {
                 _id: "$leave_type_id",
+                e_id: { $first: "$employee_id" },
                 total_hours: { $sum: "$hours" },
             }
         },
         {
             $lookup: {
                 from: "hr_timeoffs",
-                let: { l_type: "$_id" },
+                let: { l_type: "$_id",e_id:"$e_id" },
                 pipeline: [
                     {
                         $match: {
@@ -327,7 +332,7 @@ exports.EmployeeGroupedAllocations = async (req, res) => {
                                     { $in: ["$status", ["Approved",'Pending']] },
                                     { $eq: ["$deleted_at", null] },
                                     { $eq: ["$leave_type_id", "$$l_type"] },
-                                    { $eq: ["$employee_id", employee_id] },
+                                    { $eq: ["$employee_id", "$$e_id"] },
                                 ]
                             }
                         }
@@ -348,7 +353,7 @@ exports.EmployeeGroupedAllocations = async (req, res) => {
                         $group: {
                             _id: null,
                             total_hours: { $sum: "$duration_in_hours" },
-                            // total_minutes: { $sum: "$duration_minutes" },
+                            total_minutes: { $sum: "$duration_minutes" },
 
                         }
                     },

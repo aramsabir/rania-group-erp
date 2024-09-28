@@ -309,7 +309,7 @@ export class EmployeeTimeOffComponent implements OnInit {
 
     } else {
       this.httpService
-        .call(`${'employee-time-off'}`, ApiMethod.GET, { _id: action.event._id })
+        .call(`${'time-off'}`, ApiMethod.GET, { _id: action.event._id })
         .subscribe((ptr: any) => {
           if (ptr.status) {
             this.updateModel = ptr.data;
